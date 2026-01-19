@@ -1,17 +1,17 @@
-# @risqbase/ui-components
+# @risqbase-inc/ui-components
 
 Shared UI components for RisqBase products.
 
 ## Installation
 
 ```bash
-npm install @risqbase/ui-components
+npm install @risqbase-inc/ui-components
 ```
 
 ## Usage
 
 ```tsx
-import { Footer } from '@risqbase/ui-components'
+import { Footer } from '@risqbase-inc/ui-components'
 
 // For risqbase.com
 <Footer variant="risqbase" />
