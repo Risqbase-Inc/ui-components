@@ -1,5 +1,5 @@
 {
-  "name": "@risqbase/ui-components",
+  "name": "@risqbase-inc/ui-components",
   "version": "1.0.1",
   "description": "Shared UI components for RisqBase products",
   "main": "dist/index.js",
