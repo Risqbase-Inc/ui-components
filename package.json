@@ -1,12 +1,13 @@
 {
   "name": "@risqbase-inc/ui-components",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Shared UI components for RisqBase products",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "tailwind.preset.js"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",

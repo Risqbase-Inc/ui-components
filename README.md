@@ -8,27 +8,67 @@ Shared UI components for RisqBase products.
 npm install @risqbase-inc/ui-components
 ```
 
-## Usage
+## Tailwind Preset
 
-```tsx
-import { Footer } from '@risqbase-inc/ui-components'
+Add the preset to your `tailwind.config.js`:
 
-// For risqbase.com
-<Footer variant="risqbase" />
+```javascript
+const risqbasePreset = require('@risqbase-inc/ui-components/tailwind.preset')
 
-// For ralia.io
-<Footer variant="ralia" />
+module.exports = {
+  presets: [risqbasePreset],
+  // ... rest of your config
+}
 ```
 
 ## Components
 
 ### Footer
 
-The shared footer component used across all RisqBase properties.
+```tsx
+import { Footer } from '@risqbase-inc/ui-components'
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'risqbase' \| 'ralia' | 'risqbase' | Which site variant to render |
+<Footer variant="risqbase" />  // For risqbase.com
+<Footer variant="ralia" />     // For ralia.io
+```
+
+### Header
+
+```tsx
+import { Header } from '@risqbase-inc/ui-components'
+
+<Header variant="risqbase" showLaunchDate={true} />
+<Header variant="ralia" />
+```
+
+### Button
+
+```tsx
+import { Button, PrimaryButton, SecondaryButton, GhostButton } from '@risqbase-inc/ui-components'
+
+<Button variant="primary" size="lg" href="/signup">Get Started</Button>
+<PrimaryButton>Submit</PrimaryButton>
+<SecondaryButton>Cancel</SecondaryButton>
+<GhostButton>Learn More</GhostButton>
+```
+
+### Badge
+
+```tsx
+import { Badge, MostPopularBadge, NewBadge } from '@risqbase-inc/ui-components'
+
+<Badge variant="default">Custom</Badge>
+<MostPopularBadge />
+<NewBadge />
+```
+
+### SectionEyebrow
+
+```tsx
+import { SectionEyebrow } from '@risqbase-inc/ui-components'
+
+<SectionEyebrow>Features</SectionEyebrow>
+```
 
 ## Development
 
