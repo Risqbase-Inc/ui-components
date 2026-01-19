@@ -63,37 +63,37 @@ export function Footer({ variant = 'risqbase' }: FooterProps) {
             <h3 className="text-white font-semibold mb-4">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/privacy" className="text-gray-400 hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/terms" className="text-gray-400 hover:text-white transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/cookies" className="text-gray-400 hover:text-white transition-colors">
                   Cookie Policy
                 </Link>
               </li>
               <li>
-                <Link href="/security" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/security" className="text-gray-400 hover:text-white transition-colors">
                   Security
                 </Link>
               </li>
               <li>
-                <Link href="/governance" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/governance" className="text-gray-400 hover:text-white transition-colors">
                   Governance
                 </Link>
               </li>
               <li>
-                <Link href="/responsible-ai" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/responsible-ai" className="text-gray-400 hover:text-white transition-colors">
                   Responsible AI
                 </Link>
               </li>
               <li>
-                <Link href="/responsible-use" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="https://risqbase.com/responsible-use" className="text-gray-400 hover:text-white transition-colors">
                   Responsible Use
                 </Link>
               </li>
