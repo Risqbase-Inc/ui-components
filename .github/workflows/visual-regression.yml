@@ -2,9 +2,10 @@ name: Visual Regression
 
 on:
   pull_request:
-    paths:
-      - 'src/**'
-      - 'apps/docs/**'
+    # TODO(alex): re-add paths filter (src/**, apps/docs/**) at the JOB level
+    # once required-status-checks rule allows skipped-by-paths to satisfy.
+    # Workflow-level paths filter prevents the check from registering at all
+    # on PRs that don't touch the path, which blocks merge when required.
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
