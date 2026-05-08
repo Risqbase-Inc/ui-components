@@ -11,6 +11,8 @@ jobs:
   lint-build:
     name: Lint & Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     # TODO(alex): remove `if: false` once `apps/docs` path is confirmed
     # and the monorepo tool decision (npm workspaces vs pnpm vs Turbo) lands.
     if: false
