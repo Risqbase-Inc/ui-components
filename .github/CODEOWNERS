@@ -1,0 +1,28 @@
+# CODEOWNERS — RisqBase UI Components
+#
+# Routes path-scoped reviews to @fiadeleke (CEO) — the only real GitHub
+# handle on the team for now. The path-specific rules are kept (rather
+# than collapsed to `* @fiadeleke`) so we can expand individual paths
+# to other team members as they come on board with GH accounts.
+#
+# Note: this file is currently informational — the Main ruleset on `main`
+# has `require_code_owner_review: false`. Switch that on once handles
+# diversify if you want CODEOWNERS to gate reviews.
+#
+# Format: <path> <space-separated owner handles>
+# Last matching pattern wins; later rules override earlier ones.
+
+# Design tokens (TS source)
+src/tokens/**         @fiadeleke
+
+# Data visualisation primitives
+src/data-viz/**       @fiadeleke
+
+# AI surface components
+src/ai/**             @fiadeleke
+
+# Documentation site (MDX content + meta)
+docs/**               @fiadeleke
+
+# Raw token sources (Style Dictionary input — design + engineering joint owners)
+tokens/**             @fiadeleke
