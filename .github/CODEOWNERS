@@ -1,25 +1,28 @@
 # CODEOWNERS — RisqBase UI Components
 #
-# TODO: Replace `@*-placeholder` handles with real GitHub usernames before
-# enabling branch protection's "require review from Code Owners" rule.
-# The placeholders below let GitHub parse this file as valid (so the
-# workflow scaffolding is reviewable) without silently routing reviews
-# to anyone real until the team's GH org handles are confirmed.
+# Routes path-scoped reviews to @fiadeleke (CEO) — the only real GitHub
+# handle on the team for now. The path-specific rules are kept (rather
+# than collapsed to `* @fiadeleke`) so we can expand individual paths
+# to other team members as they come on board with GH accounts.
+#
+# Note: this file is currently informational — the Main ruleset on `main`
+# has `require_code_owner_review: false`. Switch that on once handles
+# diversify if you want CODEOWNERS to gate reviews.
 #
 # Format: <path> <space-separated owner handles>
 # Last matching pattern wins; later rules override earlier ones.
 
 # Design tokens (TS source)
-src/tokens/**         @alex-chen-placeholder
+src/tokens/**         @fiadeleke
 
 # Data visualisation primitives
-src/data-viz/**       @priya-sharma-placeholder
+src/data-viz/**       @fiadeleke
 
 # AI surface components
-src/ai/**             @alex-chen-placeholder
+src/ai/**             @fiadeleke
 
 # Documentation site (MDX content + meta)
-docs/**               @elena-vasquez-placeholder
+docs/**               @fiadeleke
 
 # Raw token sources (Style Dictionary input — design + engineering joint owners)
-tokens/**             @alex-chen-placeholder @elena-vasquez-placeholder
+tokens/**             @fiadeleke
