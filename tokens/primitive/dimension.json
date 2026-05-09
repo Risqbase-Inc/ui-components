@@ -1,0 +1,40 @@
+{
+  "dimension": {
+    "spacing": {
+      "0": { "$value": "0px",  "$type": "dimension", "$description": "Zero",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/0" } } },
+      "1": { "$value": "4px",  "$type": "dimension", "$description": "4px",   "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/1" } } },
+      "2": { "$value": "8px",  "$type": "dimension", "$description": "8px",   "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/2" } } },
+      "3": { "$value": "12px", "$type": "dimension", "$description": "12px",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/3" } } },
+      "4": { "$value": "16px", "$type": "dimension", "$description": "16px",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/4" } } },
+      "6": { "$value": "24px", "$type": "dimension", "$description": "24px",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/6" } } },
+      "8": { "$value": "32px", "$type": "dimension", "$description": "32px",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/spacing/8" } } }
+    },
+    "radius": {
+      "sm":   { "$value": "4px",   "$type": "dimension", "$description": "Small radius",                  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/sm" } } },
+      "md":   { "$value": "8px",   "$type": "dimension", "$description": "Medium radius",                 "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/md" } } },
+      "lg":   { "$value": "12px",  "$type": "dimension", "$description": "Large radius — buttons",        "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/lg" } } },
+      "xl":   { "$value": "16px",  "$type": "dimension", "$description": "Extra-large radius — cards",    "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/xl" } } },
+      "2xl":  { "$value": "24px",  "$type": "dimension", "$description": "2x large radius",               "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/2xl" } } },
+      "full": { "$value": "9999px","$type": "dimension", "$description": "Pill / full radius — badges",   "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/radius/full" } } }
+    },
+    "gauge": {
+      "diameter": {
+        "headline":  { "$value": "160px", "$type": "dimension", "$description": "Headline gauge diameter",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/diameter/headline" } } },
+        "summary":   { "$value": "120px", "$type": "dimension", "$description": "Summary gauge diameter",   "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/diameter/summary" } } },
+        "accessory": { "$value": "80px",  "$type": "dimension", "$description": "Accessory gauge diameter", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/diameter/accessory" } } },
+        "inline":    { "$value": "48px",  "$type": "dimension", "$description": "Inline gauge diameter",    "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/diameter/inline" } } }
+      },
+      "stroke": {
+        "default": { "$value": "6px", "$type": "dimension", "$description": "Default gauge stroke", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/stroke/default" } } },
+        "inline":  { "$value": "4px", "$type": "dimension", "$description": "Inline gauge stroke",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/gauge/stroke/inline" } } }
+      }
+    },
+    "density": {
+      "scale": {
+        "compact":     { "$value": "0.75", "$type": "dimension", "$description": "Compact density scalar",     "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/density/scale/compact" } } },
+        "default":     { "$value": "1",    "$type": "dimension", "$description": "Default density scalar",     "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/density/scale/default" } } },
+        "comfortable": { "$value": "1.25", "$type": "dimension", "$description": "Comfortable density scalar", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "dimension/density/scale/comfortable" } } }
+      }
+    }
+  }
+}
