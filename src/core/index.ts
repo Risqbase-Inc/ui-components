@@ -8,8 +8,13 @@ export { Header } from './Header'
 export { Footer } from './Footer'
 export { SectionEyebrow } from './SectionEyebrow'
 
+// Theming primitives (spec §15.2.1). Inlined SSR-safe init script,
+// runtime mode setter, and getter.
+export { setTheme, getTheme, themeInitScript, THEME_STORAGE_KEY } from './theme'
+
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/types'
 export type { BadgeProps, BadgeVariant } from './Badge/types'
 export type { HeaderProps, SiteVariant } from './Header/types'
 export type { FooterProps } from './Footer/types'
 export type { SectionEyebrowProps } from './SectionEyebrow/types'
+export type { Theme } from './theme'

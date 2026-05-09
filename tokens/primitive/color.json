@@ -1,0 +1,156 @@
+{
+  "color": {
+    "brand": {
+      "indigo": {
+        "50": {
+          "$value": "#EEF2FF",
+          "$type": "color",
+          "$description": "Brand indigo, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/50" }
+          }
+        },
+        "100": {
+          "$value": "#E0E7FF",
+          "$type": "color",
+          "$description": "Brand indigo, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/100" }
+          }
+        },
+        "200": {
+          "$value": "#C7D2FE",
+          "$type": "color",
+          "$description": "Brand indigo, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/200" }
+          }
+        },
+        "300": {
+          "$value": "#A5B4FC",
+          "$type": "color",
+          "$description": "Brand indigo, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/300" }
+          }
+        },
+        "400": {
+          "$value": "#818CF8",
+          "$type": "color",
+          "$description": "Brand indigo, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/400" }
+          }
+        },
+        "500": {
+          "$value": "#6366F1",
+          "$type": "color",
+          "$description": "Brand indigo, mid",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/500" }
+          }
+        },
+        "600": {
+          "$value": "#4F46E5",
+          "$type": "color",
+          "$description": "Primary brand indigo — CTAs, logo, links",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/600" }
+          }
+        },
+        "700": {
+          "$value": "#4338CA",
+          "$type": "color",
+          "$description": "Brand indigo, hover/pressed",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/700" }
+          }
+        },
+        "800": {
+          "$value": "#3730A3",
+          "$type": "color",
+          "$description": "Brand indigo, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/800" }
+          }
+        },
+        "900": {
+          "$value": "#312E81",
+          "$type": "color",
+          "$description": "Brand indigo, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/900" }
+          }
+        },
+        "950": {
+          "$value": "#1E1B4B",
+          "$type": "color",
+          "$description": "Brand indigo, near-black",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/950" }
+          }
+        }
+      }
+    },
+    "neutral": {
+      "white": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Pure white surface",
+        "$extensions": {
+          "com.risqbase.role": "primitive",
+          "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/white" }
+        }
+      },
+      "stone": {
+        "50":  { "$value": "#FAFAF9", "$type": "color", "$description": "Stone 50",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/50" } } },
+        "100": { "$value": "#F5F5F4", "$type": "color", "$description": "Stone 100", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/100" } } },
+        "200": { "$value": "#E7E5E4", "$type": "color", "$description": "Stone 200", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/200" } } },
+        "300": { "$value": "#D6D3D1", "$type": "color", "$description": "Stone 300", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/300" } } },
+        "400": { "$value": "#A8A29E", "$type": "color", "$description": "Stone 400", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/400" } } },
+        "500": { "$value": "#78716C", "$type": "color", "$description": "Stone 500", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/500" } } },
+        "600": { "$value": "#57534E", "$type": "color", "$description": "Stone 600", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/600" } } },
+        "700": { "$value": "#44403C", "$type": "color", "$description": "Stone 700", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/700" } } },
+        "800": { "$value": "#292524", "$type": "color", "$description": "Stone 800", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/800" } } },
+        "900": { "$value": "#1C1917", "$type": "color", "$description": "Stone 900", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/900" } } }
+      }
+    },
+    "palette": {
+      "teal": {
+        "50":  { "$value": "#F0FDFA", "$type": "color", "$description": "Teal 50",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/50" } } },
+        "100": { "$value": "#CCFBF1", "$type": "color", "$description": "Teal 100", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/100" } } },
+        "200": { "$value": "#99F6E4", "$type": "color", "$description": "Teal 200", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/200" } } },
+        "300": { "$value": "#5EEAD4", "$type": "color", "$description": "Teal 300", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/300" } } },
+        "400": { "$value": "#2DD4BF", "$type": "color", "$description": "Teal 400", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/400" } } },
+        "500": { "$value": "#14B8A6", "$type": "color", "$description": "Teal 500", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/500" } } },
+        "600": { "$value": "#0D9488", "$type": "color", "$description": "Teal 600 — gauge arc default", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/600" } } },
+        "700": { "$value": "#0F766E", "$type": "color", "$description": "Teal 700", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/700" } } },
+        "800": { "$value": "#115E59", "$type": "color", "$description": "Teal 800", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/800" } } },
+        "900": { "$value": "#134E4A", "$type": "color", "$description": "Teal 900", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/900" } } }
+      },
+      "amber":   { "500": { "$value": "#F59E0B", "$type": "color", "$description": "Amber — risk medium",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/amber/500" } } } },
+      "orange":  { "500": { "$value": "#F97316", "$type": "color", "$description": "Orange — risk high",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/orange/500" } } } },
+      "red": {
+        "500": { "$value": "#EF4444", "$type": "color", "$description": "Red 500 — diverging negative",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/500" } } },
+        "600": { "$value": "#DC2626", "$type": "color", "$description": "Red 600 — risk critical",       "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/600" } } },
+        "700": { "$value": "#B91C1C", "$type": "color", "$description": "Red 700 — diverging strong neg", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/700" } } }
+      },
+      "emerald": { "500": { "$value": "#10B981", "$type": "color", "$description": "Emerald — risk low / chart cat 4", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/emerald/500" } } } },
+      "violet":  { "500": { "$value": "#8B5CF6", "$type": "color", "$description": "Violet — chart cat 5",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/violet/500" } } } },
+      "rose":    { "500": { "$value": "#F43F5E", "$type": "color", "$description": "Rose — chart cat 6",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/rose/500" } } } },
+      "sky":     { "500": { "$value": "#0EA5E9", "$type": "color", "$description": "Sky — chart cat 7",               "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/sky/500" } } } },
+      "lime":    { "500": { "$value": "#84CC16", "$type": "color", "$description": "Lime — chart cat 8",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/lime/500" } } } }
+    }
+  }
+}

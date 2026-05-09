@@ -1,0 +1,3 @@
+{
+  "$comment": "High-contrast theme override stub. G4 fills values in S4 per implementation-plan §4 (U5.5) and §6 R3. Until then this is intentionally empty: Style Dictionary inherits light values, and the lint rule verifies any keys added here also exist in primitive/semantic/component."
+}

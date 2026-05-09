@@ -20,7 +20,11 @@ export default defineConfig({
   dts: true,
   outDir: 'dist',
   sourcemap: false,
-  clean: true,
+  // `clean: false` because `npm run build` runs `build:tokens` first
+  // (which writes `dist/tokens.css`, `dist/tailwind-tokens.js` and
+  // `dist/figma-tokens.json`); a cleaning tsup would wipe them.
+  // The token build itself recreates `dist/` before writing.
+  clean: false,
   splitting: false,
   external: ['react', 'react-dom', 'next', 'next/link'],
 })

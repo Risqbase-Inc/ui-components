@@ -1,10 +1,17 @@
 import Link from 'next/link'
 import type { ButtonProps } from './types'
 
+// Role tokens (spec §15.2; resolved values in dist/tokens.css). Each
+// `bg-[var(...)]` resolves to the same hex the v1.x classes resolved to
+// (no pixel change), but consumers / themes can swap the CSS variable
+// without recompiling the component.
 const variantStyles = {
-  primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
-  secondary: 'bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',
-  ghost: 'bg-transparent text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',
+  primary:
+    'bg-[var(--color-button-primary-background-default)] text-[var(--color-button-primary-foreground-default)] hover:bg-[var(--color-button-primary-background-hover)] focus:ring-[var(--color-button-focus-ring)]',
+  secondary:
+    'bg-[var(--color-button-secondary-background-default)] text-[var(--color-button-secondary-foreground-default)] border border-[var(--color-button-secondary-border-default)] hover:bg-[var(--color-button-secondary-background-hover)] focus:ring-[var(--color-button-focus-ring)]',
+  ghost:
+    'bg-[var(--color-button-ghost-background-default)] text-[var(--color-button-ghost-foreground-default)] hover:bg-[var(--color-button-ghost-background-hover)] focus:ring-[var(--color-button-focus-ring)]',
 }
 
 const sizeStyles = {

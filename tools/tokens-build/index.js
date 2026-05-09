@@ -1,0 +1,244 @@
+#!/usr/bin/env node
+/**
+ * RisqBase Design System v4.2 — token build pipeline
+ *
+ * Reads W3C Design Tokens Format JSON from `tokens/**\/*.json` and emits:
+ *
+ *   dist/tokens.css           CSS custom properties (runtime)
+ *   src/tokens/generated.ts   TypeScript constants — picked up by tsup as
+ *                             the source of the `tokens/index` entry, so
+ *                             the published artefact at
+ *                             `dist/tokens/index.{js,mjs,d.ts}` carries
+ *                             the resolved values. Gitignored.
+ *   dist/tailwind-tokens.js   Tailwind preset values
+ *   dist/figma-tokens.json    Figma Variables import payload (spec §15.8)
+ *
+ * S1 cleanup: previously also wrote `dist/tokens.ts` (a raw TS source
+ * file no consumer could `require()` once tsup's `dist/tokens/`
+ * directory took precedence under Node sub-path resolution). Removed —
+ * tsup now compiles `src/tokens/generated.ts` to the `dist/tokens/`
+ * directory in a single pass.
+ *
+ * Theme handling: tokens/themes/{dark,hc}.json are read as override layers.
+ * Light is the default (`:root`); dark and HC emit `[data-theme="dark"]`
+ * and `[data-theme="hc"]` blocks. PR #3 of S1 wires the runtime swap.
+ *
+ * Spec refs: §15.1 (W3C format), §15.2 (three tiers), §15.6 (token list),
+ * §15.8 (Figma sync). Note: spec §15.1 line 1614 references
+ * `dist/tokens.ts`; the v4.2.1 patch will reconcile to
+ * `dist/tokens/index.{js,mjs,d.ts}`.
+ */
+
+const path = require('path')
+const fs = require('fs')
+const StyleDictionary = require('style-dictionary').default
+
+const ROOT = path.resolve(__dirname, '..', '..')
+const TOKENS_DIR = path.join(ROOT, 'tokens')
+const DIST = path.join(ROOT, 'dist')
+const SRC_TOKENS = path.join(ROOT, 'src', 'tokens')
+const THEMES = ['light', 'dark', 'hc']
+
+const isTokenLeaf = (node) =>
+  node && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, '$value')
+
+function walkTokens(node, fn, prefix = []) {
+  if (!node || typeof node !== 'object') return
+  if (isTokenLeaf(node)) {
+    fn(prefix, node)
+    return
+  }
+  for (const [key, child] of Object.entries(node)) {
+    if (key.startsWith('$')) continue
+    walkTokens(child, fn, [...prefix, key])
+  }
+}
+
+const cssVarName = (segments) => `--${segments.join('-').toLowerCase()}`
+
+function refToVar(value) {
+  if (typeof value !== 'string') return value
+  const trimmed = value.trim()
+  if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+    const inner = trimmed.slice(1, -1)
+    return `var(${cssVarName(inner.split('.'))})`
+  }
+  return value
+}
+
+function renderCssBlock(selector, lines) {
+  return `${selector} {\n${lines.map((l) => `  ${l}`).join('\n')}\n}`
+}
+
+function ensureDir(p) {
+  fs.mkdirSync(p, { recursive: true })
+}
+
+async function buildTheme(theme) {
+  const sd = new StyleDictionary({
+    log: { warnings: 'silent', verbosity: 'silent', errors: { brokenReferences: 'throw' } },
+    source: [
+      `${TOKENS_DIR}/primitive/**/*.json`,
+      `${TOKENS_DIR}/semantic/**/*.json`,
+      `${TOKENS_DIR}/component/**/*.json`,
+      ...(theme === 'light' ? [] : [`${TOKENS_DIR}/themes/${theme}.json`]),
+    ],
+    platforms: {
+      raw: {
+        transformGroup: 'js',
+        files: [{ destination: '_unused.json', format: 'json/nested' }],
+      },
+    },
+  })
+  await sd.hasInitialized
+  return sd
+}
+
+async function main() {
+  ensureDir(DIST)
+
+  const lightSd = await buildTheme('light')
+  const lightTokens = await lightSd.exportPlatform('raw')
+  const lightLeaves = []
+  walkTokens(lightTokens, (segments, leaf) => {
+    lightLeaves.push({ path: segments, leaf })
+  })
+
+  const themeLeaves = { light: lightLeaves }
+  for (const theme of THEMES) {
+    if (theme === 'light') continue
+    const sd = await buildTheme(theme)
+    const tree = await sd.exportPlatform('raw')
+    const overrides = []
+    walkTokens(tree, (segments, leaf) => {
+      const key = segments.join('.')
+      const lightLeaf = lightLeaves.find((x) => x.path.join('.') === key)
+      if (!lightLeaf) return
+      if (leaf.$value !== lightLeaf.leaf.$value) {
+        overrides.push({ path: segments, leaf })
+      }
+    })
+    themeLeaves[theme] = overrides
+  }
+
+  // dist/tokens.css ----------------------------------------------------
+  const lightLines = lightLeaves.map(({ path: p, leaf }) => `${cssVarName(p)}: ${refToVar(leaf.$value)};`)
+  const cssBlocks = [renderCssBlock(':root, [data-theme="light"]', lightLines)]
+  for (const theme of THEMES) {
+    if (theme === 'light') continue
+    const overrides = themeLeaves[theme]
+    if (overrides.length === 0) {
+      cssBlocks.push(
+        `/* [data-theme="${theme}"] — stub, awaiting S4 values per implementation-plan §4 (U5.5) */`
+      )
+    } else {
+      const lines = overrides.map(({ path: p, leaf }) => `${cssVarName(p)}: ${refToVar(leaf.$value)};`)
+      cssBlocks.push(renderCssBlock(`[data-theme="${theme}"]`, lines))
+    }
+  }
+  fs.writeFileSync(
+    path.join(DIST, 'tokens.css'),
+    [
+      '/* RisqBase Design System v4.2 — generated by tools/tokens-build. Do not edit. */',
+      cssBlocks.join('\n\n'),
+      '',
+    ].join('\n')
+  )
+
+  // dist/tokens.ts -----------------------------------------------------
+  const tsTree = {}
+  for (const { path: p, leaf } of lightLeaves) {
+    let cursor = tsTree
+    for (let i = 0; i < p.length - 1; i++) {
+      cursor[p[i]] = cursor[p[i]] || {}
+      cursor = cursor[p[i]]
+    }
+    cursor[p[p.length - 1]] = leaf.$value
+  }
+  const tsBody = [
+    '// AUTO-GENERATED, DO NOT EDIT.',
+    '// RisqBase Design System v4.2 — emitted by `npm run build:tokens`',
+    '// (tools/tokens-build/index.js) from /tokens/**/*.json. tsup picks',
+    '// this file up as the source of the `tokens/index` entry; the',
+    '// published artefact lives at dist/tokens/index.{js,mjs,d.ts}.',
+    '// File is gitignored; regenerate with `npm run build:tokens`.',
+    '',
+    '/** Resolved light-theme token values. Consumers can import for prop typing.',
+    '  * Theme overrides live in CSS and are not statically expressible here. */',
+    '',
+    `export const tokens = ${JSON.stringify(tsTree, null, 2)} as const`,
+    '',
+    'export type Tokens = typeof tokens',
+    '',
+  ].join('\n')
+  // Single source-tree write: tsup compiles this into dist/tokens/index.{js,mjs,d.ts}.
+  // (Pre-S1-cleanup, this script also wrote a stranded dist/tokens.ts that no
+  // consumer could require once tsup's dist/tokens/ directory existed under the
+  // package.json `exports` map. Removed.)
+  ensureDir(SRC_TOKENS)
+  fs.writeFileSync(path.join(SRC_TOKENS, 'generated.ts'), tsBody)
+
+  // dist/tailwind-tokens.js -------------------------------------------
+  const tw = { colors: {}, spacing: {}, borderRadius: {}, transitionDuration: {} }
+  for (const { path: p, leaf } of lightLeaves) {
+    if (leaf.$type === 'color') {
+      tw.colors[p.slice(1).join('-')] = leaf.$value
+    } else if (leaf.$type === 'dimension') {
+      if (p[1] === 'spacing') tw.spacing[p.slice(2).join('-')] = leaf.$value
+      else if (p[1] === 'radius') tw.borderRadius[p.slice(2).join('-')] = leaf.$value
+    } else if (leaf.$type === 'duration') {
+      tw.transitionDuration[p.slice(1).join('-')] = leaf.$value
+    }
+  }
+  fs.writeFileSync(
+    path.join(DIST, 'tailwind-tokens.js'),
+    [
+      '// RisqBase Design System v4.2 — generated by tools/tokens-build. Do not edit.',
+      `module.exports = ${JSON.stringify(tw, null, 2)}`,
+      '',
+    ].join('\n')
+  )
+
+  // dist/figma-tokens.json --------------------------------------------
+  const figmaPayload = {
+    $schema: 'https://www.figma.com/schemas/variables/v1.json',
+    generatedAt: new Date().toISOString().slice(0, 10),
+    collections: {
+      primitive: { modes: ['light'], variables: [] },
+      semantic: { modes: ['light'], variables: [] },
+      component: { modes: ['light'], variables: [] },
+    },
+  }
+  for (const { path: p, leaf } of lightLeaves) {
+    const ext = (leaf.$extensions || {})['com.risqbase.figma'] || null
+    const role = (leaf.$extensions || {})['com.risqbase.role'] || 'primitive'
+    const collection = (ext && ext.collection) || role
+    const variableName = (ext && ext.variable) || p.join('/')
+    if (!figmaPayload.collections[collection]) {
+      figmaPayload.collections[collection] = { modes: ['light'], variables: [] }
+    }
+    figmaPayload.collections[collection].variables.push({
+      name: variableName,
+      type: leaf.$type,
+      description: leaf.$description || '',
+      values: { light: leaf.$value },
+    })
+  }
+  fs.writeFileSync(path.join(DIST, 'figma-tokens.json'), JSON.stringify(figmaPayload, null, 2) + '\n')
+
+  const counts = { primitive: 0, semantic: 0, component: 0 }
+  for (const { leaf } of lightLeaves) {
+    const r = (leaf.$extensions || {})['com.risqbase.role']
+    if (counts[r] != null) counts[r]++
+  }
+  console.log(
+    `tokens-build: ${lightLeaves.length} tokens ` +
+      `(${counts.primitive} primitive, ${counts.semantic} semantic, ${counts.component} component). ` +
+      `dark overrides: ${themeLeaves.dark.length}, hc overrides: ${themeLeaves.hc.length}.`
+  )
+}
+
+main().catch((err) => {
+  console.error('tokens-build failed:', err)
+  process.exit(1)
+})
