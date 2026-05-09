@@ -1,4 +1,4 @@
-import { SectionEyebrowProps } from './types'
+import type { SectionEyebrowProps } from './types'
 
 export function SectionEyebrow({
   children,
@@ -13,3 +13,5 @@ export function SectionEyebrow({
     </p>
   )
 }
+
+export type { SectionEyebrowProps } from './types'

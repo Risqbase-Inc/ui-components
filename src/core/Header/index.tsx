@@ -1,13 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { HeaderProps } from './types'
+import type { HeaderProps } from './types'
 
 export function Header({ variant = 'risqbase', showLaunchDate = false }: HeaderProps) {
   const isRalia = variant === 'ralia'
   const logoText = isRalia ? 'RALIA' : 'RisqBase'
   const tagline = isRalia ? 'by RisqBase' : null
-  const homeUrl = isRalia ? 'https://ralia.io' : 'https://risqbase.com'
 
   return (
     <header className="bg-white border-b border-gray-100">
@@ -70,3 +69,5 @@ export function Header({ variant = 'risqbase', showLaunchDate = false }: HeaderP
     </header>
   )
 }
+
+export type { HeaderProps, SiteVariant } from './types'
