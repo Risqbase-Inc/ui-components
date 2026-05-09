@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FooterProps } from './types'
+import type { FooterProps } from './types'
 
 export function Footer({ variant = 'risqbase' }: FooterProps) {
   const logoText = variant === 'ralia' ? 'RALIA' : 'RisqBase'
@@ -149,3 +149,5 @@ export function Footer({ variant = 'risqbase' }: FooterProps) {
     </footer>
   )
 }
+
+export type { FooterProps } from './types'

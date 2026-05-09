@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ButtonProps } from './types'
+import type { ButtonProps } from './types'
 
 const variantStyles = {
   primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
@@ -39,7 +39,6 @@ export function Button({
   )
 }
 
-// Convenience exports
 export function PrimaryButton(props: Omit<ButtonProps, 'variant'>) {
   return <Button variant="primary" {...props} />
 }
@@ -51,3 +50,5 @@ export function SecondaryButton(props: Omit<ButtonProps, 'variant'>) {
 export function GhostButton(props: Omit<ButtonProps, 'variant'>) {
   return <Button variant="ghost" {...props} />
 }
+
+export type { ButtonProps, ButtonVariant, ButtonSize } from './types'

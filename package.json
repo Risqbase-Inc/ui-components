@@ -5,13 +5,47 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js"
+    },
+    "./ai": {
+      "types": "./dist/ai/index.d.ts",
+      "import": "./dist/ai/index.mjs",
+      "require": "./dist/ai/index.js"
+    },
+    "./data-viz": {
+      "types": "./dist/data-viz/index.d.ts",
+      "import": "./dist/data-viz/index.mjs",
+      "require": "./dist/data-viz/index.js"
+    },
+    "./content": {
+      "types": "./dist/content/index.d.ts",
+      "import": "./dist/content/index.mjs",
+      "require": "./dist/content/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "import": "./dist/tokens/index.mjs",
+      "require": "./dist/tokens/index.js"
+    },
+    "./tailwind.preset": "./tailwind.preset.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
     "tailwind.preset.js"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "lint": "eslint src/",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build"

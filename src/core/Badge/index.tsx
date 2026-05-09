@@ -1,4 +1,4 @@
-import { BadgeProps } from './types'
+import type { BadgeProps } from './types'
 
 const variantStyles = {
   default: 'bg-indigo-600 text-white',
@@ -21,7 +21,6 @@ export function Badge({
   )
 }
 
-// Convenience exports for common badges
 export function MostPopularBadge() {
   return (
     <Badge variant="default" className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -48,3 +47,5 @@ export function NewBadge() {
 export function ComingSoonBadge() {
   return <Badge variant="subtle">Coming Soon</Badge>
 }
+
+export type { BadgeProps, BadgeVariant } from './types'
