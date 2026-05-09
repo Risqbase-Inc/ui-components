@@ -41,12 +41,16 @@
   },
   "files": [
     "dist",
-    "tailwind.preset.js"
+    "tailwind.preset.js",
+    "tokens",
+    "tools/tokens-build"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build:tokens": "node tools/tokens-build/index.js",
+    "build": "npm run build:tokens && tsup",
+    "dev": "npm run build:tokens && tsup --watch",
     "lint": "eslint src/",
+    "lint:tokens": "node tools/tokens-build/lint.js",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build"
   },
@@ -63,6 +67,7 @@
     "next": "^16.2.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "style-dictionary": "^4.4.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },

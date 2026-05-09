@@ -1,0 +1,125 @@
+{
+  "color": {
+    "button": {
+      "primary": {
+        "background": {
+          "default": {
+            "$value": "{color.action.primary}",
+            "$type": "color",
+            "$description": "Primary button background — default state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/default" }
+            }
+          },
+          "hover": {
+            "$value": "{color.action.primary-hover}",
+            "$type": "color",
+            "$description": "Primary button background — hover state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/hover" }
+            }
+          }
+        },
+        "foreground": {
+          "default": {
+            "$value": "{color.text.on-action}",
+            "$type": "color",
+            "$description": "Primary button text colour",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/foreground/default" }
+            }
+          }
+        }
+      },
+      "secondary": {
+        "background": {
+          "default": {
+            "$value": "{color.surface.default}",
+            "$type": "color",
+            "$description": "Secondary button background — default state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/default" }
+            }
+          },
+          "hover": {
+            "$value": "{color.action.primary-subtle}",
+            "$type": "color",
+            "$description": "Secondary button background — hover state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/hover" }
+            }
+          }
+        },
+        "foreground": {
+          "default": {
+            "$value": "{color.action.primary}",
+            "$type": "color",
+            "$description": "Secondary button text colour",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/foreground/default" }
+            }
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "{color.action.primary}",
+            "$type": "color",
+            "$description": "Secondary button border colour",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/border/default" }
+            }
+          }
+        }
+      },
+      "ghost": {
+        "background": {
+          "default": {
+            "$value": "transparent",
+            "$type": "color",
+            "$description": "Ghost button background — default state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/default" }
+            }
+          },
+          "hover": {
+            "$value": "{color.action.primary-subtle}",
+            "$type": "color",
+            "$description": "Ghost button background — hover state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/hover" }
+            }
+          }
+        },
+        "foreground": {
+          "default": {
+            "$value": "{color.action.primary}",
+            "$type": "color",
+            "$description": "Ghost button text colour",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/foreground/default" }
+            }
+          }
+        }
+      },
+      "focus-ring": {
+        "$value": "{color.border.focus}",
+        "$type": "color",
+        "$description": "Button focus-ring colour (all variants)",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/focus-ring" }
+        }
+      }
+    }
+  }
+}
