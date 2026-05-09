@@ -1,0 +1,165 @@
+{
+  "color": {
+    "action": {
+      "primary": {
+        "$value": "{color.brand.indigo.600}",
+        "$type": "color",
+        "$description": "Primary action surface — CTAs, primary buttons",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/action/primary" }
+        }
+      },
+      "primary-hover": {
+        "$value": "{color.brand.indigo.700}",
+        "$type": "color",
+        "$description": "Primary action hover state",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/action/primary-hover" }
+        }
+      },
+      "primary-subtle": {
+        "$value": "{color.brand.indigo.100}",
+        "$type": "color",
+        "$description": "Primary action subtle background — hover for ghost/secondary",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/action/primary-subtle" }
+        }
+      }
+    },
+    "surface": {
+      "default": {
+        "$value": "{color.neutral.white}",
+        "$type": "color",
+        "$description": "Default surface background",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/surface/default" }
+        }
+      },
+      "subtle": {
+        "$value": "{color.neutral.stone.50}",
+        "$type": "color",
+        "$description": "Subtle background — coming-soon badge, panels",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/surface/subtle" }
+        }
+      },
+      "inverse": {
+        "$value": "{color.neutral.stone.900}",
+        "$type": "color",
+        "$description": "Inverse surface — dark footer, modal scrims",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/surface/inverse" }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "{color.neutral.stone.800}",
+        "$type": "color",
+        "$description": "Default body text",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/default" }
+        }
+      },
+      "subtle": {
+        "$value": "{color.neutral.stone.500}",
+        "$type": "color",
+        "$description": "Subtle / secondary text",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/subtle" }
+        }
+      },
+      "on-action": {
+        "$value": "{color.neutral.white}",
+        "$type": "color",
+        "$description": "Text on primary action surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.action.primary}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/on-action" }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.neutral.stone.200}",
+        "$type": "color",
+        "$description": "Default border / divider",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/border/default" }
+        }
+      },
+      "focus": {
+        "$value": "{color.brand.indigo.500}",
+        "$type": "color",
+        "$description": "Focus ring colour",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/border/focus" }
+        }
+      }
+    },
+    "risk": {
+      "low":      { "$value": "{color.palette.emerald.500}", "$type": "color", "$description": "Risk band — low",      "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/risk/low" } } },
+      "medium":   { "$value": "{color.palette.amber.500}",   "$type": "color", "$description": "Risk band — medium",   "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/risk/medium" } } },
+      "high":     { "$value": "{color.palette.orange.500}",  "$type": "color", "$description": "Risk band — high",     "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/risk/high" } } },
+      "critical": { "$value": "{color.palette.red.600}",     "$type": "color", "$description": "Risk band — critical", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/risk/critical" } } }
+    },
+    "chart": {
+      "cat": {
+        "1": { "$value": "{color.brand.indigo.600}",   "$type": "color", "$description": "Chart categorical 1", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/1" } } },
+        "2": { "$value": "{color.palette.teal.600}",    "$type": "color", "$description": "Chart categorical 2", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/2" } } },
+        "3": { "$value": "{color.palette.amber.500}",   "$type": "color", "$description": "Chart categorical 3", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/3" } } },
+        "4": { "$value": "{color.palette.emerald.500}", "$type": "color", "$description": "Chart categorical 4", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/4" } } },
+        "5": { "$value": "{color.palette.violet.500}",  "$type": "color", "$description": "Chart categorical 5", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/5" } } },
+        "6": { "$value": "{color.palette.rose.500}",    "$type": "color", "$description": "Chart categorical 6", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/6" } } },
+        "7": { "$value": "{color.palette.sky.500}",     "$type": "color", "$description": "Chart categorical 7", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/7" } } },
+        "8": { "$value": "{color.palette.lime.500}",    "$type": "color", "$description": "Chart categorical 8", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/cat/8" } } }
+      },
+      "seq": {
+        "1": { "$value": "{color.palette.teal.100}", "$type": "color", "$description": "Chart sequential 1 (lightest)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/seq/1" } } },
+        "2": { "$value": "{color.palette.teal.300}", "$type": "color", "$description": "Chart sequential 2",            "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/seq/2" } } },
+        "3": { "$value": "{color.palette.teal.500}", "$type": "color", "$description": "Chart sequential 3",            "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/seq/3" } } },
+        "4": { "$value": "{color.palette.teal.700}", "$type": "color", "$description": "Chart sequential 4",            "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/seq/4" } } },
+        "5": { "$value": "{color.palette.teal.900}", "$type": "color", "$description": "Chart sequential 5 (darkest)",  "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/seq/5" } } }
+      },
+      "div": {
+        "n2": { "$value": "{color.palette.red.700}",   "$type": "color", "$description": "Diverging strong negative", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/div/n2" } } },
+        "n1": { "$value": "{color.palette.red.500}",   "$type": "color", "$description": "Diverging negative",        "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/div/n1" } } },
+        "0":  { "$value": "{color.neutral.stone.300}", "$type": "color", "$description": "Diverging neutral",         "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/div/0" } } },
+        "p1": { "$value": "{color.palette.teal.500}",  "$type": "color", "$description": "Diverging positive",        "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/div/p1" } } },
+        "p2": { "$value": "{color.palette.teal.700}",  "$type": "color", "$description": "Diverging strong positive", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/div/p2" } } }
+      },
+      "axis":            { "$value": "{color.neutral.stone.200}", "$type": "color", "$description": "Chart axis line",       "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/axis" } } },
+      "gridline":        { "$value": "{color.neutral.stone.100}", "$type": "color", "$description": "Chart gridline",        "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/gridline" } } },
+      "tooltip-surface": { "$value": "{color.neutral.white}",     "$type": "color", "$description": "Chart tooltip surface", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/tooltip-surface" } } },
+      "tooltip-border":  { "$value": "{color.neutral.stone.200}", "$type": "color", "$description": "Chart tooltip border",  "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/tooltip-border" } } },
+      "null":            { "$value": "{color.neutral.stone.300}", "$type": "color", "$description": "Null-marker hatched fill", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/chart/null" } } }
+    },
+    "gauge": {
+      "track":      { "$value": "{color.neutral.stone.200}", "$type": "color", "$description": "Gauge track (background arc)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/gauge/track" } } },
+      "arc-teal":   { "$value": "{color.palette.teal.600}",  "$type": "color", "$description": "Gauge arc — teal default",      "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/gauge/arc-teal" } } },
+      "arc-indigo": { "$value": "{color.brand.indigo.600}",   "$type": "color", "$description": "Gauge arc — indigo",            "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/gauge/arc-indigo" } } },
+      "arc-stone":  { "$value": "{color.neutral.stone.500}",  "$type": "color", "$description": "Gauge arc — stone (dual-ring)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/gauge/arc-stone" } } }
+    },
+    "citation": {
+      "surface-default":  { "$value": "{color.neutral.white}",     "$type": "color", "$description": "Citation chip surface — default",       "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/surface-default" } } },
+      "surface-low-conf": { "$value": "{color.neutral.stone.50}",  "$type": "color", "$description": "Citation chip surface — low-confidence","$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/surface-low-conf" } } },
+      "border-default":   { "$value": "{color.neutral.stone.200}", "$type": "color", "$description": "Citation chip border — default",         "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/border-default" } } },
+      "border-retracted": { "$value": "{color.neutral.stone.300}", "$type": "color", "$description": "Citation chip border — retracted",       "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/border-retracted" } } },
+      "text-default":     { "$value": "{color.neutral.stone.600}", "$type": "color", "$description": "Citation chip text — default",           "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/text-default" } } },
+      "text-retracted":   { "$value": "{color.neutral.stone.400}", "$type": "color", "$description": "Citation chip text — retracted",         "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/citation/text-retracted" } } }
+    }
+  }
+}

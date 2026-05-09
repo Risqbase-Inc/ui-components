@@ -1,0 +1,15 @@
+{
+  "duration": {
+    "gauge": {
+      "reveal": {
+        "$value": "500ms",
+        "$type": "duration",
+        "$description": "Gauge fill-arc reveal animation duration",
+        "$extensions": {
+          "com.risqbase.role": "primitive",
+          "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "duration/gauge/reveal" }
+        }
+      }
+    }
+  }
+}

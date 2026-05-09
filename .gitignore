@@ -137,3 +137,6 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Generated tokens — emitted by `npm run build:tokens` (do not commit)
+src/tokens/generated.ts
