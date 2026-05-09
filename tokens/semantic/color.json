@@ -49,6 +49,15 @@
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/surface/subtle" }
         }
       },
+      "muted": {
+        "$value": "{color.neutral.stone.100}",
+        "$type": "color",
+        "$description": "Muted background — neutral chips, subtle badges",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/surface/muted" }
+        }
+      },
       "inverse": {
         "$value": "{color.neutral.stone.900}",
         "$type": "color",
@@ -88,6 +97,26 @@
           "com.risqbase.contrastPair": "{color.action.primary}",
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/on-action" }
         }
+      },
+      "on-inverse": {
+        "$value": "{color.neutral.white}",
+        "$type": "color",
+        "$description": "Text on inverse surface — footer headings, primary on dark",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.surface.inverse}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/on-inverse" }
+        }
+      },
+      "on-inverse-subtle": {
+        "$value": "{color.neutral.stone.400}",
+        "$type": "color",
+        "$description": "Subtle text on inverse surface — footer body, copyright",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.surface.inverse}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/on-inverse-subtle" }
+        }
       }
     },
     "border": {
@@ -98,6 +127,24 @@
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/border/default" }
+        }
+      },
+      "subtle": {
+        "$value": "{color.neutral.stone.100}",
+        "$type": "color",
+        "$description": "Subtle border — header bottom rule",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/border/subtle" }
+        }
+      },
+      "inverse": {
+        "$value": "{color.neutral.stone.700}",
+        "$type": "color",
+        "$description": "Border on inverse surface — footer bottom-bar divider",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/border/inverse" }
         }
       },
       "focus": {
