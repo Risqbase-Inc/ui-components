@@ -1,0 +1,15 @@
+{
+  "color": {
+    "section-eyebrow": {
+      "foreground": {
+        "$value": "{color.action.primary}",
+        "$type": "color",
+        "$description": "Section eyebrow text colour — uppercase tracking label",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/section-eyebrow/foreground" }
+        }
+      }
+    }
+  }
+}
