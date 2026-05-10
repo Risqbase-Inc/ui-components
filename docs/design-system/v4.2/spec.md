@@ -1563,13 +1563,11 @@ Sophie's team reviews:
 
 ## 14. Dark Mode Pathway
 
-v4.1 specified dark mode as v4.x scoped via `data-theme="dark"`. v4.2 confirms dark mode ships in **v4.3** (Q3 2026), not v4.2. The reasoning:
+v4.1 specified dark mode as v4.x scoped via `data-theme="dark"`. v4.2 ships dark **and** high-contrast modes alongside the default light mode — the implementation plan locks this in D11 ("Modes shipped in v4.2: Light + dark + HC. No mode deferral") and S4 carries the value-fill work (audit row U5.5, primary owner Elena, reviewer Alex).
 
-- v4.2's data-viz and content layers are larger surface area than dark mode
-- Dark mode's chart-palette implications need to be designed once data-viz §8 has been used in production
-- Customer demand for dark mode is steady but not blocking; the audit and Knowledge Bank features customers asked for v4.2-priority eclipse it
+The infrastructure (theming `data-theme` swap, override layer in the token build pipeline, lint rule that themes may only override existing tokens) lands in S1; the dark + HC values land in S4 once data-viz §8 colour roles are fully enumerated. Three-mode visual-regression baselines gate S5; consumer migration in S6 publishes against three-mode green.
 
-Tokens in §15.6 anticipate dark by exposing the theme dimension; the theme file simply doesn't ship until v4.3.
+> **Spec edit history.** This section was rewritten on 2026-05-10 (PR-cleanup-3-design, Elena) to reconcile the spec with the executed implementation plan. The pre-edit text deferred dark + HC to v4.3; the implementation plan and S1 token-build pipeline already commit to shipping all three modes in v4.2. See `v4.2.1-backlog.md` § "Spec edits made during S1 cleanup" for the rationale and full edit log.
 
 ---
 
@@ -1635,12 +1633,14 @@ Themes are token-set overrides that swap primitive values:
 
 | Theme | File | Status |
 |-------|------|--------|
-| Default (light) | `tokens/themes/light.json` | Stable (v4.2) |
-| Dark | `tokens/themes/dark.json` | Stub only (v4.3) |
+| Default (light) | `tokens/themes/light.json` *(implicit; primitive/semantic/component layers are the light source)* | Stable (v4.2 — S1) |
+| Dark | `tokens/themes/dark.json` | Stub in v4.2 S1 (file present, intentionally empty); values land v4.2 S4 (impl-plan §4 row U5.5, owner Elena, reviewer Alex) |
 | Print | `tokens/themes/print.json` | Stable (v4.2) — used for §9 PDFs |
-| High-contrast | `tokens/themes/high-contrast.json` | Stub only (v4.3) |
+| High-contrast | `tokens/themes/hc.json` | Stub in v4.2 S1 (file present, intentionally empty); values land v4.2 S4 (impl-plan §4 row U5.5, owner Elena, reviewer Alex) |
 
-Themes never define new tokens — they only override values. A token added in `light.json` must also exist in every other theme file or the build fails.
+Themes never define new tokens — they only override values. A token added in `light.json` must also exist in every other theme file or the build fails. The S1 lint rule (`tools/tokens-build/lint.js`) enforces this for the dark and HC files even while they are empty.
+
+> **Spec edit history.** This subsection was rewritten on 2026-05-10 (PR-cleanup-3-design, Elena, gate G4) to reconcile the spec with the executed implementation plan. Pre-edit, this table marked dark and HC as "Stub only (v4.3)"; post-edit, the table reflects the phased v4.2 value-fill (S1 infrastructure + empty stub files; S4 values). The high-contrast filename also updated from `high-contrast.json` to `hc.json` to match what S1 actually shipped (`tokens/themes/hc.json`). See `v4.2.1-backlog.md` § "Spec edits made during S1 cleanup" for the full edit log.
 
 ### 15.3 Token naming canon
 
@@ -1906,7 +1906,7 @@ Every PR touching design-system code, design-system documentation, or any consum
 | 40 | All gauges use `role="meter"` with `aria-valuetext` | v4.1.1 |
 | 41 | All long operations use `<LongOperation>` (or `<IrisLongOperation>` when AI-driven) | v4.1 |
 | 42 | All token references go through the role tier (no semantic or primitive consumed in component code) | v4.1 |
-| 43 | Three theme files complete (light, print stable; dark, high-contrast stubs) | v4.2 |
+| 43 | All four theme files present and lint-clean: light + print stable in S1; dark + HC stubs in S1 (empty, lint-validated); dark + HC values land in S4 (impl-plan U5.5) | v4.2 |
 | 44 | All patterns documented per §20.0 recipe schema | v4.1.1 |
 | 45 | Pattern `composed_of` references only components and §7.0 nouns | v4.1.1 |
 | 46 | Pattern `keyboard` references only §5.8.3.1 verbs | v4.1.1 |

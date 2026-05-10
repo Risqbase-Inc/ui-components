@@ -121,5 +121,20 @@
         }
       }
     }
+  },
+  "dimension": {
+    "radius": {
+      "button": {
+        "default": {
+          "$value": "{dimension.radius.lg}",
+          "$type": "dimension",
+          "$description": "Button border-radius — applies to all variants and sizes (12px, equals Tailwind rounded-xl). Tracked as a role token per spec §15.4 so future shape changes happen in one place.",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "dimension/radius/button/default" }
+          }
+        }
+      }
+    }
   }
 }
