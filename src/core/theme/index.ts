@@ -55,3 +55,28 @@ export function getTheme(): Theme {
   const value = document.documentElement.getAttribute('data-theme')
   return value === 'dark' || value === 'hc' ? value : 'light'
 }
+
+/**
+ * Remove the persisted theme preference from localStorage. The next
+ * page load falls back to `prefers-color-scheme` via `themeInitScript`.
+ *
+ * Use cases:
+ *   - A "use system preference" toggle in settings.
+ *   - One-shot migrations when `THEME_STORAGE_KEY` is rotated and the
+ *     consumer wants to clean out the old key (call with the old key
+ *     bound via a dedicated helper, then call this to clear the new
+ *     one if needed).
+ *
+ * Does **not** mutate `data-theme` on `<html>` for the current
+ * session. Call `setTheme(getTheme())` afterwards if you want the
+ * resolver to re-run immediately. Safe to call during SSR (no-op
+ * when `window` is undefined).
+ */
+export function clearTheme(): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.removeItem(THEME_STORAGE_KEY)
+  } catch {
+    // Private mode / quota exceeded — nothing to do.
+  }
+}
