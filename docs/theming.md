@@ -94,6 +94,19 @@ function ThemePicker() {
 (exported as `THEME_STORAGE_KEY`) and updates the attribute on
 `<html>`. The next page load picks it up via the init script.
 
+To clear a user's preference (e.g. a "use system default" toggle),
+call `clearTheme()`:
+
+```tsx
+import { clearTheme, setTheme, getTheme } from '@risqbase-inc/ui-components'
+
+clearTheme()                  // wipe localStorage entry
+setTheme(getTheme())          // re-resolve from prefers-color-scheme
+```
+
+`clearTheme()` is SSR-safe and silently swallows storage errors
+(private mode / quota), matching `setTheme`'s behaviour.
+
 ---
 
 ## Consumer setup (static HTML / non-Next.js)
@@ -166,3 +179,40 @@ Windows High Contrast Mode forces colours via the OS regardless,
 overriding any `[data-theme="hc"]` we define. The HC tokens we ship
 in S4 are for users who want a high-contrast appearance without
 turning on the OS setting.
+
+---
+
+## `THEME_STORAGE_KEY` — rotation contract
+
+The package persists the active theme to `localStorage` under the key
+exported as `THEME_STORAGE_KEY`. Today that constant resolves to
+`'risqbase-ds-theme'`. The key is part of the public API: changing
+its value is a **breaking change for consumers' users**, not just
+their code.
+
+**What rotating the key looks like at runtime.** If a future minor
+release ships a new `THEME_STORAGE_KEY` value (say `'rb-theme'`), every
+user with an existing entry under the old key will appear stuck on the
+default-resolved theme: the init script reads the new key, finds
+nothing, and falls back to `prefers-color-scheme`. Their old setting
+is still in `localStorage` but inert.
+
+**Migration pattern (one PR, ~5 lines).** Read both keys; if the new
+one is empty and the old one has a valid value, copy it over and
+delete the old. Run once per session, before the first paint:
+
+```ts
+const OLD_KEY = 'risqbase-ds-theme'
+const NEW_KEY = 'rb-theme'  // example
+const old = localStorage.getItem(OLD_KEY)
+if (old && !localStorage.getItem(NEW_KEY)) {
+  localStorage.setItem(NEW_KEY, old)
+  localStorage.removeItem(OLD_KEY)
+}
+```
+
+`clearTheme()` (exported alongside `setTheme` / `getTheme`) handles
+the *current* key; the snippet above is for *bridging* across a
+rotation. We commit to flagging any `THEME_STORAGE_KEY` rotation in
+the package CHANGELOG with a code-snippet identical to the above so
+consumer apps can adopt it in a single PR.
