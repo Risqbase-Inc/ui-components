@@ -1,39 +1,9 @@
-// Site variant
-export type SiteVariant = 'risqbase' | 'ralia'
+// Back-compat shim. Types now live alongside their components in
+// `src/core/<Name>/types.ts`; this file re-exports them so legacy
+// deep-imports (`@risqbase-inc/ui-components/types`) keep resolving.
 
-// Footer
-export interface FooterProps {
-  variant?: SiteVariant
-}
-
-// Header
-export interface HeaderProps {
-  variant?: SiteVariant
-  showLaunchDate?: boolean
-}
-
-// Button
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
-export type ButtonSize = 'sm' | 'md' | 'lg'
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  href?: string
-  children: React.ReactNode
-}
-
-// Badge
-export type BadgeVariant = 'default' | 'highlight' | 'subtle'
-
-export interface BadgeProps {
-  variant?: BadgeVariant
-  children: React.ReactNode
-  className?: string
-}
-
-// Section Eyebrow
-export interface SectionEyebrowProps {
-  children: React.ReactNode
-  className?: string
-}
+export type { SiteVariant, HeaderProps } from './core/Header/types'
+export type { FooterProps } from './core/Footer/types'
+export type { ButtonProps, ButtonVariant, ButtonSize } from './core/Button/types'
+export type { BadgeProps, BadgeVariant } from './core/Badge/types'
+export type { SectionEyebrowProps } from './core/SectionEyebrow/types'

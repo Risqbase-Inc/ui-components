@@ -1,9 +1,16 @@
-import { BadgeProps } from './types'
+import type { BadgeProps } from './types'
 
+// Role tokens (spec §15.2; resolved values in dist/tokens.css). Default
+// and highlight variants resolve identically to v1.x; the `subtle` variant
+// shifts from Tailwind's `gray-100`/`gray-600` to `stone-100`/`stone-500`
+// (canonical neutral palette — flagged for S5 visual-regression baseline).
 const variantStyles = {
-  default: 'bg-indigo-600 text-white',
-  highlight: 'bg-indigo-100 text-indigo-600',
-  subtle: 'bg-gray-100 text-gray-600',
+  default:
+    'bg-[var(--color-badge-default-background)] text-[var(--color-badge-default-foreground)]',
+  highlight:
+    'bg-[var(--color-badge-highlight-background)] text-[var(--color-badge-highlight-foreground)]',
+  subtle:
+    'bg-[var(--color-badge-subtle-background)] text-[var(--color-badge-subtle-foreground)]',
 }
 
 export function Badge({
@@ -21,7 +28,6 @@ export function Badge({
   )
 }
 
-// Convenience exports for common badges
 export function MostPopularBadge() {
   return (
     <Badge variant="default" className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -48,3 +54,5 @@ export function NewBadge() {
 export function ComingSoonBadge() {
   return <Badge variant="subtle">Coming Soon</Badge>
 }
+
+export type { BadgeProps, BadgeVariant } from './types'

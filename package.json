@@ -5,14 +5,52 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.js"
+    },
+    "./ai": {
+      "types": "./dist/ai/index.d.ts",
+      "import": "./dist/ai/index.mjs",
+      "require": "./dist/ai/index.js"
+    },
+    "./data-viz": {
+      "types": "./dist/data-viz/index.d.ts",
+      "import": "./dist/data-viz/index.mjs",
+      "require": "./dist/data-viz/index.js"
+    },
+    "./content": {
+      "types": "./dist/content/index.d.ts",
+      "import": "./dist/content/index.mjs",
+      "require": "./dist/content/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "import": "./dist/tokens/index.mjs",
+      "require": "./dist/tokens/index.js"
+    },
+    "./tailwind.preset": "./tailwind.preset.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
-    "tailwind.preset.js"
+    "tailwind.preset.js",
+    "tokens",
+    "tools/tokens-build"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "lint": "eslint src/",
+    "build:tokens": "node tools/tokens-build/index.js",
+    "build": "npm run build:tokens && tsup",
+    "dev": "npm run build:tokens && tsup --watch",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:tokens": "node tools/tokens-build/lint.js",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build"
   },
@@ -25,10 +63,13 @@
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^8.57.0",
     "next": "^16.2.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "style-dictionary": "^4.4.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
@@ -43,5 +84,35 @@
   "license": "MIT",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
+  },
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module",
+      "ecmaFeatures": { "jsx": true }
+    },
+    "env": { "browser": true, "node": true, "es2022": true },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-empty-object-type": "warn",
+      "@typescript-eslint/no-empty-function": "warn",
+      "no-empty-pattern": "warn",
+      "no-console": "off"
+    },
+    "ignorePatterns": [
+      "dist/**",
+      "node_modules/**",
+      "src/tokens/generated.ts",
+      "tools/**",
+      "tailwind.preset.js"
+    ]
   }
 }
