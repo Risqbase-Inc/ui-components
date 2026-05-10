@@ -1,6 +1,6 @@
 # RisqBase Design System v4.2 — Audit Assessment
 
-**Document ID:** GOV-DS-2026-02-AUDIT-420
+**Document ID:** GOV-DS-2026-02-AUDIT-4.2
 **Date:** 7 May 2026
 **Prepared by:** Elena Vasquez
 **Status:** Honest assessment against the audit tracker in `RisqBase-DS-v4.2-Plan-and-Tracker.md`
@@ -178,4 +178,4 @@ The 15 implementation `[~]` rows (npm package code, CI, dashboards, Figma librar
 
 ---
 
-**END OF GOV-DS-2026-02-AUDIT-420**
+**END OF GOV-DS-2026-02-AUDIT-4.2**
