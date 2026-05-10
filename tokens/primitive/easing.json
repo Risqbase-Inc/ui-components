@@ -1,0 +1,31 @@
+{
+  "easing": {
+    "standard": {
+      "$value": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+      "$type": "cubicBezier",
+      "$description": "Default curve — balanced acceleration / deceleration. Use for in-and-out transitions and most state changes (spec §5.1).",
+      "$extensions": {
+        "com.risqbase.role": "primitive",
+        "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "easing/standard" }
+      }
+    },
+    "emphasised": {
+      "$value": "cubic-bezier(0.2, 0.0, 0, 1.0)",
+      "$type": "cubicBezier",
+      "$description": "Emphasised — biased toward the end. Use for moments that should land with intent (gauge fill, story reveals, hero CTAs).",
+      "$extensions": {
+        "com.risqbase.role": "primitive",
+        "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "easing/emphasised" }
+      }
+    },
+    "decelerated": {
+      "$value": "cubic-bezier(0.0, 0.0, 0.2, 1)",
+      "$type": "cubicBezier",
+      "$description": "Pure deceleration — fast in, ease to rest. Use for entries: things appearing on screen (modals, drawers, citation chips mounting).",
+      "$extensions": {
+        "com.risqbase.role": "primitive",
+        "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "easing/decelerated" }
+      }
+    }
+  }
+}
