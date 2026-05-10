@@ -10,7 +10,7 @@
 
 ## 1. Executive summary
 
-v4.2 is a documentation release. The audit identifies 22 implementation rows that are spec'd-but-not-built; this programme ships **19** of them across **6 two-week sprints (~12 weeks)**, exiting through gates G1 → G4 → G2 → G5 → G6 → G7. Outputs: `@risqbase-inc/ui-components` v1.3.0 with new `data-viz/` and `ai/` domains in **light + dark + HC modes**, public doc site at `design.risqbase.com`, Figma library synced from JSON, and three consumer apps (RALIA, RisqBase, Cortex) on the new package.
+v4.2 is a documentation release. The audit identifies 22 implementation rows that are spec'd-but-not-built; this programme ships **20** of them across **6 two-week sprints (~12 weeks)**, exiting through gates G1 → G4 → G2 → G5 → G6 → G7. Outputs: `@risqbase-inc/ui-components` v1.3.0 with new `data-viz/` and `ai/` domains in **light + dark + HC modes**, public doc site at `design.risqbase.com`, Figma library synced from JSON, and three consumer apps (RALIA, RisqBase, Cortex) on the new package.
 
 **Out of v4.2 scope:** telemetry rows U4.1, U4.2, U4.3 — deferred to post-launch when the in-house Plausible-spec tag → Cortex integration is built.
 
@@ -53,7 +53,7 @@ v4.2 is a documentation release. The audit identifies 22 implementation rows tha
 
 ---
 
-## 4. Owner-by-row matrix (19 audit `[~]` rows in v4.2 scope)
+## 4. Owner-by-row matrix (20 audit `[~]` rows in v4.2 scope)
 
 | Row | Description | Primary | Reviewer |
 |---|---|---|---|
@@ -127,7 +127,7 @@ v4.2 is a documentation release. The audit identifies 22 implementation rows tha
 ## 7. Definition of done — "v4.2 implementation has shipped"
 
 - [ ] `@risqbase-inc/ui-components` `1.3.0` published to GitHub Packages; install verified from a clean machine.
-- [ ] All 19 audit `[~]` rows in scope flipped to `[x]` in a v4.2.1 audit pass authored by Elena.
+- [ ] All 20 audit `[~]` rows in scope flipped to `[x]` in a v4.2.1 audit pass authored by Elena.
 - [ ] `design.risqbase.com` live and indexed; v4.2 changelog post (U6.6) and three composite chart-pattern recipe bodies (U1.13) accessible.
 - [ ] All three modes (light + dark + HC) verified across all three consumers — Chromatic green.
 - [ ] `Risqbase-Inc/Ralia`, `Risqbase-Inc/RisqBase`, `Risqbase-Inc/internal-tools` on `1.3.0` with green CI.
