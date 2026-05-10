@@ -28,7 +28,14 @@ export function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
+  // Border-radius is read from the `dimension.radius.button.default` role
+  // token (spec §15.4 + tokens/component/button.json) so future shape
+  // changes happen in tokens, not component code. Resolves to 12px today
+  // (= Tailwind `rounded-xl`, no pixel change for v1.x consumers). The
+  // pill-vs-radius brand-baseline question is logged in
+  // docs/design-system/v4.2/v4.2.1-backlog.md and
+  // docs/design-system/v4.2/notes/button-radius-decision.md.
+  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-[var(--dimension-radius-button-default)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
   const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`
 
   if (href) {
