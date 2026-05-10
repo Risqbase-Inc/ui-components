@@ -1,6 +1,6 @@
 # RisqBase Design System v4.2 — Comprehensive Update Plan + Audit Tracker
 
-**Document ID:** GOV-DS-2026-02-PLAN-420
+**Document ID:** GOV-DS-2026-02-PLAN-4.2
 **Date:** 7 May 2026
 **Prepared by:** Elena Vasquez
 **Status:** Plan (not yet executed)
@@ -300,4 +300,4 @@ If a hard launch date forces a cut, the irreducible minimum is **F1 + F2 + the c
 
 **Plan complete. Awaiting CEO approval before any v4.2 work begins.**
 
-**END OF GOV-DS-2026-02-PLAN-420**
+**END OF GOV-DS-2026-02-PLAN-4.2**
