@@ -16,9 +16,6 @@ jobs:
     permissions:
       contents: write
       packages: write
-    # TODO(alex): remove `if: false` once `apps/docs` path is confirmed
-    # and the monorepo tool decision (npm workspaces vs pnpm vs Turbo) lands.
-    if: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
