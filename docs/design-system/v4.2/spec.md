@@ -1339,170 +1339,228 @@ Per §17 (rows 53–63), CI lints the following:
 - Every chart provides a data-table fallback (component test)
 - Every pattern recipe whose `composed_of` includes a chart has the §8.1.2 three-question block populated
 
-### 8.16 Print variants per chart type (v4.2.1 patch)
+### 8.17 Composite chart-pattern recipes (v4.2.1 patch)
 
-Regulator submissions, audit packs, and exported PDFs render charts in print contexts where colour is unreliable (B&W printers, photocopied evidence, faxed regulator response). v4.2.1 specifies a print variant for every chart type in §8.1.1 so the print output is **canonically the same chart** — same anatomy, same data-table fallback, same accessibility — with a B&W-safe encoding swapped in.
+Three canonical recipes for composing the §8.1.1 chart types into common dashboard / report surfaces. Each recipe conforms to the §20.0 Pattern Recipe Schema and the §20.0.1 `voice_examples` template-binding contract introduced in v4.2.1.
 
-*Section-ID correction: the v4.2.1 patch plan referenced "§8.13 Print variants". §8.13 is "Charts and IRIS". The next free slot after §8.15 is §8.16; this section lands there.*
+*Section-ID correction: the v4.2.1 patch plan referenced "§8.12". §8.12 is "Marketing-site charts" — a use-case-specific section, not the right home for canonical composite recipes. §8.16 = print variants (A1). §8.17 is the next free slot. Patch row updated.*
 
-**Token contract.** `tokens/themes/print.json` (named in §15.2.1; values land in v4.2.1 + v4.3) carries the print-mode overrides for every chart container token (§15.6.8) and every band/seq/cat semantic token. The override drops chroma to zero while preserving luminance, so the print mode appears as the greyscale projection of the on-screen design.
+The recipes are **canonical**: products pick from these compositions rather than authoring ad-hoc dashboard layouts. Recipe schema is inline here; the full pattern index lives in §20.1.
 
-#### 8.16.1 General print conventions
+---
 
-These apply to every chart, before per-type rules:
+#### 8.17.1 `dashboard-chart-row`
 
-- **Monochrome rule.** Print mode renders all marks in greyscale derived from the luminance channel of the on-screen palette. Categorical distinction in print is **never colour-only** — series differentiation falls entirely to pattern fills (§8.16.2) for bars / regions, dash styles (§8.16.3) for lines, and shape variation (§8.16.4) for points.
-- **Page-break rule.** Charts do not break across pages. If a chart's natural height exceeds the available page height, it shrinks proportionally to fit (minimum legibility threshold: 480 × 320 logical pixels). If shrinking would breach the minimum, the chart moves to the next page and a footnote in the originating context reads *"Chart continues overleaf."*.
-- **Caption inheritance.** Print preserves the on-screen `<figcaption>` verbatim (§8.5.1 row 1). The screen-only "Tap a mark for detail" hint is stripped per §8.16.5.
-- **Source attribution.** Every print chart gains a `Source:` footnote line immediately below the figure, drawn from the recipe's `source` field (regulator name + report date + DOI/URL when available). Required for regulator-facing surfaces; recommended elsewhere.
+```yaml
+id: "dashboard-chart-row"
+title: "Dashboard chart row"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  A dashboard surface needs to summarise a single domain with a value + a trend + a context split, in a single horizontal row that scans left-to-right.
+when_to_use: |
+  - Hero-row of a dashboard (the first row a user reads).
+  - One value is the answer to "how are we doing?" — supported by trend + breakdown.
+  - The row is sized to fit on one viewport above the fold (responsive).
+when_not_to_use: |
+  - Multiple unrelated metrics — use a grid of metric cards instead.
+  - Trend shape isn't legible at sparkline-size — promote to a full line chart in its own row.
+  - Breakdown has more than 4 categories — promote to a full bar chart.
+composed_of:
+  - metric-card        # §8.1.1 single-value, the headline number with delta
+  - sparkline          # §8.1.1 time — direction at a glance
+  - bar-horizontal     # §8.1.1 comparison — breakdown by 2-4 categories
+layout:
+  type: "grid"
+  columns: 12
+  gap: "{dimension.density.default.gap}"
+  cells:
+    - { component: "metric-card",    span: 4, role: "primary" }
+    - { component: "sparkline",      span: 3, role: "supporting" }
+    - { component: "bar-horizontal", span: 5, role: "context" }
+  responsive:
+    - { breakpoint: "<768px", stack: true, order: ["metric-card", "sparkline", "bar-horizontal"] }
+states:
+  - loading:    "Skeleton matching the three-cell layout; each cell shows its own skeleton per §8.6."
+  - empty:      "Show the row with the metric card displaying 'No data yet' (§10.5.3 template); sparkline + bar collapse to empty-state icons."
+  - error:      "Whole row shows a single Banner per §10.5.4 with retry; underlying cells suppressed until retry succeeds."
+  - partial:    "Cells render independently — metric-card may render while sparkline is still loading."
+voice_examples:
+  - template_id: "10.5.3"
+    context: "metric-card shows zero records this quarter"
+    rendered: "No DPIAs in this period. New assessments will appear here."
+  - template_id: "10.5.4"
+    context: "data fetch failed for the breakdown"
+    rendered: "Couldn't load the breakdown. Try again."
+  - template_id: "10.5.5"
+    context: "tooltip on the delta pill in the metric-card"
+    rendered: "Change since the previous period of the same length."
+variants:
+  - "comparison-mode": "Replace sparkline with a paired-bar comparing two time periods (uses §8.17.2 sub-pattern)."
+  - "score-mode":      "Replace metric-card with a §8.1.1 gauge when the value is bounded 0-100."
+related: ["8.17.2", "20.6", "20.14"]
+keyboard:
+  - "Tab focuses metric-card first, then sparkline, then bar — per visual flow."
+  - "Within the bar, arrow keys move between bars per §8.5.1 row 2."
+accessibility:
+  - "Chart row is a single `<section>` with `aria-label` 'Dashboard summary row for <domain>'."
+  - "Sparkline carries `aria-hidden='true'` when the metric-card delta-pill carries the same direction signal — avoid double-announcement."
+  - "All three cells reachable via `t` (table-fallback shortcut, §5.8.3.3) to toggle into a unified table view."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
 
-#### 8.16.2 Pattern fills (B&W-safe) — for bar, region, and choropleth marks
+---
 
-Four densities per series. Each density passes the WCAG forced-colors test for non-colour-only differentiation and remains legible at 1:1 print resolution (300 dpi).
+#### 8.17.2 `time-comparison-chart`
 
-| # | Pattern | Series role | Example use |
-|---|---------|-------------|-------------|
-| 1 | Solid 80% black | Series 1 (canonical / primary) | Highest-impact bar / canonical-value polygon |
-| 2 | Cross-hatch 45° (3px stroke, 6px spacing) | Series 2 | Secondary bar, secondary risk-band |
-| 3 | Dotted (2px dot, 4px spacing) | Series 3 | Tertiary bar / heatmap level-2 |
-| 4 | Diagonal hatch (2px stroke, 8px spacing, 30°) | Series 4 | Quaternary bar / heatmap level-3 |
+```yaml
+id: "time-comparison-chart"
+title: "Time comparison chart"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  Showing the same metric across two time periods (this quarter vs last; this year vs same period last year) where the reader wants to see whether the trajectory is improving or worsening.
+when_to_use: |
+  - Reporting surfaces, regulator-facing exports, quarterly review documents.
+  - The reader's primary question is "are we trending in the right direction?" — not "what is the current value?".
+  - Both periods share the same length and the same data shape.
+when_not_to_use: |
+  - More than two periods — use a multi-series line per §8.1.1 (DM-7).
+  - Periods of different length — use small-multiples instead so each line keeps its own scale.
+  - The current-period value is what matters; the comparison is decorative — use `dashboard-chart-row` instead.
+composed_of:
+  - line              # §8.1.1 time — two series, this period + comparison period
+  - metric-card       # §8.1.1 single-value — the current value with delta vs comparison
+  - sparkbar          # §8.1.1 single-value — inline per-segment deltas (optional)
+layout:
+  type: "stack"
+  direction: "vertical"
+  gap: "{dimension.density.default.gap}"
+  cells:
+    - { component: "metric-card",    role: "header" }
+    - { component: "line",           role: "primary",   minHeight: "240px" }
+    - { component: "sparkbar",       role: "footer",    minHeight: "48px", optional: true }
+  responsive:
+    - { breakpoint: "<480px", lineMinHeight: "180px", sparkbar: false }
+states:
+  - loading:    "Skeleton with header bar + plot-area shimmer at line proportions + sparkbar shimmer."
+  - empty:      "Render the metric-card with `--`; line shows axes only with annotation 'No data for the comparison period yet.'"
+  - error:      "Banner replaces the whole stack per §10.5.4 with retry."
+  - partial:    "If only the comparison period is missing, render the current-period line solid and the comparison-period line ghosted with annotation."
+voice_examples:
+  - template_id: "10.5.5"
+    context: "tooltip on the comparison line"
+    rendered: "Same period a year ago."
+  - template_id: "10.5.3"
+    context: "comparison period missing (e.g., first year of data)"
+    rendered: "No data for the comparison period yet."
+  - template_id: "10.5.5"
+    context: "delta pill in metric-card explanation"
+    rendered: "Difference from the same period a year ago."
+variants:
+  - "delta-mode":      "Replace the line with a paired-bar (§8.1.1 relationship, DM-3) when periods are short and bin-able."
+  - "annotation-mode": "Add `RuleMark` annotations at significant events (regulator action, policy change) drawing on §8.4 anatomy."
+related: ["8.17.1", "20.6", "20.8"]
+keyboard:
+  - "Tab focuses metric-card, then the line."
+  - "Within the line, arrow keys move between time points; PgUp/PgDn switch series."
+accessibility:
+  - "Both lines distinguishable in print via dash style §8.16.3 (solid + dashed)."
+  - "Comparison line gets a per-mark `aria-label` with full date + value + delta against the current series."
+  - "Data-table fallback (§8.5.5) shows columns: 'Time', '<current period> value', '<comparison period> value', 'Delta'."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
 
-Series 5–8 cycle through the four densities at progressively darker base values (90% black, 70% black, 60% black, 50% black). Beyond eight series the chart is too dense for print — use small-multiples or a data-table fallback (§8.5.5).
+---
 
-For **choropleth** the pattern fills replace the sequential ramp: regions in the highest sequential stop fill with solid 80% black, next stop with cross-hatch, etc. The legend is mandatory in print (it is optional on screen).
+#### 8.17.3 `distribution-drilldown`
 
-#### 8.16.3 Line dash styles — for line, area-boundary, rule marks
+```yaml
+id: "distribution-drilldown"
+title: "Distribution drilldown"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  Showing the shape of a distribution (how values spread across observations) with the ability to drill into a single bin / band / outlier to see the underlying items.
+when_to_use: |
+  - The reader needs to understand both the shape ("is the distribution skewed?") and individual items ("which 12 records make up the high tail?").
+  - The dataset is interactive — drill-into is meaningful.
+  - The detail view is a list/table, not another chart.
+when_not_to_use: |
+  - Static export (regulator PDF) — the drilldown collapses to a footnote; use a single histogram or box plot per §8.1.1 (DM-4) and append the relevant detail table separately.
+  - Distribution is bimodal or multi-modal — use density curve or violin per §8.1.1.
+  - The reader's question is "what is the typical value?" — use a metric-card with a sparkline.
+composed_of:
+  - histogram         # §8.1.1 distribution — primary overview
+  - box-plot          # §8.1.1 distribution — optional summary overlay
+  - bar-horizontal    # §8.1.1 comparison — drilldown detail view
+  - metric-card       # §8.1.1 single-value — selected-bin summary
+layout:
+  type: "split"
+  orientation: "horizontal"
+  ratio: [7, 5]
+  cells:
+    - role: "overview"
+      stack:
+        - { component: "histogram",  minHeight: "320px" }
+        - { component: "box-plot",   minHeight: "80px", optional: true }
+    - role: "drilldown"
+      stack:
+        - { component: "metric-card",     role: "selected-bin-summary" }
+        - { component: "bar-horizontal",  role: "selected-bin-items" }
+  responsive:
+    - { breakpoint: "<1024px", stack: true, drilldownInitiallyHidden: true }
+states:
+  - loading:       "Both panes show skeletons matching their final proportions."
+  - empty:         "Histogram renders axes only with annotation 'No data to distribute.'"
+  - empty-bin:     "User selected a bin with 0 items: drilldown pane shows §10.5.3 empty-state."
+  - error:         "Drilldown pane shows §10.5.4 error with retry; overview pane retains the last successful render."
+  - partial:       "If drilldown data is delayed but overview rendered, drilldown pane shows skeleton until ready."
+  - no-selection:  "Drilldown pane shows hint 'Select a bin to see the items in it.'"
+voice_examples:
+  - template_id: "10.5.5"
+    context: "hint when no bin is selected"
+    rendered: "Select a bar to see the items in that bin."
+  - template_id: "10.5.3"
+    context: "user selected a bin with zero records"
+    rendered: "No items in this bin yet."
+  - template_id: "10.5.4"
+    context: "drilldown fetch failed"
+    rendered: "Couldn't load items for this bin. Try again."
+  - template_id: "10.8.1"
+    context: "AI-summarised drilldown — confidence < 0.7"
+    rendered: "Based on partial evidence, the top items appear to share a regulatory trigger."
+variants:
+  - "table-detail":  "Replace bar-horizontal in the drilldown pane with a sortable §10.6.5 table when items have many attributes."
+  - "filter-bound":  "Add a filter chip below the histogram that filters BOTH overview and drilldown — for cross-filter dashboards."
+related: ["8.17.1", "20.7", "20.12", "20.14"]
+keyboard:
+  - "Tab focuses histogram first; arrow keys move between bins."
+  - "Enter on a bin opens its drilldown; Escape clears selection and returns hint state."
+  - "From the drilldown bar, Tab moves to the first list item; arrow keys navigate the list."
+  - "`t` toggles to a unified data-table fallback showing the distribution + the selected-bin items."
+accessibility:
+  - "Selection is announced via `aria-live='polite'`: 'Selected bin: <range>, <n> items'."
+  - "Drilldown pane has `role='region'` and `aria-labelledby` pointing to the bin label."
+  - "In print, the drilldown pane is omitted and a footnote per §8.16.6 directs to the interactive version."
+  - "Data-table fallback structure: row per bin in the overview, expandable row per item in the selected bin."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
 
-Lines distinguish series by dash + colour on screen, dash-only in print. Six canonical dash styles cycle for line series 1–6; series 7+ use small-multiples.
+---
 
-| # | Dash style | Series role |
-|---|-----------|-------------|
-| 1 | Solid 2px | Series 1 |
-| 2 | Dashed (6px on, 4px off) | Series 2 |
-| 3 | Dotted (1px on, 3px off) | Series 3 |
-| 4 | Dash-dot (4-2-1-2) | Series 4 |
-| 5 | Long-dash (12px on, 4px off) | Series 5 |
-| 6 | Long-dash-dot (12-4-1-4) | Series 6 |
+**Three-question test (per §8.1.2) — recorded inline per recipe.**
 
-Stroke weight is constant (2px) — emphasis is via dash, not weight, because weight reads as "this series matters more" rather than "this series is series 3".
+| Recipe | Single sentence supported | Could a number / sparkline / sentence suffice? | Primary reading mode |
+|--------|--------------------------|-----------------------------------------------|---------------------|
+| `dashboard-chart-row` | "Here's the current value, its direction, and how it's distributed across context, at a glance." | No — three orthogonal pieces. | Comparison + Time + Single-value (DM-1, DM-7, DM-9) |
+| `time-comparison-chart` | "We are trending {better/worse} than {a year/quarter} ago." | No — direction + magnitude both needed; a sparkline alone loses the comparison anchor. | Time (DM-7) |
+| `distribution-drilldown` | "The values are distributed like {shape}; the {tail/outliers/peak} contains these specific items." | No — distribution shape AND item-level detail are both load-bearing. | Distribution + Comparison (DM-4 + DM-1) |
 
-#### 8.16.4 Shape variants — for dot, symbol-map, scatter marks
-
-Points use eight shape variants cycling per series:
-
-| # | Shape | Series role |
-|---|-------|-------------|
-| 1 | Filled circle | Series 1 |
-| 2 | Filled square | Series 2 |
-| 3 | Filled triangle (apex up) | Series 3 |
-| 4 | Filled diamond | Series 4 |
-| 5 | Open circle (2px outline) | Series 5 |
-| 6 | Open square (2px outline) | Series 6 |
-| 7 | Open triangle (apex up, 2px outline) | Series 7 |
-| 8 | Open diamond (2px outline) | Series 8 |
-
-Filled variants come first because filled shapes read at smaller sizes; open variants extend the series count without losing print legibility.
-
-#### 8.16.5 Legend conventions in print
-
-- **Legend is mandatory in print** for every chart with more than one series, regardless of whether it appeared on screen. Without legend, dash/pattern/shape lookups are not resolvable.
-- Legend swatch shows the print encoding (pattern fill, dash sample, shape glyph) — not the on-screen colour.
-- Legend position: below the plot-area, left-aligned. Multi-column when series ≥ 5 (max 3 columns).
-- Legend text uses `font-feature-settings: "tnum"` (tabular numerals) so series counts/units align across rows.
-
-#### 8.16.6 Omitted interactive states — footnote rule
-
-Print captures a moment. Charts that have interactive states (hover, focus, tooltip, drilldown, click-through) drop those states in print and gain a footnote, formatted exactly:
-
-> *In the interactive version on `design.risqbase.com`, this chart supports {<hover|tooltip|drilldown|filter>}. The static print version shows the {<initial|filtered|drilled>} state.*
-
-Required for any chart with `tooltip`, `onClick`, `drilldown`, or `filter` anatomy nouns. Optional for charts with hover-only emphasis (states that don't change which data the chart shows).
-
-#### 8.16.7 Per-chart-type print encoding
-
-Each canonical chart type from §8.1.1 maps to a specific print encoding. The rule applies regardless of which on-screen palette was used.
-
-##### Comparison
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Bar (vertical) | Pattern fills §8.16.2 per series | Bar widths preserved; axis labels rotate if labels >12 chars |
-| Bar (horizontal) | Pattern fills §8.16.2 per series | Preferred orientation for print when labels are long |
-| Grouped bar | Pattern fills §8.16.2; gap between groups preserved | Legend mandatory |
-| Lollipop | Stem as solid 80% black `RuleMark`; head as filled shape variants §8.16.4 | Reads better than bar at narrow widths |
-| Dot plot | Filled-shape series §8.16.4 | Connect lines (if any) use solid 1px between baseline + dot |
-
-##### Distribution
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Histogram | Single-series solid 80% black bars; bin labels on x-axis | Multi-series stacks switch to small-multiples in print |
-| Box plot | Solid box outline (2px), whisker rules, median rule emphasised (4px), outliers as filled circles §8.16.4 | Mean overlay (when shown) is an open circle |
-| Violin | Solid 1px silhouette, no fill | Falls back to box plot if silhouette would render below 2mm height |
-| Density curve | Dash styles §8.16.3 per series | Filled-curve overlay strips in print (legibility-critical) |
-
-##### Composition
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Stacked bar | Pattern fills §8.16.2 per series; segment boundaries 1px white | Legend mandatory |
-| Stacked area | Pattern fills §8.16.2 per series; boundary lines 1.5px solid black | Reads better than line in print for cumulative |
-| Treemap | Pattern fills §8.16.2 cycled by hierarchy depth; 1px white separators | Labels inside rectangles, font-size capped at 11pt |
-| Sunburst | Pattern fills §8.16.2 per ring; 1px white separators | Labels follow ring path; reads best at ≥ 80mm diameter |
-| Waffle | Pattern fills §8.16.2 per category; unit-square grid 1px outlined | 100 squares is the canonical resolution |
-
-##### Relationship
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Scatter | Filled-shape series §8.16.4; trend line (when shown) dash style 1 (solid) | High-overlap clusters add 30% opacity to avoid black blocks |
-| Paired bar | Pattern fills §8.16.2 (densities 1 + 2 only); pair gap preserved | Mandatory legend |
-
-##### Time
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Line | Dash styles §8.16.3 per series, 2px stroke | Markers at data points use shape variants §8.16.4 when series > 4 |
-| Area | Pattern fills §8.16.2 per series; boundary 1.5px solid | Stacked vs unstacked retained |
-| Sparkline | Solid 2px line, no axes (inline behaviour preserved) | If sparkline appears in a metric card, both render to print together |
-
-##### Geographic
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Choropleth | Pattern fills §8.16.2 per sequential stop; thin (0.5px) region borders | Legend mandatory; missing-data polygons render with diagonal-cross (`+` symbol fill) |
-| Symbol map | Filled-shape series §8.16.4 sized by value; 1px stroke for visibility against pale region fills | Legend mandatory |
-
-##### Part-to-whole
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Donut (≤ 2 wedges) | Pattern fills §8.16.2 densities 1 + 2; ring stroke 2px solid black | Centre-value tabular-nums |
-| Stacked-bar-100% | Pattern fills §8.16.2; segment boundaries 1px white | Mandatory legend |
-
-##### Single-value
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Metric card | Greyscale-luminance of on-screen palette; tabular-nums | Delta pill renders as bracketed text `(+12%)` not coloured pill |
-| Gauge | Solid 80% black arc + 30% black track; centre-value tabular-nums | Risk-band annotation uses pattern fills §8.16.2 for the threshold zones |
-| Sparkbar | Pattern fills §8.16.2 density 1; no axis | Inline within text |
-
-##### Flow
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Funnel | Pattern fills §8.16.2 per stage; stage widths preserved | Drop-off % renders as text annotation between stages |
-
-##### Heatmap
-
-| Type | Print encoding | Notes |
-|------|----------------|-------|
-| Heatmap (categorical) | Pattern fills §8.16.2 by sequential stop; cell borders 1px solid; in-cell value text tabular-nums | Legend mandatory; cell sizes ≥ 8mm at print resolution |
-
-#### 8.16.8 Verification
-
-Print variants verify against §17 row "Print fidelity — every chart in screen and print renders the same data, same anatomy, same data-table fallback, with print encoding per §8.16". CI: visual regression baselines include a `@media print` rendering of every chart in the Chromatic snapshot set (S5 implementation programme).
+**Reading the recipes.** A consumer authoring a new dashboard composes from these recipes by referencing the `id` in their pattern frontmatter (`composed_of: [..., dashboard-chart-row]`). Recipes can compose recipes — `time-comparison-chart` is referenced as a variant of `dashboard-chart-row` (the `comparison-mode` variant). Recipes do not compose components directly — that's the §8.7 layer.
 
 ---
 ## 9. Print & PDF Specifications

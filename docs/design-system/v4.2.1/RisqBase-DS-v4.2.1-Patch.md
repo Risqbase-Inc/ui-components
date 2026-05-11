@@ -125,10 +125,17 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Status.** Resolved.
 **Owner.** G1 + G4.
 
-### A3 — U1.13 Composite chart-pattern recipe bodies
-**Gap.** §8.12 has index entries; recipe bodies (per §20.0 schema) live "elsewhere".
-**Resolution.** Inline three recipes in §8.12: `dashboard-chart-row`, `time-comparison-chart`, `distribution-drilldown`. Each with trigger, data shape, composed_of, layout, states, voice_examples, anti-patterns. Per §20.0.
-**Acceptance.** §8.12 has three full recipe bodies, not links.
+### A3 — U1.13 Composite chart-pattern recipe bodies ✓
+**Gap.** §8.12 had index entries only; recipe bodies (per §20.0 schema) lived "elsewhere".
+**Resolution.** Added **§8.17** "Composite chart-pattern recipes" (corrected from patch's §8.12 — that's "Marketing-site charts", a use-case section, not the right home; §8.16 = print variants A1; §8.17 is the next free slot). Three full recipe bodies authored to §20.0 schema + §20.0.1 voice_examples template-binding contract:
+- **§8.17.1 `dashboard-chart-row`** — composed of metric-card + sparkline + bar-horizontal; 12-column grid layout with responsive stacking. Variants: comparison-mode, score-mode.
+- **§8.17.2 `time-comparison-chart`** — composed of line (2 series) + metric-card + sparkbar; vertical stack layout. Variants: delta-mode (paired-bar), annotation-mode (RuleMark events).
+- **§8.17.3 `distribution-drilldown`** — composed of histogram + box-plot + bar-horizontal + metric-card; split layout 7:5 with responsive stack-to-vertical. Variants: table-detail, filter-bound.
+
+Each recipe carries full schema: id, title, visibility (PUBLIC), status, problem, when_to_use, when_not_to_use, composed_of (referencing §8.1.1 types), layout (with §15.6.6 density tokens), states (loading / empty / error / partial / specialised), voice_examples (with §20.0.1 template_ids to real §10.5/§10.8 templates: 10.5.3 empty-state, 10.5.4 error, 10.5.5 help, 10.8.1 AI-hedging), variants, related, keyboard, accessibility, last_reviewed, owner. Three-question test (§8.1.2) recorded in summary table at end.
+
+Generic compositions — no product-specific or IRIS-specific content. Voice_examples reference generic content templates from §10.5 (and §10.8.1 for AI-hedging only, where applicable).
+**Status.** Resolved.
 **Owner.** G4.
 
 ### A4 — U2.9 Promotion log entries in §23 ✓
@@ -203,7 +210,7 @@ Section-ID correction: patch said §10.4 but §10.4 is "Headings and labels"; th
 | `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
 | `[x]` | A1 | §8.16 print variants per chart type (corrected from §8.13) — 8 sub-sections covering all 28 T2 chart types | P1 | G4 + Frontend |
 | `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
-| `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
+| `[x]` | A3 | §8.17 three composite recipe bodies (corrected from §8.12) — dashboard-chart-row, time-comparison-chart, distribution-drilldown | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
 | `[x]` | A5 | §10.3.3 number-formatting expansion (4 typed tables, corrected from §10.4) | P1 | G8 |
 | `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
