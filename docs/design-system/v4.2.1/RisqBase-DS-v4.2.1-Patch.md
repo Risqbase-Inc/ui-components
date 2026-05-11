@@ -140,24 +140,28 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 
 ## P2 — Governance hygiene
 
-### G1 — Sonification status note
-**Gap.** Plan U1.7 mentioned "sonification optional"; spec §8.6 is silent.
-**Resolution.** §8.6 gains a one-line note: sonification deferred (target version), components must not block instrumentation hooks for it.
+### G1 — Sonification status note ✓
+**Gap.** Plan U1.7 mentioned "sonification optional"; chart accessibility (§8.5) was silent.
+**Resolution.** Added §8.5.6 "Sonification (deferred)" with the deferral target (v4.3) and the non-foreclosure rule for component instrumentation surfaces. (Section ID corrected from §8.6 → §8.5.6: §8.6 is "Chart states", not chart accessibility; the accessibility chapter is §8.5.)
+**Status.** Resolved.
 **Owner.** G4.
 
-### G2 — `marketing/` → `content/` rename note
+### G2 — `marketing/` → `content/` rename note ✓
 **Gap.** Plan U2.8 listed five domains including `marketing/`; spec §22.2 lists `content/` instead. The semantic shift (component primitives vs content-design tooling) is real and undocumented in §16 migration.
-**Resolution.** §16.2 migration table gains a row noting the rename, the scope shift, and the rationale.
+**Resolution.** §16.2 migration table gains step 7 noting the rename, the scope shift (content-design tooling, not surface primitives), and that no code action is required for existing consumers.
+**Status.** Resolved.
 **Owner.** G4.
 
-### G3 — §17 checklist row-count drift (53–60 → 53–80)
+### G3 — §17 checklist row-count drift (53–60 → 53–80) ✓
 **Gap.** Plan said "rows 53–60"; spec ships 53–80 (28 new rows). Net positive but undocumented.
-**Resolution.** §17 prefatory note acknowledges the row-count expansion and the rationale. Establishes a convention for tracking future drift.
+**Resolution.** §17 gains a prefatory note explaining the expansion (F1 data-viz +8, F3 content +6, F5 Figma-sync +4) and establishing a convention: any version that expands the checklist by >25% of plan estimate flags the drift in the publishing PR.
+**Status.** Resolved.
 **Owner.** G4.
 
-### G4 — Doc-site status line
-**Gap.** Spec references `design.risqbase.com/changelog/v4.2`. The site does not exist. F4 telemetry/adoption story is hard to land without it.
-**Resolution.** §18 notes doc-site status (not yet live), target date, and which other rows depend on it. F4 audit rows in `audit.md` cross-reference this dependency.
+### G4 — Doc-site status line ✓
+**Gap.** Spec referenced `design.risqbase.com/changelog/v4.2`, `/migration/v4.2`, `/accessibility`. The site is live as a placeholder (single static page on Vercel project `design`) but the content-and-code parity site of §18.1 is not yet built.
+**Resolution.** §18 gains a status note explaining placeholder vs full-parity site, citing `implementation-plan.md` §5.3 as the implementation home, and recording the F4 dependency.
+**Status.** Resolved.
 **Owner.** G4 + G1.
 
 ---
@@ -176,10 +180,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |
 | `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
 | `[ ]` | A7 | §15.1 figma `$extensions` key | P1 | G1 |
-| `[ ]` | G1 | §8.6 sonification status note | P2 | G4 |
-| `[ ]` | G2 | §16.2 `marketing/` → `content/` rename note | P2 | G4 |
-| `[ ]` | G3 | §17 checklist row-count drift note | P2 | G4 |
-| `[ ]` | G4 | §18 doc-site status line | P2 | G4 + G1 |
+| `[x]` | G1 | §8.5.6 sonification status note (corrected from §8.6) | P2 | G4 |
+| `[x]` | G2 | §16.2 `marketing/` → `content/` rename note | P2 | G4 |
+| `[x]` | G3 | §17 checklist row-count drift note | P2 | G4 |
+| `[x]` | G4 | §18 doc-site status line | P2 | G4 + G1 |
 
 **Targeted timeline.** 2 weeks. P0 substrate work (T1–T3) is the long pole; P1 and P2 items are day-each tasks that can run in parallel.
 

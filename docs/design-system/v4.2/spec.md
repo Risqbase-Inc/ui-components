@@ -1013,6 +1013,10 @@ In Windows High Contrast Mode (`forced-colors: active`):
 
 The fallback is a real `<table>` with `<caption>` matching the chart title, `<thead>` for category headers, `<tbody>` rows for each data point, and `tabular-nums` numeric cells. It is implemented by the chart component — the consumer does not author it. The chart container exposes the table via shadow DOM (`<chart-component>` element) or as a sibling element with `aria-hidden="false"` when active and `aria-hidden="true"` when the visual chart is shown.
 
+#### 8.5.6 Sonification (deferred)
+
+Sonification — audio rendering of chart data alongside the visual representation — was scoped in plan U1.7 and is **deferred to v4.3**. Chart components must not foreclose it: any instrumentation surface (per-mark focus events, accessible value-text emission via `aria-valuenow`/`aria-valuetext`, reduced-motion gating in §8.5.3, forced-colors gating in §8.5.4) must remain reachable so the v4.3 sonification layer can wrap a chart without component refactoring. When v4.3 lands, sonification ships as an opt-in accessibility provision (sixth row in §8.5.1) with a defined audio-cue model, volume control, and a `prefers-reduced-motion`-aware fallback.
+
 ### 8.6 Chart states
 
 Every chart has six possible states. The component handles all six; the consumer never hand-rolls one.
@@ -1849,6 +1853,7 @@ Consumers should plan one PR per migration step; each step is independently merg
 | 4 | Replace any hand-rolled chart code with `data-viz/` components | v5.0 |
 | 5 | If consumer custom-styles `<Gauge>`, audit that `palette` prop covers the case | v5.0 |
 | 6 | Adopt the W3C JSON tokens as authoring source (optional — only relevant if the consumer extends the token set) | optional |
+| 7 | The `marketing/` domain proposed in plan U2.8 ships as `content/` in v4.2 (see §22.2). The semantic shift is intentional: `content/` is content-design tooling (voice-aware copy primitives, content patterns, locale-aware formatters) rather than component primitives for a specific surface. No code action for existing consumers; future consumers authoring against `content/` should use that path rather than `marketing/` | informational |
 
 ### 16.3 Visual regression contract
 
@@ -1861,6 +1866,8 @@ The exception: charts. v4.1 had no shared chart components, so consumers' hand-r
 ## 17. Verification Checklist
 
 Every PR touching design-system code, design-system documentation, or any consuming surface is verified against this checklist. CI lints the items marked **(lint)**; reviewers verify the rest. Items 1–44 are unchanged from v4.1; items 45–52 are unchanged from v4.1.1; items 53–80 are new in v4.2.
+
+> **Row-count note (v4.2.1 hygiene).** The v4.2 plan named "rows 53–60" — a net of seven new verification items. The spec ships **twenty-eight new items (rows 53–80)** because the F1 data-visualisation chapter (eight new rows alone), the F3 voice-and-content expansion (six new rows), and the F5 Figma-sync programme (four new rows) each carried more verification weight than the plan estimated. Net positive but undocumented when v4.2 published; recorded here so future drift between plan and verification checklist count is acknowledged in the publishing PR rather than left as an audit-time discovery. Convention going forward: any version that expands the checklist by more than 25 % of plan estimate flags the drift in this prefatory note.
 
 | # | Rule | v |
 |---|------|---|
@@ -1948,6 +1955,8 @@ Every PR touching design-system code, design-system documentation, or any consum
 ---
 
 ## 18. Governance
+
+> **Doc-site status (v4.2.1 hygiene).** `design.risqbase.com` is **live as a placeholder** today (a single static page hosted on Vercel, project `design`). The full content-and-code parity site described in §18.1 is part of S6 of the v4.2 implementation programme (see `implementation-plan.md` §5.3). Until S6 ships, references to `design.risqbase.com/changelog/v4.2`, `design.risqbase.com/migration/v4.2`, `design.risqbase.com/accessibility`, and any other deep links elsewhere in this spec resolve to the placeholder. F4 audit rows (telemetry, adoption) depend on this site being live; they cannot pass verification before S6 publishes.
 
 ### 18.1 Content-and-code parity (Polaris-inspired)
 
