@@ -124,10 +124,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Acceptance.** §10.4 has ≥ 4 typed tables; verification rows referenced in §17.
 **Owner.** G8.
 
-### A6 — U3.7 Recipe schema → §10 cross-reference + lint
-**Gap.** Recipe schema `voice_examples` field exists but does not require referencing §10.5/§10.8 templates; without enforcement §10 is decorative.
-**Resolution.** §20.0 schema docs require `voice_examples[].template_id` referencing a §10.5 or §10.8 template. CI lint script `lint:recipes-voice` named in §15.8 (implementation deferred to engineering programme).
-**Acceptance.** §20.0 spec updated; lint script named; verification row in §17.
+### A6 — U3.7 Recipe schema → §10 cross-reference + lint ✓
+**Gap.** Recipe schema `voice_examples` field existed but did not require referencing §10.5/§10.8 templates; without enforcement §10 was decorative.
+**Resolution.** Added §20.0.1 "`voice_examples` — template-bound". Every entry must carry a `template_id` matching `^10\.[58]\.\d+$`. New required fields: `template_id`, `context`, `rendered`. Worked YAML example included. CI gate `lint:recipes-voice` named in §15.8.4 with full implementation contract (script walks `apps/docs/content/patterns/**/*.mdx`, asserts the regex, resolves IDs against a generated template index). Implementation deferred to engineering programme per `implementation-plan.md` §5.3; the spec contract is binding from v4.2.1.
+**Status.** Resolved.
 **Owner.** G4.
 
 ### A7 — U5.2 Figma `$extensions` key reconciliation
@@ -174,7 +174,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
 | `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |
-| `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
+| `[x]` | A6 | §20.0.1 voice_examples template binding + §15.8.4 `lint:recipes-voice` | P1 | G4 |
 | `[ ]` | A7 | §15.1 figma `$extensions` key | P1 | G1 |
 | `[ ]` | G1 | §8.6 sonification status note | P2 | G4 |
 | `[ ]` | G2 | §16.2 `marketing/` → `content/` rename note | P2 | G4 |
