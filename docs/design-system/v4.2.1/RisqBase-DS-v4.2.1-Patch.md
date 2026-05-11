@@ -100,10 +100,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Acceptance.** §8.13 covers every chart type in the T2 taxonomy. `tokens/themes/print.json` carries matching tokens.
 **Owner.** G4 + Frontend.
 
-### A2 — U1.9 Library + version pin
-**Gap.** §8.7 implies Visx / Recharts / Observable Plot without picking. "Library decision" is the rest of the chapter's predicate.
-**Resolution.** §8.7 names: `Library: visx@3.x` (or final selection). One-paragraph rationale. List of Visx-wrapped components, list of direct-Visx components, list of custom (D3-only) components.
-**Acceptance.** §8.7 names exactly one library with version range. §22.4 dependency list aligns.
+### A2 — U1.9 Library + version pin ✓
+**Gap.** §8.7 implied Visx / Recharts / Observable Plot without picking. "Library decision" is the rest of the chapter's predicate.
+**Resolution.** §8.7 names **`visx@^3.0.0`** as the charting library per D9. Adds: (a) rejection rationale for Recharts, Observable Plot, Nivo, Direct D3; (b) component-by-component Visx contact surface table distinguishing Visx-wrapped vs Direct-D3 vs RisqBase-composition-only; (c) version-pin policy — `peerDependencies` recorded, CI lock via `package-lock.json`, `4.x` upgrade is a major version bump.
+**Status.** Resolved.
 **Owner.** G1 + G4.
 
 ### A3 — U1.13 Composite chart-pattern recipe bodies
@@ -170,7 +170,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
 | `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
 | `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
-| `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
+| `[x]` | A2 | §8.7 library + version pin (`visx@^3.0.0`) | P1 | G1 + G4 |
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
 | `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |

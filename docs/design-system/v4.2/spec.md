@@ -1030,6 +1030,37 @@ Default empty/error/stale copy comes from §10.5; consumers may override with pr
 
 ### 8.7 Chart components in `@risqbase-inc/ui-components/data-viz`
 
+**Charting library: `visx@^3.0.0`** *(decision D9, `implementation-plan.md`; audit U1.9 fill)*
+
+`@visx` is the React-D3 bridge: it ships D3's scales, shapes, axes, and geometric primitives as React components with full SSR support and per-primitive tree-shaking. It does not impose a chart shape; the design-system components below impose the shape via composition.
+
+**Why Visx over alternatives.**
+
+| Considered | Rejected because |
+|------------|-----------------|
+| Recharts | High-level API ergonomic for prototypes but the prescribed look-and-feel forces escape hatches at the rate of one per non-trivial chart. Abstraction tax is unsustainable for a design-system component shipping seven canonical chart types. |
+| Observable Plot | Elegant grammar-of-graphics API but DOM-only output (no SSR-safe initial render). Still pre-1.0 with breaking API churn. |
+| Nivo | Same abstraction-tax pattern as Recharts; heavier bundle. |
+| Direct D3 (no React bridge) | Too low-level — every chart becomes from-scratch React-D3 integration work. Well-trodden patterns but not free. |
+
+**Component-by-component Visx contact surface.**
+
+| Component | Visx-wrapped | Direct D3 | RisqBase composition only |
+|-----------|:---:|:---:|:---:|
+| `<Chart>` | — | — | ✓ |
+| `<BarChart>`, `<HorizontalBarChart>` | `@visx/shape`, `@visx/scale`, `@visx/axis` | — | composition |
+| `<LineChart>`, `<AreaChart>` | `@visx/shape`, `@visx/scale` | — | composition |
+| `<Sparkline>` | `@visx/shape` | — | composition |
+| `<Heatmap>` | `@visx/heatmap` | — | composition |
+| `<ChoroplethMap>` | partial | `topojson-client` (no Visx geo primitive) | composition |
+| `<Gauge>` | — | `d3-arc` (svg-arc only) | ✓ |
+| `<MetricCard>` | — | — | ✓ (not a chart) |
+| Marks (`<BarMark>`, `<LineMark>`, etc.) | wrap Visx mark primitives | — | composition |
+
+**Version pin.** `visx@^3.0.0` is recorded in `package.json#peerDependencies` (consumer-supplied, like React) and locked in CI via `package-lock.json`. Upgrade to `4.x` is a major design-system version: visual regression suite re-baselines.
+
+---
+
 The library ships these components in v4.2. All are MIT-licensed shared code; product-specific extensions live in product repos.
 
 | Component | What it is | Status |
