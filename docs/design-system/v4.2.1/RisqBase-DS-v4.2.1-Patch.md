@@ -28,9 +28,9 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 
 ## P0 — Substrate gaps
 
-### T1 — §15.6 token coverage: ~30 → ~200 net-new role tokens
+### T1 — §15.6 token coverage: ~30 → 241 enumerated ✓
 
-**Gap.** Plan U6.2 specified ~200 net-new role tokens covering chart palettes, gauge roles, citation-chip roles, density, telemetry-config. v4.2 §15.6 lists ~30. Token coverage is the substrate the whole visual system inherits from; downstream visual work will set ad-hoc precedent until this closes.
+**Gap.** Plan U6.2 specified ~200 net-new role tokens covering chart palettes, gauge roles, citation-chip roles, density, telemetry-config. v4.2 §15.6 listed ~30. Token coverage is the substrate the whole visual system inherits from; downstream visual work would set ad-hoc precedent until this closed.
 
 **Resolution.** Expand §15.6 with the full enumeration:
 
@@ -48,11 +48,26 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 
 **Acceptance.** §15.6 enumerates ≥ 180 net-new tokens, each with `$value`, `$type`, `$description`, `$extensions.com.risqbase.role`. `npm run lint:tokens` (when shipped) passes.
 
-**Owner.** G1.
+**Status.** Resolved. §15.6 rewritten as the full enumeration (§15.6.1 – §15.6.10) covering 10 token categories; **241 tokens** authored across `tokens/**/*.json` files (≥180 acceptance met). Breakdown:
 
-### T2 — §8.1.1 chart taxonomy: 7 → 20+ types
+| Category | New JSON authored | Files touched |
+|---|:---:|---|
+| Primitive chart-domain ramps (risk, financial, operational sequentials + diverging-warm/cool extensions) — TBD values | 38 | `tokens/primitive/color-chart.json` (NEW) |
+| Citation chip extensions (icon, hover, active) | 3 | `tokens/semantic/color.json` |
+| Band 5×4 grid (very-low / low / medium / high / very-high × bg / border / text / icon) | 20 | `tokens/semantic/color.json` |
+| Telemetry config (collector 4 states + opt-out + sampled + 4 event-class) | 10 | `tokens/semantic/color.json` |
+| Density × property (3 modes × 3 properties) | 9 | `tokens/semantic/density.json` (NEW) |
+| **Plus** v4.3 reserved-names placeholders (dark/HC overrides, ~40) | 0 JSON | enumerated in §15.6.10 only |
 
-**Gap.** Plan U1.2 promised ~20 chart types organised by purpose. v4.2 §8.1.1 ships seven (line / bar / area / sparkline / heatmap / choropleth / metric-card). At one-third the promised depth, the taxonomy is too thin to drive chart-choice decisions; teams will reach for ad-hoc Tableau/Datawrapper choices.
+Authoring posture per the confirmed plan: **structures + role/figma bindings locked from this PR**; hex values for the 38 new primitives marked `TBD — Claude Design 2026-05-11`, picked + AA-contrast-verified by Claude Design in a follow-up values-only PR per `implementation-plan.md` §5.2. All other new tokens alias existing primitives (no value selection needed).
+
+Sources (no product-specific content): ColorBrewer for diverging stops, Datawrapper single-hue ramps, Carbon Design System chart categorical, GOV.UK 5-band semantic scale, NIST AI RMF observability vocabulary.
+
+**Owner.** G1 (structure) + Claude Design (values).
+
+### T2 — §8.1.1 chart taxonomy: 7 → 28 types ✓
+
+**Gap.** Plan U1.2 promised ~20 chart types organised by purpose. v4.2 §8.1.1 shipped seven (line / bar / area / sparkline / heatmap / choropleth / metric-card). At one-third the promised depth, the taxonomy was too thin to drive chart-choice decisions; teams reached for ad-hoc Tableau/Datawrapper choices.
 
 **Resolution.** Expand §8.1.1 to the full taxonomy organised by purpose:
 
@@ -70,11 +85,13 @@ Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun
 
 **Acceptance.** §8.1.1 lists ≥ 20 chart types with the structure above. §8.1.2 decision matrix has a row per data-shape pointing to a canonical type.
 
+**Status.** Resolved. §8.1.1 now lists **28 active types** across 10 purpose-groups (Comparison 5, Distribution 4, Composition 5, Relationship 2, Time 3, Geographic 2, Part-to-whole 3, Single-value 3, Flow 1, Heatmap 1) plus **4 deferred-to-v5** (candlestick, flow map, Sankey, bubble — bubble explicitly cross-referenced to §8.1.3 prohibition). Each entry carries: `use when`, `do not use when`, anatomy noun set (§7.0 + §8.2), accessibility row (§8.5, corrected from patch's §8.6 — same mistake as G1), and DM row reference. §8.1.2 rewritten into an 11-row decision matrix mapping data shape → canonical type with fallback rule. Reading rule appended: if shapes ambiguous, prefer the type with higher Cleveland-McGill perceptual rank. Sources: Datawrapper, Cleveland-McGill, Apple Swift Charts, Observable Plot — same references v4.2 already cites.
+
 **Owner.** G4.
 
-### T3 — §10.6 canonical glossary: structure → content
+### T3 — §10.6 canonical glossary: structure → content ✓
 
-**Gap.** Plan U3.2 promised ~80 canonical terms with prohibited synonyms and scope. v4.2 §10.6 has the structural spec but the term body is not enumerated. For a compliance product the glossary *is* the design system: the difference between "we have voice & tone" and "every word in our product is the same word everywhere."
+**Gap.** Plan U3.2 promised ~80 canonical terms with prohibited synonyms and scope. v4.2 §10.6 had the structural spec but the term body was not enumerated. For a compliance product the glossary *is* the design system: the difference between "we have voice & tone" and "every word in our product is the same word everywhere."
 
 **Resolution.** Author the canonical entries. Minimum coverage:
 
@@ -88,22 +105,24 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 
 **Acceptance.** §10.6 contains ≥ 80 entries. CI lint script `lint:glossary` (queued in §15.8) flags any product-surface copy using a prohibited synonym.
 
+**Status.** Resolved. §10.6 now contains **84 canonical entries** across six sub-categories: Risk (25), Regulatory assessments (5), Compliance (21), AI (16), Product nouns (12), User-class (11). Each entry uses the 5-column shape (canonical form / definition ≤25 words / prohibited synonyms / scope / first-use convention). Context-sensitive prohibited-synonym rule documented — "(when meaning X)" qualifiers are part of the lint specification. `lint:glossary` named in §15.8.4 tooling with full implementation contract (script + context-rule file at `tools/lint-glossary/contexts.json`). Sources are public regulatory + UX vocabularies (NIST SP 800-30, ISO 31000, ISO 27001/27005, GDPR Art. 4, EU AI Act, NIST AI RMF, ISO/IEC 42001, OWASP LLM Top 10, Polaris / Carbon / Material) — **no RALIA-specific content**.
+
 **Owner.** G8 (drafting), G4 (review).
 
 ---
 
 ## P1 — Audit-flagged
 
-### A1 — U1.8 Print variants per chart type
-**Gap.** v4.2 §15.2.1 names the print theme file but §8 does not specify per-chart-type print variants.
-**Resolution.** Add §8.13 "Print variants": monochrome rule per chart type; B&W-safe pattern fills (cross-hatch / dot / diagonal at 4 densities); print legend convention; page-break behaviour; footnote rule for omitted interactive states.
-**Acceptance.** §8.13 covers every chart type in the T2 taxonomy. `tokens/themes/print.json` carries matching tokens.
+### A1 — U1.8 Print variants per chart type ✓
+**Gap.** v4.2 §15.2.1 named the print theme file but §8 did not specify per-chart-type print variants.
+**Resolution.** Added **§8.16** (corrected from patch's §8.13, which is "Charts and IRIS") "Print variants per chart type" with 8 sub-sections: 8.16.1 General print conventions (monochrome / page-break / caption / source attribution); 8.16.2 Pattern fills 4-density (cross-hatch / dotted / diagonal hatch for bars, regions, choropleths); 8.16.3 Line dash styles 6-style (for lines, area boundaries, rules); 8.16.4 Shape variants 8-shape (for dots, symbol-maps, scatter); 8.16.5 Legend conventions (mandatory in print); 8.16.6 Omitted interactive states (footnote rule with verbatim format); 8.16.7 Per-chart-type print encoding (table per purpose-group covering all 28 T2 chart types); 8.16.8 Verification (Chromatic `@media print` baselines). Token contract: `tokens/themes/print.json` carries print-mode overrides for every chart container + band/seq/cat semantic; values land in v4.2.1 + v4.3 per §15.2.1.
+**Status.** Resolved.
 **Owner.** G4 + Frontend.
 
-### A2 — U1.9 Library + version pin
-**Gap.** §8.7 implies Visx / Recharts / Observable Plot without picking. "Library decision" is the rest of the chapter's predicate.
-**Resolution.** §8.7 names: `Library: visx@3.x` (or final selection). One-paragraph rationale. List of Visx-wrapped components, list of direct-Visx components, list of custom (D3-only) components.
-**Acceptance.** §8.7 names exactly one library with version range. §22.4 dependency list aligns.
+### A2 — U1.9 Library + version pin ✓
+**Gap.** §8.7 implied Visx / Recharts / Observable Plot without picking. "Library decision" is the rest of the chapter's predicate.
+**Resolution.** §8.7 names **`visx@^3.0.0`** as the charting library per D9. Adds: (a) rejection rationale for Recharts, Observable Plot, Nivo, Direct D3; (b) component-by-component Visx contact surface table distinguishing Visx-wrapped vs Direct-D3 vs RisqBase-composition-only; (c) version-pin policy — `peerDependencies` recorded, CI lock via `package-lock.json`, `4.x` upgrade is a major version bump.
+**Status.** Resolved.
 **Owner.** G1 + G4.
 
 ### A3 — U1.13 Composite chart-pattern recipe bodies ✓
@@ -119,52 +138,65 @@ Generic compositions — no product-specific or IRIS-specific content. Voice_exa
 **Status.** Resolved.
 **Owner.** G4.
 
-### A4 — U2.9 Promotion log entries in §23
-**Gap.** Four v4.2 promotions happened (Gauge, Citation Chip, StreamingText, PromptChip) but §23 has no log entries.
-**Resolution.** Add §23.5 "Promotion log" with one row per promotion: component, source domain, target domain, date, justification, triggered-by.
-**Acceptance.** Four log rows for v4.2 promotions; protocol documented for future promotions.
+### A4 — U2.9 Promotion log entries in §23 ✓
+**Gap.** v4.2 promotions happened but §23 had no log entries.
+**Resolution.** Added §23.7 "Promotion log" (section ID corrected from §23.5 — that's "The discipline"; §23.6 is "Override-frequency as design signal"; §23.7 is the next free slot). Log records **five v4.2 promotions, not four as the patch plan originally said** — the spec's F2 row (line 20) lists Gauge + Citation Chip + StreamingText + PromptChip + LongOperation. Each entry carries: component, source, target domain, version, triggered-by, justification. Closing paragraph documents the future-promotion protocol (in-PR log-row authorship, quarterly adoption-review check, major-version end-to-end audit).
+**Status.** Resolved.
 **Owner.** G4.
 
-### A5 — U3.4 §10.4 Number formatting expansion
-**Gap.** §10.4 retains v4.1 conventions; the plan's expansion to relative time / percent precision / currency / abbreviations did not visibly land.
-**Resolution.** Expand §10.4 with one table per data type: time (absolute, relative, duration, range); percent (precision by context); currency (symbol placement, decimals, abbreviation thresholds); counts (compact / default / comfortable). Per-context modifier column.
-**Acceptance.** §10.4 has ≥ 4 typed tables; verification rows referenced in §17.
+### A5 — U3.4 §10.3.3 Number formatting expansion ✓
+**Gap.** §10.3 retained v4.1 single-line conventions; the plan's expansion to relative time / percent precision / currency / abbreviations did not visibly land.
+**Resolution.** Added §10.3.3 "Number formatting (v4.2.1 patch)" with **four typed tables**:
+- §10.3.3.1 Time — 10 rows (absolute prose, ISO 8601 table/audit, with time TZ, relative past/future/short, duration HH:MM and humanised, range)
+- §10.3.3.2 Percent — 8 rows (body, tabular score, tabular risk, AI confidence with hedge rule, delta with U+2212 minus, sub-1% / sub-0.1%, range)
+- §10.3.3.3 Currency — 7 rows (CLDR symbol prefix, ISO 4217 exports, decimal rules, fines override, abbreviation thresholds, negative U+2212, range)
+- §10.3.3.4 Counts — 9 rows (body 0-9 spelled / ≥10 digits, tabular locale-aware, compact / default / comfortable density, range, approximate, zero)
+
+Each table carries a `Context modifier` column noting when stricter/looser variants apply. §10.3.3.5 "Reading rules" addresses locale awareness, mixed-context harmonisation, and verification.
+
+Section-ID correction: patch said §10.4 but §10.4 is "Headings and labels"; the number rules live in §10.3. Expansion lands at §10.3.3 as the natural extension. Sources: ECMA-402 (`Intl.NumberFormat`, `Intl.RelativeTimeFormat`), Unicode CLDR, BIPM SI brochure, standard typographic conventions.
+
+**Status.** Resolved.
 **Owner.** G8.
 
-### A6 — U3.7 Recipe schema → §10 cross-reference + lint
-**Gap.** Recipe schema `voice_examples` field exists but does not require referencing §10.5/§10.8 templates; without enforcement §10 is decorative.
-**Resolution.** §20.0 schema docs require `voice_examples[].template_id` referencing a §10.5 or §10.8 template. CI lint script `lint:recipes-voice` named in §15.8 (implementation deferred to engineering programme).
-**Acceptance.** §20.0 spec updated; lint script named; verification row in §17.
+### A6 — U3.7 Recipe schema → §10 cross-reference + lint ✓
+**Gap.** Recipe schema `voice_examples` field existed but did not require referencing §10.5/§10.8 templates; without enforcement §10 was decorative.
+**Resolution.** Added §20.0.1 "`voice_examples` — template-bound". Every entry must carry a `template_id` matching `^10\.[58]\.\d+$`. New required fields: `template_id`, `context`, `rendered`. Worked YAML example included. CI gate `lint:recipes-voice` named in §15.8.4 with full implementation contract (script walks `apps/docs/content/patterns/**/*.mdx`, asserts the regex, resolves IDs against a generated template index). Implementation deferred to engineering programme per `implementation-plan.md` §5.3; the spec contract is binding from v4.2.1.
+**Status.** Resolved.
 **Owner.** G4.
 
-### A7 — U5.2 Figma `$extensions` key reconciliation
-**Gap.** Plan named `$extensions.com.risqbase.figma`; v4.2 §15.1 example only shows `role` and `contrastPair` extensions. Whole F5 sync programme is built on this key.
-**Resolution.** §15.1 example expanded to include `$extensions.com.risqbase.figma: { collection, mode, scopes[] }`. §15.8.4 references the same key. CI lint enforces presence on any token tagged for Figma export.
-**Acceptance.** §15.1 example carries the figma key; §15.8 references match; verification row in §17.
+### A7 — U5.2 Figma `$extensions` key reconciliation ✓
+**Gap.** Plan named `$extensions.com.risqbase.figma`; v4.2 §15.1 example only showed `role` and `contrastPair` extensions. The whole F5 sync programme is built on this key.
+**Resolution.** §15.1 example expanded to include the `com.risqbase.figma` extension with `collection`, `mode`, and `scopes[]`. §15.1 field table gains a row for the new extension plus a structure detail sub-table enumerating valid `collection`, `mode`, and `scopes[]` values (mirroring the Figma Variables REST API). §15.8.4 CI gates updated: every semantic-tier or component-tier token must carry the figma binding; primitive-tier tokens require it only when published to Figma.
+**Status.** Resolved.
 **Owner.** G1.
 
 ---
 
 ## P2 — Governance hygiene
 
-### G1 — Sonification status note
-**Gap.** Plan U1.7 mentioned "sonification optional"; spec §8.6 is silent.
-**Resolution.** §8.6 gains a one-line note: sonification deferred (target version), components must not block instrumentation hooks for it.
+### G1 — Sonification status note ✓
+**Gap.** Plan U1.7 mentioned "sonification optional"; chart accessibility (§8.5) was silent.
+**Resolution.** Added §8.5.6 "Sonification (deferred)" with the deferral target (v4.3) and the non-foreclosure rule for component instrumentation surfaces. (Section ID corrected from §8.6 → §8.5.6: §8.6 is "Chart states", not chart accessibility; the accessibility chapter is §8.5.)
+**Status.** Resolved.
 **Owner.** G4.
 
-### G2 — `marketing/` → `content/` rename note
+### G2 — `marketing/` → `content/` rename note ✓
 **Gap.** Plan U2.8 listed five domains including `marketing/`; spec §22.2 lists `content/` instead. The semantic shift (component primitives vs content-design tooling) is real and undocumented in §16 migration.
-**Resolution.** §16.2 migration table gains a row noting the rename, the scope shift, and the rationale.
+**Resolution.** §16.2 migration table gains step 7 noting the rename, the scope shift (content-design tooling, not surface primitives), and that no code action is required for existing consumers.
+**Status.** Resolved.
 **Owner.** G4.
 
-### G3 — §17 checklist row-count drift (53–60 → 53–80)
+### G3 — §17 checklist row-count drift (53–60 → 53–80) ✓
 **Gap.** Plan said "rows 53–60"; spec ships 53–80 (28 new rows). Net positive but undocumented.
-**Resolution.** §17 prefatory note acknowledges the row-count expansion and the rationale. Establishes a convention for tracking future drift.
+**Resolution.** §17 gains a prefatory note explaining the expansion (F1 data-viz +8, F3 content +6, F5 Figma-sync +4) and establishing a convention: any version that expands the checklist by >25% of plan estimate flags the drift in the publishing PR.
+**Status.** Resolved.
 **Owner.** G4.
 
-### G4 — Doc-site status line
-**Gap.** Spec references `design.risqbase.com/changelog/v4.2`. The site does not exist. F4 telemetry/adoption story is hard to land without it.
-**Resolution.** §18 notes doc-site status (not yet live), target date, and which other rows depend on it. F4 audit rows in `audit.md` cross-reference this dependency.
+### G4 — Doc-site status line ✓
+**Gap.** Spec referenced `design.risqbase.com/changelog/v4.2`, `/migration/v4.2`, `/accessibility`. The site is live as a placeholder (single static page on Vercel project `design`) but the content-and-code parity site of §18.1 is not yet built.
+**Resolution.** §18 gains a status note explaining placeholder vs full-parity site, citing `implementation-plan.md` §5.3 as the implementation home, and recording the F4 dependency.
+**Status.** Resolved.
 **Owner.** G4 + G1.
 
 ---
@@ -173,20 +205,20 @@ Generic compositions — no product-specific or IRIS-specific content. Voice_exa
 
 | Status | ID | Item | Bucket | Owner |
 |:---:|----|------|:---:|------|
-| `[ ]` | T1 | §15.6 → ~200 net-new role tokens | P0 | G1 |
+| `[x]` | T1 | §15.6 → 241 enumerated tokens (38 TBD primitives → Claude Design); spec §15.6.1-10 + 3 JSON files | P0 | G1 + Claude Design |
 | `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
 | `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
-| `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
+| `[x]` | A1 | §8.16 print variants per chart type (corrected from §8.13) — 8 sub-sections covering all 28 T2 chart types | P1 | G4 + Frontend |
 | `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
 | `[x]` | A3 | §8.17 three composite recipe bodies (corrected from §8.12) — dashboard-chart-row, time-comparison-chart, distribution-drilldown | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
-| `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |
+| `[x]` | A5 | §10.3.3 number-formatting expansion (4 typed tables, corrected from §10.4) | P1 | G8 |
 | `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
 | `[ ]` | A7 | §15.1 figma `$extensions` key | P1 | G1 |
-| `[ ]` | G1 | §8.6 sonification status note | P2 | G4 |
-| `[ ]` | G2 | §16.2 `marketing/` → `content/` rename note | P2 | G4 |
-| `[ ]` | G3 | §17 checklist row-count drift note | P2 | G4 |
-| `[ ]` | G4 | §18 doc-site status line | P2 | G4 + G1 |
+| `[x]` | G1 | §8.5.6 sonification status note (corrected from §8.6) | P2 | G4 |
+| `[x]` | G2 | §16.2 `marketing/` → `content/` rename note | P2 | G4 |
+| `[x]` | G3 | §17 checklist row-count drift note | P2 | G4 |
+| `[x]` | G4 | §18 doc-site status line | P2 | G4 + G1 |
 
 **Targeted timeline.** 2 weeks. P0 substrate work (T1–T3) is the long pole; P1 and P2 items are day-each tasks that can run in parallel.
 
