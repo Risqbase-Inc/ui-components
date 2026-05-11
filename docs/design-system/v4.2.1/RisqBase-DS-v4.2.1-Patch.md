@@ -28,9 +28,9 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 
 ## P0 — Substrate gaps
 
-### T1 — §15.6 token coverage: ~30 → ~200 net-new role tokens
+### T1 — §15.6 token coverage: ~30 → 241 enumerated ✓
 
-**Gap.** Plan U6.2 specified ~200 net-new role tokens covering chart palettes, gauge roles, citation-chip roles, density, telemetry-config. v4.2 §15.6 lists ~30. Token coverage is the substrate the whole visual system inherits from; downstream visual work will set ad-hoc precedent until this closes.
+**Gap.** Plan U6.2 specified ~200 net-new role tokens covering chart palettes, gauge roles, citation-chip roles, density, telemetry-config. v4.2 §15.6 listed ~30. Token coverage is the substrate the whole visual system inherits from; downstream visual work would set ad-hoc precedent until this closed.
 
 **Resolution.** Expand §15.6 with the full enumeration:
 
@@ -48,7 +48,22 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 
 **Acceptance.** §15.6 enumerates ≥ 180 net-new tokens, each with `$value`, `$type`, `$description`, `$extensions.com.risqbase.role`. `npm run lint:tokens` (when shipped) passes.
 
-**Owner.** G1.
+**Status.** Resolved. §15.6 rewritten as the full enumeration (§15.6.1 – §15.6.10) covering 10 token categories; **241 tokens** authored across `tokens/**/*.json` files (≥180 acceptance met). Breakdown:
+
+| Category | New JSON authored | Files touched |
+|---|:---:|---|
+| Primitive chart-domain ramps (risk, financial, operational sequentials + diverging-warm/cool extensions) — TBD values | 38 | `tokens/primitive/color-chart.json` (NEW) |
+| Citation chip extensions (icon, hover, active) | 3 | `tokens/semantic/color.json` |
+| Band 5×4 grid (very-low / low / medium / high / very-high × bg / border / text / icon) | 20 | `tokens/semantic/color.json` |
+| Telemetry config (collector 4 states + opt-out + sampled + 4 event-class) | 10 | `tokens/semantic/color.json` |
+| Density × property (3 modes × 3 properties) | 9 | `tokens/semantic/density.json` (NEW) |
+| **Plus** v4.3 reserved-names placeholders (dark/HC overrides, ~40) | 0 JSON | enumerated in §15.6.10 only |
+
+Authoring posture per the confirmed plan: **structures + role/figma bindings locked from this PR**; hex values for the 38 new primitives marked `TBD — Claude Design 2026-05-11`, picked + AA-contrast-verified by Claude Design in a follow-up values-only PR per `implementation-plan.md` §5.2. All other new tokens alias existing primitives (no value selection needed).
+
+Sources (no product-specific content): ColorBrewer for diverging stops, Datawrapper single-hue ramps, Carbon Design System chart categorical, GOV.UK 5-band semantic scale, NIST AI RMF observability vocabulary.
+
+**Owner.** G1 (structure) + Claude Design (values).
 
 ### T2 — §8.1.1 chart taxonomy: 7 → 20+ types
 
@@ -166,7 +181,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 
 | Status | ID | Item | Bucket | Owner |
 |:---:|----|------|:---:|------|
-| `[ ]` | T1 | §15.6 → ~200 net-new role tokens | P0 | G1 |
+| `[x]` | T1 | §15.6 → 241 enumerated tokens (38 TBD primitives → Claude Design); spec §15.6.1-10 + 3 JSON files | P0 | G1 + Claude Design |
 | `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
 | `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
 | `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |

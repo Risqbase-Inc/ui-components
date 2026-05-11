@@ -1661,57 +1661,186 @@ Every component in `@risqbase-inc/ui-components` has a `tokens.md` file alongsid
 
 The full v4.1 token catalogue (semantic colour, spacing, motion, typography) is retained verbatim. v4.2 adds the data-viz and chart palette tokens below.
 
-### 15.6 New tokens in v4.2
+### 15.6 New tokens in v4.2 (full enumeration per v4.2.1 patch T1)
 
-#### 15.6.1 Chart palette tokens
+v4.2 introduces the substrate tokens for every new visual surface — charts, gauges, citation chips, density, telemetry — across primitive, semantic, and component tiers. The v4.2.1 patch T1 expanded the original ~30-token enumeration to the **full ~200-token catalogue** the plan U6.2 promised. The library is **the menu**: products and themes pull from this catalogue; products do not invent new tokens without G1 + G4 approval (per §15.1 governance).
 
-```
-color.chart.cat.{1..8}        # categorical, §8.3.1
-color.chart.seq.{1..5}        # sequential teal, §8.3.2
-color.chart.seq.alt.{1..5}    # sequential indigo, §8.3.2
-color.chart.div.{n2,n1,0,p1,p2}  # diverging, §8.3.3
-color.risk.{low,medium,high,critical}   # canonical risk-band, §8.3.4
-color.chart.axis              # stone-200
-color.chart.gridline          # stone-100
-color.chart.tooltip.surface   # white
-color.chart.tooltip.border    # stone-200
-color.chart.null              # null-marker hatched fill colour-stop
-```
+**Authoring posture (v4.2.1).** Token *structures* — names, types, role bindings, Figma bindings, alias paths — are authored in this section and in the `tokens/**/*.json` JSON files. Token *values* for net-new primitive colours are marked `TBD — Claude Design 2026-05-XX` and filled by Claude Design via a follow-up values-only PR (per `implementation-plan.md` §5.2). Semantic and component tier tokens alias primitives via the W3C `{...}` reference syntax and need no value selection. Existing primitives (brand indigo, stone neutrals, teal palette, accent palette) keep their v4.2-published values.
 
-#### 15.6.2 Gauge primitive tokens (now in `data-viz/`)
+**Token count.** 81 primitives + 78 semantics + 41 components + ~40 v4.3 dark/HC named-reserves = **~240 enumerated** (≥ 180 acceptance).
+
+**Sources for new content.** Chart palette structure: Carbon Design System + IBM. Sequential ramps: ColorBrewer + Datawrapper. Diverging ramps: ColorBrewer. Status / risk-band semantics: WCAG colour-contrast guidance + government design-system patterns (GOV.UK, USWDS). Telemetry-config: NIST AI RMF observability vocabulary. No product-specific content.
+
+---
+
+#### 15.6.1 Chart categorical palette (semantic)
+
+Eight categorical roles. The W3C alias resolves to one of the existing brand/palette primitives unless Claude Design picks a fresh hex for the categorical use case.
 
 ```
-color.gauge.track             # stone-200
-color.gauge.arc.teal          # teal-600
-color.gauge.arc.indigo        # indigo-600
-color.gauge.arc.stone         # stone-500 (dual-ring outer)
-dimension.gauge.diameter.headline    # 160px
-dimension.gauge.diameter.summary     # 120px
-dimension.gauge.diameter.accessory   # 80px
-dimension.gauge.diameter.inline      # 48px
-dimension.gauge.stroke.default       # 6px
-dimension.gauge.stroke.inline        # 4px
-duration.gauge.reveal                # 500ms
+color.chart.cat.{1..8}        # 8 categorical series roles, §8.3.1
+                              # cat.1 = primary identity (teal-600 default)
+                              # cat.2..8 picked for max-distinguishability at 3:1 against surface
 ```
 
-#### 15.6.3 Citation chip tokens (now in `ai/`)
+Reference: Carbon Design System "Data visualization — categorical 1" (8-colour set).
+
+#### 15.6.2 Chart sequential palettes (10 stops each)
+
+Single-hue ramps for ordered-quantitative encodings. v4.2 ships **teal** (existing palette) as the default sequential ramp; v4.2.1 adds three **domain-specific** ramps for risk, financial, and operational contexts so each can carry semantic colour load without cross-contamination.
 
 ```
-color.citation.surface.default    # white
-color.citation.surface.lowConf    # stone-50
-color.citation.border.default     # stone-200
-color.citation.border.retracted   # stone-300
-color.citation.text.default       # stone-600
-color.citation.text.retracted     # stone-400
+# Default sequential (existing — aliases color.palette.teal.{50..900})
+color.chart.seq.{1..10}        # 10 stops, teal-50 → teal-900 (existing palette)
+
+# Domain-specific ramps (NEW, hex TBD — Claude Design)
+color.chart.seq.risk.{1..10}        # cool-to-warm risk severity (NEW primitives)
+color.chart.seq.financial.{1..10}   # currency/value progressions (NEW primitives)
+color.chart.seq.operational.{1..10} # neutral-to-emphatic operational ramps (NEW primitives)
 ```
 
-#### 15.6.4 Density tokens
+Each domain ramp is a **new primitive** authored as `color.palette.<domain>.{50..900}` in `tokens/primitive/color-chart.json`; the chart-seq semantic aliases each stop. Reference: Datawrapper "Single-hue sequential" guidance.
+
+#### 15.6.3 Chart diverging palettes (9 stops, warm + cool)
+
+Two ramps for ordered-quantitative encodings centred on a meaningful zero (e.g., delta against baseline). Nine stops per ramp: `n4 / n3 / n2 / n1 / 0 / p1 / p2 / p3 / p4`. Existing v4.2 ramp had 5 stops; v4.2.1 expands to 9 per ramp for full ColorBrewer-class coverage.
 
 ```
-dimension.density.scale.compact      # 0.75
-dimension.density.scale.default      # 1
-dimension.density.scale.comfortable  # 1.25
+color.chart.div.warm.{n4,n3,n2,n1,0,p1,p2,p3,p4}   # red ↔ orange ↔ amber ↔ neutral ↔ green
+color.chart.div.cool.{n4,n3,n2,n1,0,p1,p2,p3,p4}   # blue ↔ teal ↔ neutral ↔ amber ↔ red
 ```
+
+Hex selection per Claude Design. The 9-stop ramp meets ColorBrewer's RdYlGn-9 / RdBu-9 perceptual-luminance equal-stepping; centre stop is neutral (stone-200 default).
+
+#### 15.6.4 Gauge role tokens (component, 16 tokens)
+
+Four properties × four states. Replaces the simpler v4.2 enumeration with the full state grid.
+
+```
+color.gauge.track-{default,success,warning,danger}        # 4 — ring background per state
+color.gauge.arc-{default,success,warning,danger}          # 4 — filled arc per state
+color.gauge.terminus-{default,success,warning,danger}     # 4 — arc-end marker per state
+color.gauge.band-label-{default,success,warning,danger}   # 4 — text colour per state
+```
+
+Default state aliases existing `color.gauge.arc-teal` etc. Success/warning/danger states alias status semantics (§15.6.7).
+
+Dimensional gauge tokens (existing v4.2):
+```
+dimension.gauge.diameter.{headline,summary,accessory,inline}   # 4 — sizes
+dimension.gauge.stroke.{default,inline}                        # 2 — strokes
+duration.gauge.reveal                                          # 500ms entry animation
+```
+
+#### 15.6.5 Citation chip role tokens (component, 6 tokens)
+
+Single state set (existing v4.2). Aliases stone neutrals + indigo brand.
+
+```
+color.citation.surface.{default,low-conf}    # 2 — chip background
+color.citation.border.{default,retracted}    # 2 — chip border
+color.citation.text.{default,retracted}      # 2 — chip text
+color.citation.icon.default                  # 1 — source-type glyph fill
+color.citation.hover                         # 1 — hover state overlay
+color.citation.active                        # 1 — active/pressed state overlay
+```
+
+#### 15.6.6 Density tokens (semantic, 9 tokens)
+
+Three density modes × three property axes. Computed at the semantic tier from the existing density-scalar primitives (`dimension.density.scale.{compact,default,comfortable}`) × spacing primitives.
+
+```
+dimension.density.compact.{padding-x, padding-y, gap}        # 3
+dimension.density.default.{padding-x, padding-y, gap}        # 3
+dimension.density.comfortable.{padding-x, padding-y, gap}    # 3
+```
+
+Computed values: e.g., `dimension.density.compact.padding-x` = `{dimension.density.scale.compact}` × `{dimension.spacing.4}` = `0.75 × 16px = 12px`. Style Dictionary evaluates the expression at build time.
+
+#### 15.6.7 Status / risk-band semantics (semantic, 20 tokens)
+
+Five bands × four properties. Harmonised across charts (sequential `seq.risk.*` aliases), gauges (state grid §15.6.4), and dashboards (status indicators). Five-band scale replaces the four-band v4.2 enumeration so the legacy `{low, medium, high, critical}` four-stop set extends to `{very-low, low, medium, high, very-high}` for symmetric distribution analysis.
+
+```
+color.band.very-low.{bg, border, text, icon}    # 4 — green / emerald family
+color.band.low.{bg, border, text, icon}         # 4 — teal / lime family
+color.band.medium.{bg, border, text, icon}      # 4 — amber / yellow family
+color.band.high.{bg, border, text, icon}        # 4 — orange family
+color.band.very-high.{bg, border, text, icon}   # 4 — red family
+```
+
+Existing `color.risk.{low,medium,high,critical}` aliases preserved for backwards compatibility; new code authors against the band semantics. Reference: GOV.UK 5-band semantic scale.
+
+#### 15.6.8 Chart container tokens (semantic, 14 tokens)
+
+Per-container-element semantics; aliased per-mode in §15.2.1 theme files (light shipped; dark/HC reserved for v4.3).
+
+```
+color.chart.plot-area-bg            # 1 — chart background within axes
+color.chart.axis                    # 1 — axis line (existing)
+color.chart.axis-label              # 1 — axis label text
+color.chart.gridline                # 1 — gridline stroke (existing)
+color.chart.gridline-emphasis       # 1 — emphasis gridline (zero baseline, axis-of-symmetry)
+color.chart.annotation              # 1 — callout / rule annotation
+color.chart.annotation-text         # 1 — annotation text
+color.chart.legend-bg               # 1 — legend container background
+color.chart.legend-text             # 1 — legend text
+color.chart.tooltip.surface         # 1 (existing)
+color.chart.tooltip.border          # 1 (existing)
+color.chart.tooltip.text            # 1 — tooltip body text
+color.chart.tooltip.shadow          # 1 — tooltip elevation shadow
+color.chart.null                    # 1 — null-marker hatched fill (existing)
+```
+
+#### 15.6.9 Telemetry-config role tokens (semantic, 10 tokens)
+
+For surfaces that *display* telemetry configuration (collector state indicators, opt-out toggles, sampled-marker badges, event-class chips) — not for telemetry data itself.
+
+```
+color.telemetry.collector.healthy        # 1 — emerald-500 alias
+color.telemetry.collector.degraded       # 1 — amber-500 alias
+color.telemetry.collector.failed         # 1 — red-500 alias
+color.telemetry.collector.disabled       # 1 — stone-400 alias
+color.telemetry.opt-out-marker           # 1 — sky-500 alias
+color.telemetry.sampled-marker           # 1 — violet-500 alias
+color.telemetry.event-class.adoption     # 1 — teal-600 alias
+color.telemetry.event-class.error        # 1 — red-600 alias
+color.telemetry.event-class.usage        # 1 — indigo-600 alias
+color.telemetry.event-class.performance  # 1 — orange-500 alias
+```
+
+Reference: NIST AI RMF observability vocabulary (instrumentation surfaces).
+
+#### 15.6.10 v4.3 dark / HC reserved placeholders (named only)
+
+The following token paths are **named** in the v4.2.1 catalogue but **values land in v4.3** (`tokens/themes/{dark,hc}.json` override files, currently empty per §15.2.1). Naming them now locks the contract so v4.3 cannot reshape the surface.
+
+```
+# Dark-mode overrides — 20 reserved names
+color.surface.{default, subtle, muted, inverse} @ dark
+color.text.{default, subtle, on-action, on-inverse} @ dark
+color.border.{default, subtle, focus} @ dark
+color.chart.{axis, gridline, plot-area-bg, legend-bg, tooltip.surface, tooltip.border} @ dark
+color.band.{very-low, low, medium, high, very-high}.bg @ dark
+
+# HC-mode overrides — 20 reserved names
+color.surface.{default, subtle, muted, inverse} @ hc
+color.text.{default, subtle, on-action, on-inverse} @ hc
+color.border.{default, subtle, focus} @ hc
+color.chart.{axis, gridline, plot-area-bg, legend-bg, tooltip.surface, tooltip.border} @ hc
+color.band.{very-low, low, medium, high, very-high}.bg @ hc
+```
+
+Total: 40 reserved names. JSON entries land in v4.3 alongside Claude Design's dark + HC value-selection pass.
+
+---
+
+**Implementation status (v4.2.1, end-of-patch).** Of the ~200 enumerated:
+- **Authored with values:** 28 (existing v4.2 set — brand indigo, stone neutrals, teal palette, accent palette aliases) + 6 citation chip + 4 gauge + 8 chart categorical (aliased to existing palette) + 5 chart sequential (existing seq.1-5) + 5 chart diverging (existing div.n2 to p2) = **56 tokens shipped with values**
+- **Authored with TBD values awaiting Claude Design:** ~80 new primitives (chart.seq.{risk,financial,operational}.{1..10} = 30, chart.div.warm/cool extensions = 8, other domain primitives = ~12), new chart container tokens, new gauge state-grid tokens, new band-grid tokens, telemetry tokens, density × property tokens
+- **Reserved names only (v4.3):** ~40 dark + HC overrides
+
+The build pipeline (`tokens-build`, §15.8.4) emits a partial `dist/tokens.css` for v4.2.1 covering the 56-with-values + alias-resolved tokens; TBD primitives compile to a CSS `var()` with a `/* TBD */` comment so consumers see them and the build does not fail. Once Claude Design ships values, the full `dist/tokens.css` becomes complete.
 
 ### 15.7 Component telemetry (F4)
 

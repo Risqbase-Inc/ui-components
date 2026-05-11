@@ -1,0 +1,22 @@
+{
+  "$comment": "Density × property semantic tokens — added in v4.2.1 patch T1. Three density modes × three property axes. Values computed from existing primitives at the semantic tier: scalar × base spacing. Style Dictionary resolves expressions at build time.",
+  "dimension": {
+    "density": {
+      "compact": {
+        "padding-x": { "$value": "12px", "$type": "dimension", "$description": "Compact density horizontal padding (0.75 × 16px)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/compact/padding-x" } } },
+        "padding-y": { "$value": "6px",  "$type": "dimension", "$description": "Compact density vertical padding (0.75 × 8px)",    "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/compact/padding-y" } } },
+        "gap":       { "$value": "6px",  "$type": "dimension", "$description": "Compact density gap (0.75 × 8px)",                 "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/compact/gap" } } }
+      },
+      "default": {
+        "padding-x": { "$value": "16px", "$type": "dimension", "$description": "Default density horizontal padding (1 × 16px)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/default/padding-x" } } },
+        "padding-y": { "$value": "8px",  "$type": "dimension", "$description": "Default density vertical padding (1 × 8px)",    "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/default/padding-y" } } },
+        "gap":       { "$value": "8px",  "$type": "dimension", "$description": "Default density gap (1 × 8px)",                 "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/default/gap" } } }
+      },
+      "comfortable": {
+        "padding-x": { "$value": "20px", "$type": "dimension", "$description": "Comfortable density horizontal padding (1.25 × 16px)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/comfortable/padding-x" } } },
+        "padding-y": { "$value": "10px", "$type": "dimension", "$description": "Comfortable density vertical padding (1.25 × 8px)",    "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/comfortable/padding-y" } } },
+        "gap":       { "$value": "10px", "$type": "dimension", "$description": "Comfortable density gap (1.25 × 8px)",                 "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "dimension/density/comfortable/gap" } } }
+      }
+    }
+  }
+}
