@@ -1210,6 +1210,229 @@ Per §17 (rows 53–63), CI lints the following:
 - Every chart provides a data-table fallback (component test)
 - Every pattern recipe whose `composed_of` includes a chart has the §8.1.2 three-question block populated
 
+### 8.17 Composite chart-pattern recipes (v4.2.1 patch)
+
+Three canonical recipes for composing the §8.1.1 chart types into common dashboard / report surfaces. Each recipe conforms to the §20.0 Pattern Recipe Schema and the §20.0.1 `voice_examples` template-binding contract introduced in v4.2.1.
+
+*Section-ID correction: the v4.2.1 patch plan referenced "§8.12". §8.12 is "Marketing-site charts" — a use-case-specific section, not the right home for canonical composite recipes. §8.16 = print variants (A1). §8.17 is the next free slot. Patch row updated.*
+
+The recipes are **canonical**: products pick from these compositions rather than authoring ad-hoc dashboard layouts. Recipe schema is inline here; the full pattern index lives in §20.1.
+
+---
+
+#### 8.17.1 `dashboard-chart-row`
+
+```yaml
+id: "dashboard-chart-row"
+title: "Dashboard chart row"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  A dashboard surface needs to summarise a single domain with a value + a trend + a context split, in a single horizontal row that scans left-to-right.
+when_to_use: |
+  - Hero-row of a dashboard (the first row a user reads).
+  - One value is the answer to "how are we doing?" — supported by trend + breakdown.
+  - The row is sized to fit on one viewport above the fold (responsive).
+when_not_to_use: |
+  - Multiple unrelated metrics — use a grid of metric cards instead.
+  - Trend shape isn't legible at sparkline-size — promote to a full line chart in its own row.
+  - Breakdown has more than 4 categories — promote to a full bar chart.
+composed_of:
+  - metric-card        # §8.1.1 single-value, the headline number with delta
+  - sparkline          # §8.1.1 time — direction at a glance
+  - bar-horizontal     # §8.1.1 comparison — breakdown by 2-4 categories
+layout:
+  type: "grid"
+  columns: 12
+  gap: "{dimension.density.default.gap}"
+  cells:
+    - { component: "metric-card",    span: 4, role: "primary" }
+    - { component: "sparkline",      span: 3, role: "supporting" }
+    - { component: "bar-horizontal", span: 5, role: "context" }
+  responsive:
+    - { breakpoint: "<768px", stack: true, order: ["metric-card", "sparkline", "bar-horizontal"] }
+states:
+  - loading:    "Skeleton matching the three-cell layout; each cell shows its own skeleton per §8.6."
+  - empty:      "Show the row with the metric card displaying 'No data yet' (§10.5.3 template); sparkline + bar collapse to empty-state icons."
+  - error:      "Whole row shows a single Banner per §10.5.4 with retry; underlying cells suppressed until retry succeeds."
+  - partial:    "Cells render independently — metric-card may render while sparkline is still loading."
+voice_examples:
+  - template_id: "10.5.3"
+    context: "metric-card shows zero records this quarter"
+    rendered: "No DPIAs in this period. New assessments will appear here."
+  - template_id: "10.5.4"
+    context: "data fetch failed for the breakdown"
+    rendered: "Couldn't load the breakdown. Try again."
+  - template_id: "10.5.5"
+    context: "tooltip on the delta pill in the metric-card"
+    rendered: "Change since the previous period of the same length."
+variants:
+  - "comparison-mode": "Replace sparkline with a paired-bar comparing two time periods (uses §8.17.2 sub-pattern)."
+  - "score-mode":      "Replace metric-card with a §8.1.1 gauge when the value is bounded 0-100."
+related: ["8.17.2", "20.6", "20.14"]
+keyboard:
+  - "Tab focuses metric-card first, then sparkline, then bar — per visual flow."
+  - "Within the bar, arrow keys move between bars per §8.5.1 row 2."
+accessibility:
+  - "Chart row is a single `<section>` with `aria-label` 'Dashboard summary row for <domain>'."
+  - "Sparkline carries `aria-hidden='true'` when the metric-card delta-pill carries the same direction signal — avoid double-announcement."
+  - "All three cells reachable via `t` (table-fallback shortcut, §5.8.3.3) to toggle into a unified table view."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
+
+---
+
+#### 8.17.2 `time-comparison-chart`
+
+```yaml
+id: "time-comparison-chart"
+title: "Time comparison chart"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  Showing the same metric across two time periods (this quarter vs last; this year vs same period last year) where the reader wants to see whether the trajectory is improving or worsening.
+when_to_use: |
+  - Reporting surfaces, regulator-facing exports, quarterly review documents.
+  - The reader's primary question is "are we trending in the right direction?" — not "what is the current value?".
+  - Both periods share the same length and the same data shape.
+when_not_to_use: |
+  - More than two periods — use a multi-series line per §8.1.1 (DM-7).
+  - Periods of different length — use small-multiples instead so each line keeps its own scale.
+  - The current-period value is what matters; the comparison is decorative — use `dashboard-chart-row` instead.
+composed_of:
+  - line              # §8.1.1 time — two series, this period + comparison period
+  - metric-card       # §8.1.1 single-value — the current value with delta vs comparison
+  - sparkbar          # §8.1.1 single-value — inline per-segment deltas (optional)
+layout:
+  type: "stack"
+  direction: "vertical"
+  gap: "{dimension.density.default.gap}"
+  cells:
+    - { component: "metric-card",    role: "header" }
+    - { component: "line",           role: "primary",   minHeight: "240px" }
+    - { component: "sparkbar",       role: "footer",    minHeight: "48px", optional: true }
+  responsive:
+    - { breakpoint: "<480px", lineMinHeight: "180px", sparkbar: false }
+states:
+  - loading:    "Skeleton with header bar + plot-area shimmer at line proportions + sparkbar shimmer."
+  - empty:      "Render the metric-card with `--`; line shows axes only with annotation 'No data for the comparison period yet.'"
+  - error:      "Banner replaces the whole stack per §10.5.4 with retry."
+  - partial:    "If only the comparison period is missing, render the current-period line solid and the comparison-period line ghosted with annotation."
+voice_examples:
+  - template_id: "10.5.5"
+    context: "tooltip on the comparison line"
+    rendered: "Same period a year ago."
+  - template_id: "10.5.3"
+    context: "comparison period missing (e.g., first year of data)"
+    rendered: "No data for the comparison period yet."
+  - template_id: "10.5.5"
+    context: "delta pill in metric-card explanation"
+    rendered: "Difference from the same period a year ago."
+variants:
+  - "delta-mode":      "Replace the line with a paired-bar (§8.1.1 relationship, DM-3) when periods are short and bin-able."
+  - "annotation-mode": "Add `RuleMark` annotations at significant events (regulator action, policy change) drawing on §8.4 anatomy."
+related: ["8.17.1", "20.6", "20.8"]
+keyboard:
+  - "Tab focuses metric-card, then the line."
+  - "Within the line, arrow keys move between time points; PgUp/PgDn switch series."
+accessibility:
+  - "Both lines distinguishable in print via dash style §8.16.3 (solid + dashed)."
+  - "Comparison line gets a per-mark `aria-label` with full date + value + delta against the current series."
+  - "Data-table fallback (§8.5.5) shows columns: 'Time', '<current period> value', '<comparison period> value', 'Delta'."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
+
+---
+
+#### 8.17.3 `distribution-drilldown`
+
+```yaml
+id: "distribution-drilldown"
+title: "Distribution drilldown"
+visibility: "PUBLIC"
+status: "stable"
+problem: |
+  Showing the shape of a distribution (how values spread across observations) with the ability to drill into a single bin / band / outlier to see the underlying items.
+when_to_use: |
+  - The reader needs to understand both the shape ("is the distribution skewed?") and individual items ("which 12 records make up the high tail?").
+  - The dataset is interactive — drill-into is meaningful.
+  - The detail view is a list/table, not another chart.
+when_not_to_use: |
+  - Static export (regulator PDF) — the drilldown collapses to a footnote; use a single histogram or box plot per §8.1.1 (DM-4) and append the relevant detail table separately.
+  - Distribution is bimodal or multi-modal — use density curve or violin per §8.1.1.
+  - The reader's question is "what is the typical value?" — use a metric-card with a sparkline.
+composed_of:
+  - histogram         # §8.1.1 distribution — primary overview
+  - box-plot          # §8.1.1 distribution — optional summary overlay
+  - bar-horizontal    # §8.1.1 comparison — drilldown detail view
+  - metric-card       # §8.1.1 single-value — selected-bin summary
+layout:
+  type: "split"
+  orientation: "horizontal"
+  ratio: [7, 5]
+  cells:
+    - role: "overview"
+      stack:
+        - { component: "histogram",  minHeight: "320px" }
+        - { component: "box-plot",   minHeight: "80px", optional: true }
+    - role: "drilldown"
+      stack:
+        - { component: "metric-card",     role: "selected-bin-summary" }
+        - { component: "bar-horizontal",  role: "selected-bin-items" }
+  responsive:
+    - { breakpoint: "<1024px", stack: true, drilldownInitiallyHidden: true }
+states:
+  - loading:       "Both panes show skeletons matching their final proportions."
+  - empty:         "Histogram renders axes only with annotation 'No data to distribute.'"
+  - empty-bin:     "User selected a bin with 0 items: drilldown pane shows §10.5.3 empty-state."
+  - error:         "Drilldown pane shows §10.5.4 error with retry; overview pane retains the last successful render."
+  - partial:       "If drilldown data is delayed but overview rendered, drilldown pane shows skeleton until ready."
+  - no-selection:  "Drilldown pane shows hint 'Select a bin to see the items in it.'"
+voice_examples:
+  - template_id: "10.5.5"
+    context: "hint when no bin is selected"
+    rendered: "Select a bar to see the items in that bin."
+  - template_id: "10.5.3"
+    context: "user selected a bin with zero records"
+    rendered: "No items in this bin yet."
+  - template_id: "10.5.4"
+    context: "drilldown fetch failed"
+    rendered: "Couldn't load items for this bin. Try again."
+  - template_id: "10.8.1"
+    context: "AI-summarised drilldown — confidence < 0.7"
+    rendered: "Based on partial evidence, the top items appear to share a regulatory trigger."
+variants:
+  - "table-detail":  "Replace bar-horizontal in the drilldown pane with a sortable §10.6.5 table when items have many attributes."
+  - "filter-bound":  "Add a filter chip below the histogram that filters BOTH overview and drilldown — for cross-filter dashboards."
+related: ["8.17.1", "20.7", "20.12", "20.14"]
+keyboard:
+  - "Tab focuses histogram first; arrow keys move between bins."
+  - "Enter on a bin opens its drilldown; Escape clears selection and returns hint state."
+  - "From the drilldown bar, Tab moves to the first list item; arrow keys navigate the list."
+  - "`t` toggles to a unified data-table fallback showing the distribution + the selected-bin items."
+accessibility:
+  - "Selection is announced via `aria-live='polite'`: 'Selected bin: <range>, <n> items'."
+  - "Drilldown pane has `role='region'` and `aria-labelledby` pointing to the bin label."
+  - "In print, the drilldown pane is omitted and a footnote per §8.16.6 directs to the interactive version."
+  - "Data-table fallback structure: row per bin in the overview, expandable row per item in the selected bin."
+last_reviewed: "2026-05-11"
+owner: "G4"
+```
+
+---
+
+**Three-question test (per §8.1.2) — recorded inline per recipe.**
+
+| Recipe | Single sentence supported | Could a number / sparkline / sentence suffice? | Primary reading mode |
+|--------|--------------------------|-----------------------------------------------|---------------------|
+| `dashboard-chart-row` | "Here's the current value, its direction, and how it's distributed across context, at a glance." | No — three orthogonal pieces. | Comparison + Time + Single-value (DM-1, DM-7, DM-9) |
+| `time-comparison-chart` | "We are trending {better/worse} than {a year/quarter} ago." | No — direction + magnitude both needed; a sparkline alone loses the comparison anchor. | Time (DM-7) |
+| `distribution-drilldown` | "The values are distributed like {shape}; the {tail/outliers/peak} contains these specific items." | No — distribution shape AND item-level detail are both load-bearing. | Distribution + Comparison (DM-4 + DM-1) |
+
+**Reading the recipes.** A consumer authoring a new dashboard composes from these recipes by referencing the `id` in their pattern frontmatter (`composed_of: [..., dashboard-chart-row]`). Recipes can compose recipes — `time-comparison-chart` is referenced as a variant of `dashboard-chart-row` (the `comparison-mode` variant). Recipes do not compose components directly — that's the §8.7 layer.
+
 ---
 ## 9. Print & PDF Specifications
 
