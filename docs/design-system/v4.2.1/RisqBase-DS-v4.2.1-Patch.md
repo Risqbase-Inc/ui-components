@@ -72,9 +72,9 @@ Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun
 
 **Owner.** G4.
 
-### T3 — §10.6 canonical glossary: structure → content
+### T3 — §10.6 canonical glossary: structure → content ✓
 
-**Gap.** Plan U3.2 promised ~80 canonical terms with prohibited synonyms and scope. v4.2 §10.6 has the structural spec but the term body is not enumerated. For a compliance product the glossary *is* the design system: the difference between "we have voice & tone" and "every word in our product is the same word everywhere."
+**Gap.** Plan U3.2 promised ~80 canonical terms with prohibited synonyms and scope. v4.2 §10.6 had the structural spec but the term body was not enumerated. For a compliance product the glossary *is* the design system: the difference between "we have voice & tone" and "every word in our product is the same word everywhere."
 
 **Resolution.** Author the canonical entries. Minimum coverage:
 
@@ -87,6 +87,8 @@ Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun
 Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (named explicitly), scope (which surfaces it applies to), first-use convention (defined-on-first-use threshold).
 
 **Acceptance.** §10.6 contains ≥ 80 entries. CI lint script `lint:glossary` (queued in §15.8) flags any product-surface copy using a prohibited synonym.
+
+**Status.** Resolved. §10.6 now contains **84 canonical entries** across six sub-categories: Risk (25), Regulatory assessments (5), Compliance (21), AI (16), Product nouns (12), User-class (11). Each entry uses the 5-column shape (canonical form / definition ≤25 words / prohibited synonyms / scope / first-use convention). Context-sensitive prohibited-synonym rule documented — "(when meaning X)" qualifiers are part of the lint specification. `lint:glossary` named in §15.8.4 tooling with full implementation contract (script + context-rule file at `tools/lint-glossary/contexts.json`). Sources are public regulatory + UX vocabularies (NIST SP 800-30, ISO 31000, ISO 27001/27005, GDPR Art. 4, EU AI Act, NIST AI RMF, ISO/IEC 42001, OWASP LLM Top 10, Polaris / Carbon / Material) — **no RALIA-specific content**.
 
 **Owner.** G8 (drafting), G4 (review).
 
@@ -168,7 +170,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 |:---:|----|------|:---:|------|
 | `[ ]` | T1 | §15.6 → ~200 net-new role tokens | P0 | G1 |
 | `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
-| `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
+| `[x]` | T3 | §10.6 → 84 glossary entries across 6 sub-categories + §15.8.4 `lint:glossary` | P0 | G8 + G4 |
 | `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
 | `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |

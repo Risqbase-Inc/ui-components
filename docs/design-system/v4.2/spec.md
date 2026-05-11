@@ -1438,34 +1438,143 @@ Forbidden:
 
 ### 10.6 Glossary
 
-The canonical RisqBase glossary lives at `design.risqbase.com/glossary` and is mirrored in the package `@risqbase-inc/ui-components/content/glossary.json` (v4.2 new). It contains every domain term used in product chrome:
+The canonical RisqBase glossary lives at `design.risqbase.com/glossary` and is mirrored in the package `@risqbase-inc/ui-components/content/glossary.json` (v4.2 new). It contains every domain term used in product chrome, organised by category. Each entry carries: **canonical form** (the only spelling used in product surfaces), **definition** (≤ 25 words), **prohibited synonyms** (specific words the linter rejects), **scope** (where the term applies), and **first-use convention** (when the full form must appear vs the short form).
 
-| Term | Definition | First use |
-|------|-----------|----------|
-| Assessment | A documented evaluation of a processing activity against a regulatory framework | DPIA, FRIA, etc are assessment types |
-| DPIA | Data Protection Impact Assessment (GDPR Article 35) | spelled out on first reference per surface |
-| LIA | Legitimate Interests Assessment | spelled out on first reference per surface |
-| FRIA | Fundamental Rights Impact Assessment (EU AI Act) | spelled out on first reference per surface |
-| TIA | Transfer Impact Assessment (Schrems II) | spelled out on first reference per surface |
-| ROPA | Record of Processing Activities (GDPR Article 30) | spelled out on first reference per surface |
-| Inherent risk | Risk before mitigations are applied | (in context) |
-| Residual risk | Risk after mitigations are applied | (in context) |
-| Risk band | The severity classification: Low, Medium, High, Critical | system-wide |
-| IRIS | RisqBase's AI compliance assistant | proper noun, no expansion |
-| Citation | A reference to a verified source supporting an AI assertion | per §7.12 |
-| Vendor | A third party processing personal data on behalf of a controller | (in context) |
-| Owner | The person accountable for an assessment, vendor, or document | (in context) |
-| Reviewer | A person reviewing an assessment without ownership | (in context) |
+**Sources.** Risk vocabulary follows NIST SP 800-30 / ISO 31000 / ISO 27005. Compliance vocabulary follows GDPR Article 4 / ISO 27001 / SOC 2 Trust Services Criteria. AI vocabulary follows NIST AI RMF / EU AI Act / ISO/IEC 42001 / OWASP LLM Top 10. Product nouns follow standard UX vocabularies (Polaris, Carbon, Material). User-class vocabulary follows GDPR Article 4 + standard RBAC nomenclature. Where two sources disagree, the regulatory source wins; where regulators don't speak (UI nouns), Polaris wins. Products **pull from this glossary**; products do not invent new terms without G8 + G4 approval.
 
-**Acronym rule:** spelled out on first reference *per surface*, not first reference per session. The user reading the assessment list should not need to remember an acronym defined three pages ago. After first reference on a given surface, the acronym alone is acceptable.
+#### 10.6.1 Risk vocabulary
 
-**Forbidden synonyms.** Once a term is in the glossary, do not use synonyms in product chrome:
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Asset** | A resource — system, dataset, process, person — that has value to the organisation and may need protection | resource, item | system-wide | (in context) |
+| **Threat** | A circumstance or event with potential to cause harm to an asset (NIST SP 800-30) | risk, hazard, danger | system-wide | (in context) |
+| **Vulnerability** | A weakness in an asset, control, or process that a threat may exploit | weakness, flaw | system-wide | (in context) |
+| **Risk** | The effect of uncertainty on objectives, expressed as the combination of likelihood and impact (ISO 31000) | hazard, danger (when meaning risk) | system-wide | (in context) |
+| **Likelihood** | The chance that a given threat will materialise, on a defined scale | probability, chance | within a risk record | (in context) |
+| **Impact** | The magnitude of harm if a threat materialises, on a defined scale | consequence, severity (when paired with likelihood) | within a risk record | (in context) |
+| **Severity** | The composite of likelihood × impact, classified into a risk band | criticality, priority (when meaning severity) | within a risk record | (in context) |
+| **Risk band** | The severity classification used across the system: very-low / low / medium / high / very-high | risk level, risk category, risk class | system-wide | system-wide |
+| **Inherent risk** | The risk that exists in the absence of any controls (ISO 31000 §6.4) | gross risk, baseline risk, raw risk | within a risk record | (in context) |
+| **Residual risk** | The risk that remains after controls are applied (ISO 31000 §6.4) | net risk, treated risk | within a risk record | (in context) |
+| **Mitigated risk** | A residual risk whose treatment has been verified as effective | reduced risk, controlled risk | within a risk record | (in context) |
+| **Exposure** | The extent of value at risk if a threat materialises; quantitative analogue of impact | risk-load, blast-radius (when meaning exposure) | within a risk record | (in context) |
+| **Threshold** | A defined level above which a risk requires action (escalation, treatment, sign-off) | trigger (when meaning threshold), limit | system-wide | (in context) |
+| **Tolerance** | The acceptable variation around a risk threshold | margin (when meaning tolerance), buffer | within a risk record | (in context) |
+| **Appetite** | The level of risk the organisation is willing to accept in pursuit of objectives (ISO 31000) | tolerance (when meaning appetite — they differ), preference | organisational | (in context) |
+| **Control** | A measure that modifies risk — preventive, detective, or corrective (ISO 27001) | safeguard, countermeasure | system-wide | (in context) |
+| **Finding** | An observation from an assessment, audit, or test that indicates a gap, weakness, or non-conformity | issue, observation (when meaning finding) | within an assessment | (in context) |
+| **Gap** | A finding that the implemented controls fall short of a requirement | shortfall, deficiency (when meaning gap) | within an assessment | (in context) |
+| **Treatment** | The action taken to address a risk: accept / avoid / transfer / mitigate (ISO 31000 §6.5) | response (when meaning treatment), handling | within a risk record | (in context) |
+| **Accept** | Treatment option: the organisation acknowledges the risk without action, recording rationale | tolerate, ignore (never as a treatment) | within a treatment record | (in context) |
+| **Avoid** | Treatment option: the organisation removes the activity causing the risk | eliminate (when meaning avoid), drop | within a treatment record | (in context) |
+| **Transfer** | Treatment option: the risk is shifted to another party via insurance, contract, or outsourcing | shift, offload | within a treatment record | (in context) |
+| **Mitigate** | Treatment option: controls are added or strengthened to reduce likelihood or impact | reduce (when meaning mitigate), patch | within a treatment record | (in context) |
+| **Velocity** | The rate at which a risk can change between inherent and residual states | speed (when meaning velocity), pace | within a risk record | (in context) |
+| **Assessment** | A documented evaluation of a processing activity, system, or risk against a regulatory or organisational framework | evaluation, review (when meaning assessment), audit, report | system-wide | DPIA, FRIA, etc. are assessment types |
 
-- "Assessment" — never "evaluation", "review", "report" when referring to an assessment
-- "Vendor" — never "supplier", "third party", "processor" interchangeably (each has a specific glossary meaning)
-- "Owner" — never "creator", "author", "lead" for the same role
+#### 10.6.2 Regulatory assessment types
 
-The glossary is the source of truth. Linting in v4.3+ may catch term violations in source.
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **DPIA** | Data Protection Impact Assessment (GDPR Article 35) | privacy impact assessment, PIA (use only outside GDPR-scoped surfaces) | privacy surfaces | spelled out on first reference per surface |
+| **LIA** | Legitimate Interests Assessment — three-pillar test for processing under GDPR Article 6(1)(f) | LIT (do not abbreviate further) | privacy surfaces | spelled out on first reference per surface |
+| **FRIA** | Fundamental Rights Impact Assessment (EU AI Act Art. 27) | rights impact assessment, RIA | AI-system surfaces | spelled out on first reference per surface |
+| **TIA** | Transfer Impact Assessment (Schrems II, EDPB Recommendations 01/2020) | data transfer assessment, DTA | cross-border-transfer surfaces | spelled out on first reference per surface |
+| **ROPA** | Record of Processing Activities (GDPR Article 30) | data inventory (when meaning ROPA), Art. 30 record | privacy surfaces | spelled out on first reference per surface |
+
+#### 10.6.3 Compliance vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Regulator** | An external authority empowered to set, monitor, and enforce compliance requirements (e.g., ICO, CNIL, FTC) | regulatory body, authority (when meaning regulator) | system-wide | (in context) |
+| **Audit** | A formal evaluation against a defined framework, by an internal or external assessor | review (when meaning audit), inspection | system-wide | (in context) |
+| **Audit log** | An immutable, time-ordered record of system events used for accountability and forensics | activity log, event log, history (when meaning audit log) | system-wide | (in context) |
+| **Attestation** | A formal statement signed by an accountable party affirming a control, fact, or compliance state | certification (when meaning attestation), declaration | within an assessment | (in context) |
+| **Evidence** | An artefact — document, log, screenshot, sign-off — supporting a finding, control, or attestation | proof, artefact (when meaning evidence) | within an assessment | (in context) |
+| **Owner** | The single person accountable for an assessment, control, vendor, or document | creator, author, lead, manager (when meaning owner) | system-wide | (in context) |
+| **Accountable** | The role responsible for outcomes and bound to sign-off; distinct from Responsible in RACI | answerable, liable | within a RACI record | (in context) |
+| **Reviewer** | A person whose role is to evaluate work without owning the outcome | approver (when meaning reviewer — they differ), checker | system-wide | (in context) |
+| **Approver** | A person whose sign-off is required before an item progresses past a gate | reviewer (when meaning approver), gatekeeper | within a workflow | (in context) |
+| **Sign-off** | A formal recorded approval that a deliverable meets defined criteria | approval (in formal contexts; sign-off implies recorded artefact), OK | within a workflow | (in context) |
+| **Escalation** | Routing a decision or issue to a higher authority when a threshold is exceeded or sign-off withheld | flag-up, raise (when meaning escalation) | system-wide | (in context) |
+| **Breach** | An incident in which personal data has been disclosed, lost, altered, or accessed without authorisation (GDPR Art. 4(12)) | leak (in headline-only contexts; never in formal records), exposure (when meaning breach) | privacy + security surfaces | (in context) |
+| **Incident** | A confirmed or suspected event that warrants investigation; not all incidents are breaches (NIST SP 800-61) | event (when meaning incident — they differ), occurrence | system-wide | (in context) |
+| **Non-compliance** | A finding that the organisation falls short of a regulatory or framework requirement | non-conformity (in ISO contexts only — they are not synonyms elsewhere), violation | within an assessment | (in context) |
+| **Remediation** | The action plan that closes a finding or non-compliance | fix (when meaning remediation), correction | within a finding | (in context) |
+| **Corrective action** | A formal documented remediation step, often with owner + due date | CAPA (use the full term first; CAPA is acceptable thereafter) | within a finding | spelled out on first reference per surface |
+| **Policy** | A high-level statement of intent setting the framework for decisions; "what we will do" | rule (when meaning policy), directive | organisational | (in context) |
+| **Procedure** | A defined sequence of steps that implements a policy; "how we do it" | process (when meaning procedure — they differ), workflow | organisational | (in context) |
+| **Standard** | A documented requirement (mandatory or recommended) that gives effect to a policy | guideline (when meaning standard — they differ in bindingness), spec | organisational | (in context) |
+| **Framework** | A coherent set of policies, standards, and procedures used as an assessment or governance reference (e.g., ISO 27001, NIST CSF) | methodology (when meaning framework), model | system-wide | (in context) |
+| **Mapping** | A correspondence between controls in one framework and controls in another | crosswalk, translation (when meaning mapping) | within a framework record | (in context) |
+
+#### 10.6.4 AI vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **AI system** | An automated system that infers, from inputs, how to generate outputs that influence environments (EU AI Act / NIST AI RMF) | AI, model (when meaning the system, not the weights) | AI-system surfaces | spelled out on first reference per surface |
+| **Inference** | The process by which an AI system produces outputs from inputs at runtime | prediction (when meaning inference), generation (when meaning inference — they differ) | AI-system surfaces | (in context) |
+| **Generation** | An AI-produced output, particularly natural-language or media output | output (when meaning generation), result | AI-system surfaces | (in context) |
+| **Citation** | A reference to a verified source supporting an AI assertion, presented in a Citation Chip (§7.12) | source link (when meaning citation), reference (when meaning citation — they differ) | AI-system surfaces | per §7.12 |
+| **Source** | The original document, dataset, or record from which a citation is drawn | reference (when meaning source — they differ), origin | within a citation | (in context) |
+| **Confidence** | A numeric or categorical measure of the AI system's certainty in an output | score (when meaning confidence — they differ), probability (when reported to users — confidence is the user-facing term) | AI-system surfaces | (in context) |
+| **Hedge** | A linguistic device acknowledging uncertainty (e.g., "this looks like", "based on partial evidence") | qualifier (when meaning hedge), caveat | AI-system surfaces | (in context) |
+| **Retrieval** | The step in a retrieval-augmented generation (RAG) pipeline that fetches grounding documents | lookup (when meaning retrieval), search (when meaning retrieval) | AI-system surfaces | (in context) |
+| **Grounding** | The practice of constraining AI generation to verified sources, reducing hallucination | citation-backed (when meaning grounding — they differ), evidence-based | AI-system surfaces | (in context) |
+| **Hallucination** | An AI output that is fluent but factually unsupported by sources | fabrication (when meaning hallucination), error (when meaning hallucination) | AI-system surfaces | (in context) |
+| **Refusal** | A deliberate AI response declining to generate an output (e.g., on safety, scope, or capability grounds) | rejection (when meaning refusal), denial | AI-system surfaces | (in context) |
+| **Clarification** | An AI request for more information from the user before generating a substantive response | follow-up (when meaning clarification), question (when meaning clarification) | AI-system surfaces | (in context) |
+| **Provenance** | The verifiable origin and history of a piece of data or AI output (NIST AI RMF) | lineage (in data contexts; not interchangeable elsewhere), history (when meaning provenance) | system-wide | (in context) |
+| **Training data** | The dataset used to fit a model's parameters; distinct from inference-time inputs | corpus (in data contexts; not in user-facing copy), dataset (when meaning training data specifically) | AI-system surfaces | (in context) |
+| **Bias** | A systematic deviation in AI outputs that may disadvantage protected groups (NIST AI RMF / EU AI Act Art. 10) | prejudice (when meaning bias), unfairness | AI-system surfaces | (in context) |
+| **IRIS** | RisqBase's AI compliance assistant character — a configured composition of the shared `ai/` primitives (§6) | the AI, the assistant, the model (when meaning IRIS) | RALIA-private | proper noun, no expansion |
+
+#### 10.6.5 Product nouns
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Dashboard** | A top-level overview surface aggregating multiple data products for a single role or context | overview (when meaning dashboard), homepage (when meaning dashboard) | system-wide | (in context) |
+| **Panel** | A bounded region within a surface containing related controls or content; persistent within the surface | widget (when meaning panel — UI-toolkit term), pane | system-wide | (in context) |
+| **Drawer** | A surface that slides in from a screen edge, dismissible without leaving the parent | side panel (when meaning drawer), tray | system-wide | (in context) |
+| **Modal** | A surface overlaying the page that traps focus and requires explicit dismissal | dialog (when meaning modal — they differ), popup | system-wide | (in context) |
+| **Dialog** | A non-trapping surface for short content or confirmation, dismissible by clicking outside | popup, modal (when meaning dialog) | system-wide | (in context) |
+| **Toast** | A transient notification appearing in a corner, dismissing automatically after a defined interval | snackbar, notification (when meaning toast — they differ), popup | system-wide | (in context) |
+| **Banner** | A persistent notification appearing inline within a surface, dismissed by user action | callout (when meaning banner), alert (when meaning banner) | system-wide | (in context) |
+| **Tooltip** | A short text annotation on hover or focus, providing supplementary context without obstructing flow | hint (when meaning tooltip), label (when meaning tooltip — they differ) | system-wide | (in context) |
+| **Card** | A bounded container grouping related content with consistent edges and elevation | tile (when meaning card — they differ), block | system-wide | (in context) |
+| **Tile** | A card whose primary purpose is to be a clickable entry point to a destination | card (when meaning tile), button (when meaning tile) | system-wide | (in context) |
+| **Table** | A surface for tabular data with rows, columns, headers, sortable columns, and selection | grid (when meaning table — they differ), list (when meaning table) | system-wide | (in context) |
+| **List** | A surface for a vertical sequence of homogeneous items, optionally with leading/trailing accessories | feed (when meaning list — they differ), stack | system-wide | (in context) |
+
+#### 10.6.6 User-class vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Owner** *(user role)* | The user accountable for an item; one and only one Owner per item | creator (when meaning Owner), assignee (when meaning Owner — they differ), lead | system-wide | (in context) |
+| **Reviewer** *(user role)* | A user evaluating work without owning the outcome; zero or more Reviewers per item | checker (when meaning Reviewer), approver (when meaning Reviewer — they differ) | system-wide | (in context) |
+| **Approver** *(user role)* | A user whose sign-off is required before an item passes a gate; one or more per item | reviewer (when meaning Approver), gatekeeper | system-wide | (in context) |
+| **Observer** | A user with read-only access; cannot mutate state | viewer (when meaning Observer in role context), guest | system-wide | (in context) |
+| **Contributor** | A user with limited write access scoped to specific items or sections | editor (when meaning Contributor in role context), author | system-wide | (in context) |
+| **Admin** | A user with system-wide configuration access; bypasses item-level role checks | administrator (use Admin in product chrome), superuser | system-wide | (in context) |
+| **Stakeholder** | A person with a legitimate interest in an outcome, who may or may not be a system user | participant (when meaning Stakeholder), party | within a workflow | (in context) |
+| **Data subject** | An identified or identifiable natural person to whom personal data relates (GDPR Art. 4(1)) | individual (when meaning data subject), user (when meaning data subject) | privacy surfaces | spelled out on first reference per surface |
+| **Controller** | The entity determining the purposes and means of processing personal data (GDPR Art. 4(7)) | data owner (when meaning controller — they differ), responsible party | privacy surfaces | (in context) |
+| **Processor** | An entity processing personal data on behalf of a controller (GDPR Art. 4(8)) | vendor (when meaning processor — vendor is a superset), service provider (when meaning processor — they differ in different regulatory contexts) | privacy surfaces | (in context) |
+| **Vendor** | A third party engaged by the organisation; may or may not be a processor under GDPR terms | supplier, third party (when meaning vendor — third party is a superset), processor (vendor is a superset of processor) | system-wide | (in context) |
+
+**Total: 84 canonical entries.** ≥ 80 per acceptance.
+
+#### 10.6.7 Glossary rules
+
+**Acronym rule.** Spelled out on first reference *per surface*, not per session. The user reading the assessment list should not need to remember an acronym defined three pages ago. After first reference on a given surface, the acronym alone is acceptable.
+
+**Prohibited-synonym rule.** Once a term is in the glossary, the prohibited synonyms in its row are rejected by `lint:glossary` (queued in §15.8.4) in any product-surface copy. The lint runs against `content/strings.*.json` in consumer apps and against `apps/docs/content/**/*.mdx` in this repo's doc site.
+
+**Disambiguation in prohibited synonyms.** Many prohibited synonyms are forbidden *in a specific meaning*. The "(when meaning X)" qualifier is part of the lint rule — `audit log` may use "log" generically, but cannot use "history" when meaning audit log. The lint is context-sensitive via the surrounding sentence; rule definitions live in `tools/lint-glossary/contexts.json`.
+
+**Addition rule.** Adding a term requires G8 (drafting) + G4 (review) approval and a row in this glossary in the same PR that introduces it. **No product copy uses a term not in this glossary.** This rule is binding from v4.2.1.
+
+**Source attribution.** Each row's regulatory source (where applicable) is cited inline. Where two sources disagree, the regulator wins; where regulators don't speak (UI nouns), Polaris wins. Source updates published more often than once per major version trigger a glossary review.
 
 ### 10.7 Help text
 
@@ -1811,6 +1920,7 @@ Figma library version follows the package version. A `1.2.0` package release is 
 - `tokens-build`: TypeScript script in `tools/tokens-build/`. Reads W3C JSON, emits CSS / TS / Tailwind / Figma JSON.
 - `figma-publish`: Node script that posts the Figma JSON to the Figma Variables REST API. Requires the `FIGMA_TOKEN` secret in CI.
 - `figma-diff`: Local script for designers to see the diff between their local Figma state and the published code tokens.
+- `lint:glossary` *(v4.2.1; implementation deferred to engineering programme)*: TypeScript script that walks every string in consumer-app `content/strings.*.json` files and `apps/docs/content/**/*.mdx`, builds a context-sensitive index from the §10.6 glossary's prohibited-synonyms columns + the per-row "(when meaning X)" qualifiers, and fails the build on any product-surface copy that uses a forbidden synonym in the meaning the qualifier disambiguates. Context rules live in `tools/lint-glossary/contexts.json`. See §10.6.7.
 
 CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build.
 
