@@ -112,10 +112,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Acceptance.** §8.12 has three full recipe bodies, not links.
 **Owner.** G4.
 
-### A4 — U2.9 Promotion log entries in §23
-**Gap.** Four v4.2 promotions happened (Gauge, Citation Chip, StreamingText, PromptChip) but §23 has no log entries.
-**Resolution.** Add §23.5 "Promotion log" with one row per promotion: component, source domain, target domain, date, justification, triggered-by.
-**Acceptance.** Four log rows for v4.2 promotions; protocol documented for future promotions.
+### A4 — U2.9 Promotion log entries in §23 ✓
+**Gap.** v4.2 promotions happened but §23 had no log entries.
+**Resolution.** Added §23.7 "Promotion log" (section ID corrected from §23.5 — that's "The discipline"; §23.6 is "Override-frequency as design signal"; §23.7 is the next free slot). Log records **five v4.2 promotions, not four as the patch plan originally said** — the spec's F2 row (line 20) lists Gauge + Citation Chip + StreamingText + PromptChip + LongOperation. Each entry carries: component, source, target domain, version, triggered-by, justification. Closing paragraph documents the future-promotion protocol (in-PR log-row authorship, quarterly adoption-review check, major-version end-to-end audit).
+**Status.** Resolved.
 **Owner.** G4.
 
 ### A5 — U3.4 §10.4 Number formatting expansion
@@ -172,7 +172,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
 | `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
-| `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
+| `[x]` | A4 | §23.7 promotion log (5 rows; corrected from §23.5/4-row count) | P1 | G4 |
 | `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |
 | `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
 | `[ ]` | A7 | §15.1 figma `$extensions` key | P1 | G1 |
