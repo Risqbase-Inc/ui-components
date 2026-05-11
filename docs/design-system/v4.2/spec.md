@@ -1862,6 +1862,7 @@ Figma library version follows the package version. A `1.2.0` package release is 
 - `tokens-build`: TypeScript script in `tools/tokens-build/`. Reads W3C JSON, emits CSS / TS / Tailwind / Figma JSON.
 - `figma-publish`: Node script that posts the Figma JSON to the Figma Variables REST API. Requires the `FIGMA_TOKEN` secret in CI.
 - `figma-diff`: Local script for designers to see the diff between their local Figma state and the published code tokens.
+- `lint:recipes-voice` *(v4.2.1; implementation deferred to engineering programme)*: TypeScript script that walks every recipe in `apps/docs/content/patterns/**/*.mdx`, asserts each `voice_examples[]` entry carries a `template_id` matching `^10\.[58]\.\d+$`, and resolves the ID against a generated `§10.5`/`§10.8` template index. Fails the build on any unbound `voice_examples` entry. See §20.0.1.
 
 CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build. **Any token whose `$extensions` includes `com.risqbase.role` published from the `semantic` or `component` tier must also include `com.risqbase.figma` with `collection`, `mode`, and `scopes`** (per §15.1) — the lint rule fails the build if the binding is absent. Primitive-tier tokens may omit the figma binding when they are pure substrate (not published to Figma); when they are surfaced as Figma variables, the binding is required.
 
@@ -2114,6 +2115,29 @@ The annual external audit findings are appended to the accessibility statement w
 ### 20.0 Pattern Recipe Schema
 
 *Retained from v4.1.1 in full.* Every pattern is a structured recipe with frontmatter (`id`, `title`, `visibility`, `status`, `problem`, `when_to_use`, `when_not_to_use`, `composed_of`, `layout`, `voice_examples`, optional `variants`, `related`, `keyboard`, `accessibility`, `last_reviewed`, `owner`).
+
+#### 20.0.1 `voice_examples` — template-bound (v4.2.1 patch)
+
+Every entry in a recipe's `voice_examples[]` array must carry a `template_id` referencing a canonical content template from §10.5 (content patterns) or §10.8 (AI / IRIS-specific content rules). Without the binding, §10 is decorative — recipes can drift to ad-hoc copy and the voice & tone work never lands as enforcement.
+
+```yaml
+# Recipe example — assessment-outcome-dpia
+voice_examples:
+  - template_id: "10.5.4"           # required — references the empty-state template
+    context: "no DPIAs found in current quarter"
+    rendered: "No DPIAs in this period. New assessments will appear here."
+  - template_id: "10.8.2"           # required — references the AI-hedge template
+    context: "IRIS-summarised risk band, confidence < 0.7"
+    rendered: "Based on partial evidence, this looks like a high-risk activity."
+```
+
+| Field | Required | Spec |
+|-------|:---:|------|
+| `template_id` | ✓ | Must match a `^10\.[58]\.\d+$` pattern. The template definition lives in §10.5 (e.g., `10.5.4` = empty-state) or §10.8 (e.g., `10.8.2` = AI hedge phrase). CI verifies the ID resolves to a real template. |
+| `context` | ✓ | One-sentence description of when this example renders. Used by reviewers + the docs site. |
+| `rendered` | ✓ | The verbatim copy that surfaces in the UI in this context. CI verifies it conforms to the named template's structure. |
+
+**CI gate (v4.2.1).** The `lint:recipes-voice` script (queued in §15.8.4 tooling) fails on any recipe whose `voice_examples[]` entry omits `template_id` or whose `template_id` does not resolve to a §10.5/§10.8 template. Implementation is deferred to the engineering programme (`implementation-plan.md` §5.3); the spec contract is binding from v4.2.1.
 
 ### 20.1 Pattern Index
 
