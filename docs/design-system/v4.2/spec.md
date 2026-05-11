@@ -763,27 +763,121 @@ After v4.2 ships, no chart anywhere in any RisqBase product is produced without 
 
 Every chart in any RisqBase product must be classifiable as exactly one of the canonical types below. If a proposed chart cannot be classified, the chart is reconsidered before a new type is invented.
 
-#### 8.1.1 The seven canonical chart types
+#### 8.1.1 The canonical chart types
 
-| Type | What it answers | When to use | When NOT to use |
-|------|-----------------|-------------|-----------------|
-| **Bar (vertical)** | "How do these categories compare?" | Comparing 2–12 discrete categories | More than 12 categories — use horizontal bar |
-| **Bar (horizontal)** | Same as above with long category labels | 8–40 categories, or category labels longer than 12 chars | Fewer than 5 categories — use vertical bar |
-| **Line** | "How does this change over time?" | 2 or more points along a continuous (usually time) axis | Categorical x-axis with no order — use bar |
-| **Area** | "How does the *cumulative* total change over time, broken down by series?" | Time-series with stacked decomposition | Single series — use line |
-| **Sparkline** | "Is this trending up, down, or flat?" | Inline supporting context next to a metric card; never standalone | Standalone — use line with axes |
-| **Choropleth (geographic)** | "How does this value differ by country/region?" | Risk, prevalence, count, density across geographic units | Non-geographic categorical data — use bar |
-| **Heatmap (categorical)** | "How do two categorical dimensions interact?" | Risk-likelihood × Risk-impact matrix; vendor × control coverage | Continuous data — use line or scatter |
+Twenty-eight active types plus four deferred-to-v5, organised by **what question the chart answers**. Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun set (cross-referenced to §7.0 + §8.2 marks), accessibility row in §8.5, and a decision-matrix row reference in §8.1.2. Deferrals are explicit, not silent.
 
-#### 8.1.2 The "do we even need a chart?" test
+This taxonomy is **the menu** — products choose from it, they do not invent new types without G4 approval (§8.1.3 governs additions). Sources: Datawrapper chart-type taxonomy, Apple Swift Charts grammar, Observable Plot model, Cleveland-McGill perceptual ranking.
 
-Before producing any chart, the author answers three questions in writing (in the pattern recipe under `composed_of`):
+##### Comparison — "how do these categories compare?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Bar (vertical)** | 2–12 discrete categories, short labels (≤12 chars) | Categories >12 — use horizontal bar | `plot-area`, `axis`, `gridline`, `BarMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Bar (horizontal)** | 8–40 categories OR category labels >12 chars | Fewer than 5 categories — use vertical bar | as above with axis orientation swap | §8.5.1 | DM-2 |
+| **Grouped bar** | Comparing 2–4 sub-series across 2–8 categories | More than 4 sub-series — use small-multiples bar layout; more than 8 categories — use heatmap | as bar, plus inner `series` grouping; legend mandatory | §8.5.1 | DM-3 |
+| **Lollipop** | Same shape as bar but values cluster at similar magnitudes (visual differentiation is the lollipop head, not the bar height) | When precise magnitude reading matters more than ranking — use bar | `plot-area`, `axis`, `RuleMark` (stem), `DotMark` (head), `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Dot plot** | Comparing values across categories where zero is meaningful and bars feel heavy (e.g., scores, counts, age) | Negative values — use bar with diverging axis | `plot-area`, `axis`, `DotMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+
+##### Distribution — "how is this value spread across observations?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Histogram** | Showing the frequency distribution of a continuous variable (binned) | The variable is discrete — use bar | `plot-area`, `axis`, `BarMark` (binned), `gridline`, `annotation` (bin width), `value-encoding` | §8.5.1 | DM-4 |
+| **Box plot** | Showing five-number summary (min/Q1/median/Q3/max) and outliers across 2–12 groups | The reader is unfamiliar with quartile notation — use violin or annotated bar with mean | `plot-area`, `axis`, `RegionMark` (box), `RuleMark` (whiskers/median), `DotMark` (outliers), `category` | §8.5.1 | DM-4 |
+| **Violin** | Showing distribution shape (not just summary stats) across groups | Sample size is small (n<30) — distribution shape is noise; use box plot | `plot-area`, `axis`, `RegionMark` (kernel-density silhouette), `category`, `value-encoding` | §8.5.1 | DM-4 |
+| **Density curve** | Comparing the shape of two or three continuous distributions | More than three overlapping curves — use small-multiples histogram | `plot-area`, `axis`, `LineMark` (smoothed), `RegionMark` (filled, low-opacity), `series`, `value-encoding` | §8.5.1 | DM-4 |
+
+##### Composition — "how does the whole break down?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Stacked bar** | 2–6 mutually-exclusive components, exact totals matter | Components don't sum to a meaningful total — use grouped bar | `plot-area`, `axis`, `BarMark` (stacked), `series`, `legend`, `value-encoding` | §8.5.1 | DM-5 |
+| **Stacked area** | Time-series with cumulative decomposition into 2–6 series | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend` | §8.5.1 | DM-7 |
+| **Treemap** | Hierarchical part-to-whole with 10–50 leaves where ranking matters more than exact values | Fewer than 10 leaves — use bar; more than 50 — readability collapses | `plot-area`, `RegionMark` (nested rectangles), `TextMark` (labels), `annotation` (size scale) | §8.5.1 | DM-6 |
+| **Sunburst** | Hierarchical part-to-whole emphasising the hierarchy itself (parent-child paths) | A flat list — use bar; readability across >3 hierarchy levels — use treemap | `plot-area`, `RegionMark` (radial nested wedges), `TextMark` (labels), `scale` (angular) | §8.5.1 | DM-6 |
+| **Waffle** | Part-to-whole at small scale (single value as ~100 unit-squares) | More than three categories — readability collapses; use stacked-bar-100% | `plot-area`, `RegionMark` (unit grid), `legend`, `value-encoding` | §8.5.1 | DM-5 |
+
+##### Relationship — "do these two variables correlate?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Scatter** | Two continuous variables, 10–10,000 observations, looking for correlation/clusters/outliers | Three or more dimensions needed — use small-multiples scatter; not bubble (§8.1.3) | `plot-area`, `axis` (x + y), `DotMark`, `annotation` (trend line where applicable), `value-encoding` | §8.5.1 | DM-8 |
+| **Paired bar** | Comparing two values per category side-by-side (e.g., before/after, plan/actual) | More than 2 values per category — use grouped bar | `plot-area`, `axis`, `BarMark` (paired), `series` (2-only), `legend` | §8.5.1 | DM-3 |
+
+*Bubble is prohibited per §8.1.3 (area encoding misperceived by ~30%). Three-dimensional relationships should use small-multiples scatter or a heatmap with a sized-marker mark.*
+
+##### Time — "how does this change over time?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Line** | 2+ points along a continuous (usually time) axis, 1–8 series | Categorical x-axis with no order — use bar; 8+ series — use small-multiples | `plot-area`, `axis`, `LineMark`, `series`, `legend`, `gridline`, `tooltip` | §8.5.1 | DM-7 |
+| **Area** | Cumulative total over time, broken down by 2–6 series (stacked) | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend`, `gridline` | §8.5.1 | DM-7 |
+| **Sparkline** | Inline supporting context next to a metric card, showing direction at a glance | Standalone — use line with axes | `LineMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+| **Candlestick** *(deferred to v5)* | Financial OHLC time-series | — | — | — | — |
+
+##### Geographic — "how does this value differ by place?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Choropleth** | Quantitative value per polygon (country, region, postcode area); reader compares regions | Point data — use symbol map; polygon counts ≤5 — use bar | `plot-area`, `ChoroplethMark`, `legend` (sequential scale), `tooltip`, `null-marker` (missing-data polygon) | §8.5.1 + §8.10.x | DM-10 |
+| **Symbol map** | Point-located data (events, sites, addresses); reader scans density | Aggregable data — use choropleth; quantitative comparison across regions — use choropleth | `plot-area`, `DotMark` (sized + coloured), `legend`, `tooltip` | §8.5.1 | DM-10 |
+| **Flow map** *(deferred to v5)* | Origin-destination flows over geography | — | — | — | — |
+
+##### Part-to-whole — "what share is each component?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Donut (≤2 wedges only)** | Single binary share (e.g., "60% complete / 40% remaining"). Above 2 wedges, §8.1.3 prohibits — collapses to Gauge per §7.11 | More than 2 wedges — angle/area read badly; use stacked-bar-100% or bar | `plot-area`, `RegionMark` (2 wedges), `TextMark` (centre value), `legend` | §8.5.1 | DM-5 |
+| **Waffle** | Small-scale part-to-whole, 2–3 categories, totals add to 100 | More than 3 categories — see Composition row above | (see Composition / Waffle) | §8.5.1 | DM-5 |
+| **Stacked-bar-100%** | Comparing the proportional breakdown across 2–12 categories where exact magnitudes don't matter | Magnitudes matter — use stacked bar (absolute) | `plot-area`, `axis` (normalised to 100%), `BarMark` (stacked-normalised), `series`, `legend` | §8.5.1 | DM-5 |
+
+##### Single-value — "what is the headline number?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Metric card** | One value (with optional delta), full-text label, no trend shape needed | Trend shape matters — add a sparkline below the value, or upgrade to gauge | `TextMark` (value + label + optional delta-pill), `value-encoding` | §8.5.1 + §7.10 | DM-9 |
+| **Gauge** | Score / progress / coverage value on a fixed 0–100 (or other bounded) scale, optionally with risk-band | Unbounded value — use metric card; multiple values — use small-multiples gauge | (see §7.11 generic Gauge primitive) | §8.5.1 + §7.11 | DM-9 |
+| **Sparkbar** | Inline supporting context where multiple discrete values matter (vs Sparkline for continuous trend) | Continuous trend — use sparkline | `BarMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+
+##### Flow — "how do entities move between states?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Funnel** | Sequential stage-by-stage conversion (e.g., assessment lifecycle steps where each stage is a subset of the previous) | Stages are not strictly nested — use grouped bar | `plot-area`, `RegionMark` (stage bars, decreasing width), `TextMark` (counts + drop-off %), `annotation` | §8.5.1 | DM-11 |
+| **Sankey** *(deferred to v5)* | Multi-stage flow with branching/joining (energy flow, customer journey) | — | — | — | — |
+
+##### Heatmap — "how do two dimensions interact?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Heatmap (categorical)** | Two categorical dimensions intersecting (e.g., likelihood × impact 5×5 matrix; vendor × control coverage) | Continuous data on one axis — use line or scatter | `plot-area`, `axis` (x + y categorical), `HeatmapMark`, `legend` (sequential or diverging), `tooltip`, `TextMark` (in-cell value) | §8.5.1 + §8.11.x | DM-3 |
+
+#### 8.1.2 Decision matrix — data shape to canonical type
+
+Before producing any chart, the author answers three "do we even need a chart?" questions in writing (in the pattern recipe under `composed_of`):
 
 1. **What single sentence is this chart meant to support?** If you cannot write the sentence, you cannot draw the chart.
 2. **Could a single number, a sentence, or a sparkline answer the same question?** If yes, use that instead.
-3. **Will the reader be looking for a value, a comparison, a trend, a distribution, or a relationship?** This selects the chart type.
+3. **Will the reader be looking for a value, a comparison, a trend, a distribution, a relationship, a composition, a flow, or a geographic pattern?** This selects the chart type via the matrix below.
 
 This test is mandatory in pattern recipes that contain `composed_of: [chart, ...]`. Reviewers (G4) reject pattern PRs that skip it.
+
+| DM | Data shape | Canonical type(s) | Fallback if criteria don't fit |
+|:---:|------------|--------------------|--------------------------------|
+| **DM-1** | Single series, 2–12 discrete categories, short labels | Bar (vertical), lollipop, dot plot | Horizontal bar (DM-2) when labels >12 chars or categories >12 |
+| **DM-2** | Single series, 8–40 categories OR long labels | Bar (horizontal) | Treemap when ranking matters more than exact values and N > 40 |
+| **DM-3** | Multi-series across categories (2–4 series, 2–8 categories) | Grouped bar, paired bar, heatmap (when both dimensions categorical) | Small-multiples bar when series > 4 |
+| **DM-4** | Continuous variable, distribution shape matters | Histogram (binned), box plot (summary), violin (shape), density curve (shape + overlay) | Box plot when audience is statistical; histogram when audience is general |
+| **DM-5** | Part-to-whole composition (single value or per-category) | Stacked bar, waffle (small), stacked-bar-100%, donut (≤2 wedges only) | Bar table when component count > 6 |
+| **DM-6** | Hierarchical part-to-whole | Treemap (ranking matters), sunburst (hierarchy matters) | Indented bar list when hierarchy is shallow (≤2 levels) and order matters |
+| **DM-7** | Time series, continuous trend | Line (1–8 series), area (cumulative, stacked) | Small-multiples line when series > 8 |
+| **DM-8** | Two continuous variables, correlation/cluster/outlier hunting | Scatter (with optional trend annotation) | Heatmap (2D categorical version) when both variables become categorical |
+| **DM-9** | Single value, optionally with direction or trend | Metric card (just value), gauge (bounded scale), sparkline (trend shape), sparkbar (discrete values inline) | Bar table when N values > 8 and inline doesn't fit |
+| **DM-10** | Geographic value per region or per point | Choropleth (per polygon), symbol map (per point) | Bar list of top-N regions when geographic context isn't load-bearing |
+| **DM-11** | Sequential conversion / drop-off stages | Funnel | Stacked-bar-100% when stages aren't strictly nested |
+
+**Reading rule.** If two data shapes apply (e.g., time series across categories), prefer the row that captures the **primary question** the chart answers. If still ambiguous, prefer the canonical type with the higher Cleveland-McGill perceptual rank (position-along-common-scale > length > angle/area).
 
 #### 8.1.3 Charts you may *never* produce
 
