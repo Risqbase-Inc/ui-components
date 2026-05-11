@@ -1,7 +1,7 @@
 # @risqbase-inc/ui-components
 
 Shared UI components, design tokens, and theming primitives for RisqBase products
-(`risqbase.com`, `ralia.io`, `[internal admin]`). This package is the runtime expression
+(`risqbase.com`, `ralia.io`, internal admin tooling). This package is the runtime expression
 of the [RisqBase Design System v4.2](docs/design-system/v4.2/) (`GOV-DS-2026-02`).
 
 **Latest published:** `1.2.0`. **Next release:** `1.3.0` (staged in `package.json`, pending

@@ -140,3 +140,13 @@ vite.config.ts.timestamp-*
 
 # Generated tokens — emitted by `npm run build:tokens` (do not commit)
 src/tokens/generated.ts
+
+# Claude Code workspace memory (internal — not for public distribution)
+CLAUDE.md
+.claude/
+
+# Vercel CLI metadata (contains project IDs — local-only)
+.vercel
+
+# Local env files
+.env*.local
