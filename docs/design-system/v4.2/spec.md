@@ -2316,6 +2316,24 @@ A component whose `className`/`style` override rate exceeds 15% of mounts is fai
 
 Doing nothing is not an option — every quarter the override rate stays high, the component drifts further from the system's intent.
 
+### 23.7 Promotion log
+
+Every promotion across the four tier transitions in §23.1 — experimental → beta, beta → stable, RALIA-private → shared, deprecated → removed — is recorded here in the same release as the promotion ships. The log is the audit trail for §23's adoption-evidence-based discipline: a future "why is this shared?" or "when did this stabilise?" question is answered by reading this section.
+
+| Component | Source | Target domain | Version | Triggered by | Justification |
+|-----------|--------|---------------|---------|--------------|---------------|
+| **Gauge (generic primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/data-viz` | v4.2 | F2 + Cortex operational-gauge need | The dual-ring inherent/residual delta encoding is RisqBase-distinctive (§7.11), but the *underlying* stroked-arc primitive — track + arc + terminus + centre-value — is generic. Cortex needs gauges for operational health; the marketing site uses gauges for quantified value claims. Promoting keeps the dual-ring encoding RALIA-configured while letting other products consume the primitive. RALIA Risk Gauge becomes a ~60-line wrapper. |
+| **Citation Chip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product AI need | Every AI feature across the three products renders citations the same way — source pill, hover popover with full reference, click to permalink. The interaction is the AI surface's load-bearing trust contract (§6.5). RALIA's v4.1.1 implementation is preserved verbatim; only the import path changes (§16.2 step 2). |
+| **StreamingText** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + the IRIS streaming contract becomes systemic | Token-by-token reveal with citation-chip slot, error-mid-stream state, and `aria-live="polite"` wrapper. The streaming-text shape itself is system-level (per §6.5); IRIS branding stays in RALIA via composition. |
+| **PromptChip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product prompt-suggestion need | Pre-filled prompt-suggestion pill. Cortex uses it for triage suggestions; marketing site uses it for try-this-prompt CTAs. |
+| **LongOperation (stepped-pattern primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/core` | v4.2 | F2 + long-running-task UX is universal | The generic stepped-pattern primitive (per §7.13.1) is for any operation with a known step sequence and indeterminate completion time. The IRIS-narrated variant (streaming step labels via `aria-live="polite"`) remains a RALIA wrapper. |
+
+**Promotion protocol — for future promotions.** Each row above was authored by G4 in the same PR that shipped the promotion. The discipline going forward:
+
+1. **At promotion-time**, the PR author adds one row to this table with all six fields. No "TBD" entries; a promotion without a log row fails review.
+2. **At quarterly adoption review** (§23.5), G4 reviews the log against telemetry: did the promoted component get the cross-product adoption the justification claimed? Components that didn't are flagged in §23.4 for demotion.
+3. **At major-version boundaries**, the log is read end-to-end as the canonical "what shared this major" story; mismatches between log entries and shipped components trigger a hygiene pass before the major publishes.
+
 ---
 
 ## Approval Block
