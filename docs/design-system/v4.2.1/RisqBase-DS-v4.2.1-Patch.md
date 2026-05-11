@@ -50,9 +50,9 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 
 **Owner.** G1.
 
-### T2 — §8.1.1 chart taxonomy: 7 → 20+ types
+### T2 — §8.1.1 chart taxonomy: 7 → 28 types ✓
 
-**Gap.** Plan U1.2 promised ~20 chart types organised by purpose. v4.2 §8.1.1 ships seven (line / bar / area / sparkline / heatmap / choropleth / metric-card). At one-third the promised depth, the taxonomy is too thin to drive chart-choice decisions; teams will reach for ad-hoc Tableau/Datawrapper choices.
+**Gap.** Plan U1.2 promised ~20 chart types organised by purpose. v4.2 §8.1.1 shipped seven (line / bar / area / sparkline / heatmap / choropleth / metric-card). At one-third the promised depth, the taxonomy was too thin to drive chart-choice decisions; teams reached for ad-hoc Tableau/Datawrapper choices.
 
 **Resolution.** Expand §8.1.1 to the full taxonomy organised by purpose:
 
@@ -69,6 +69,8 @@ This is a documentation-only patch. The 22 implementation `[~]` rows from the v4
 Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun set (from §7.0 + §8.2), a link to its accessibility row in §8.6, and a citation to the relevant decision-rule row in §8.1.2. Deferrals are explicit, not silent.
 
 **Acceptance.** §8.1.1 lists ≥ 20 chart types with the structure above. §8.1.2 decision matrix has a row per data-shape pointing to a canonical type.
+
+**Status.** Resolved. §8.1.1 now lists **28 active types** across 10 purpose-groups (Comparison 5, Distribution 4, Composition 5, Relationship 2, Time 3, Geographic 2, Part-to-whole 3, Single-value 3, Flow 1, Heatmap 1) plus **4 deferred-to-v5** (candlestick, flow map, Sankey, bubble — bubble explicitly cross-referenced to §8.1.3 prohibition). Each entry carries: `use when`, `do not use when`, anatomy noun set (§7.0 + §8.2), accessibility row (§8.5, corrected from patch's §8.6 — same mistake as G1), and DM row reference. §8.1.2 rewritten into an 11-row decision matrix mapping data shape → canonical type with fallback rule. Reading rule appended: if shapes ambiguous, prefer the type with higher Cleveland-McGill perceptual rank. Sources: Datawrapper, Cleveland-McGill, Apple Swift Charts, Observable Plot — same references v4.2 already cites.
 
 **Owner.** G4.
 
@@ -171,7 +173,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | Status | ID | Item | Bucket | Owner |
 |:---:|----|------|:---:|------|
 | `[ ]` | T1 | §15.6 → ~200 net-new role tokens | P0 | G1 |
-| `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
+| `[x]` | T2 | §8.1.1 → 28 chart types + §8.1.2 11-row decision matrix | P0 | G4 |
 | `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
 | `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
 | `[x]` | A2 | §8.7 library + version pin (`visx@^3.0.0`) | P1 | G1 + G4 |
