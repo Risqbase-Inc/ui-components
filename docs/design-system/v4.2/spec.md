@@ -763,27 +763,121 @@ After v4.2 ships, no chart anywhere in any RisqBase product is produced without 
 
 Every chart in any RisqBase product must be classifiable as exactly one of the canonical types below. If a proposed chart cannot be classified, the chart is reconsidered before a new type is invented.
 
-#### 8.1.1 The seven canonical chart types
+#### 8.1.1 The canonical chart types
 
-| Type | What it answers | When to use | When NOT to use |
-|------|-----------------|-------------|-----------------|
-| **Bar (vertical)** | "How do these categories compare?" | Comparing 2–12 discrete categories | More than 12 categories — use horizontal bar |
-| **Bar (horizontal)** | Same as above with long category labels | 8–40 categories, or category labels longer than 12 chars | Fewer than 5 categories — use vertical bar |
-| **Line** | "How does this change over time?" | 2 or more points along a continuous (usually time) axis | Categorical x-axis with no order — use bar |
-| **Area** | "How does the *cumulative* total change over time, broken down by series?" | Time-series with stacked decomposition | Single series — use line |
-| **Sparkline** | "Is this trending up, down, or flat?" | Inline supporting context next to a metric card; never standalone | Standalone — use line with axes |
-| **Choropleth (geographic)** | "How does this value differ by country/region?" | Risk, prevalence, count, density across geographic units | Non-geographic categorical data — use bar |
-| **Heatmap (categorical)** | "How do two categorical dimensions interact?" | Risk-likelihood × Risk-impact matrix; vendor × control coverage | Continuous data — use line or scatter |
+Twenty-eight active types plus four deferred-to-v5, organised by **what question the chart answers**. Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun set (cross-referenced to §7.0 + §8.2 marks), accessibility row in §8.5, and a decision-matrix row reference in §8.1.2. Deferrals are explicit, not silent.
 
-#### 8.1.2 The "do we even need a chart?" test
+This taxonomy is **the menu** — products choose from it, they do not invent new types without G4 approval (§8.1.3 governs additions). Sources: Datawrapper chart-type taxonomy, Apple Swift Charts grammar, Observable Plot model, Cleveland-McGill perceptual ranking.
 
-Before producing any chart, the author answers three questions in writing (in the pattern recipe under `composed_of`):
+##### Comparison — "how do these categories compare?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Bar (vertical)** | 2–12 discrete categories, short labels (≤12 chars) | Categories >12 — use horizontal bar | `plot-area`, `axis`, `gridline`, `BarMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Bar (horizontal)** | 8–40 categories OR category labels >12 chars | Fewer than 5 categories — use vertical bar | as above with axis orientation swap | §8.5.1 | DM-2 |
+| **Grouped bar** | Comparing 2–4 sub-series across 2–8 categories | More than 4 sub-series — use small-multiples bar layout; more than 8 categories — use heatmap | as bar, plus inner `series` grouping; legend mandatory | §8.5.1 | DM-3 |
+| **Lollipop** | Same shape as bar but values cluster at similar magnitudes (visual differentiation is the lollipop head, not the bar height) | When precise magnitude reading matters more than ranking — use bar | `plot-area`, `axis`, `RuleMark` (stem), `DotMark` (head), `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Dot plot** | Comparing values across categories where zero is meaningful and bars feel heavy (e.g., scores, counts, age) | Negative values — use bar with diverging axis | `plot-area`, `axis`, `DotMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+
+##### Distribution — "how is this value spread across observations?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Histogram** | Showing the frequency distribution of a continuous variable (binned) | The variable is discrete — use bar | `plot-area`, `axis`, `BarMark` (binned), `gridline`, `annotation` (bin width), `value-encoding` | §8.5.1 | DM-4 |
+| **Box plot** | Showing five-number summary (min/Q1/median/Q3/max) and outliers across 2–12 groups | The reader is unfamiliar with quartile notation — use violin or annotated bar with mean | `plot-area`, `axis`, `RegionMark` (box), `RuleMark` (whiskers/median), `DotMark` (outliers), `category` | §8.5.1 | DM-4 |
+| **Violin** | Showing distribution shape (not just summary stats) across groups | Sample size is small (n<30) — distribution shape is noise; use box plot | `plot-area`, `axis`, `RegionMark` (kernel-density silhouette), `category`, `value-encoding` | §8.5.1 | DM-4 |
+| **Density curve** | Comparing the shape of two or three continuous distributions | More than three overlapping curves — use small-multiples histogram | `plot-area`, `axis`, `LineMark` (smoothed), `RegionMark` (filled, low-opacity), `series`, `value-encoding` | §8.5.1 | DM-4 |
+
+##### Composition — "how does the whole break down?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Stacked bar** | 2–6 mutually-exclusive components, exact totals matter | Components don't sum to a meaningful total — use grouped bar | `plot-area`, `axis`, `BarMark` (stacked), `series`, `legend`, `value-encoding` | §8.5.1 | DM-5 |
+| **Stacked area** | Time-series with cumulative decomposition into 2–6 series | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend` | §8.5.1 | DM-7 |
+| **Treemap** | Hierarchical part-to-whole with 10–50 leaves where ranking matters more than exact values | Fewer than 10 leaves — use bar; more than 50 — readability collapses | `plot-area`, `RegionMark` (nested rectangles), `TextMark` (labels), `annotation` (size scale) | §8.5.1 | DM-6 |
+| **Sunburst** | Hierarchical part-to-whole emphasising the hierarchy itself (parent-child paths) | A flat list — use bar; readability across >3 hierarchy levels — use treemap | `plot-area`, `RegionMark` (radial nested wedges), `TextMark` (labels), `scale` (angular) | §8.5.1 | DM-6 |
+| **Waffle** | Part-to-whole at small scale (single value as ~100 unit-squares) | More than three categories — readability collapses; use stacked-bar-100% | `plot-area`, `RegionMark` (unit grid), `legend`, `value-encoding` | §8.5.1 | DM-5 |
+
+##### Relationship — "do these two variables correlate?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Scatter** | Two continuous variables, 10–10,000 observations, looking for correlation/clusters/outliers | Three or more dimensions needed — use small-multiples scatter; not bubble (§8.1.3) | `plot-area`, `axis` (x + y), `DotMark`, `annotation` (trend line where applicable), `value-encoding` | §8.5.1 | DM-8 |
+| **Paired bar** | Comparing two values per category side-by-side (e.g., before/after, plan/actual) | More than 2 values per category — use grouped bar | `plot-area`, `axis`, `BarMark` (paired), `series` (2-only), `legend` | §8.5.1 | DM-3 |
+
+*Bubble is prohibited per §8.1.3 (area encoding misperceived by ~30%). Three-dimensional relationships should use small-multiples scatter or a heatmap with a sized-marker mark.*
+
+##### Time — "how does this change over time?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Line** | 2+ points along a continuous (usually time) axis, 1–8 series | Categorical x-axis with no order — use bar; 8+ series — use small-multiples | `plot-area`, `axis`, `LineMark`, `series`, `legend`, `gridline`, `tooltip` | §8.5.1 | DM-7 |
+| **Area** | Cumulative total over time, broken down by 2–6 series (stacked) | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend`, `gridline` | §8.5.1 | DM-7 |
+| **Sparkline** | Inline supporting context next to a metric card, showing direction at a glance | Standalone — use line with axes | `LineMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+| **Candlestick** *(deferred to v5)* | Financial OHLC time-series | — | — | — | — |
+
+##### Geographic — "how does this value differ by place?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Choropleth** | Quantitative value per polygon (country, region, postcode area); reader compares regions | Point data — use symbol map; polygon counts ≤5 — use bar | `plot-area`, `ChoroplethMark`, `legend` (sequential scale), `tooltip`, `null-marker` (missing-data polygon) | §8.5.1 + §8.10.x | DM-10 |
+| **Symbol map** | Point-located data (events, sites, addresses); reader scans density | Aggregable data — use choropleth; quantitative comparison across regions — use choropleth | `plot-area`, `DotMark` (sized + coloured), `legend`, `tooltip` | §8.5.1 | DM-10 |
+| **Flow map** *(deferred to v5)* | Origin-destination flows over geography | — | — | — | — |
+
+##### Part-to-whole — "what share is each component?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Donut (≤2 wedges only)** | Single binary share (e.g., "60% complete / 40% remaining"). Above 2 wedges, §8.1.3 prohibits — collapses to Gauge per §7.11 | More than 2 wedges — angle/area read badly; use stacked-bar-100% or bar | `plot-area`, `RegionMark` (2 wedges), `TextMark` (centre value), `legend` | §8.5.1 | DM-5 |
+| **Waffle** | Small-scale part-to-whole, 2–3 categories, totals add to 100 | More than 3 categories — see Composition row above | (see Composition / Waffle) | §8.5.1 | DM-5 |
+| **Stacked-bar-100%** | Comparing the proportional breakdown across 2–12 categories where exact magnitudes don't matter | Magnitudes matter — use stacked bar (absolute) | `plot-area`, `axis` (normalised to 100%), `BarMark` (stacked-normalised), `series`, `legend` | §8.5.1 | DM-5 |
+
+##### Single-value — "what is the headline number?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Metric card** | One value (with optional delta), full-text label, no trend shape needed | Trend shape matters — add a sparkline below the value, or upgrade to gauge | `TextMark` (value + label + optional delta-pill), `value-encoding` | §8.5.1 + §7.10 | DM-9 |
+| **Gauge** | Score / progress / coverage value on a fixed 0–100 (or other bounded) scale, optionally with risk-band | Unbounded value — use metric card; multiple values — use small-multiples gauge | (see §7.11 generic Gauge primitive) | §8.5.1 + §7.11 | DM-9 |
+| **Sparkbar** | Inline supporting context where multiple discrete values matter (vs Sparkline for continuous trend) | Continuous trend — use sparkline | `BarMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+
+##### Flow — "how do entities move between states?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Funnel** | Sequential stage-by-stage conversion (e.g., assessment lifecycle steps where each stage is a subset of the previous) | Stages are not strictly nested — use grouped bar | `plot-area`, `RegionMark` (stage bars, decreasing width), `TextMark` (counts + drop-off %), `annotation` | §8.5.1 | DM-11 |
+| **Sankey** *(deferred to v5)* | Multi-stage flow with branching/joining (energy flow, customer journey) | — | — | — | — |
+
+##### Heatmap — "how do two dimensions interact?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Heatmap (categorical)** | Two categorical dimensions intersecting (e.g., likelihood × impact 5×5 matrix; vendor × control coverage) | Continuous data on one axis — use line or scatter | `plot-area`, `axis` (x + y categorical), `HeatmapMark`, `legend` (sequential or diverging), `tooltip`, `TextMark` (in-cell value) | §8.5.1 + §8.11.x | DM-3 |
+
+#### 8.1.2 Decision matrix — data shape to canonical type
+
+Before producing any chart, the author answers three "do we even need a chart?" questions in writing (in the pattern recipe under `composed_of`):
 
 1. **What single sentence is this chart meant to support?** If you cannot write the sentence, you cannot draw the chart.
 2. **Could a single number, a sentence, or a sparkline answer the same question?** If yes, use that instead.
-3. **Will the reader be looking for a value, a comparison, a trend, a distribution, or a relationship?** This selects the chart type.
+3. **Will the reader be looking for a value, a comparison, a trend, a distribution, a relationship, a composition, a flow, or a geographic pattern?** This selects the chart type via the matrix below.
 
 This test is mandatory in pattern recipes that contain `composed_of: [chart, ...]`. Reviewers (G4) reject pattern PRs that skip it.
+
+| DM | Data shape | Canonical type(s) | Fallback if criteria don't fit |
+|:---:|------------|--------------------|--------------------------------|
+| **DM-1** | Single series, 2–12 discrete categories, short labels | Bar (vertical), lollipop, dot plot | Horizontal bar (DM-2) when labels >12 chars or categories >12 |
+| **DM-2** | Single series, 8–40 categories OR long labels | Bar (horizontal) | Treemap when ranking matters more than exact values and N > 40 |
+| **DM-3** | Multi-series across categories (2–4 series, 2–8 categories) | Grouped bar, paired bar, heatmap (when both dimensions categorical) | Small-multiples bar when series > 4 |
+| **DM-4** | Continuous variable, distribution shape matters | Histogram (binned), box plot (summary), violin (shape), density curve (shape + overlay) | Box plot when audience is statistical; histogram when audience is general |
+| **DM-5** | Part-to-whole composition (single value or per-category) | Stacked bar, waffle (small), stacked-bar-100%, donut (≤2 wedges only) | Bar table when component count > 6 |
+| **DM-6** | Hierarchical part-to-whole | Treemap (ranking matters), sunburst (hierarchy matters) | Indented bar list when hierarchy is shallow (≤2 levels) and order matters |
+| **DM-7** | Time series, continuous trend | Line (1–8 series), area (cumulative, stacked) | Small-multiples line when series > 8 |
+| **DM-8** | Two continuous variables, correlation/cluster/outlier hunting | Scatter (with optional trend annotation) | Heatmap (2D categorical version) when both variables become categorical |
+| **DM-9** | Single value, optionally with direction or trend | Metric card (just value), gauge (bounded scale), sparkline (trend shape), sparkbar (discrete values inline) | Bar table when N values > 8 and inline doesn't fit |
+| **DM-10** | Geographic value per region or per point | Choropleth (per polygon), symbol map (per point) | Bar list of top-N regions when geographic context isn't load-bearing |
+| **DM-11** | Sequential conversion / drop-off stages | Funnel | Stacked-bar-100% when stages aren't strictly nested |
+
+**Reading rule.** If two data shapes apply (e.g., time series across categories), prefer the row that captures the **primary question** the chart answers. If still ambiguous, prefer the canonical type with the higher Cleveland-McGill perceptual rank (position-along-common-scale > length > angle/area).
 
 #### 8.1.3 Charts you may *never* produce
 
@@ -1013,6 +1107,10 @@ In Windows High Contrast Mode (`forced-colors: active`):
 
 The fallback is a real `<table>` with `<caption>` matching the chart title, `<thead>` for category headers, `<tbody>` rows for each data point, and `tabular-nums` numeric cells. It is implemented by the chart component — the consumer does not author it. The chart container exposes the table via shadow DOM (`<chart-component>` element) or as a sibling element with `aria-hidden="false"` when active and `aria-hidden="true"` when the visual chart is shown.
 
+#### 8.5.6 Sonification (deferred)
+
+Sonification — audio rendering of chart data alongside the visual representation — was scoped in plan U1.7 and is **deferred to v4.3**. Chart components must not foreclose it: any instrumentation surface (per-mark focus events, accessible value-text emission via `aria-valuenow`/`aria-valuetext`, reduced-motion gating in §8.5.3, forced-colors gating in §8.5.4) must remain reachable so the v4.3 sonification layer can wrap a chart without component refactoring. When v4.3 lands, sonification ships as an opt-in accessibility provision (sixth row in §8.5.1) with a defined audio-cue model, volume control, and a `prefers-reduced-motion`-aware fallback.
+
 ### 8.6 Chart states
 
 Every chart has six possible states. The component handles all six; the consumer never hand-rolls one.
@@ -1029,6 +1127,37 @@ Every chart has six possible states. The component handles all six; the consumer
 Default empty/error/stale copy comes from §10.5; consumers may override with product-specific phrasing.
 
 ### 8.7 Chart components in `@risqbase-inc/ui-components/data-viz`
+
+**Charting library: `visx@^3.0.0`** *(decision D9, `implementation-plan.md`; audit U1.9 fill)*
+
+`@visx` is the React-D3 bridge: it ships D3's scales, shapes, axes, and geometric primitives as React components with full SSR support and per-primitive tree-shaking. It does not impose a chart shape; the design-system components below impose the shape via composition.
+
+**Why Visx over alternatives.**
+
+| Considered | Rejected because |
+|------------|-----------------|
+| Recharts | High-level API ergonomic for prototypes but the prescribed look-and-feel forces escape hatches at the rate of one per non-trivial chart. Abstraction tax is unsustainable for a design-system component shipping seven canonical chart types. |
+| Observable Plot | Elegant grammar-of-graphics API but DOM-only output (no SSR-safe initial render). Still pre-1.0 with breaking API churn. |
+| Nivo | Same abstraction-tax pattern as Recharts; heavier bundle. |
+| Direct D3 (no React bridge) | Too low-level — every chart becomes from-scratch React-D3 integration work. Well-trodden patterns but not free. |
+
+**Component-by-component Visx contact surface.**
+
+| Component | Visx-wrapped | Direct D3 | RisqBase composition only |
+|-----------|:---:|:---:|:---:|
+| `<Chart>` | — | — | ✓ |
+| `<BarChart>`, `<HorizontalBarChart>` | `@visx/shape`, `@visx/scale`, `@visx/axis` | — | composition |
+| `<LineChart>`, `<AreaChart>` | `@visx/shape`, `@visx/scale` | — | composition |
+| `<Sparkline>` | `@visx/shape` | — | composition |
+| `<Heatmap>` | `@visx/heatmap` | — | composition |
+| `<ChoroplethMap>` | partial | `topojson-client` (no Visx geo primitive) | composition |
+| `<Gauge>` | — | `d3-arc` (svg-arc only) | ✓ |
+| `<MetricCard>` | — | — | ✓ (not a chart) |
+| Marks (`<BarMark>`, `<LineMark>`, etc.) | wrap Visx mark primitives | — | composition |
+
+**Version pin.** `visx@^3.0.0` is recorded in `package.json#peerDependencies` (consumer-supplied, like React) and locked in CI via `package-lock.json`. Upgrade to `4.x` is a major design-system version: visual regression suite re-baselines.
+
+---
 
 The library ships these components in v4.2. All are MIT-licensed shared code; product-specific extensions live in product repos.
 
@@ -1451,6 +1580,72 @@ We write in **British English** in product chrome and documentation by default (
 - Use "please" in button copy ("Please save" → "Save")
 - Use "just" or "simply" — they minimise the user's effort
 
+#### 10.3.3 Number formatting (v4.2.1 patch)
+
+The §10.3 single-line rules above are sufficient for body prose. For tabular contexts, dashboards, audit logs, charts, and regulator-facing output the spec requires more precision — readers compare values across rows, and inconsistency reads as inaccuracy. The four tables below define the canonical conventions; each row carries a `Context modifier` column noting when a stricter or looser variant applies. Sources: ECMA-402 (`Intl.NumberFormat`, `Intl.RelativeTimeFormat`), Unicode CLDR (Common Locale Data Repository), BIPM SI brochure (units), standard typographic conventions.
+
+*Section-ID correction: the v4.2.1 patch plan referenced "§10.4 Number formatting expansion". §10.4 is "Headings and labels"; the number rules live in §10.3. This expansion lands at §10.3.3 as the natural extension of §10.3.*
+
+##### 10.3.3.1 Time
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Absolute (body prose)** | British: `D MMMM YYYY` | `7 May 2026` | Marketing surfaces use the visitor's locale; regulator PDFs use customer-account locale |
+| **Absolute (table or audit log)** | ISO 8601: `YYYY-MM-DD` | `2026-05-07` | Mandatory in audit logs and any sortable-by-date column |
+| **Absolute with time (audit log)** | ISO 8601 with timezone: `YYYY-MM-DDTHH:mm:ssZ` | `2026-05-07T14:30:00Z` | Always UTC in audit logs; never local time |
+| **Absolute with time (body prose)** | 12-hour with am/pm in user's TZ | `2:30 pm` | Append `(BST)` / `(EDT)` when ambiguity matters |
+| **Relative — past** | `Intl.RelativeTimeFormat`, "long" style | `2 hours ago`, `3 days ago`, `last week`, `last month`, `last year` | Use only within the last 7 days for prose; switch to absolute date beyond that |
+| **Relative — future** | `Intl.RelativeTimeFormat`, "long" style | `in 2 hours`, `in 3 days`, `next week` | Same 7-day rule as past |
+| **Relative — short** | `Intl.RelativeTimeFormat`, "short" style | `2h ago`, `3d`, `1w` | Tabular contexts where horizontal space is tight |
+| **Duration (HH:MM)** | Zero-padded | `00:45`, `02:30` | Use when both hours and minutes always read together (timers, video) |
+| **Duration (humanised)** | "long" style | `45 minutes`, `2 hours 30 minutes`, `3 days` | Body prose where precise minute matters less than legibility |
+| **Range** | En-dash with space-padding around | `2024 – 2026`, `7 – 14 May 2026`, `09:00 – 17:00` | Endpoints inclusive unless captioned otherwise |
+
+##### 10.3.3.2 Percent
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose** | Integer percent, no space | `78%` | Round half-to-even (banker's rounding) per IEEE 754 |
+| **Tabular — score** | One decimal place, fixed | `78.4%` | Score / percentile / confidence columns; never trailing-zero-strip |
+| **Tabular — risk** | Integer | `82%` | Risk-band-derived percent; decimals imply spurious precision |
+| **Confidence (AI)** | Integer, with hedge if <80% | `Confidence: 92%` | Below 80% append §10.8 hedge phrase; below 60% prefer categorical ("low") to numeric |
+| **Delta** | Sign-prefixed integer | `+12%`, `−8%` | En-dash for ranges, minus sign (U+2212) for delta — never hyphen |
+| **Sub-1% values** | "< 1%" not "0%" | `< 1%` | Use only when the underlying value is non-zero |
+| **Sub-0.1% values** | "< 0.1%" not "0%" | `< 0.1%` | Use only when the underlying value is non-zero |
+| **Compact range** | En-dash, no space, single % at end | `60–80%` | Tabular contexts only |
+
+##### 10.3.3.3 Currency
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose** | CLDR symbol prefix, no space | `£1,200`, `$1,200`, `€1,200` | Currency follows account locale unless overridden |
+| **Audit logs and exports** | ISO 4217 code + space + value | `GBP 1,200.00`, `USD 1,200.00`, `EUR 1,200.00` | Two decimals mandatory; no thousand separator in machine-readable exports |
+| **Decimals — body prose** | Two for amounts < 10,000, zero for amounts ≥ 10,000 | `£12.50`, `£1,250`, `£1,000,000` | Override to two-decimals when comparing to another two-decimals value in the same view |
+| **Decimals — fines / penalties** | Two, always | `£50,000.00` | Regulator-facing accuracy |
+| **Abbreviation threshold** | Default off; on opt-in for chart axes / metric cards: `K` ≥ 10³, `M` ≥ 10⁶, `B` ≥ 10⁹, `T` ≥ 10¹² | `£12K`, `£3.4M`, `£1.2B` | Off by default — abbreviations hide magnitude jumps the reader needs to see |
+| **Negative values** | Minus sign (U+2212), not parentheses | `−£500` | Accounting-style parentheses `(£500)` only in CSV exports for accounting consumers |
+| **Range** | Symbol once, en-dash, no spaces | `£1,200–£1,500` | Tabular contexts; body prose may use "between £1,200 and £1,500" |
+
+##### 10.3.3.4 Counts
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose 0–9** | Spelled out | `five DPIAs`, `nine vendors` | Per §10.3 mechanical rules |
+| **Body prose ≥ 10** | Digits | `14 assessments`, `1,247 records` | Per §10.3 |
+| **Tabular** | Always digits, locale-aware thousand separator | `14`, `1,247`, `1.247.000` (de-DE) | Locale follows account |
+| **Compact density** | Abbreviated at ≥ 10⁴: `K`, `M`, `B` | `12.3K`, `4.5M` | Metric card subtitle, sparkbar caption, chart axis when horizontal space < 80px |
+| **Default density** | Digits + thousand separator | `12,300`, `4,500,000` | Default in body prose and standard tables |
+| **Comfortable density** | Digits + thousand separator + qualifier word | `12,300 assessments` | Hero metric cards; chart titles |
+| **Range** | En-dash, no spaces | `5–10 vendors`, `1,200–1,500 records` | Inclusive endpoints unless captioned |
+| **Approximate** | `~` prefix, single space | `~150 vendors` | Use only when the exact count is unknowable; never as a hedge for accuracy |
+| **Zero** | Word "no" in prose; digit `0` in tables | "No DPIAs match these filters" / `0` | Empty-state language belongs to §10.5 |
+
+##### 10.3.3.5 Reading rules
+
+- **Locale awareness.** All numeric output honours the user's account locale via `Intl.NumberFormat` (`Intl.RelativeTimeFormat` for time). Locale changes apply on next render; no in-place re-rendering required.
+- **Mixed contexts.** When a single surface mixes precision modes (e.g., dashboard with both score percentages and risk percentages), pick the stricter of the two to harmonise. Reviewers (G4) reject PRs that ship inconsistent precision in the same view.
+- **Verification.** §17 verification checklist gains rows confirming each table is honoured on every PR touching display-formatting code. Lint coverage tracked by `tools/lint-format` (queued; deferred to engineering programme).
+
 ### 10.4 Headings and labels
 
 | Element | Pattern | Example |
@@ -1603,34 +1798,143 @@ Forbidden:
 
 ### 10.6 Glossary
 
-The canonical RisqBase glossary lives at `design.risqbase.com/glossary` and is mirrored in the package `@risqbase-inc/ui-components/content/glossary.json` (v4.2 new). It contains every domain term used in product chrome:
+The canonical RisqBase glossary lives at `design.risqbase.com/glossary` and is mirrored in the package `@risqbase-inc/ui-components/content/glossary.json` (v4.2 new). It contains every domain term used in product chrome, organised by category. Each entry carries: **canonical form** (the only spelling used in product surfaces), **definition** (≤ 25 words), **prohibited synonyms** (specific words the linter rejects), **scope** (where the term applies), and **first-use convention** (when the full form must appear vs the short form).
 
-| Term | Definition | First use |
-|------|-----------|----------|
-| Assessment | A documented evaluation of a processing activity against a regulatory framework | DPIA, FRIA, etc are assessment types |
-| DPIA | Data Protection Impact Assessment (GDPR Article 35) | spelled out on first reference per surface |
-| LIA | Legitimate Interests Assessment | spelled out on first reference per surface |
-| FRIA | Fundamental Rights Impact Assessment (EU AI Act) | spelled out on first reference per surface |
-| TIA | Transfer Impact Assessment (Schrems II) | spelled out on first reference per surface |
-| ROPA | Record of Processing Activities (GDPR Article 30) | spelled out on first reference per surface |
-| Inherent risk | Risk before mitigations are applied | (in context) |
-| Residual risk | Risk after mitigations are applied | (in context) |
-| Risk band | The severity classification: Low, Medium, High, Critical | system-wide |
-| IRIS | RisqBase's AI compliance assistant | proper noun, no expansion |
-| Citation | A reference to a verified source supporting an AI assertion | per §7.12 |
-| Vendor | A third party processing personal data on behalf of a controller | (in context) |
-| Owner | The person accountable for an assessment, vendor, or document | (in context) |
-| Reviewer | A person reviewing an assessment without ownership | (in context) |
+**Sources.** Risk vocabulary follows NIST SP 800-30 / ISO 31000 / ISO 27005. Compliance vocabulary follows GDPR Article 4 / ISO 27001 / SOC 2 Trust Services Criteria. AI vocabulary follows NIST AI RMF / EU AI Act / ISO/IEC 42001 / OWASP LLM Top 10. Product nouns follow standard UX vocabularies (Polaris, Carbon, Material). User-class vocabulary follows GDPR Article 4 + standard RBAC nomenclature. Where two sources disagree, the regulatory source wins; where regulators don't speak (UI nouns), Polaris wins. Products **pull from this glossary**; products do not invent new terms without G8 + G4 approval.
 
-**Acronym rule:** spelled out on first reference *per surface*, not first reference per session. The user reading the assessment list should not need to remember an acronym defined three pages ago. After first reference on a given surface, the acronym alone is acceptable.
+#### 10.6.1 Risk vocabulary
 
-**Forbidden synonyms.** Once a term is in the glossary, do not use synonyms in product chrome:
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Asset** | A resource — system, dataset, process, person — that has value to the organisation and may need protection | resource, item | system-wide | (in context) |
+| **Threat** | A circumstance or event with potential to cause harm to an asset (NIST SP 800-30) | risk, hazard, danger | system-wide | (in context) |
+| **Vulnerability** | A weakness in an asset, control, or process that a threat may exploit | weakness, flaw | system-wide | (in context) |
+| **Risk** | The effect of uncertainty on objectives, expressed as the combination of likelihood and impact (ISO 31000) | hazard, danger (when meaning risk) | system-wide | (in context) |
+| **Likelihood** | The chance that a given threat will materialise, on a defined scale | probability, chance | within a risk record | (in context) |
+| **Impact** | The magnitude of harm if a threat materialises, on a defined scale | consequence, severity (when paired with likelihood) | within a risk record | (in context) |
+| **Severity** | The composite of likelihood × impact, classified into a risk band | criticality, priority (when meaning severity) | within a risk record | (in context) |
+| **Risk band** | The severity classification used across the system: very-low / low / medium / high / very-high | risk level, risk category, risk class | system-wide | system-wide |
+| **Inherent risk** | The risk that exists in the absence of any controls (ISO 31000 §6.4) | gross risk, baseline risk, raw risk | within a risk record | (in context) |
+| **Residual risk** | The risk that remains after controls are applied (ISO 31000 §6.4) | net risk, treated risk | within a risk record | (in context) |
+| **Mitigated risk** | A residual risk whose treatment has been verified as effective | reduced risk, controlled risk | within a risk record | (in context) |
+| **Exposure** | The extent of value at risk if a threat materialises; quantitative analogue of impact | risk-load, blast-radius (when meaning exposure) | within a risk record | (in context) |
+| **Threshold** | A defined level above which a risk requires action (escalation, treatment, sign-off) | trigger (when meaning threshold), limit | system-wide | (in context) |
+| **Tolerance** | The acceptable variation around a risk threshold | margin (when meaning tolerance), buffer | within a risk record | (in context) |
+| **Appetite** | The level of risk the organisation is willing to accept in pursuit of objectives (ISO 31000) | tolerance (when meaning appetite — they differ), preference | organisational | (in context) |
+| **Control** | A measure that modifies risk — preventive, detective, or corrective (ISO 27001) | safeguard, countermeasure | system-wide | (in context) |
+| **Finding** | An observation from an assessment, audit, or test that indicates a gap, weakness, or non-conformity | issue, observation (when meaning finding) | within an assessment | (in context) |
+| **Gap** | A finding that the implemented controls fall short of a requirement | shortfall, deficiency (when meaning gap) | within an assessment | (in context) |
+| **Treatment** | The action taken to address a risk: accept / avoid / transfer / mitigate (ISO 31000 §6.5) | response (when meaning treatment), handling | within a risk record | (in context) |
+| **Accept** | Treatment option: the organisation acknowledges the risk without action, recording rationale | tolerate, ignore (never as a treatment) | within a treatment record | (in context) |
+| **Avoid** | Treatment option: the organisation removes the activity causing the risk | eliminate (when meaning avoid), drop | within a treatment record | (in context) |
+| **Transfer** | Treatment option: the risk is shifted to another party via insurance, contract, or outsourcing | shift, offload | within a treatment record | (in context) |
+| **Mitigate** | Treatment option: controls are added or strengthened to reduce likelihood or impact | reduce (when meaning mitigate), patch | within a treatment record | (in context) |
+| **Velocity** | The rate at which a risk can change between inherent and residual states | speed (when meaning velocity), pace | within a risk record | (in context) |
+| **Assessment** | A documented evaluation of a processing activity, system, or risk against a regulatory or organisational framework | evaluation, review (when meaning assessment), audit, report | system-wide | DPIA, FRIA, etc. are assessment types |
 
-- "Assessment" — never "evaluation", "review", "report" when referring to an assessment
-- "Vendor" — never "supplier", "third party", "processor" interchangeably (each has a specific glossary meaning)
-- "Owner" — never "creator", "author", "lead" for the same role
+#### 10.6.2 Regulatory assessment types
 
-The glossary is the source of truth. Linting in v4.3+ may catch term violations in source.
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **DPIA** | Data Protection Impact Assessment (GDPR Article 35) | privacy impact assessment, PIA (use only outside GDPR-scoped surfaces) | privacy surfaces | spelled out on first reference per surface |
+| **LIA** | Legitimate Interests Assessment — three-pillar test for processing under GDPR Article 6(1)(f) | LIT (do not abbreviate further) | privacy surfaces | spelled out on first reference per surface |
+| **FRIA** | Fundamental Rights Impact Assessment (EU AI Act Art. 27) | rights impact assessment, RIA | AI-system surfaces | spelled out on first reference per surface |
+| **TIA** | Transfer Impact Assessment (Schrems II, EDPB Recommendations 01/2020) | data transfer assessment, DTA | cross-border-transfer surfaces | spelled out on first reference per surface |
+| **ROPA** | Record of Processing Activities (GDPR Article 30) | data inventory (when meaning ROPA), Art. 30 record | privacy surfaces | spelled out on first reference per surface |
+
+#### 10.6.3 Compliance vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Regulator** | An external authority empowered to set, monitor, and enforce compliance requirements (e.g., ICO, CNIL, FTC) | regulatory body, authority (when meaning regulator) | system-wide | (in context) |
+| **Audit** | A formal evaluation against a defined framework, by an internal or external assessor | review (when meaning audit), inspection | system-wide | (in context) |
+| **Audit log** | An immutable, time-ordered record of system events used for accountability and forensics | activity log, event log, history (when meaning audit log) | system-wide | (in context) |
+| **Attestation** | A formal statement signed by an accountable party affirming a control, fact, or compliance state | certification (when meaning attestation), declaration | within an assessment | (in context) |
+| **Evidence** | An artefact — document, log, screenshot, sign-off — supporting a finding, control, or attestation | proof, artefact (when meaning evidence) | within an assessment | (in context) |
+| **Owner** | The single person accountable for an assessment, control, vendor, or document | creator, author, lead, manager (when meaning owner) | system-wide | (in context) |
+| **Accountable** | The role responsible for outcomes and bound to sign-off; distinct from Responsible in RACI | answerable, liable | within a RACI record | (in context) |
+| **Reviewer** | A person whose role is to evaluate work without owning the outcome | approver (when meaning reviewer — they differ), checker | system-wide | (in context) |
+| **Approver** | A person whose sign-off is required before an item progresses past a gate | reviewer (when meaning approver), gatekeeper | within a workflow | (in context) |
+| **Sign-off** | A formal recorded approval that a deliverable meets defined criteria | approval (in formal contexts; sign-off implies recorded artefact), OK | within a workflow | (in context) |
+| **Escalation** | Routing a decision or issue to a higher authority when a threshold is exceeded or sign-off withheld | flag-up, raise (when meaning escalation) | system-wide | (in context) |
+| **Breach** | An incident in which personal data has been disclosed, lost, altered, or accessed without authorisation (GDPR Art. 4(12)) | leak (in headline-only contexts; never in formal records), exposure (when meaning breach) | privacy + security surfaces | (in context) |
+| **Incident** | A confirmed or suspected event that warrants investigation; not all incidents are breaches (NIST SP 800-61) | event (when meaning incident — they differ), occurrence | system-wide | (in context) |
+| **Non-compliance** | A finding that the organisation falls short of a regulatory or framework requirement | non-conformity (in ISO contexts only — they are not synonyms elsewhere), violation | within an assessment | (in context) |
+| **Remediation** | The action plan that closes a finding or non-compliance | fix (when meaning remediation), correction | within a finding | (in context) |
+| **Corrective action** | A formal documented remediation step, often with owner + due date | CAPA (use the full term first; CAPA is acceptable thereafter) | within a finding | spelled out on first reference per surface |
+| **Policy** | A high-level statement of intent setting the framework for decisions; "what we will do" | rule (when meaning policy), directive | organisational | (in context) |
+| **Procedure** | A defined sequence of steps that implements a policy; "how we do it" | process (when meaning procedure — they differ), workflow | organisational | (in context) |
+| **Standard** | A documented requirement (mandatory or recommended) that gives effect to a policy | guideline (when meaning standard — they differ in bindingness), spec | organisational | (in context) |
+| **Framework** | A coherent set of policies, standards, and procedures used as an assessment or governance reference (e.g., ISO 27001, NIST CSF) | methodology (when meaning framework), model | system-wide | (in context) |
+| **Mapping** | A correspondence between controls in one framework and controls in another | crosswalk, translation (when meaning mapping) | within a framework record | (in context) |
+
+#### 10.6.4 AI vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **AI system** | An automated system that infers, from inputs, how to generate outputs that influence environments (EU AI Act / NIST AI RMF) | AI, model (when meaning the system, not the weights) | AI-system surfaces | spelled out on first reference per surface |
+| **Inference** | The process by which an AI system produces outputs from inputs at runtime | prediction (when meaning inference), generation (when meaning inference — they differ) | AI-system surfaces | (in context) |
+| **Generation** | An AI-produced output, particularly natural-language or media output | output (when meaning generation), result | AI-system surfaces | (in context) |
+| **Citation** | A reference to a verified source supporting an AI assertion, presented in a Citation Chip (§7.12) | source link (when meaning citation), reference (when meaning citation — they differ) | AI-system surfaces | per §7.12 |
+| **Source** | The original document, dataset, or record from which a citation is drawn | reference (when meaning source — they differ), origin | within a citation | (in context) |
+| **Confidence** | A numeric or categorical measure of the AI system's certainty in an output | score (when meaning confidence — they differ), probability (when reported to users — confidence is the user-facing term) | AI-system surfaces | (in context) |
+| **Hedge** | A linguistic device acknowledging uncertainty (e.g., "this looks like", "based on partial evidence") | qualifier (when meaning hedge), caveat | AI-system surfaces | (in context) |
+| **Retrieval** | The step in a retrieval-augmented generation (RAG) pipeline that fetches grounding documents | lookup (when meaning retrieval), search (when meaning retrieval) | AI-system surfaces | (in context) |
+| **Grounding** | The practice of constraining AI generation to verified sources, reducing hallucination | citation-backed (when meaning grounding — they differ), evidence-based | AI-system surfaces | (in context) |
+| **Hallucination** | An AI output that is fluent but factually unsupported by sources | fabrication (when meaning hallucination), error (when meaning hallucination) | AI-system surfaces | (in context) |
+| **Refusal** | A deliberate AI response declining to generate an output (e.g., on safety, scope, or capability grounds) | rejection (when meaning refusal), denial | AI-system surfaces | (in context) |
+| **Clarification** | An AI request for more information from the user before generating a substantive response | follow-up (when meaning clarification), question (when meaning clarification) | AI-system surfaces | (in context) |
+| **Provenance** | The verifiable origin and history of a piece of data or AI output (NIST AI RMF) | lineage (in data contexts; not interchangeable elsewhere), history (when meaning provenance) | system-wide | (in context) |
+| **Training data** | The dataset used to fit a model's parameters; distinct from inference-time inputs | corpus (in data contexts; not in user-facing copy), dataset (when meaning training data specifically) | AI-system surfaces | (in context) |
+| **Bias** | A systematic deviation in AI outputs that may disadvantage protected groups (NIST AI RMF / EU AI Act Art. 10) | prejudice (when meaning bias), unfairness | AI-system surfaces | (in context) |
+| **IRIS** | RisqBase's AI compliance assistant character — a configured composition of the shared `ai/` primitives (§6) | the AI, the assistant, the model (when meaning IRIS) | RALIA-private | proper noun, no expansion |
+
+#### 10.6.5 Product nouns
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Dashboard** | A top-level overview surface aggregating multiple data products for a single role or context | overview (when meaning dashboard), homepage (when meaning dashboard) | system-wide | (in context) |
+| **Panel** | A bounded region within a surface containing related controls or content; persistent within the surface | widget (when meaning panel — UI-toolkit term), pane | system-wide | (in context) |
+| **Drawer** | A surface that slides in from a screen edge, dismissible without leaving the parent | side panel (when meaning drawer), tray | system-wide | (in context) |
+| **Modal** | A surface overlaying the page that traps focus and requires explicit dismissal | dialog (when meaning modal — they differ), popup | system-wide | (in context) |
+| **Dialog** | A non-trapping surface for short content or confirmation, dismissible by clicking outside | popup, modal (when meaning dialog) | system-wide | (in context) |
+| **Toast** | A transient notification appearing in a corner, dismissing automatically after a defined interval | snackbar, notification (when meaning toast — they differ), popup | system-wide | (in context) |
+| **Banner** | A persistent notification appearing inline within a surface, dismissed by user action | callout (when meaning banner), alert (when meaning banner) | system-wide | (in context) |
+| **Tooltip** | A short text annotation on hover or focus, providing supplementary context without obstructing flow | hint (when meaning tooltip), label (when meaning tooltip — they differ) | system-wide | (in context) |
+| **Card** | A bounded container grouping related content with consistent edges and elevation | tile (when meaning card — they differ), block | system-wide | (in context) |
+| **Tile** | A card whose primary purpose is to be a clickable entry point to a destination | card (when meaning tile), button (when meaning tile) | system-wide | (in context) |
+| **Table** | A surface for tabular data with rows, columns, headers, sortable columns, and selection | grid (when meaning table — they differ), list (when meaning table) | system-wide | (in context) |
+| **List** | A surface for a vertical sequence of homogeneous items, optionally with leading/trailing accessories | feed (when meaning list — they differ), stack | system-wide | (in context) |
+
+#### 10.6.6 User-class vocabulary
+
+| Term | Definition (≤25 words) | Prohibited synonyms | Scope | First use |
+|------|-----------------------|---------------------|-------|-----------|
+| **Owner** *(user role)* | The user accountable for an item; one and only one Owner per item | creator (when meaning Owner), assignee (when meaning Owner — they differ), lead | system-wide | (in context) |
+| **Reviewer** *(user role)* | A user evaluating work without owning the outcome; zero or more Reviewers per item | checker (when meaning Reviewer), approver (when meaning Reviewer — they differ) | system-wide | (in context) |
+| **Approver** *(user role)* | A user whose sign-off is required before an item passes a gate; one or more per item | reviewer (when meaning Approver), gatekeeper | system-wide | (in context) |
+| **Observer** | A user with read-only access; cannot mutate state | viewer (when meaning Observer in role context), guest | system-wide | (in context) |
+| **Contributor** | A user with limited write access scoped to specific items or sections | editor (when meaning Contributor in role context), author | system-wide | (in context) |
+| **Admin** | A user with system-wide configuration access; bypasses item-level role checks | administrator (use Admin in product chrome), superuser | system-wide | (in context) |
+| **Stakeholder** | A person with a legitimate interest in an outcome, who may or may not be a system user | participant (when meaning Stakeholder), party | within a workflow | (in context) |
+| **Data subject** | An identified or identifiable natural person to whom personal data relates (GDPR Art. 4(1)) | individual (when meaning data subject), user (when meaning data subject) | privacy surfaces | spelled out on first reference per surface |
+| **Controller** | The entity determining the purposes and means of processing personal data (GDPR Art. 4(7)) | data owner (when meaning controller — they differ), responsible party | privacy surfaces | (in context) |
+| **Processor** | An entity processing personal data on behalf of a controller (GDPR Art. 4(8)) | vendor (when meaning processor — vendor is a superset), service provider (when meaning processor — they differ in different regulatory contexts) | privacy surfaces | (in context) |
+| **Vendor** | A third party engaged by the organisation; may or may not be a processor under GDPR terms | supplier, third party (when meaning vendor — third party is a superset), processor (vendor is a superset of processor) | system-wide | (in context) |
+
+**Total: 84 canonical entries.** ≥ 80 per acceptance.
+
+#### 10.6.7 Glossary rules
+
+**Acronym rule.** Spelled out on first reference *per surface*, not per session. The user reading the assessment list should not need to remember an acronym defined three pages ago. After first reference on a given surface, the acronym alone is acceptable.
+
+**Prohibited-synonym rule.** Once a term is in the glossary, the prohibited synonyms in its row are rejected by `lint:glossary` (queued in §15.8.4) in any product-surface copy. The lint runs against `content/strings.*.json` in consumer apps and against `apps/docs/content/**/*.mdx` in this repo's doc site.
+
+**Disambiguation in prohibited synonyms.** Many prohibited synonyms are forbidden *in a specific meaning*. The "(when meaning X)" qualifier is part of the lint rule — `audit log` may use "log" generically, but cannot use "history" when meaning audit log. The lint is context-sensitive via the surrounding sentence; rule definitions live in `tools/lint-glossary/contexts.json`.
+
+**Addition rule.** Adding a term requires G8 (drafting) + G4 (review) approval and a row in this glossary in the same PR that introduces it. **No product copy uses a term not in this glossary.** This rule is binding from v4.2.1.
+
+**Source attribution.** Each row's regulatory source (where applicable) is cited inline. Where two sources disagree, the regulator wins; where regulators don't speak (UI nouns), Polaris wins. Source updates published more often than once per major version trigger a glossary review.
 
 ### 10.7 Help text
 
@@ -1755,7 +2059,12 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
         "$description": "Primary brand colour — CTAs, logo, links",
         "$extensions": {
           "com.risqbase.role": ["action.primary", "brand.primary"],
-          "com.risqbase.contrastPair": "color.surface.default"
+          "com.risqbase.contrastPair": "color.surface.default",
+          "com.risqbase.figma": {
+            "collection": "primitive",
+            "mode": "default",
+            "scopes": ["ALL_FILLS", "STROKE_COLOR", "TEXT_FILL"]
+          }
         }
       }
     }
@@ -1770,6 +2079,17 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
 | `$description` | Short prose definition; appears in docs site and Figma |
 | `$extensions.com.risqbase.role` | Which semantic role(s) this token may fulfill; CI verifies that role tokens reference primitives whose roles include the role |
 | `$extensions.com.risqbase.contrastPair` | The default surface this token is paired against; CI verifies WCAG contrast against it |
+| `$extensions.com.risqbase.figma` | Figma binding metadata for the F5 sync pipeline (§15.8). Required on every token published to Figma. Structure: `{ collection, mode, scopes[] }` |
+
+**The Figma binding extension (`com.risqbase.figma`) — field detail.**
+
+| Field | Type | Spec |
+|-------|------|------|
+| `collection` | `"primitive" \| "semantic" \| "component" \| "_proposed"` | Which Figma Variable collection holds the published variable. Mirrors the three-tier hierarchy in §15.2 plus the `_proposed` staging collection from §15.8.2. |
+| `mode` | `"default" \| "light" \| "dark" \| "hc" \| "print"` | Which Figma mode this value applies to. `default` is used for the single-mode primitive collection (raw colour hexes, dimensions); `light`/`dark`/`hc`/`print` are used for the semantic and component collections, which carry one value per mode (per §15.2.1 Theme files). |
+| `scopes[]` | Figma scope strings | Where in the Figma UI the variable is picker-eligible. Color scopes: `ALL_FILLS`, `FRAME_FILL`, `SHAPE_FILL`, `TEXT_FILL`, `STROKE_COLOR`, `EFFECT_COLOR`. Dimension scopes: `WIDTH_HEIGHT`, `GAP`, `STROKE_FLOAT`, `EFFECT_FLOAT`, `OPACITY`, `FONT_SIZE`, `LINE_HEIGHT`, `LETTER_SPACING`, `PARAGRAPH_SPACING`, `PARAGRAPH_INDENT`. Use `ALL_SCOPES` if a variable should apply everywhere of its type. |
+
+**Why this matters.** The Figma Variables REST API requires explicit collection/mode/scope bindings on every published variable. Without these in the JSON source, `figma-publish` (§15.8.4) would have to infer them — which produces non-deterministic Figma libraries and breaks the round-trip guarantee. The whole F5 sync programme builds on this key.
 
 A build step (`tokens-build`) compiles the W3C JSON to:
 
@@ -1826,57 +2146,186 @@ Every component in `@risqbase-inc/ui-components` has a `tokens.md` file alongsid
 
 The full v4.1 token catalogue (semantic colour, spacing, motion, typography) is retained verbatim. v4.2 adds the data-viz and chart palette tokens below.
 
-### 15.6 New tokens in v4.2
+### 15.6 New tokens in v4.2 (full enumeration per v4.2.1 patch T1)
 
-#### 15.6.1 Chart palette tokens
+v4.2 introduces the substrate tokens for every new visual surface — charts, gauges, citation chips, density, telemetry — across primitive, semantic, and component tiers. The v4.2.1 patch T1 expanded the original ~30-token enumeration to the **full ~200-token catalogue** the plan U6.2 promised. The library is **the menu**: products and themes pull from this catalogue; products do not invent new tokens without G1 + G4 approval (per §15.1 governance).
 
-```
-color.chart.cat.{1..8}        # categorical, §8.3.1
-color.chart.seq.{1..5}        # sequential teal, §8.3.2
-color.chart.seq.alt.{1..5}    # sequential indigo, §8.3.2
-color.chart.div.{n2,n1,0,p1,p2}  # diverging, §8.3.3
-color.risk.{low,medium,high,critical}   # canonical risk-band, §8.3.4
-color.chart.axis              # stone-200
-color.chart.gridline          # stone-100
-color.chart.tooltip.surface   # white
-color.chart.tooltip.border    # stone-200
-color.chart.null              # null-marker hatched fill colour-stop
-```
+**Authoring posture (v4.2.1).** Token *structures* — names, types, role bindings, Figma bindings, alias paths — are authored in this section and in the `tokens/**/*.json` JSON files. Token *values* for net-new primitive colours are marked `TBD — Claude Design 2026-05-XX` and filled by Claude Design via a follow-up values-only PR (per `implementation-plan.md` §5.2). Semantic and component tier tokens alias primitives via the W3C `{...}` reference syntax and need no value selection. Existing primitives (brand indigo, stone neutrals, teal palette, accent palette) keep their v4.2-published values.
 
-#### 15.6.2 Gauge primitive tokens (now in `data-viz/`)
+**Token count.** 81 primitives + 78 semantics + 41 components + ~40 v4.3 dark/HC named-reserves = **~240 enumerated** (≥ 180 acceptance).
+
+**Sources for new content.** Chart palette structure: Carbon Design System + IBM. Sequential ramps: ColorBrewer + Datawrapper. Diverging ramps: ColorBrewer. Status / risk-band semantics: WCAG colour-contrast guidance + government design-system patterns (GOV.UK, USWDS). Telemetry-config: NIST AI RMF observability vocabulary. No product-specific content.
+
+---
+
+#### 15.6.1 Chart categorical palette (semantic)
+
+Eight categorical roles. The W3C alias resolves to one of the existing brand/palette primitives unless Claude Design picks a fresh hex for the categorical use case.
 
 ```
-color.gauge.track             # stone-200
-color.gauge.arc.teal          # teal-600
-color.gauge.arc.indigo        # indigo-600
-color.gauge.arc.stone         # stone-500 (dual-ring outer)
-dimension.gauge.diameter.headline    # 160px
-dimension.gauge.diameter.summary     # 120px
-dimension.gauge.diameter.accessory   # 80px
-dimension.gauge.diameter.inline      # 48px
-dimension.gauge.stroke.default       # 6px
-dimension.gauge.stroke.inline        # 4px
-duration.gauge.reveal                # 500ms
+color.chart.cat.{1..8}        # 8 categorical series roles, §8.3.1
+                              # cat.1 = primary identity (teal-600 default)
+                              # cat.2..8 picked for max-distinguishability at 3:1 against surface
 ```
 
-#### 15.6.3 Citation chip tokens (now in `ai/`)
+Reference: Carbon Design System "Data visualization — categorical 1" (8-colour set).
+
+#### 15.6.2 Chart sequential palettes (10 stops each)
+
+Single-hue ramps for ordered-quantitative encodings. v4.2 ships **teal** (existing palette) as the default sequential ramp; v4.2.1 adds three **domain-specific** ramps for risk, financial, and operational contexts so each can carry semantic colour load without cross-contamination.
 
 ```
-color.citation.surface.default    # white
-color.citation.surface.lowConf    # stone-50
-color.citation.border.default     # stone-200
-color.citation.border.retracted   # stone-300
-color.citation.text.default       # stone-600
-color.citation.text.retracted     # stone-400
+# Default sequential (existing — aliases color.palette.teal.{50..900})
+color.chart.seq.{1..10}        # 10 stops, teal-50 → teal-900 (existing palette)
+
+# Domain-specific ramps (NEW, hex TBD — Claude Design)
+color.chart.seq.risk.{1..10}        # cool-to-warm risk severity (NEW primitives)
+color.chart.seq.financial.{1..10}   # currency/value progressions (NEW primitives)
+color.chart.seq.operational.{1..10} # neutral-to-emphatic operational ramps (NEW primitives)
 ```
 
-#### 15.6.4 Density tokens
+Each domain ramp is a **new primitive** authored as `color.palette.<domain>.{50..900}` in `tokens/primitive/color-chart.json`; the chart-seq semantic aliases each stop. Reference: Datawrapper "Single-hue sequential" guidance.
+
+#### 15.6.3 Chart diverging palettes (9 stops, warm + cool)
+
+Two ramps for ordered-quantitative encodings centred on a meaningful zero (e.g., delta against baseline). Nine stops per ramp: `n4 / n3 / n2 / n1 / 0 / p1 / p2 / p3 / p4`. Existing v4.2 ramp had 5 stops; v4.2.1 expands to 9 per ramp for full ColorBrewer-class coverage.
 
 ```
-dimension.density.scale.compact      # 0.75
-dimension.density.scale.default      # 1
-dimension.density.scale.comfortable  # 1.25
+color.chart.div.warm.{n4,n3,n2,n1,0,p1,p2,p3,p4}   # red ↔ orange ↔ amber ↔ neutral ↔ green
+color.chart.div.cool.{n4,n3,n2,n1,0,p1,p2,p3,p4}   # blue ↔ teal ↔ neutral ↔ amber ↔ red
 ```
+
+Hex selection per Claude Design. The 9-stop ramp meets ColorBrewer's RdYlGn-9 / RdBu-9 perceptual-luminance equal-stepping; centre stop is neutral (stone-200 default).
+
+#### 15.6.4 Gauge role tokens (component, 16 tokens)
+
+Four properties × four states. Replaces the simpler v4.2 enumeration with the full state grid.
+
+```
+color.gauge.track-{default,success,warning,danger}        # 4 — ring background per state
+color.gauge.arc-{default,success,warning,danger}          # 4 — filled arc per state
+color.gauge.terminus-{default,success,warning,danger}     # 4 — arc-end marker per state
+color.gauge.band-label-{default,success,warning,danger}   # 4 — text colour per state
+```
+
+Default state aliases existing `color.gauge.arc-teal` etc. Success/warning/danger states alias status semantics (§15.6.7).
+
+Dimensional gauge tokens (existing v4.2):
+```
+dimension.gauge.diameter.{headline,summary,accessory,inline}   # 4 — sizes
+dimension.gauge.stroke.{default,inline}                        # 2 — strokes
+duration.gauge.reveal                                          # 500ms entry animation
+```
+
+#### 15.6.5 Citation chip role tokens (component, 6 tokens)
+
+Single state set (existing v4.2). Aliases stone neutrals + indigo brand.
+
+```
+color.citation.surface.{default,low-conf}    # 2 — chip background
+color.citation.border.{default,retracted}    # 2 — chip border
+color.citation.text.{default,retracted}      # 2 — chip text
+color.citation.icon.default                  # 1 — source-type glyph fill
+color.citation.hover                         # 1 — hover state overlay
+color.citation.active                        # 1 — active/pressed state overlay
+```
+
+#### 15.6.6 Density tokens (semantic, 9 tokens)
+
+Three density modes × three property axes. Computed at the semantic tier from the existing density-scalar primitives (`dimension.density.scale.{compact,default,comfortable}`) × spacing primitives.
+
+```
+dimension.density.compact.{padding-x, padding-y, gap}        # 3
+dimension.density.default.{padding-x, padding-y, gap}        # 3
+dimension.density.comfortable.{padding-x, padding-y, gap}    # 3
+```
+
+Computed values: e.g., `dimension.density.compact.padding-x` = `{dimension.density.scale.compact}` × `{dimension.spacing.4}` = `0.75 × 16px = 12px`. Style Dictionary evaluates the expression at build time.
+
+#### 15.6.7 Status / risk-band semantics (semantic, 20 tokens)
+
+Five bands × four properties. Harmonised across charts (sequential `seq.risk.*` aliases), gauges (state grid §15.6.4), and dashboards (status indicators). Five-band scale replaces the four-band v4.2 enumeration so the legacy `{low, medium, high, critical}` four-stop set extends to `{very-low, low, medium, high, very-high}` for symmetric distribution analysis.
+
+```
+color.band.very-low.{bg, border, text, icon}    # 4 — green / emerald family
+color.band.low.{bg, border, text, icon}         # 4 — teal / lime family
+color.band.medium.{bg, border, text, icon}      # 4 — amber / yellow family
+color.band.high.{bg, border, text, icon}        # 4 — orange family
+color.band.very-high.{bg, border, text, icon}   # 4 — red family
+```
+
+Existing `color.risk.{low,medium,high,critical}` aliases preserved for backwards compatibility; new code authors against the band semantics. Reference: GOV.UK 5-band semantic scale.
+
+#### 15.6.8 Chart container tokens (semantic, 14 tokens)
+
+Per-container-element semantics; aliased per-mode in §15.2.1 theme files (light shipped; dark/HC reserved for v4.3).
+
+```
+color.chart.plot-area-bg            # 1 — chart background within axes
+color.chart.axis                    # 1 — axis line (existing)
+color.chart.axis-label              # 1 — axis label text
+color.chart.gridline                # 1 — gridline stroke (existing)
+color.chart.gridline-emphasis       # 1 — emphasis gridline (zero baseline, axis-of-symmetry)
+color.chart.annotation              # 1 — callout / rule annotation
+color.chart.annotation-text         # 1 — annotation text
+color.chart.legend-bg               # 1 — legend container background
+color.chart.legend-text             # 1 — legend text
+color.chart.tooltip.surface         # 1 (existing)
+color.chart.tooltip.border          # 1 (existing)
+color.chart.tooltip.text            # 1 — tooltip body text
+color.chart.tooltip.shadow          # 1 — tooltip elevation shadow
+color.chart.null                    # 1 — null-marker hatched fill (existing)
+```
+
+#### 15.6.9 Telemetry-config role tokens (semantic, 10 tokens)
+
+For surfaces that *display* telemetry configuration (collector state indicators, opt-out toggles, sampled-marker badges, event-class chips) — not for telemetry data itself.
+
+```
+color.telemetry.collector.healthy        # 1 — emerald-500 alias
+color.telemetry.collector.degraded       # 1 — amber-500 alias
+color.telemetry.collector.failed         # 1 — red-500 alias
+color.telemetry.collector.disabled       # 1 — stone-400 alias
+color.telemetry.opt-out-marker           # 1 — sky-500 alias
+color.telemetry.sampled-marker           # 1 — violet-500 alias
+color.telemetry.event-class.adoption     # 1 — teal-600 alias
+color.telemetry.event-class.error        # 1 — red-600 alias
+color.telemetry.event-class.usage        # 1 — indigo-600 alias
+color.telemetry.event-class.performance  # 1 — orange-500 alias
+```
+
+Reference: NIST AI RMF observability vocabulary (instrumentation surfaces).
+
+#### 15.6.10 v4.3 dark / HC reserved placeholders (named only)
+
+The following token paths are **named** in the v4.2.1 catalogue but **values land in v4.3** (`tokens/themes/{dark,hc}.json` override files, currently empty per §15.2.1). Naming them now locks the contract so v4.3 cannot reshape the surface.
+
+```
+# Dark-mode overrides — 20 reserved names
+color.surface.{default, subtle, muted, inverse} @ dark
+color.text.{default, subtle, on-action, on-inverse} @ dark
+color.border.{default, subtle, focus} @ dark
+color.chart.{axis, gridline, plot-area-bg, legend-bg, tooltip.surface, tooltip.border} @ dark
+color.band.{very-low, low, medium, high, very-high}.bg @ dark
+
+# HC-mode overrides — 20 reserved names
+color.surface.{default, subtle, muted, inverse} @ hc
+color.text.{default, subtle, on-action, on-inverse} @ hc
+color.border.{default, subtle, focus} @ hc
+color.chart.{axis, gridline, plot-area-bg, legend-bg, tooltip.surface, tooltip.border} @ hc
+color.band.{very-low, low, medium, high, very-high}.bg @ hc
+```
+
+Total: 40 reserved names. JSON entries land in v4.3 alongside Claude Design's dark + HC value-selection pass.
+
+---
+
+**Implementation status (v4.2.1, end-of-patch).** Of the ~200 enumerated:
+- **Authored with values:** 28 (existing v4.2 set — brand indigo, stone neutrals, teal palette, accent palette aliases) + 6 citation chip + 4 gauge + 8 chart categorical (aliased to existing palette) + 5 chart sequential (existing seq.1-5) + 5 chart diverging (existing div.n2 to p2) = **56 tokens shipped with values**
+- **Authored with TBD values awaiting Claude Design:** ~80 new primitives (chart.seq.{risk,financial,operational}.{1..10} = 30, chart.div.warm/cool extensions = 8, other domain primitives = ~12), new chart container tokens, new gauge state-grid tokens, new band-grid tokens, telemetry tokens, density × property tokens
+- **Reserved names only (v4.3):** ~40 dark + HC overrides
+
+The build pipeline (`tokens-build`, §15.8.4) emits a partial `dist/tokens.css` for v4.2.1 covering the 56-with-values + alias-resolved tokens; TBD primitives compile to a CSS `var()` with a `/* TBD */` comment so consumers see them and the build does not fail. Once Claude Design ships values, the full `dist/tokens.css` becomes complete.
 
 ### 15.7 Component telemetry (F4)
 
@@ -1976,8 +2425,9 @@ Figma library version follows the package version. A `1.2.0` package release is 
 - `tokens-build`: TypeScript script in `tools/tokens-build/`. Reads W3C JSON, emits CSS / TS / Tailwind / Figma JSON.
 - `figma-publish`: Node script that posts the Figma JSON to the Figma Variables REST API. Requires the `FIGMA_TOKEN` secret in CI.
 - `figma-diff`: Local script for designers to see the diff between their local Figma state and the published code tokens.
+- `lint:glossary` *(v4.2.1; implementation deferred to engineering programme)*: TypeScript script that walks every string in consumer-app `content/strings.*.json` files and `apps/docs/content/**/*.mdx`, builds a context-sensitive index from the §10.6 glossary's prohibited-synonyms columns + the per-row "(when meaning X)" qualifiers, and fails the build on any product-surface copy that uses a forbidden synonym in the meaning the qualifier disambiguates. Context rules live in `tools/lint-glossary/contexts.json`. See §10.6.7.
 
-CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build.
+CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build. **Any token whose `$extensions` includes `com.risqbase.role` published from the `semantic` or `component` tier must also include `com.risqbase.figma` with `collection`, `mode`, and `scopes`** (per §15.1) — the lint rule fails the build if the binding is absent. Primitive-tier tokens may omit the figma binding when they are pure substrate (not published to Figma); when they are surfaced as Figma variables, the binding is required.
 
 ---
 ## 16. Migration from v4.1 to v4.2
@@ -2014,6 +2464,7 @@ Consumers should plan one PR per migration step; each step is independently merg
 | 4 | Replace any hand-rolled chart code with `data-viz/` components | v5.0 |
 | 5 | If consumer custom-styles `<Gauge>`, audit that `palette` prop covers the case | v5.0 |
 | 6 | Adopt the W3C JSON tokens as authoring source (optional — only relevant if the consumer extends the token set) | optional |
+| 7 | The `marketing/` domain proposed in plan U2.8 ships as `content/` in v4.2 (see §22.2). The semantic shift is intentional: `content/` is content-design tooling (voice-aware copy primitives, content patterns, locale-aware formatters) rather than component primitives for a specific surface. No code action for existing consumers; future consumers authoring against `content/` should use that path rather than `marketing/` | informational |
 
 ### 16.3 Visual regression contract
 
@@ -2026,6 +2477,8 @@ The exception: charts. v4.1 had no shared chart components, so consumers' hand-r
 ## 17. Verification Checklist
 
 Every PR touching design-system code, design-system documentation, or any consuming surface is verified against this checklist. CI lints the items marked **(lint)**; reviewers verify the rest. Items 1–44 are unchanged from v4.1; items 45–52 are unchanged from v4.1.1; items 53–80 are new in v4.2.
+
+> **Row-count note (v4.2.1 hygiene).** The v4.2 plan named "rows 53–60" — a net of seven new verification items. The spec ships **twenty-eight new items (rows 53–80)** because the F1 data-visualisation chapter (eight new rows alone), the F3 voice-and-content expansion (six new rows), and the F5 Figma-sync programme (four new rows) each carried more verification weight than the plan estimated. Net positive but undocumented when v4.2 published; recorded here so future drift between plan and verification checklist count is acknowledged in the publishing PR rather than left as an audit-time discovery. Convention going forward: any version that expands the checklist by more than 25 % of plan estimate flags the drift in this prefatory note.
 
 | # | Rule | v |
 |---|------|---|
@@ -2113,6 +2566,8 @@ Every PR touching design-system code, design-system documentation, or any consum
 ---
 
 ## 18. Governance
+
+> **Doc-site status (v4.2.1 hygiene).** `design.risqbase.com` is **live as a placeholder** today (a single static page hosted on Vercel, project `design`). The full content-and-code parity site described in §18.1 is part of S6 of the v4.2 implementation programme (see `implementation-plan.md` §5.3). Until S6 ships, references to `design.risqbase.com/changelog/v4.2`, `design.risqbase.com/migration/v4.2`, `design.risqbase.com/accessibility`, and any other deep links elsewhere in this spec resolve to the placeholder. F4 audit rows (telemetry, adoption) depend on this site being live; they cannot pass verification before S6 publishes.
 
 ### 18.1 Content-and-code parity (Polaris-inspired)
 
@@ -2223,6 +2678,29 @@ The annual external audit findings are appended to the accessibility statement w
 ### 20.0 Pattern Recipe Schema
 
 *Retained from v4.1.1 in full.* Every pattern is a structured recipe with frontmatter (`id`, `title`, `visibility`, `status`, `problem`, `when_to_use`, `when_not_to_use`, `composed_of`, `layout`, `voice_examples`, optional `variants`, `related`, `keyboard`, `accessibility`, `last_reviewed`, `owner`).
+
+#### 20.0.1 `voice_examples` — template-bound (v4.2.1 patch)
+
+Every entry in a recipe's `voice_examples[]` array must carry a `template_id` referencing a canonical content template from §10.5 (content patterns) or §10.8 (AI / IRIS-specific content rules). Without the binding, §10 is decorative — recipes can drift to ad-hoc copy and the voice & tone work never lands as enforcement.
+
+```yaml
+# Recipe example — assessment-outcome-dpia
+voice_examples:
+  - template_id: "10.5.4"           # required — references the empty-state template
+    context: "no DPIAs found in current quarter"
+    rendered: "No DPIAs in this period. New assessments will appear here."
+  - template_id: "10.8.2"           # required — references the AI-hedge template
+    context: "IRIS-summarised risk band, confidence < 0.7"
+    rendered: "Based on partial evidence, this looks like a high-risk activity."
+```
+
+| Field | Required | Spec |
+|-------|:---:|------|
+| `template_id` | ✓ | Must match a `^10\.[58]\.\d+$` pattern. The template definition lives in §10.5 (e.g., `10.5.4` = empty-state) or §10.8 (e.g., `10.8.2` = AI hedge phrase). CI verifies the ID resolves to a real template. |
+| `context` | ✓ | One-sentence description of when this example renders. Used by reviewers + the docs site. |
+| `rendered` | ✓ | The verbatim copy that surfaces in the UI in this context. CI verifies it conforms to the named template's structure. |
+
+**CI gate (v4.2.1).** The `lint:recipes-voice` script (queued in §15.8.4 tooling) fails on any recipe whose `voice_examples[]` entry omits `template_id` or whose `template_id` does not resolve to a §10.5/§10.8 template. Implementation is deferred to the engineering programme (`implementation-plan.md` §5.3); the spec contract is binding from v4.2.1.
 
 ### 20.1 Pattern Index
 
@@ -2424,6 +2902,24 @@ A component whose `className`/`style` override rate exceeds 15% of mounts is fai
 3. Acknowledge the override pattern and document it as supported
 
 Doing nothing is not an option — every quarter the override rate stays high, the component drifts further from the system's intent.
+
+### 23.7 Promotion log
+
+Every promotion across the four tier transitions in §23.1 — experimental → beta, beta → stable, RALIA-private → shared, deprecated → removed — is recorded here in the same release as the promotion ships. The log is the audit trail for §23's adoption-evidence-based discipline: a future "why is this shared?" or "when did this stabilise?" question is answered by reading this section.
+
+| Component | Source | Target domain | Version | Triggered by | Justification |
+|-----------|--------|---------------|---------|--------------|---------------|
+| **Gauge (generic primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/data-viz` | v4.2 | F2 + Cortex operational-gauge need | The dual-ring inherent/residual delta encoding is RisqBase-distinctive (§7.11), but the *underlying* stroked-arc primitive — track + arc + terminus + centre-value — is generic. Cortex needs gauges for operational health; the marketing site uses gauges for quantified value claims. Promoting keeps the dual-ring encoding RALIA-configured while letting other products consume the primitive. RALIA Risk Gauge becomes a ~60-line wrapper. |
+| **Citation Chip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product AI need | Every AI feature across the three products renders citations the same way — source pill, hover popover with full reference, click to permalink. The interaction is the AI surface's load-bearing trust contract (§6.5). RALIA's v4.1.1 implementation is preserved verbatim; only the import path changes (§16.2 step 2). |
+| **StreamingText** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + the IRIS streaming contract becomes systemic | Token-by-token reveal with citation-chip slot, error-mid-stream state, and `aria-live="polite"` wrapper. The streaming-text shape itself is system-level (per §6.5); IRIS branding stays in RALIA via composition. |
+| **PromptChip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product prompt-suggestion need | Pre-filled prompt-suggestion pill. Cortex uses it for triage suggestions; marketing site uses it for try-this-prompt CTAs. |
+| **LongOperation (stepped-pattern primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/core` | v4.2 | F2 + long-running-task UX is universal | The generic stepped-pattern primitive (per §7.13.1) is for any operation with a known step sequence and indeterminate completion time. The IRIS-narrated variant (streaming step labels via `aria-live="polite"`) remains a RALIA wrapper. |
+
+**Promotion protocol — for future promotions.** Each row above was authored by G4 in the same PR that shipped the promotion. The discipline going forward:
+
+1. **At promotion-time**, the PR author adds one row to this table with all six fields. No "TBD" entries; a promotion without a log row fails review.
+2. **At quarterly adoption review** (§23.5), G4 reviews the log against telemetry: did the promoted component get the cross-product adoption the justification claimed? Components that didn't are flagged in §23.4 for demotion.
+3. **At major-version boundaries**, the log is read end-to-end as the canonical "what shared this major" story; mismatches between log entries and shipped components trigger a hygiene pass before the major publishes.
 
 ---
 
