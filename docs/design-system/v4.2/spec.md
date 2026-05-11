@@ -763,27 +763,121 @@ After v4.2 ships, no chart anywhere in any RisqBase product is produced without 
 
 Every chart in any RisqBase product must be classifiable as exactly one of the canonical types below. If a proposed chart cannot be classified, the chart is reconsidered before a new type is invented.
 
-#### 8.1.1 The seven canonical chart types
+#### 8.1.1 The canonical chart types
 
-| Type | What it answers | When to use | When NOT to use |
-|------|-----------------|-------------|-----------------|
-| **Bar (vertical)** | "How do these categories compare?" | Comparing 2–12 discrete categories | More than 12 categories — use horizontal bar |
-| **Bar (horizontal)** | Same as above with long category labels | 8–40 categories, or category labels longer than 12 chars | Fewer than 5 categories — use vertical bar |
-| **Line** | "How does this change over time?" | 2 or more points along a continuous (usually time) axis | Categorical x-axis with no order — use bar |
-| **Area** | "How does the *cumulative* total change over time, broken down by series?" | Time-series with stacked decomposition | Single series — use line |
-| **Sparkline** | "Is this trending up, down, or flat?" | Inline supporting context next to a metric card; never standalone | Standalone — use line with axes |
-| **Choropleth (geographic)** | "How does this value differ by country/region?" | Risk, prevalence, count, density across geographic units | Non-geographic categorical data — use bar |
-| **Heatmap (categorical)** | "How do two categorical dimensions interact?" | Risk-likelihood × Risk-impact matrix; vendor × control coverage | Continuous data — use line or scatter |
+Twenty-eight active types plus four deferred-to-v5, organised by **what question the chart answers**. Each type carries: one-line `use when`, one-line `do not use when`, anatomy noun set (cross-referenced to §7.0 + §8.2 marks), accessibility row in §8.5, and a decision-matrix row reference in §8.1.2. Deferrals are explicit, not silent.
 
-#### 8.1.2 The "do we even need a chart?" test
+This taxonomy is **the menu** — products choose from it, they do not invent new types without G4 approval (§8.1.3 governs additions). Sources: Datawrapper chart-type taxonomy, Apple Swift Charts grammar, Observable Plot model, Cleveland-McGill perceptual ranking.
 
-Before producing any chart, the author answers three questions in writing (in the pattern recipe under `composed_of`):
+##### Comparison — "how do these categories compare?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Bar (vertical)** | 2–12 discrete categories, short labels (≤12 chars) | Categories >12 — use horizontal bar | `plot-area`, `axis`, `gridline`, `BarMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Bar (horizontal)** | 8–40 categories OR category labels >12 chars | Fewer than 5 categories — use vertical bar | as above with axis orientation swap | §8.5.1 | DM-2 |
+| **Grouped bar** | Comparing 2–4 sub-series across 2–8 categories | More than 4 sub-series — use small-multiples bar layout; more than 8 categories — use heatmap | as bar, plus inner `series` grouping; legend mandatory | §8.5.1 | DM-3 |
+| **Lollipop** | Same shape as bar but values cluster at similar magnitudes (visual differentiation is the lollipop head, not the bar height) | When precise magnitude reading matters more than ranking — use bar | `plot-area`, `axis`, `RuleMark` (stem), `DotMark` (head), `category`, `value-encoding` | §8.5.1 | DM-1 |
+| **Dot plot** | Comparing values across categories where zero is meaningful and bars feel heavy (e.g., scores, counts, age) | Negative values — use bar with diverging axis | `plot-area`, `axis`, `DotMark`, `series`, `category`, `value-encoding` | §8.5.1 | DM-1 |
+
+##### Distribution — "how is this value spread across observations?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Histogram** | Showing the frequency distribution of a continuous variable (binned) | The variable is discrete — use bar | `plot-area`, `axis`, `BarMark` (binned), `gridline`, `annotation` (bin width), `value-encoding` | §8.5.1 | DM-4 |
+| **Box plot** | Showing five-number summary (min/Q1/median/Q3/max) and outliers across 2–12 groups | The reader is unfamiliar with quartile notation — use violin or annotated bar with mean | `plot-area`, `axis`, `RegionMark` (box), `RuleMark` (whiskers/median), `DotMark` (outliers), `category` | §8.5.1 | DM-4 |
+| **Violin** | Showing distribution shape (not just summary stats) across groups | Sample size is small (n<30) — distribution shape is noise; use box plot | `plot-area`, `axis`, `RegionMark` (kernel-density silhouette), `category`, `value-encoding` | §8.5.1 | DM-4 |
+| **Density curve** | Comparing the shape of two or three continuous distributions | More than three overlapping curves — use small-multiples histogram | `plot-area`, `axis`, `LineMark` (smoothed), `RegionMark` (filled, low-opacity), `series`, `value-encoding` | §8.5.1 | DM-4 |
+
+##### Composition — "how does the whole break down?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Stacked bar** | 2–6 mutually-exclusive components, exact totals matter | Components don't sum to a meaningful total — use grouped bar | `plot-area`, `axis`, `BarMark` (stacked), `series`, `legend`, `value-encoding` | §8.5.1 | DM-5 |
+| **Stacked area** | Time-series with cumulative decomposition into 2–6 series | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend` | §8.5.1 | DM-7 |
+| **Treemap** | Hierarchical part-to-whole with 10–50 leaves where ranking matters more than exact values | Fewer than 10 leaves — use bar; more than 50 — readability collapses | `plot-area`, `RegionMark` (nested rectangles), `TextMark` (labels), `annotation` (size scale) | §8.5.1 | DM-6 |
+| **Sunburst** | Hierarchical part-to-whole emphasising the hierarchy itself (parent-child paths) | A flat list — use bar; readability across >3 hierarchy levels — use treemap | `plot-area`, `RegionMark` (radial nested wedges), `TextMark` (labels), `scale` (angular) | §8.5.1 | DM-6 |
+| **Waffle** | Part-to-whole at small scale (single value as ~100 unit-squares) | More than three categories — readability collapses; use stacked-bar-100% | `plot-area`, `RegionMark` (unit grid), `legend`, `value-encoding` | §8.5.1 | DM-5 |
+
+##### Relationship — "do these two variables correlate?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Scatter** | Two continuous variables, 10–10,000 observations, looking for correlation/clusters/outliers | Three or more dimensions needed — use small-multiples scatter; not bubble (§8.1.3) | `plot-area`, `axis` (x + y), `DotMark`, `annotation` (trend line where applicable), `value-encoding` | §8.5.1 | DM-8 |
+| **Paired bar** | Comparing two values per category side-by-side (e.g., before/after, plan/actual) | More than 2 values per category — use grouped bar | `plot-area`, `axis`, `BarMark` (paired), `series` (2-only), `legend` | §8.5.1 | DM-3 |
+
+*Bubble is prohibited per §8.1.3 (area encoding misperceived by ~30%). Three-dimensional relationships should use small-multiples scatter or a heatmap with a sized-marker mark.*
+
+##### Time — "how does this change over time?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Line** | 2+ points along a continuous (usually time) axis, 1–8 series | Categorical x-axis with no order — use bar; 8+ series — use small-multiples | `plot-area`, `axis`, `LineMark`, `series`, `legend`, `gridline`, `tooltip` | §8.5.1 | DM-7 |
+| **Area** | Cumulative total over time, broken down by 2–6 series (stacked) | Single series — use line; non-time x-axis — use stacked bar | `plot-area`, `axis`, `AreaMark` (stacked), `series`, `legend`, `gridline` | §8.5.1 | DM-7 |
+| **Sparkline** | Inline supporting context next to a metric card, showing direction at a glance | Standalone — use line with axes | `LineMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+| **Candlestick** *(deferred to v5)* | Financial OHLC time-series | — | — | — | — |
+
+##### Geographic — "how does this value differ by place?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Choropleth** | Quantitative value per polygon (country, region, postcode area); reader compares regions | Point data — use symbol map; polygon counts ≤5 — use bar | `plot-area`, `ChoroplethMark`, `legend` (sequential scale), `tooltip`, `null-marker` (missing-data polygon) | §8.5.1 + §8.10.x | DM-10 |
+| **Symbol map** | Point-located data (events, sites, addresses); reader scans density | Aggregable data — use choropleth; quantitative comparison across regions — use choropleth | `plot-area`, `DotMark` (sized + coloured), `legend`, `tooltip` | §8.5.1 | DM-10 |
+| **Flow map** *(deferred to v5)* | Origin-destination flows over geography | — | — | — | — |
+
+##### Part-to-whole — "what share is each component?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Donut (≤2 wedges only)** | Single binary share (e.g., "60% complete / 40% remaining"). Above 2 wedges, §8.1.3 prohibits — collapses to Gauge per §7.11 | More than 2 wedges — angle/area read badly; use stacked-bar-100% or bar | `plot-area`, `RegionMark` (2 wedges), `TextMark` (centre value), `legend` | §8.5.1 | DM-5 |
+| **Waffle** | Small-scale part-to-whole, 2–3 categories, totals add to 100 | More than 3 categories — see Composition row above | (see Composition / Waffle) | §8.5.1 | DM-5 |
+| **Stacked-bar-100%** | Comparing the proportional breakdown across 2–12 categories where exact magnitudes don't matter | Magnitudes matter — use stacked bar (absolute) | `plot-area`, `axis` (normalised to 100%), `BarMark` (stacked-normalised), `series`, `legend` | §8.5.1 | DM-5 |
+
+##### Single-value — "what is the headline number?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Metric card** | One value (with optional delta), full-text label, no trend shape needed | Trend shape matters — add a sparkline below the value, or upgrade to gauge | `TextMark` (value + label + optional delta-pill), `value-encoding` | §8.5.1 + §7.10 | DM-9 |
+| **Gauge** | Score / progress / coverage value on a fixed 0–100 (or other bounded) scale, optionally with risk-band | Unbounded value — use metric card; multiple values — use small-multiples gauge | (see §7.11 generic Gauge primitive) | §8.5.1 + §7.11 | DM-9 |
+| **Sparkbar** | Inline supporting context where multiple discrete values matter (vs Sparkline for continuous trend) | Continuous trend — use sparkline | `BarMark` (no axes, no legend), `value-encoding` only | §8.5.1 | DM-9 |
+
+##### Flow — "how do entities move between states?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Funnel** | Sequential stage-by-stage conversion (e.g., assessment lifecycle steps where each stage is a subset of the previous) | Stages are not strictly nested — use grouped bar | `plot-area`, `RegionMark` (stage bars, decreasing width), `TextMark` (counts + drop-off %), `annotation` | §8.5.1 | DM-11 |
+| **Sankey** *(deferred to v5)* | Multi-stage flow with branching/joining (energy flow, customer journey) | — | — | — | — |
+
+##### Heatmap — "how do two dimensions interact?"
+
+| Type | Use when | Do not use when | Anatomy (§7.0 / §8.2) | A11y | DM |
+|------|---------|----------------|----------------------|:---:|:---:|
+| **Heatmap (categorical)** | Two categorical dimensions intersecting (e.g., likelihood × impact 5×5 matrix; vendor × control coverage) | Continuous data on one axis — use line or scatter | `plot-area`, `axis` (x + y categorical), `HeatmapMark`, `legend` (sequential or diverging), `tooltip`, `TextMark` (in-cell value) | §8.5.1 + §8.11.x | DM-3 |
+
+#### 8.1.2 Decision matrix — data shape to canonical type
+
+Before producing any chart, the author answers three "do we even need a chart?" questions in writing (in the pattern recipe under `composed_of`):
 
 1. **What single sentence is this chart meant to support?** If you cannot write the sentence, you cannot draw the chart.
 2. **Could a single number, a sentence, or a sparkline answer the same question?** If yes, use that instead.
-3. **Will the reader be looking for a value, a comparison, a trend, a distribution, or a relationship?** This selects the chart type.
+3. **Will the reader be looking for a value, a comparison, a trend, a distribution, a relationship, a composition, a flow, or a geographic pattern?** This selects the chart type via the matrix below.
 
 This test is mandatory in pattern recipes that contain `composed_of: [chart, ...]`. Reviewers (G4) reject pattern PRs that skip it.
+
+| DM | Data shape | Canonical type(s) | Fallback if criteria don't fit |
+|:---:|------------|--------------------|--------------------------------|
+| **DM-1** | Single series, 2–12 discrete categories, short labels | Bar (vertical), lollipop, dot plot | Horizontal bar (DM-2) when labels >12 chars or categories >12 |
+| **DM-2** | Single series, 8–40 categories OR long labels | Bar (horizontal) | Treemap when ranking matters more than exact values and N > 40 |
+| **DM-3** | Multi-series across categories (2–4 series, 2–8 categories) | Grouped bar, paired bar, heatmap (when both dimensions categorical) | Small-multiples bar when series > 4 |
+| **DM-4** | Continuous variable, distribution shape matters | Histogram (binned), box plot (summary), violin (shape), density curve (shape + overlay) | Box plot when audience is statistical; histogram when audience is general |
+| **DM-5** | Part-to-whole composition (single value or per-category) | Stacked bar, waffle (small), stacked-bar-100%, donut (≤2 wedges only) | Bar table when component count > 6 |
+| **DM-6** | Hierarchical part-to-whole | Treemap (ranking matters), sunburst (hierarchy matters) | Indented bar list when hierarchy is shallow (≤2 levels) and order matters |
+| **DM-7** | Time series, continuous trend | Line (1–8 series), area (cumulative, stacked) | Small-multiples line when series > 8 |
+| **DM-8** | Two continuous variables, correlation/cluster/outlier hunting | Scatter (with optional trend annotation) | Heatmap (2D categorical version) when both variables become categorical |
+| **DM-9** | Single value, optionally with direction or trend | Metric card (just value), gauge (bounded scale), sparkline (trend shape), sparkbar (discrete values inline) | Bar table when N values > 8 and inline doesn't fit |
+| **DM-10** | Geographic value per region or per point | Choropleth (per polygon), symbol map (per point) | Bar list of top-N regions when geographic context isn't load-bearing |
+| **DM-11** | Sequential conversion / drop-off stages | Funnel | Stacked-bar-100% when stages aren't strictly nested |
+
+**Reading rule.** If two data shapes apply (e.g., time series across categories), prefer the row that captures the **primary question** the chart answers. If still ambiguous, prefer the canonical type with the higher Cleveland-McGill perceptual rank (position-along-common-scale > length > angle/area).
 
 #### 8.1.3 Charts you may *never* produce
 
@@ -1013,6 +1107,10 @@ In Windows High Contrast Mode (`forced-colors: active`):
 
 The fallback is a real `<table>` with `<caption>` matching the chart title, `<thead>` for category headers, `<tbody>` rows for each data point, and `tabular-nums` numeric cells. It is implemented by the chart component — the consumer does not author it. The chart container exposes the table via shadow DOM (`<chart-component>` element) or as a sibling element with `aria-hidden="false"` when active and `aria-hidden="true"` when the visual chart is shown.
 
+#### 8.5.6 Sonification (deferred)
+
+Sonification — audio rendering of chart data alongside the visual representation — was scoped in plan U1.7 and is **deferred to v4.3**. Chart components must not foreclose it: any instrumentation surface (per-mark focus events, accessible value-text emission via `aria-valuenow`/`aria-valuetext`, reduced-motion gating in §8.5.3, forced-colors gating in §8.5.4) must remain reachable so the v4.3 sonification layer can wrap a chart without component refactoring. When v4.3 lands, sonification ships as an opt-in accessibility provision (sixth row in §8.5.1) with a defined audio-cue model, volume control, and a `prefers-reduced-motion`-aware fallback.
+
 ### 8.6 Chart states
 
 Every chart has six possible states. The component handles all six; the consumer never hand-rolls one.
@@ -1029,6 +1127,37 @@ Every chart has six possible states. The component handles all six; the consumer
 Default empty/error/stale copy comes from §10.5; consumers may override with product-specific phrasing.
 
 ### 8.7 Chart components in `@risqbase-inc/ui-components/data-viz`
+
+**Charting library: `visx@^3.0.0`** *(decision D9, `implementation-plan.md`; audit U1.9 fill)*
+
+`@visx` is the React-D3 bridge: it ships D3's scales, shapes, axes, and geometric primitives as React components with full SSR support and per-primitive tree-shaking. It does not impose a chart shape; the design-system components below impose the shape via composition.
+
+**Why Visx over alternatives.**
+
+| Considered | Rejected because |
+|------------|-----------------|
+| Recharts | High-level API ergonomic for prototypes but the prescribed look-and-feel forces escape hatches at the rate of one per non-trivial chart. Abstraction tax is unsustainable for a design-system component shipping seven canonical chart types. |
+| Observable Plot | Elegant grammar-of-graphics API but DOM-only output (no SSR-safe initial render). Still pre-1.0 with breaking API churn. |
+| Nivo | Same abstraction-tax pattern as Recharts; heavier bundle. |
+| Direct D3 (no React bridge) | Too low-level — every chart becomes from-scratch React-D3 integration work. Well-trodden patterns but not free. |
+
+**Component-by-component Visx contact surface.**
+
+| Component | Visx-wrapped | Direct D3 | RisqBase composition only |
+|-----------|:---:|:---:|:---:|
+| `<Chart>` | — | — | ✓ |
+| `<BarChart>`, `<HorizontalBarChart>` | `@visx/shape`, `@visx/scale`, `@visx/axis` | — | composition |
+| `<LineChart>`, `<AreaChart>` | `@visx/shape`, `@visx/scale` | — | composition |
+| `<Sparkline>` | `@visx/shape` | — | composition |
+| `<Heatmap>` | `@visx/heatmap` | — | composition |
+| `<ChoroplethMap>` | partial | `topojson-client` (no Visx geo primitive) | composition |
+| `<Gauge>` | — | `d3-arc` (svg-arc only) | ✓ |
+| `<MetricCard>` | — | — | ✓ (not a chart) |
+| Marks (`<BarMark>`, `<LineMark>`, etc.) | wrap Visx mark primitives | — | composition |
+
+**Version pin.** `visx@^3.0.0` is recorded in `package.json#peerDependencies` (consumer-supplied, like React) and locked in CI via `package-lock.json`. Upgrade to `4.x` is a major design-system version: visual regression suite re-baselines.
+
+---
 
 The library ships these components in v4.2. All are MIT-licensed shared code; product-specific extensions live in product repos.
 
@@ -1699,7 +1828,12 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
         "$description": "Primary brand colour — CTAs, logo, links",
         "$extensions": {
           "com.risqbase.role": ["action.primary", "brand.primary"],
-          "com.risqbase.contrastPair": "color.surface.default"
+          "com.risqbase.contrastPair": "color.surface.default",
+          "com.risqbase.figma": {
+            "collection": "primitive",
+            "mode": "default",
+            "scopes": ["ALL_FILLS", "STROKE_COLOR", "TEXT_FILL"]
+          }
         }
       }
     }
@@ -1714,6 +1848,17 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
 | `$description` | Short prose definition; appears in docs site and Figma |
 | `$extensions.com.risqbase.role` | Which semantic role(s) this token may fulfill; CI verifies that role tokens reference primitives whose roles include the role |
 | `$extensions.com.risqbase.contrastPair` | The default surface this token is paired against; CI verifies WCAG contrast against it |
+| `$extensions.com.risqbase.figma` | Figma binding metadata for the F5 sync pipeline (§15.8). Required on every token published to Figma. Structure: `{ collection, mode, scopes[] }` |
+
+**The Figma binding extension (`com.risqbase.figma`) — field detail.**
+
+| Field | Type | Spec |
+|-------|------|------|
+| `collection` | `"primitive" \| "semantic" \| "component" \| "_proposed"` | Which Figma Variable collection holds the published variable. Mirrors the three-tier hierarchy in §15.2 plus the `_proposed` staging collection from §15.8.2. |
+| `mode` | `"default" \| "light" \| "dark" \| "hc" \| "print"` | Which Figma mode this value applies to. `default` is used for the single-mode primitive collection (raw colour hexes, dimensions); `light`/`dark`/`hc`/`print` are used for the semantic and component collections, which carry one value per mode (per §15.2.1 Theme files). |
+| `scopes[]` | Figma scope strings | Where in the Figma UI the variable is picker-eligible. Color scopes: `ALL_FILLS`, `FRAME_FILL`, `SHAPE_FILL`, `TEXT_FILL`, `STROKE_COLOR`, `EFFECT_COLOR`. Dimension scopes: `WIDTH_HEIGHT`, `GAP`, `STROKE_FLOAT`, `EFFECT_FLOAT`, `OPACITY`, `FONT_SIZE`, `LINE_HEIGHT`, `LETTER_SPACING`, `PARAGRAPH_SPACING`, `PARAGRAPH_INDENT`. Use `ALL_SCOPES` if a variable should apply everywhere of its type. |
+
+**Why this matters.** The Figma Variables REST API requires explicit collection/mode/scope bindings on every published variable. Without these in the JSON source, `figma-publish` (§15.8.4) would have to infer them — which produces non-deterministic Figma libraries and breaks the round-trip guarantee. The whole F5 sync programme builds on this key.
 
 A build step (`tokens-build`) compiles the W3C JSON to:
 
@@ -1922,7 +2067,7 @@ Figma library version follows the package version. A `1.2.0` package release is 
 - `figma-diff`: Local script for designers to see the diff between their local Figma state and the published code tokens.
 - `lint:glossary` *(v4.2.1; implementation deferred to engineering programme)*: TypeScript script that walks every string in consumer-app `content/strings.*.json` files and `apps/docs/content/**/*.mdx`, builds a context-sensitive index from the §10.6 glossary's prohibited-synonyms columns + the per-row "(when meaning X)" qualifiers, and fails the build on any product-surface copy that uses a forbidden synonym in the meaning the qualifier disambiguates. Context rules live in `tools/lint-glossary/contexts.json`. See §10.6.7.
 
-CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build.
+CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build. **Any token whose `$extensions` includes `com.risqbase.role` published from the `semantic` or `component` tier must also include `com.risqbase.figma` with `collection`, `mode`, and `scopes`** (per §15.1) — the lint rule fails the build if the binding is absent. Primitive-tier tokens may omit the figma binding when they are pure substrate (not published to Figma); when they are surfaced as Figma variables, the binding is required.
 
 ---
 ## 16. Migration from v4.1 to v4.2
@@ -1959,6 +2104,7 @@ Consumers should plan one PR per migration step; each step is independently merg
 | 4 | Replace any hand-rolled chart code with `data-viz/` components | v5.0 |
 | 5 | If consumer custom-styles `<Gauge>`, audit that `palette` prop covers the case | v5.0 |
 | 6 | Adopt the W3C JSON tokens as authoring source (optional — only relevant if the consumer extends the token set) | optional |
+| 7 | The `marketing/` domain proposed in plan U2.8 ships as `content/` in v4.2 (see §22.2). The semantic shift is intentional: `content/` is content-design tooling (voice-aware copy primitives, content patterns, locale-aware formatters) rather than component primitives for a specific surface. No code action for existing consumers; future consumers authoring against `content/` should use that path rather than `marketing/` | informational |
 
 ### 16.3 Visual regression contract
 
@@ -1971,6 +2117,8 @@ The exception: charts. v4.1 had no shared chart components, so consumers' hand-r
 ## 17. Verification Checklist
 
 Every PR touching design-system code, design-system documentation, or any consuming surface is verified against this checklist. CI lints the items marked **(lint)**; reviewers verify the rest. Items 1–44 are unchanged from v4.1; items 45–52 are unchanged from v4.1.1; items 53–80 are new in v4.2.
+
+> **Row-count note (v4.2.1 hygiene).** The v4.2 plan named "rows 53–60" — a net of seven new verification items. The spec ships **twenty-eight new items (rows 53–80)** because the F1 data-visualisation chapter (eight new rows alone), the F3 voice-and-content expansion (six new rows), and the F5 Figma-sync programme (four new rows) each carried more verification weight than the plan estimated. Net positive but undocumented when v4.2 published; recorded here so future drift between plan and verification checklist count is acknowledged in the publishing PR rather than left as an audit-time discovery. Convention going forward: any version that expands the checklist by more than 25 % of plan estimate flags the drift in this prefatory note.
 
 | # | Rule | v |
 |---|------|---|
@@ -2058,6 +2206,8 @@ Every PR touching design-system code, design-system documentation, or any consum
 ---
 
 ## 18. Governance
+
+> **Doc-site status (v4.2.1 hygiene).** `design.risqbase.com` is **live as a placeholder** today (a single static page hosted on Vercel, project `design`). The full content-and-code parity site described in §18.1 is part of S6 of the v4.2 implementation programme (see `implementation-plan.md` §5.3). Until S6 ships, references to `design.risqbase.com/changelog/v4.2`, `design.risqbase.com/migration/v4.2`, `design.risqbase.com/accessibility`, and any other deep links elsewhere in this spec resolve to the placeholder. F4 audit rows (telemetry, adoption) depend on this site being live; they cannot pass verification before S6 publishes.
 
 ### 18.1 Content-and-code parity (Polaris-inspired)
 
@@ -2168,6 +2318,29 @@ The annual external audit findings are appended to the accessibility statement w
 ### 20.0 Pattern Recipe Schema
 
 *Retained from v4.1.1 in full.* Every pattern is a structured recipe with frontmatter (`id`, `title`, `visibility`, `status`, `problem`, `when_to_use`, `when_not_to_use`, `composed_of`, `layout`, `voice_examples`, optional `variants`, `related`, `keyboard`, `accessibility`, `last_reviewed`, `owner`).
+
+#### 20.0.1 `voice_examples` — template-bound (v4.2.1 patch)
+
+Every entry in a recipe's `voice_examples[]` array must carry a `template_id` referencing a canonical content template from §10.5 (content patterns) or §10.8 (AI / IRIS-specific content rules). Without the binding, §10 is decorative — recipes can drift to ad-hoc copy and the voice & tone work never lands as enforcement.
+
+```yaml
+# Recipe example — assessment-outcome-dpia
+voice_examples:
+  - template_id: "10.5.4"           # required — references the empty-state template
+    context: "no DPIAs found in current quarter"
+    rendered: "No DPIAs in this period. New assessments will appear here."
+  - template_id: "10.8.2"           # required — references the AI-hedge template
+    context: "IRIS-summarised risk band, confidence < 0.7"
+    rendered: "Based on partial evidence, this looks like a high-risk activity."
+```
+
+| Field | Required | Spec |
+|-------|:---:|------|
+| `template_id` | ✓ | Must match a `^10\.[58]\.\d+$` pattern. The template definition lives in §10.5 (e.g., `10.5.4` = empty-state) or §10.8 (e.g., `10.8.2` = AI hedge phrase). CI verifies the ID resolves to a real template. |
+| `context` | ✓ | One-sentence description of when this example renders. Used by reviewers + the docs site. |
+| `rendered` | ✓ | The verbatim copy that surfaces in the UI in this context. CI verifies it conforms to the named template's structure. |
+
+**CI gate (v4.2.1).** The `lint:recipes-voice` script (queued in §15.8.4 tooling) fails on any recipe whose `voice_examples[]` entry omits `template_id` or whose `template_id` does not resolve to a §10.5/§10.8 template. Implementation is deferred to the engineering programme (`implementation-plan.md` §5.3); the spec contract is binding from v4.2.1.
 
 ### 20.1 Pattern Index
 
@@ -2369,6 +2542,24 @@ A component whose `className`/`style` override rate exceeds 15% of mounts is fai
 3. Acknowledge the override pattern and document it as supported
 
 Doing nothing is not an option — every quarter the override rate stays high, the component drifts further from the system's intent.
+
+### 23.7 Promotion log
+
+Every promotion across the four tier transitions in §23.1 — experimental → beta, beta → stable, RALIA-private → shared, deprecated → removed — is recorded here in the same release as the promotion ships. The log is the audit trail for §23's adoption-evidence-based discipline: a future "why is this shared?" or "when did this stabilise?" question is answered by reading this section.
+
+| Component | Source | Target domain | Version | Triggered by | Justification |
+|-----------|--------|---------------|---------|--------------|---------------|
+| **Gauge (generic primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/data-viz` | v4.2 | F2 + Cortex operational-gauge need | The dual-ring inherent/residual delta encoding is RisqBase-distinctive (§7.11), but the *underlying* stroked-arc primitive — track + arc + terminus + centre-value — is generic. Cortex needs gauges for operational health; the marketing site uses gauges for quantified value claims. Promoting keeps the dual-ring encoding RALIA-configured while letting other products consume the primitive. RALIA Risk Gauge becomes a ~60-line wrapper. |
+| **Citation Chip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product AI need | Every AI feature across the three products renders citations the same way — source pill, hover popover with full reference, click to permalink. The interaction is the AI surface's load-bearing trust contract (§6.5). RALIA's v4.1.1 implementation is preserved verbatim; only the import path changes (§16.2 step 2). |
+| **StreamingText** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + the IRIS streaming contract becomes systemic | Token-by-token reveal with citation-chip slot, error-mid-stream state, and `aria-live="polite"` wrapper. The streaming-text shape itself is system-level (per §6.5); IRIS branding stays in RALIA via composition. |
+| **PromptChip** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/ai` | v4.2 | F2 + cross-product prompt-suggestion need | Pre-filled prompt-suggestion pill. Cortex uses it for triage suggestions; marketing site uses it for try-this-prompt CTAs. |
+| **LongOperation (stepped-pattern primitive)** | RALIA-private (`Risqbase-Inc/Ralia`) | `@risqbase-inc/ui-components/core` | v4.2 | F2 + long-running-task UX is universal | The generic stepped-pattern primitive (per §7.13.1) is for any operation with a known step sequence and indeterminate completion time. The IRIS-narrated variant (streaming step labels via `aria-live="polite"`) remains a RALIA wrapper. |
+
+**Promotion protocol — for future promotions.** Each row above was authored by G4 in the same PR that shipped the promotion. The discipline going forward:
+
+1. **At promotion-time**, the PR author adds one row to this table with all six fields. No "TBD" entries; a promotion without a log row fails review.
+2. **At quarterly adoption review** (§23.5), G4 reviews the log against telemetry: did the promoted component get the cross-product adoption the justification claimed? Components that didn't are flagged in §23.4 for demotion.
+3. **At major-version boundaries**, the log is read end-to-end as the canonical "what shared this major" story; mismatches between log entries and shipped components trigger a hygiene pass before the major publishes.
 
 ---
 
