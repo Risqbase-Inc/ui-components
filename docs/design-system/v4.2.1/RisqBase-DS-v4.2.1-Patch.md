@@ -130,10 +130,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Acceptance.** §20.0 spec updated; lint script named; verification row in §17.
 **Owner.** G4.
 
-### A7 — U5.2 Figma `$extensions` key reconciliation
-**Gap.** Plan named `$extensions.com.risqbase.figma`; v4.2 §15.1 example only shows `role` and `contrastPair` extensions. Whole F5 sync programme is built on this key.
-**Resolution.** §15.1 example expanded to include `$extensions.com.risqbase.figma: { collection, mode, scopes[] }`. §15.8.4 references the same key. CI lint enforces presence on any token tagged for Figma export.
-**Acceptance.** §15.1 example carries the figma key; §15.8 references match; verification row in §17.
+### A7 — U5.2 Figma `$extensions` key reconciliation ✓
+**Gap.** Plan named `$extensions.com.risqbase.figma`; v4.2 §15.1 example only showed `role` and `contrastPair` extensions. The whole F5 sync programme is built on this key.
+**Resolution.** §15.1 example expanded to include the `com.risqbase.figma` extension with `collection`, `mode`, and `scopes[]`. §15.1 field table gains a row for the new extension plus a structure detail sub-table enumerating valid `collection`, `mode`, and `scopes[]` values (mirroring the Figma Variables REST API). §15.8.4 CI gates updated: every semantic-tier or component-tier token must carry the figma binding; primitive-tier tokens require it only when published to Figma.
+**Status.** Resolved.
 **Owner.** G1.
 
 ---

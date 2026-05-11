@@ -1625,7 +1625,12 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
         "$description": "Primary brand colour — CTAs, logo, links",
         "$extensions": {
           "com.risqbase.role": ["action.primary", "brand.primary"],
-          "com.risqbase.contrastPair": "color.surface.default"
+          "com.risqbase.contrastPair": "color.surface.default",
+          "com.risqbase.figma": {
+            "collection": "primitive",
+            "mode": "default",
+            "scopes": ["ALL_FILLS", "STROKE_COLOR", "TEXT_FILL"]
+          }
         }
       }
     }
@@ -1640,6 +1645,17 @@ All tokens live in `tokens/` at the root of `@risqbase-inc/ui-components` as JSO
 | `$description` | Short prose definition; appears in docs site and Figma |
 | `$extensions.com.risqbase.role` | Which semantic role(s) this token may fulfill; CI verifies that role tokens reference primitives whose roles include the role |
 | `$extensions.com.risqbase.contrastPair` | The default surface this token is paired against; CI verifies WCAG contrast against it |
+| `$extensions.com.risqbase.figma` | Figma binding metadata for the F5 sync pipeline (§15.8). Required on every token published to Figma. Structure: `{ collection, mode, scopes[] }` |
+
+**The Figma binding extension (`com.risqbase.figma`) — field detail.**
+
+| Field | Type | Spec |
+|-------|------|------|
+| `collection` | `"primitive" \| "semantic" \| "component" \| "_proposed"` | Which Figma Variable collection holds the published variable. Mirrors the three-tier hierarchy in §15.2 plus the `_proposed` staging collection from §15.8.2. |
+| `mode` | `"default" \| "light" \| "dark" \| "hc" \| "print"` | Which Figma mode this value applies to. `default` is used for the single-mode primitive collection (raw colour hexes, dimensions); `light`/`dark`/`hc`/`print` are used for the semantic and component collections, which carry one value per mode (per §15.2.1 Theme files). |
+| `scopes[]` | Figma scope strings | Where in the Figma UI the variable is picker-eligible. Color scopes: `ALL_FILLS`, `FRAME_FILL`, `SHAPE_FILL`, `TEXT_FILL`, `STROKE_COLOR`, `EFFECT_COLOR`. Dimension scopes: `WIDTH_HEIGHT`, `GAP`, `STROKE_FLOAT`, `EFFECT_FLOAT`, `OPACITY`, `FONT_SIZE`, `LINE_HEIGHT`, `LETTER_SPACING`, `PARAGRAPH_SPACING`, `PARAGRAPH_INDENT`. Use `ALL_SCOPES` if a variable should apply everywhere of its type. |
+
+**Why this matters.** The Figma Variables REST API requires explicit collection/mode/scope bindings on every published variable. Without these in the JSON source, `figma-publish` (§15.8.4) would have to infer them — which produces non-deterministic Figma libraries and breaks the round-trip guarantee. The whole F5 sync programme builds on this key.
 
 A build step (`tokens-build`) compiles the W3C JSON to:
 
@@ -1847,7 +1863,7 @@ Figma library version follows the package version. A `1.2.0` package release is 
 - `figma-publish`: Node script that posts the Figma JSON to the Figma Variables REST API. Requires the `FIGMA_TOKEN` secret in CI.
 - `figma-diff`: Local script for designers to see the diff between their local Figma state and the published code tokens.
 
-CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build.
+CI gates: a token added to JSON without a corresponding `$description` and `$extensions.com.risqbase.role` fails the build. A token whose value violates its `contrastPair` minimum WCAG ratio fails the build. **Any token whose `$extensions` includes `com.risqbase.role` published from the `semantic` or `component` tier must also include `com.risqbase.figma` with `collection`, `mode`, and `scopes`** (per §15.1) — the lint rule fails the build if the binding is absent. Primitive-tier tokens may omit the figma binding when they are pure substrate (not published to Figma); when they are surfaced as Figma variables, the binding is required.
 
 ---
 ## 16. Migration from v4.1 to v4.2
