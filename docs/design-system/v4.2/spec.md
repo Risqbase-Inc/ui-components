@@ -1210,6 +1210,171 @@ Per §17 (rows 53–63), CI lints the following:
 - Every chart provides a data-table fallback (component test)
 - Every pattern recipe whose `composed_of` includes a chart has the §8.1.2 three-question block populated
 
+### 8.16 Print variants per chart type (v4.2.1 patch)
+
+Regulator submissions, audit packs, and exported PDFs render charts in print contexts where colour is unreliable (B&W printers, photocopied evidence, faxed regulator response). v4.2.1 specifies a print variant for every chart type in §8.1.1 so the print output is **canonically the same chart** — same anatomy, same data-table fallback, same accessibility — with a B&W-safe encoding swapped in.
+
+*Section-ID correction: the v4.2.1 patch plan referenced "§8.13 Print variants". §8.13 is "Charts and IRIS". The next free slot after §8.15 is §8.16; this section lands there.*
+
+**Token contract.** `tokens/themes/print.json` (named in §15.2.1; values land in v4.2.1 + v4.3) carries the print-mode overrides for every chart container token (§15.6.8) and every band/seq/cat semantic token. The override drops chroma to zero while preserving luminance, so the print mode appears as the greyscale projection of the on-screen design.
+
+#### 8.16.1 General print conventions
+
+These apply to every chart, before per-type rules:
+
+- **Monochrome rule.** Print mode renders all marks in greyscale derived from the luminance channel of the on-screen palette. Categorical distinction in print is **never colour-only** — series differentiation falls entirely to pattern fills (§8.16.2) for bars / regions, dash styles (§8.16.3) for lines, and shape variation (§8.16.4) for points.
+- **Page-break rule.** Charts do not break across pages. If a chart's natural height exceeds the available page height, it shrinks proportionally to fit (minimum legibility threshold: 480 × 320 logical pixels). If shrinking would breach the minimum, the chart moves to the next page and a footnote in the originating context reads *"Chart continues overleaf."*.
+- **Caption inheritance.** Print preserves the on-screen `<figcaption>` verbatim (§8.5.1 row 1). The screen-only "Tap a mark for detail" hint is stripped per §8.16.5.
+- **Source attribution.** Every print chart gains a `Source:` footnote line immediately below the figure, drawn from the recipe's `source` field (regulator name + report date + DOI/URL when available). Required for regulator-facing surfaces; recommended elsewhere.
+
+#### 8.16.2 Pattern fills (B&W-safe) — for bar, region, and choropleth marks
+
+Four densities per series. Each density passes the WCAG forced-colors test for non-colour-only differentiation and remains legible at 1:1 print resolution (300 dpi).
+
+| # | Pattern | Series role | Example use |
+|---|---------|-------------|-------------|
+| 1 | Solid 80% black | Series 1 (canonical / primary) | Highest-impact bar / canonical-value polygon |
+| 2 | Cross-hatch 45° (3px stroke, 6px spacing) | Series 2 | Secondary bar, secondary risk-band |
+| 3 | Dotted (2px dot, 4px spacing) | Series 3 | Tertiary bar / heatmap level-2 |
+| 4 | Diagonal hatch (2px stroke, 8px spacing, 30°) | Series 4 | Quaternary bar / heatmap level-3 |
+
+Series 5–8 cycle through the four densities at progressively darker base values (90% black, 70% black, 60% black, 50% black). Beyond eight series the chart is too dense for print — use small-multiples or a data-table fallback (§8.5.5).
+
+For **choropleth** the pattern fills replace the sequential ramp: regions in the highest sequential stop fill with solid 80% black, next stop with cross-hatch, etc. The legend is mandatory in print (it is optional on screen).
+
+#### 8.16.3 Line dash styles — for line, area-boundary, rule marks
+
+Lines distinguish series by dash + colour on screen, dash-only in print. Six canonical dash styles cycle for line series 1–6; series 7+ use small-multiples.
+
+| # | Dash style | Series role |
+|---|-----------|-------------|
+| 1 | Solid 2px | Series 1 |
+| 2 | Dashed (6px on, 4px off) | Series 2 |
+| 3 | Dotted (1px on, 3px off) | Series 3 |
+| 4 | Dash-dot (4-2-1-2) | Series 4 |
+| 5 | Long-dash (12px on, 4px off) | Series 5 |
+| 6 | Long-dash-dot (12-4-1-4) | Series 6 |
+
+Stroke weight is constant (2px) — emphasis is via dash, not weight, because weight reads as "this series matters more" rather than "this series is series 3".
+
+#### 8.16.4 Shape variants — for dot, symbol-map, scatter marks
+
+Points use eight shape variants cycling per series:
+
+| # | Shape | Series role |
+|---|-------|-------------|
+| 1 | Filled circle | Series 1 |
+| 2 | Filled square | Series 2 |
+| 3 | Filled triangle (apex up) | Series 3 |
+| 4 | Filled diamond | Series 4 |
+| 5 | Open circle (2px outline) | Series 5 |
+| 6 | Open square (2px outline) | Series 6 |
+| 7 | Open triangle (apex up, 2px outline) | Series 7 |
+| 8 | Open diamond (2px outline) | Series 8 |
+
+Filled variants come first because filled shapes read at smaller sizes; open variants extend the series count without losing print legibility.
+
+#### 8.16.5 Legend conventions in print
+
+- **Legend is mandatory in print** for every chart with more than one series, regardless of whether it appeared on screen. Without legend, dash/pattern/shape lookups are not resolvable.
+- Legend swatch shows the print encoding (pattern fill, dash sample, shape glyph) — not the on-screen colour.
+- Legend position: below the plot-area, left-aligned. Multi-column when series ≥ 5 (max 3 columns).
+- Legend text uses `font-feature-settings: "tnum"` (tabular numerals) so series counts/units align across rows.
+
+#### 8.16.6 Omitted interactive states — footnote rule
+
+Print captures a moment. Charts that have interactive states (hover, focus, tooltip, drilldown, click-through) drop those states in print and gain a footnote, formatted exactly:
+
+> *In the interactive version on `design.risqbase.com`, this chart supports {<hover|tooltip|drilldown|filter>}. The static print version shows the {<initial|filtered|drilled>} state.*
+
+Required for any chart with `tooltip`, `onClick`, `drilldown`, or `filter` anatomy nouns. Optional for charts with hover-only emphasis (states that don't change which data the chart shows).
+
+#### 8.16.7 Per-chart-type print encoding
+
+Each canonical chart type from §8.1.1 maps to a specific print encoding. The rule applies regardless of which on-screen palette was used.
+
+##### Comparison
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Bar (vertical) | Pattern fills §8.16.2 per series | Bar widths preserved; axis labels rotate if labels >12 chars |
+| Bar (horizontal) | Pattern fills §8.16.2 per series | Preferred orientation for print when labels are long |
+| Grouped bar | Pattern fills §8.16.2; gap between groups preserved | Legend mandatory |
+| Lollipop | Stem as solid 80% black `RuleMark`; head as filled shape variants §8.16.4 | Reads better than bar at narrow widths |
+| Dot plot | Filled-shape series §8.16.4 | Connect lines (if any) use solid 1px between baseline + dot |
+
+##### Distribution
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Histogram | Single-series solid 80% black bars; bin labels on x-axis | Multi-series stacks switch to small-multiples in print |
+| Box plot | Solid box outline (2px), whisker rules, median rule emphasised (4px), outliers as filled circles §8.16.4 | Mean overlay (when shown) is an open circle |
+| Violin | Solid 1px silhouette, no fill | Falls back to box plot if silhouette would render below 2mm height |
+| Density curve | Dash styles §8.16.3 per series | Filled-curve overlay strips in print (legibility-critical) |
+
+##### Composition
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Stacked bar | Pattern fills §8.16.2 per series; segment boundaries 1px white | Legend mandatory |
+| Stacked area | Pattern fills §8.16.2 per series; boundary lines 1.5px solid black | Reads better than line in print for cumulative |
+| Treemap | Pattern fills §8.16.2 cycled by hierarchy depth; 1px white separators | Labels inside rectangles, font-size capped at 11pt |
+| Sunburst | Pattern fills §8.16.2 per ring; 1px white separators | Labels follow ring path; reads best at ≥ 80mm diameter |
+| Waffle | Pattern fills §8.16.2 per category; unit-square grid 1px outlined | 100 squares is the canonical resolution |
+
+##### Relationship
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Scatter | Filled-shape series §8.16.4; trend line (when shown) dash style 1 (solid) | High-overlap clusters add 30% opacity to avoid black blocks |
+| Paired bar | Pattern fills §8.16.2 (densities 1 + 2 only); pair gap preserved | Mandatory legend |
+
+##### Time
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Line | Dash styles §8.16.3 per series, 2px stroke | Markers at data points use shape variants §8.16.4 when series > 4 |
+| Area | Pattern fills §8.16.2 per series; boundary 1.5px solid | Stacked vs unstacked retained |
+| Sparkline | Solid 2px line, no axes (inline behaviour preserved) | If sparkline appears in a metric card, both render to print together |
+
+##### Geographic
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Choropleth | Pattern fills §8.16.2 per sequential stop; thin (0.5px) region borders | Legend mandatory; missing-data polygons render with diagonal-cross (`+` symbol fill) |
+| Symbol map | Filled-shape series §8.16.4 sized by value; 1px stroke for visibility against pale region fills | Legend mandatory |
+
+##### Part-to-whole
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Donut (≤ 2 wedges) | Pattern fills §8.16.2 densities 1 + 2; ring stroke 2px solid black | Centre-value tabular-nums |
+| Stacked-bar-100% | Pattern fills §8.16.2; segment boundaries 1px white | Mandatory legend |
+
+##### Single-value
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Metric card | Greyscale-luminance of on-screen palette; tabular-nums | Delta pill renders as bracketed text `(+12%)` not coloured pill |
+| Gauge | Solid 80% black arc + 30% black track; centre-value tabular-nums | Risk-band annotation uses pattern fills §8.16.2 for the threshold zones |
+| Sparkbar | Pattern fills §8.16.2 density 1; no axis | Inline within text |
+
+##### Flow
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Funnel | Pattern fills §8.16.2 per stage; stage widths preserved | Drop-off % renders as text annotation between stages |
+
+##### Heatmap
+
+| Type | Print encoding | Notes |
+|------|----------------|-------|
+| Heatmap (categorical) | Pattern fills §8.16.2 by sequential stop; cell borders 1px solid; in-cell value text tabular-nums | Legend mandatory; cell sizes ≥ 8mm at print resolution |
+
+#### 8.16.8 Verification
+
+Print variants verify against §17 row "Print fidelity — every chart in screen and print renders the same data, same anatomy, same data-table fallback, with print encoding per §8.16". CI: visual regression baselines include a `@media print` rendering of every chart in the Chromatic snapshot set (S5 implementation programme).
+
 ---
 ## 9. Print & PDF Specifications
 
