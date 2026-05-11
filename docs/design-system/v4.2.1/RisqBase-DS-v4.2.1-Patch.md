@@ -113,10 +113,10 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 
 ## P1 — Audit-flagged
 
-### A1 — U1.8 Print variants per chart type
-**Gap.** v4.2 §15.2.1 names the print theme file but §8 does not specify per-chart-type print variants.
-**Resolution.** Add §8.13 "Print variants": monochrome rule per chart type; B&W-safe pattern fills (cross-hatch / dot / diagonal at 4 densities); print legend convention; page-break behaviour; footnote rule for omitted interactive states.
-**Acceptance.** §8.13 covers every chart type in the T2 taxonomy. `tokens/themes/print.json` carries matching tokens.
+### A1 — U1.8 Print variants per chart type ✓
+**Gap.** v4.2 §15.2.1 named the print theme file but §8 did not specify per-chart-type print variants.
+**Resolution.** Added **§8.16** (corrected from patch's §8.13, which is "Charts and IRIS") "Print variants per chart type" with 8 sub-sections: 8.16.1 General print conventions (monochrome / page-break / caption / source attribution); 8.16.2 Pattern fills 4-density (cross-hatch / dotted / diagonal hatch for bars, regions, choropleths); 8.16.3 Line dash styles 6-style (for lines, area boundaries, rules); 8.16.4 Shape variants 8-shape (for dots, symbol-maps, scatter); 8.16.5 Legend conventions (mandatory in print); 8.16.6 Omitted interactive states (footnote rule with verbatim format); 8.16.7 Per-chart-type print encoding (table per purpose-group covering all 28 T2 chart types); 8.16.8 Verification (Chromatic `@media print` baselines). Token contract: `tokens/themes/print.json` carries print-mode overrides for every chart container + band/seq/cat semantic; values land in v4.2.1 + v4.3 per §15.2.1.
+**Status.** Resolved.
 **Owner.** G4 + Frontend.
 
 ### A2 — U1.9 Library + version pin ✓
@@ -200,9 +200,9 @@ Section-ID correction: patch said §10.4 but §10.4 is "Headings and labels"; th
 |:---:|----|------|:---:|------|
 | `[x]` | T1 | §15.6 → 241 enumerated tokens (38 TBD primitives → Claude Design); spec §15.6.1-10 + 3 JSON files | P0 | G1 + Claude Design |
 | `[ ]` | T2 | §8.1.1 → 20+ chart types | P0 | G4 |
-| `[x]` | T3 | §10.6 → 84 glossary entries across 6 sub-categories + §15.8.4 `lint:glossary` | P0 | G8 + G4 |
-| `[ ]` | A1 | §8.13 print variants per chart type | P1 | G4 + Frontend |
-| `[x]` | A2 | §8.7 library + version pin (`visx@^3.0.0`) | P1 | G1 + G4 |
+| `[ ]` | T3 | §10.6 → 80+ glossary entries | P0 | G8 + G4 |
+| `[x]` | A1 | §8.16 print variants per chart type (corrected from §8.13) — 8 sub-sections covering all 28 T2 chart types | P1 | G4 + Frontend |
+| `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
 | `[x]` | A5 | §10.3.3 number-formatting expansion (4 typed tables, corrected from §10.4) | P1 | G8 |
