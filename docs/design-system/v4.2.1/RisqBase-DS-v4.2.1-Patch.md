@@ -118,10 +118,19 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 **Acceptance.** Four log rows for v4.2 promotions; protocol documented for future promotions.
 **Owner.** G4.
 
-### A5 — U3.4 §10.4 Number formatting expansion
-**Gap.** §10.4 retains v4.1 conventions; the plan's expansion to relative time / percent precision / currency / abbreviations did not visibly land.
-**Resolution.** Expand §10.4 with one table per data type: time (absolute, relative, duration, range); percent (precision by context); currency (symbol placement, decimals, abbreviation thresholds); counts (compact / default / comfortable). Per-context modifier column.
-**Acceptance.** §10.4 has ≥ 4 typed tables; verification rows referenced in §17.
+### A5 — U3.4 §10.3.3 Number formatting expansion ✓
+**Gap.** §10.3 retained v4.1 single-line conventions; the plan's expansion to relative time / percent precision / currency / abbreviations did not visibly land.
+**Resolution.** Added §10.3.3 "Number formatting (v4.2.1 patch)" with **four typed tables**:
+- §10.3.3.1 Time — 10 rows (absolute prose, ISO 8601 table/audit, with time TZ, relative past/future/short, duration HH:MM and humanised, range)
+- §10.3.3.2 Percent — 8 rows (body, tabular score, tabular risk, AI confidence with hedge rule, delta with U+2212 minus, sub-1% / sub-0.1%, range)
+- §10.3.3.3 Currency — 7 rows (CLDR symbol prefix, ISO 4217 exports, decimal rules, fines override, abbreviation thresholds, negative U+2212, range)
+- §10.3.3.4 Counts — 9 rows (body 0-9 spelled / ≥10 digits, tabular locale-aware, compact / default / comfortable density, range, approximate, zero)
+
+Each table carries a `Context modifier` column noting when stricter/looser variants apply. §10.3.3.5 "Reading rules" addresses locale awareness, mixed-context harmonisation, and verification.
+
+Section-ID correction: patch said §10.4 but §10.4 is "Headings and labels"; the number rules live in §10.3. Expansion lands at §10.3.3 as the natural extension. Sources: ECMA-402 (`Intl.NumberFormat`, `Intl.RelativeTimeFormat`), Unicode CLDR, BIPM SI brochure, standard typographic conventions.
+
+**Status.** Resolved.
 **Owner.** G8.
 
 ### A6 — U3.7 Recipe schema → §10 cross-reference + lint
@@ -173,7 +182,7 @@ Each entry: canonical form, definition (≤ 25 words), prohibited synonyms (name
 | `[ ]` | A2 | §8.7 library + version pin | P1 | G1 + G4 |
 | `[ ]` | A3 | §8.12 three composite recipe bodies | P1 | G4 |
 | `[ ]` | A4 | §23.5 promotion log | P1 | G4 |
-| `[ ]` | A5 | §10.4 number-formatting expansion | P1 | G8 |
+| `[x]` | A5 | §10.3.3 number-formatting expansion (4 typed tables, corrected from §10.4) | P1 | G8 |
 | `[ ]` | A6 | §20.0 voice-examples cross-reference + lint | P1 | G4 |
 | `[ ]` | A7 | §15.1 figma `$extensions` key | P1 | G1 |
 | `[ ]` | G1 | §8.6 sonification status note | P2 | G4 |

@@ -1286,6 +1286,72 @@ We write in **British English** in product chrome and documentation by default (
 - Use "please" in button copy ("Please save" → "Save")
 - Use "just" or "simply" — they minimise the user's effort
 
+#### 10.3.3 Number formatting (v4.2.1 patch)
+
+The §10.3 single-line rules above are sufficient for body prose. For tabular contexts, dashboards, audit logs, charts, and regulator-facing output the spec requires more precision — readers compare values across rows, and inconsistency reads as inaccuracy. The four tables below define the canonical conventions; each row carries a `Context modifier` column noting when a stricter or looser variant applies. Sources: ECMA-402 (`Intl.NumberFormat`, `Intl.RelativeTimeFormat`), Unicode CLDR (Common Locale Data Repository), BIPM SI brochure (units), standard typographic conventions.
+
+*Section-ID correction: the v4.2.1 patch plan referenced "§10.4 Number formatting expansion". §10.4 is "Headings and labels"; the number rules live in §10.3. This expansion lands at §10.3.3 as the natural extension of §10.3.*
+
+##### 10.3.3.1 Time
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Absolute (body prose)** | British: `D MMMM YYYY` | `7 May 2026` | Marketing surfaces use the visitor's locale; regulator PDFs use customer-account locale |
+| **Absolute (table or audit log)** | ISO 8601: `YYYY-MM-DD` | `2026-05-07` | Mandatory in audit logs and any sortable-by-date column |
+| **Absolute with time (audit log)** | ISO 8601 with timezone: `YYYY-MM-DDTHH:mm:ssZ` | `2026-05-07T14:30:00Z` | Always UTC in audit logs; never local time |
+| **Absolute with time (body prose)** | 12-hour with am/pm in user's TZ | `2:30 pm` | Append `(BST)` / `(EDT)` when ambiguity matters |
+| **Relative — past** | `Intl.RelativeTimeFormat`, "long" style | `2 hours ago`, `3 days ago`, `last week`, `last month`, `last year` | Use only within the last 7 days for prose; switch to absolute date beyond that |
+| **Relative — future** | `Intl.RelativeTimeFormat`, "long" style | `in 2 hours`, `in 3 days`, `next week` | Same 7-day rule as past |
+| **Relative — short** | `Intl.RelativeTimeFormat`, "short" style | `2h ago`, `3d`, `1w` | Tabular contexts where horizontal space is tight |
+| **Duration (HH:MM)** | Zero-padded | `00:45`, `02:30` | Use when both hours and minutes always read together (timers, video) |
+| **Duration (humanised)** | "long" style | `45 minutes`, `2 hours 30 minutes`, `3 days` | Body prose where precise minute matters less than legibility |
+| **Range** | En-dash with space-padding around | `2024 – 2026`, `7 – 14 May 2026`, `09:00 – 17:00` | Endpoints inclusive unless captioned otherwise |
+
+##### 10.3.3.2 Percent
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose** | Integer percent, no space | `78%` | Round half-to-even (banker's rounding) per IEEE 754 |
+| **Tabular — score** | One decimal place, fixed | `78.4%` | Score / percentile / confidence columns; never trailing-zero-strip |
+| **Tabular — risk** | Integer | `82%` | Risk-band-derived percent; decimals imply spurious precision |
+| **Confidence (AI)** | Integer, with hedge if <80% | `Confidence: 92%` | Below 80% append §10.8 hedge phrase; below 60% prefer categorical ("low") to numeric |
+| **Delta** | Sign-prefixed integer | `+12%`, `−8%` | En-dash for ranges, minus sign (U+2212) for delta — never hyphen |
+| **Sub-1% values** | "< 1%" not "0%" | `< 1%` | Use only when the underlying value is non-zero |
+| **Sub-0.1% values** | "< 0.1%" not "0%" | `< 0.1%` | Use only when the underlying value is non-zero |
+| **Compact range** | En-dash, no space, single % at end | `60–80%` | Tabular contexts only |
+
+##### 10.3.3.3 Currency
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose** | CLDR symbol prefix, no space | `£1,200`, `$1,200`, `€1,200` | Currency follows account locale unless overridden |
+| **Audit logs and exports** | ISO 4217 code + space + value | `GBP 1,200.00`, `USD 1,200.00`, `EUR 1,200.00` | Two decimals mandatory; no thousand separator in machine-readable exports |
+| **Decimals — body prose** | Two for amounts < 10,000, zero for amounts ≥ 10,000 | `£12.50`, `£1,250`, `£1,000,000` | Override to two-decimals when comparing to another two-decimals value in the same view |
+| **Decimals — fines / penalties** | Two, always | `£50,000.00` | Regulator-facing accuracy |
+| **Abbreviation threshold** | Default off; on opt-in for chart axes / metric cards: `K` ≥ 10³, `M` ≥ 10⁶, `B` ≥ 10⁹, `T` ≥ 10¹² | `£12K`, `£3.4M`, `£1.2B` | Off by default — abbreviations hide magnitude jumps the reader needs to see |
+| **Negative values** | Minus sign (U+2212), not parentheses | `−£500` | Accounting-style parentheses `(£500)` only in CSV exports for accounting consumers |
+| **Range** | Symbol once, en-dash, no spaces | `£1,200–£1,500` | Tabular contexts; body prose may use "between £1,200 and £1,500" |
+
+##### 10.3.3.4 Counts
+
+| Form | Pattern | Example | Context modifier |
+|------|---------|---------|------------------|
+| **Body prose 0–9** | Spelled out | `five DPIAs`, `nine vendors` | Per §10.3 mechanical rules |
+| **Body prose ≥ 10** | Digits | `14 assessments`, `1,247 records` | Per §10.3 |
+| **Tabular** | Always digits, locale-aware thousand separator | `14`, `1,247`, `1.247.000` (de-DE) | Locale follows account |
+| **Compact density** | Abbreviated at ≥ 10⁴: `K`, `M`, `B` | `12.3K`, `4.5M` | Metric card subtitle, sparkbar caption, chart axis when horizontal space < 80px |
+| **Default density** | Digits + thousand separator | `12,300`, `4,500,000` | Default in body prose and standard tables |
+| **Comfortable density** | Digits + thousand separator + qualifier word | `12,300 assessments` | Hero metric cards; chart titles |
+| **Range** | En-dash, no spaces | `5–10 vendors`, `1,200–1,500 records` | Inclusive endpoints unless captioned |
+| **Approximate** | `~` prefix, single space | `~150 vendors` | Use only when the exact count is unknowable; never as a hedge for accuracy |
+| **Zero** | Word "no" in prose; digit `0` in tables | "No DPIAs match these filters" / `0` | Empty-state language belongs to §10.5 |
+
+##### 10.3.3.5 Reading rules
+
+- **Locale awareness.** All numeric output honours the user's account locale via `Intl.NumberFormat` (`Intl.RelativeTimeFormat` for time). Locale changes apply on next render; no in-place re-rendering required.
+- **Mixed contexts.** When a single surface mixes precision modes (e.g., dashboard with both score percentages and risk percentages), pick the stricter of the two to harmonise. Reviewers (G4) reject PRs that ship inconsistent precision in the same view.
+- **Verification.** §17 verification checklist gains rows confirming each table is honoured on every PR touching display-formatting code. Lint coverage tracked by `tools/lint-format` (queued; deferred to engineering programme).
+
 ### 10.4 Headings and labels
 
 | Element | Pattern | Example |
