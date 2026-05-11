@@ -164,17 +164,9 @@ Zero `[ ]` rows. No regressions versus v4.1.1.
 
 ## What needs honest attention before v4.2.1
 
-These are spec-side gaps the audit found — items I'd previously assumed were filled and aren't. They're cheap to fix in a patch release:
+These spec-side gaps — the seven the audit found, plus three substrate gaps and four governance-hygiene items surfaced by a post-audit sweep against the plan — are tracked in the v4.2.1 patch plan: see [`../v4.2.1/RisqBase-DS-v4.2.1-Patch.md`](../v4.2.1/RisqBase-DS-v4.2.1-Patch.md) (`GOV-DS-2026-02-PATCH-4.2.1`). The patch is documentation-only with no package version bump; each of the 14 tracker rows lands as its own follow-up PR against `spec.md`. The seven items previously enumerated here are absorbed into that tracker as rows A1–A7.
 
-1. **U1.8** — Print variants per chart type. Add §8 subsection.
-2. **U1.9** — Library decision needs an explicit `library: visx@3.x` line (or the equivalent) in §8.7.
-3. **U1.13** — At least one composite chart-pattern recipe body in the document, not just an index entry, while we wait for the doc site.
-4. **U2.9** — Promotion log: add the four v4.2 promotions as explicit log entries in §23.
-5. **U3.4** — Number-formatting expansion to relative time / percent / currency / abbreviation.
-6. **U3.7** — Schema requirement that `voice_examples` references §10 template IDs.
-7. **U5.2** — Figma metadata extension key reconciliation in §15.1.
-
-The 15 implementation `[~]` rows (npm package code, CI, dashboards, Figma library, telemetry collector) are the v4.2 engineering programme — they ship over the next 8–10 weeks per the plan's phasing recommendation.
+The 15 implementation `[~]` rows (npm package code, CI, dashboards, Figma library, telemetry collector) are the v4.2 engineering programme — they ship over the next 8–10 weeks per the plan's phasing recommendation, separately from v4.2.1.
 
 ---
 

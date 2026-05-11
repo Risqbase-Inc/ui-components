@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Documentation
+
+- **Design System v4.2.1 patch plan** (`GOV-DS-2026-02-PATCH-4.2.1`). Lives under [`docs/design-system/v4.2.1/`](docs/design-system/v4.2.1/). Tracks 14 spec-side gaps grouped P0 (substrate: tokens, chart taxonomy, glossary content) / P1 (seven audit-flagged spec gaps) / P2 (four governance-hygiene items). **Documentation-only — no `@risqbase-inc/ui-components` version bump.** Each tracker row lands as its own follow-up PR against `docs/design-system/v4.2/spec.md`, ticking `[ ]` → `[x]` as the spec edit ships. When all 14 close, the document is renamed `v4.2.1-COMPLETE.md`.
+- `docs/design-system/v4.2/audit.md` "What needs honest attention before v4.2.1" section now cross-references the patch plan.
+- `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
+
 ## 1.3.0 (pending tag) — Design System v4.2
 
 S1 of the v4.2 implementation programme is the largest single sprint in the package's history: ~1,800 lines of new and changed code across `src/`, `tokens/`, and `tools/`, plus the W3C-format token corpus, the Style Dictionary build pipeline, and the SSR-safe theming infrastructure. This release ships those changes; subsequent v4.2 sprints (S2 — data-viz, S3 — ai, S4 — content/dark/HC, S5 — Figma, S6 — consumer migration) layer additional v1.3.x and v1.4.x releases on top.
