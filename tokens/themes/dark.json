@@ -66,6 +66,24 @@
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/text/on-action" }
         }
+      },
+      "on-inverse": {
+        "$value": "#101214",
+        "$type": "color",
+        "$description": "Text on inverse (light) surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/text/on-inverse" }
+        }
+      },
+      "on-inverse-subtle": {
+        "$value": "#4C5054",
+        "$type": "color",
+        "$description": "Subtle text on inverse surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/text/on-inverse-subtle" }
+        }
       }
     },
     "border": {
@@ -95,6 +113,15 @@
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/border/focus" }
         }
+      },
+      "inverse": {
+        "$value": "#D1D5D7",
+        "$type": "color",
+        "$description": "Border on inverse surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/border/inverse" }
+        }
       }
     },
     "action": {
@@ -114,6 +141,15 @@
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/action/primary-subtle" }
+        }
+      },
+      "primary-hover": {
+        "$value": "#678AF6",
+        "$type": "color",
+        "$description": "Primary action hover — lifts a half-step",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/action/primary-hover" }
         }
       }
     },
@@ -143,6 +179,42 @@
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/chart/tooltip-text" }
+        }
+      },
+      "axis": {
+        "$value": "#66696B",
+        "$type": "color",
+        "$description": "Chart axis line on dark canvas — clears 3:1",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/chart/axis" }
+        }
+      },
+      "gridline": {
+        "$value": "#2E3133",
+        "$type": "color",
+        "$description": "Chart gridline on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/chart/gridline" }
+        }
+      },
+      "tooltip-surface": {
+        "$value": "#25282A",
+        "$type": "color",
+        "$description": "Chart tooltip surface on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/chart/tooltip-surface" }
+        }
+      },
+      "tooltip-border": {
+        "$value": "#4C5054",
+        "$type": "color",
+        "$description": "Chart tooltip border on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/chart/tooltip-border" }
         }
       }
     },
@@ -364,6 +436,15 @@
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/gauge/arc-indigo" }
+        }
+      },
+      "arc-stone": {
+        "$value": "#81878C",
+        "$type": "color",
+        "$description": "Gauge arc — stone outer ring (dual-ring delta)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/gauge/arc-stone" }
         }
       }
     }
