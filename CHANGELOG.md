@@ -4,9 +4,15 @@
 
 ### Documentation
 
-- **Design System v4.2.1 patch plan** (`GOV-DS-2026-02-PATCH-4.2.1`). Lives under [`docs/design-system/v4.2.1/`](docs/design-system/v4.2.1/). Tracks 14 spec-side gaps grouped P0 (substrate: tokens, chart taxonomy, glossary content) / P1 (seven audit-flagged spec gaps) / P2 (four governance-hygiene items). **Documentation-only — no `@risqbase-inc/ui-components` version bump.** Each tracker row lands as its own follow-up PR against `docs/design-system/v4.2/spec.md`, ticking `[ ]` → `[x]` as the spec edit ships. When all 14 close, the document is renamed `v4.2.1-COMPLETE.md`.
-- `docs/design-system/v4.2/audit.md` "What needs honest attention before v4.2.1" section now cross-references the patch plan.
+- **Design System v4.2.1 — Complete.** All 14 spec-side gaps closed across 11 PRs (#17–#27) on 2026-05-11 + housekeeping PR landing the rename + tracker reconciliation. Documentation-only patch; no `@risqbase-inc/ui-components` version bump. Resolution log + outstanding handoffs in [`docs/design-system/v4.2.1/v4.2.1-COMPLETE.md`](docs/design-system/v4.2.1/v4.2.1-COMPLETE.md).
+  - **P2 governance hygiene (G1–G4):** §8.5.6 sonification deferral, §16.2 marketing→content rename, §17 row-count drift note, §18 doc-site status note.
+  - **P1 audit-flagged (A1–A7):** §8.7 visx@^3.0.0 library pin, §10.3.3 number-formatting (4 typed tables), §15.1 + §15.8.4 Figma `$extensions` key, §20.0.1 voice_examples template binding, §23.7 promotion log (5 rows), §8.16 print variants for all 28 chart types, §8.17 three composite recipes.
+  - **P0 substrate (T1–T3):** §15.6 token enumeration (241 tokens authored; 38 TBD primitives queued for Claude Design), §8.1.1 chart taxonomy (7 → 28 active types + 11-row decision matrix), §10.6 canonical glossary (14 → 84 entries across 6 sub-categories).
+- **Section-ID corrections** (5) recorded in `v4.2.1-COMPLETE.md` resolution log — patch plan's section IDs vs as-shipped spec.
+- **Tracker-table reconciliation** — 6 row-state mismatches between entry-section headers and bottom tracker fixed in the housekeeping PR.
+- `docs/design-system/v4.2/audit.md` "What needs honest attention before v4.2.1" updated to reference the completion document.
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
+- **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
 ## 1.3.0 (pending tag) — Design System v4.2
 
