@@ -40,30 +40,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract changelog slice
-        id: changelog
-        run: |
-          tag="${GITHUB_REF#refs/tags/}"
-          version="${tag#v}"
-          if [ -f CHANGELOG.md ]; then
-            awk -v ver="$version" '
-              $0 ~ "^## \\[?"ver"\\]?" { flag=1; next }
-              flag && /^## / { exit }
-              flag { print }
-            ' CHANGELOG.md > .changelog-slice.md
-          else
-            echo "Release $tag" > .changelog-slice.md
-          fi
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          name: ${{ steps.changelog.outputs.tag }}
-          body_path: .changelog-slice.md
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
