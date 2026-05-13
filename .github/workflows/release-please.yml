@@ -18,9 +18,15 @@ jobs:
     name: Run release-please
     runs-on: ubuntu-latest
     steps:
+      # Uses RELEASE_PLEASE_TOKEN (a fine-grained PAT) instead of GITHUB_TOKEN
+      # because the parent GitHub Enterprise policy disallows GitHub Actions
+      # from creating or approving pull requests at any lower level
+      # (org / repo). A PAT acts as the user, not as Actions, so it bypasses
+      # the restriction. PAT needs `Contents: write` + `Pull requests: write`
+      # on this repo. See docs/devops/release-process.md.
       - name: Run release-please
         uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
