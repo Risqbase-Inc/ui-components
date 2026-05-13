@@ -46,6 +46,34 @@ landed on main      →     opened / updated         →     created on merge
 
 Pre-1.0 behaviour is governed by `bump-minor-pre-major: true` + `bump-patch-for-minor-pre-major: false`. After 1.0 the standard semver rules apply.
 
+## Authentication: `RELEASE_PLEASE_TOKEN` (PAT, not `GITHUB_TOKEN`)
+
+`release-please.yml` uses a fine-grained Personal Access Token (`RELEASE_PLEASE_TOKEN`) instead of the default `GITHUB_TOKEN`. The parent GitHub Enterprise containing the `Risqbase-Inc` org has a policy preventing GitHub Actions from creating or approving pull requests at any level (enterprise → org → repo). A PAT acts as the **user**, not as Actions, so it bypasses that policy.
+
+### Creating / rotating the PAT
+
+1. github.com → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
+2. **Resource owner**: `Risqbase-Inc`. **Repository access**: only `ui-components` (least-privilege; create a separate token if other RisqBase repos need release-please).
+3. **Permissions** (repository-level):
+   - `Contents` — Read and write (so release-please can push the release branch + the tag)
+   - `Pull requests` — Read and write (so it can open / update the release PR)
+   - everything else: leave at default `No access`
+4. **Expiration**: 1 year recommended. GitHub will email you when it's 30 days from expiry.
+5. Copy the token (you'll only see it once). Go to: this repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**. Name: `RELEASE_PLEASE_TOKEN`. Paste the value.
+
+### When the PAT expires
+
+The next push to `main` after expiry will fail the `Release Please` workflow with a `401 Bad credentials` error. Generate a new PAT, update the secret. No code changes needed.
+
+### If the enterprise policy ever changes
+
+If the enterprise admin enables "Allow GitHub Actions to create and approve pull requests" enterprise-wide, you can revert to `GITHUB_TOKEN`:
+1. Repo Settings → Actions → General → Workflow permissions → tick the same setting at repo level.
+2. Edit `release-please.yml`: change `token: ${{ secrets.RELEASE_PLEASE_TOKEN }}` back to `token: ${{ secrets.GITHUB_TOKEN }}`.
+3. Delete the `RELEASE_PLEASE_TOKEN` secret + the PAT itself.
+
+---
+
 ## Bootstrap state (initial setup)
 
 When this workflow first lands, `release-please-config.json` carries `"bootstrap-sha": "5d2bd1e..."` — the `main` HEAD at the moment release-please was enabled. release-please treats every commit at or before that SHA as "already released as 1.3.0" (per `.release-please-manifest.json`). The next `feat:` or `fix:` after that SHA is the first one release-please will count toward a new version.
