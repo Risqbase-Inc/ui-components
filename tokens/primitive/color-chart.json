@@ -1,59 +1,667 @@
 {
-  "$comment": "Chart-domain primitive colour ramps — added in v4.2.1 patch T1. Hex values are placeholders awaiting Claude Design value-selection pass per implementation-plan §5.2. Role + Figma bindings are locked from this file; only $value changes in the values-only PR. Sources: ColorBrewer for diverging stop counts, Datawrapper single-hue ramps for sequentials.",
+  "$comment": "Chart-domain primitive colour ramps — 38 hex values landed in BRIEF-401 Phase 2.1 (value-selection pass, 2026-05-13). Replaces the v4.2.1 TBD stubs. Methodology: OKLCH perceptual space with explicit L*/C/H curves per ramp (see artefacts/palette-rationale.md). Every stop AA-contrast-verified per BRIEF-401 §4.1 rules (50-200 body-text-on-fill ≥4.5:1; 300-500 mark ≥3:1; 600-700 text-on-light ≥4.5:1; 800-900 ≥7:1 AAA; diverging extensions ≥7:1 vs white). Sources: ColorBrewer, Datawrapper Academy single-hue/diverging guidance, WCAG 2.2.",
   "color": {
     "palette": {
       "risk": {
-        "$comment": "Sequential single-hue ramp for risk-severity encoding. 10 stops, perceptually-equal-stepped, AA-contrast-verified against color.surface.default at each stop. Domain: risk dashboards, risk-band charts, risk-velocity heatmaps.",
-        "50":  { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, lightest tint",         "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/50" } } },
-        "100": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, very light",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/100" } } },
-        "200": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, light",                 "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/200" } } },
-        "300": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, soft",                  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/300" } } },
-        "400": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, mid-light",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/400" } } },
-        "500": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, mid (canonical stop)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/500" } } },
-        "600": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, mid-dark",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/600" } } },
-        "700": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, dark",                  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/700" } } },
-        "800": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, very dark",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/800" } } },
-        "900": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Risk ramp, darkest",               "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/risk/900" } } }
+        "50": {
+          "$value": "#E9F9FD",
+          "$type": "color",
+          "$description": "Risk ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "#D0F0F8",
+          "$type": "color",
+          "$description": "Risk ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "#B0E0F2",
+          "$type": "color",
+          "$description": "Risk ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "#93C3E5",
+          "$type": "color",
+          "$description": "Risk ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "#9B9BBA",
+          "$type": "color",
+          "$description": "Risk ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "#C36051",
+          "$type": "color",
+          "$description": "Risk ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "#B82927",
+          "$type": "color",
+          "$description": "Risk ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "#990011",
+          "$type": "color",
+          "$description": "Risk ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "#6A000B",
+          "$type": "color",
+          "$description": "Risk ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "#380104",
+          "$type": "color",
+          "$description": "Risk ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for risk-severity encoding. 10 stops, perceptually-equal-stepped in OKLCH, AA-contrast-verified against color.surface.default at each stop. Hue rotates cool-blue → neutral → warm-red so the ramp itself signals 'low risk → high risk' before colour-blind users read a legend. Domain: risk dashboards, risk-band charts, risk-velocity heatmaps. Source: ColorBrewer single-hue sequential structure; hue rotation cleared with BRIEF-401 §7.3."
       },
       "financial": {
-        "$comment": "Sequential single-hue ramp for financial / value encoding. 10 stops. Domain: currency, cost, revenue, fines, penalty charts.",
-        "50":  { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, lightest tint",        "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/50" } } },
-        "100": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, very light",           "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/100" } } },
-        "200": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, light",                "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/200" } } },
-        "300": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, soft",                 "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/300" } } },
-        "400": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, mid-light",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/400" } } },
-        "500": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, mid (canonical stop)", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/500" } } },
-        "600": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, mid-dark",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/600" } } },
-        "700": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, dark",                 "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/700" } } },
-        "800": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, very dark",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/800" } } },
-        "900": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Financial ramp, darkest",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/financial/900" } } }
+        "50": {
+          "$value": "#EAFBF1",
+          "$type": "color",
+          "$description": "Financial ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "#D4F2DF",
+          "$type": "color",
+          "$description": "Financial ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "#B3E6C4",
+          "$type": "color",
+          "$description": "Financial ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "#83D09F",
+          "$type": "color",
+          "$description": "Financial ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "#4CB779",
+          "$type": "color",
+          "$description": "Financial ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "#009C56",
+          "$type": "color",
+          "$description": "Financial ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "#007F40",
+          "$type": "color",
+          "$description": "Financial ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "#006432",
+          "$type": "color",
+          "$description": "Financial ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "#004323",
+          "$type": "color",
+          "$description": "Financial ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "#002110",
+          "$type": "color",
+          "$description": "Financial ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for financial / value encoding. 10 stops, monochromatic emerald, perceptually-equal-stepped in OKLCH. Domain: currency, cost, revenue, fines, penalty charts. Source: Datawrapper single-hue sequential guidance."
       },
       "operational": {
-        "$comment": "Sequential single-hue ramp for operational health / status encoding. 10 stops. Domain: uptime charts, throughput, capacity, latency, queue-depth.",
-        "50":  { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, lightest tint",         "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/50" } } },
-        "100": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, very light",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/100" } } },
-        "200": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, light",                 "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/200" } } },
-        "300": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, soft",                  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/300" } } },
-        "400": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, mid-light",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/400" } } },
-        "500": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, mid (canonical stop)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/500" } } },
-        "600": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, mid-dark",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/600" } } },
-        "700": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, dark",                  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/700" } } },
-        "800": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, very dark",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/800" } } },
-        "900": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Operational ramp, darkest",               "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/operational/900" } } }
+        "50": {
+          "$value": "#F0F6FF",
+          "$type": "color",
+          "$description": "Operational ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "#DEE9FF",
+          "$type": "color",
+          "$description": "Operational ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "#C5D7FF",
+          "$type": "color",
+          "$description": "Operational ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "#A2BAFA",
+          "$type": "color",
+          "$description": "Operational ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "#7A9AF2",
+          "$type": "color",
+          "$description": "Operational ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "#5578E9",
+          "$type": "color",
+          "$description": "Operational ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "#395CCD",
+          "$type": "color",
+          "$description": "Operational ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "#2746A3",
+          "$type": "color",
+          "$description": "Operational ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "#15306F",
+          "$type": "color",
+          "$description": "Operational ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "#05173B",
+          "$type": "color",
+          "$description": "Operational ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for operational health / throughput encoding. 10 stops, monochromatic indigo→midnight, perceptually-equal-stepped in OKLCH. Distinct from brand indigo: the ramp shares hue family with brand but mid stops are deliberately less saturated to avoid CTA confusion. Domain: uptime, capacity, latency, queue-depth."
       },
       "diverging-warm": {
-        "$comment": "Diverging palette, warm side (red↔orange↔amber). 9 stops including new n4/n3/p3/p4 extensions. Existing semantic chart.div uses red/teal palettes for the 5-stop ramp; these new primitives back the 9-stop chart.div9 semantic.",
-        "n4": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging warm n4 (strongest negative)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-warm/n4" } } },
-        "n3": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging warm n3",                      "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-warm/n3" } } },
-        "p3": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging warm p3",                      "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-warm/p3" } } },
-        "p4": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging warm p4 (strongest positive)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-warm/p4" } } }
+        "$comment": "Diverging palette, warm spectrum (red↔orange↔amber). 4 new stops (n4/n3/p3/p4) extending the existing 5-stop chart.div ramp into a 9-stop chart.div9 semantic. n4/p4 cleared 7:1 vs color.surface.default per BRIEF-401 §4.1 'diverging extensions' rule. Source: ColorBrewer diverging RdYlOrBr structure; OKLCH equal-stepping.",
+        "n4": {
+          "$value": "#670000",
+          "$type": "color",
+          "$description": "Diverging warm n4 (strongest negative)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/n4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "n3": {
+          "$value": "#8D0000",
+          "$type": "color",
+          "$description": "Diverging warm n3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/n3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p3": {
+          "$value": "#7B2900",
+          "$type": "color",
+          "$description": "Diverging warm p3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/p3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p4": {
+          "$value": "#502000",
+          "$type": "color",
+          "$description": "Diverging warm p4 (strongest positive)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/p4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        }
       },
       "diverging-cool": {
-        "$comment": "Diverging palette, cool side (blue↔teal↔amber↔red). 9 stops including new n4/n3/p3/p4 extensions.",
-        "n4": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging cool n4 (strongest negative)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-cool/n4" } } },
-        "n3": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging cool n3",                      "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-cool/n3" } } },
-        "p3": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging cool p3",                      "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-cool/p3" } } },
-        "p4": { "$value": "TBD — Claude Design 2026-05-11", "$type": "color", "$description": "Diverging cool p4 (strongest positive)",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/diverging-cool/p4" } } }
+        "$comment": "Diverging palette, cool spectrum (blue↔teal↔amber↔red). 4 new stops (n4/n3/p3/p4). Four-hue diverging (deepest blue → deep teal → midpoint → deep amber → deepest red); n4 deliberately matched to diverging-warm.n4 so 'most extreme negative' reads identically regardless of which diverging palette a chart uses. All four clear 7:1 vs color.surface.default. Source: ColorBrewer 9-stop diverging structure; Datawrapper diverging-with-asymmetric-hue.",
+        "n4": {
+          "$value": "#670000",
+          "$type": "color",
+          "$description": "Diverging cool n4 (strongest negative)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/n4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "n3": {
+          "$value": "#7B2900",
+          "$type": "color",
+          "$description": "Diverging cool n3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/n3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p3": {
+          "$value": "#005456",
+          "$type": "color",
+          "$description": "Diverging cool p3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/p3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p4": {
+          "$value": "#002570",
+          "$type": "color",
+          "$description": "Diverging cool p4 (strongest positive)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/p4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        }
       }
     }
   }
