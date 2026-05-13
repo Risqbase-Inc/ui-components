@@ -8,7 +8,7 @@
           "$description": "Badge default background — \"Most Popular\", \"New\"",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/background" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
           }
         },
         "foreground": {
@@ -17,7 +17,7 @@
           "$description": "Badge default text colour",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/foreground" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/foreground", "scopes": ["TEXT_FILL"] }
           }
         }
       },
@@ -28,7 +28,7 @@
           "$description": "Badge highlight background — \"Standalone Product\"",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/background" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
           }
         },
         "foreground": {
@@ -37,7 +37,7 @@
           "$description": "Badge highlight text colour",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/foreground" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/foreground", "scopes": ["TEXT_FILL"] }
           }
         }
       },
@@ -48,7 +48,7 @@
           "$description": "Badge subtle background — \"Coming Soon\"",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/background" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
           }
         },
         "foreground": {
@@ -57,7 +57,7 @@
           "$description": "Badge subtle text colour",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/foreground" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/foreground", "scopes": ["TEXT_FILL"] }
           }
         }
       }

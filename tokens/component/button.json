@@ -9,7 +9,7 @@
             "$description": "Primary button background — default state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           },
           "hover": {
@@ -18,7 +18,7 @@
             "$description": "Primary button background — hover state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/hover" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/background/hover", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           }
         },
@@ -29,7 +29,7 @@
             "$description": "Primary button text colour",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/foreground/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/foreground/default", "scopes": ["TEXT_FILL"] }
             }
           }
         }
@@ -42,7 +42,7 @@
             "$description": "Secondary button background — default state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           },
           "hover": {
@@ -51,7 +51,7 @@
             "$description": "Secondary button background — hover state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/hover" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/background/hover", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           }
         },
@@ -62,7 +62,7 @@
             "$description": "Secondary button text colour",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/foreground/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/foreground/default", "scopes": ["TEXT_FILL"] }
             }
           }
         },
@@ -73,7 +73,7 @@
             "$description": "Secondary button border colour",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/border/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/secondary/border/default", "scopes": ["STROKE_COLOR"] }
             }
           }
         }
@@ -86,7 +86,7 @@
             "$description": "Ghost button background — default state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           },
           "hover": {
@@ -95,7 +95,7 @@
             "$description": "Ghost button background — hover state",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/hover" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/hover", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
           }
         },
@@ -106,7 +106,7 @@
             "$description": "Ghost button text colour",
             "$extensions": {
               "com.risqbase.role": "component",
-              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/foreground/default" }
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/foreground/default", "scopes": ["TEXT_FILL"] }
             }
           }
         }
@@ -117,7 +117,7 @@
         "$description": "Button focus-ring colour (all variants)",
         "$extensions": {
           "com.risqbase.role": "component",
-          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/focus-ring" }
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/focus-ring", "scopes": ["STROKE_COLOR"] }
         }
       }
     }
@@ -131,7 +131,7 @@
           "$description": "Button border-radius — applies to all variants and sizes (12px, equals Tailwind rounded-xl). Tracked as a role token per spec §15.4 so future shape changes happen in one place.",
           "$extensions": {
             "com.risqbase.role": "component",
-            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "dimension/radius/button/default" }
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "dimension/radius/button/default", "scopes": ["CORNER_RADIUS"] }
           }
         }
       }
