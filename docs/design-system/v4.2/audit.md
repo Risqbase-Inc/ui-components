@@ -164,7 +164,7 @@ Zero `[ ]` rows. No regressions versus v4.1.1.
 
 ## What needs honest attention before v4.2.1
 
-These spec-side gaps — the seven the audit found, plus three substrate gaps and four governance-hygiene items surfaced by a post-audit sweep against the plan — are tracked in the v4.2.1 patch plan: see [`../v4.2.1/RisqBase-DS-v4.2.1-Patch.md`](../v4.2.1/RisqBase-DS-v4.2.1-Patch.md) (`GOV-DS-2026-02-PATCH-4.2.1`). The patch is documentation-only with no package version bump; each of the 14 tracker rows lands as its own follow-up PR against `spec.md`. The seven items previously enumerated here are absorbed into that tracker as rows A1–A7.
+These spec-side gaps — the seven the audit found, plus three substrate gaps and four governance-hygiene items surfaced by a post-audit sweep against the plan — were tracked in the v4.2.1 patch plan and are now **all closed**: see [`../v4.2.1/v4.2.1-COMPLETE.md`](../v4.2.1/v4.2.1-COMPLETE.md) (`GOV-DS-2026-02-PATCH-4.2.1`). The patch was documentation-only with no package version bump; each of the 14 tracker rows landed as its own PR against `spec.md` over 2026-05-10 → 2026-05-11. The seven items previously enumerated here were absorbed into that tracker as rows A1–A7. Outstanding follow-ups (Claude Design value-selection for 38 TBD primitives, dark/HC + print theme values, lint-script implementations, `scopes[]` patch) are recorded in the completion document's "Outstanding handoffs" section and commissioned in `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md`.
 
 The 15 implementation `[~]` rows (npm package code, CI, dashboards, Figma library, telemetry collector) are the v4.2 engineering programme — they ship over the next 8–10 weeks per the plan's phasing recommendation, separately from v4.2.1.
 
