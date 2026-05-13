@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<title>BRIEF-401 — Contrast verification</title>
+<style>
+:root {
+  --ink: #1C1917; --ink-2: #44403C; --ink-3: #78716C; --rule: #E7E5E4;
+  --surface: #FFFFFF; --surface-2: #FAFAF9; --indigo: #4F46E5;
+  --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Geist", "Inter", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font: 14px/1.5 var(--sans); color: var(--ink); background: var(--surface-2); -webkit-font-smoothing: antialiased; }
+.shell { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+.brand { display:flex; align-items:baseline; gap: 12px; margin-bottom: 4px; }
+.brand b { font-weight: 700; letter-spacing: -0.01em; font-size: 20px; }
+.brand .doc { color: var(--ink-3); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+h1 { font-size: 28px; letter-spacing: -0.015em; margin: 8px 0 12px; font-weight: 600; }
+h2 { font-size: 18px; letter-spacing: -0.01em; margin: 36px 0 10px; font-weight: 600; }
+h3 { font-size: 14px; margin: 24px 0 6px; font-weight: 600; }
+p, li { max-width: 75ch; }
+p.lede { color: var(--ink-2); max-width: 75ch; margin: 0 0 24px; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 12px; }
+th { text-align: left; font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--ink); font-family: var(--sans); }
+td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.tag { display:inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-family: var(--mono); }
+.tag.pass { background: #E7F6EC; color: #036633; }
+.tag.fail { background: #FCE7E7; color: #9A1F1F; }
+.tag.flag { background: #FEF3C7; color: #7A5A04; }
+.swatch { width: 100%; height: 56px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: space-between; padding: 6px 10px; color: #fff; font-family: var(--mono); font-size: 11px; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
+.swatch.tint { color: #1C1917; text-shadow: none; }
+.swatch .stop { opacity: 0.9; }
+.ramp { display: grid; grid-template-columns: 88px repeat(10, 1fr); gap: 6px; align-items: center; margin-bottom: 14px; }
+.ramp .name { font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.ramp.div { grid-template-columns: 88px repeat(4, 1fr); }
+.legend { display: flex; gap: 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.muted { color: var(--ink-3); }
+.kbd { font-family: var(--mono); background: #F5F5F4; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+.pair { display: grid; grid-template-columns: 280px 1fr 1fr 100px 80px; gap: 12px; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 12px; }
+.pair .pair-vis { height: 56px; border-radius: 8px; padding: 12px; display:flex; align-items:center; justify-content:space-between; border: 1px solid var(--rule); }
+.pair .swatch-mini { width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.05); }
+.ratio { font-family: var(--mono); font-weight: 600; font-size: 14px; }
+.header { display: grid; grid-template-columns: 280px 1fr 1fr 100px 80px; gap: 12px; padding: 8px 10px; border-bottom: 1px solid var(--ink); font-family: var(--sans); font-weight: 600; font-size: 12px; }
+</style>
+</head><body>
+<div class="shell">
+    <div class="brand"><b>RisqBase Design System</b><span class="doc">BRIEF-401 / PHASE 1.2</span></div>
+    <h1>Contrast verification</h1>
+<p class="lede">Every semantic colour token in <code>tokens/semantic/color.json</code> rendered against its declared <code>contrastPair</code> or the inferred pair per spec §15.4, with a live WCAG 2.2 ratio computed in JS. Pass / Fail against the spec target. This is the prototype the audit doc §3.2 references.</p>
+
+<h2>Light-mode semantic pairs</h2>
+<div class="card">
+<div class="header"><div>Token</div><div>Foreground</div><div>Background</div><div>Ratio</div><div>Verdict</div></div>
+
+<div class="pair">
+  <div>color.text.default<br><span class="muted">tier: body text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">15.17:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.text.subtle<br><span class="muted">tier: body text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#78716C"></span> <code>#78716C</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">4.80:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.text.on-action<br><span class="muted">tier: body text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div><span class="swatch-mini" style="background:#4F46E5"></span> <code>#4F46E5</code></div>
+  <div class="ratio">6.29:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.text.on-inverse<br><span class="muted">tier: body text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div><span class="swatch-mini" style="background:#1C1917"></span> <code>#1C1917</code></div>
+  <div class="ratio">17.49:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.text.on-inverse-subtle<br><span class="muted">tier: body text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#A8A29E"></span> <code>#A8A29E</code></div>
+  <div><span class="swatch-mini" style="background:#1C1917"></span> <code>#1C1917</code></div>
+  <div class="ratio">6.93:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.action.primary<br><span class="muted">tier: ui · target: 3:1</span></div>
+  <div><span class="swatch-mini" style="background:#4F46E5"></span> <code>#4F46E5</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">6.29:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.border.default<br><span class="muted">tier: border · target: 3:1</span></div>
+  <div><span class="swatch-mini" style="background:#E7E5E4"></span> <code>#E7E5E4</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">1.26:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.border.subtle<br><span class="muted">tier: border · target: 3:1</span></div>
+  <div><span class="swatch-mini" style="background:#F5F5F4"></span> <code>#F5F5F4</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">1.09:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.border.focus<br><span class="muted">tier: focus ring · target: 3:1</span></div>
+  <div><span class="swatch-mini" style="background:#6366F1"></span> <code>#6366F1</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">4.47:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.risk.low (emerald-500 on white)<br><span class="muted">tier: band text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#10B981"></span> <code>#10B981</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">2.54:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.risk.medium (amber-500 on white)<br><span class="muted">tier: band text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#F59E0B"></span> <code>#F59E0B</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">2.15:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.risk.high (orange-500 on white)<br><span class="muted">tier: band text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#F97316"></span> <code>#F97316</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">2.80:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.risk.critical (red-600 on white)<br><span class="muted">tier: band text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#DC2626"></span> <code>#DC2626</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">4.83:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.band.very-low text/bg<br><span class="muted">tier: band · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div><span class="swatch-mini" style="background:#10B981"></span> <code>#10B981</code></div>
+  <div class="ratio">2.54:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.band.low text/bg<br><span class="muted">tier: band · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#1C1917"></span> <code>#1C1917</code></div>
+  <div><span class="swatch-mini" style="background:#84CC16"></span> <code>#84CC16</code></div>
+  <div class="ratio">8.85:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.band.medium text/bg<br><span class="muted">tier: band · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#1C1917"></span> <code>#1C1917</code></div>
+  <div><span class="swatch-mini" style="background:#F59E0B"></span> <code>#F59E0B</code></div>
+  <div class="ratio">8.14:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.band.high text/bg<br><span class="muted">tier: band · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div><span class="swatch-mini" style="background:#F97316"></span> <code>#F97316</code></div>
+  <div class="ratio">2.80:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+<div class="pair">
+  <div>color.band.very-high text/bg<br><span class="muted">tier: band · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div><span class="swatch-mini" style="background:#DC2626"></span> <code>#DC2626</code></div>
+  <div class="ratio">4.83:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.citation.text-default on surface-default<br><span class="muted">tier: chip text · target: 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#57534E"></span> <code>#57534E</code></div>
+  <div><span class="swatch-mini" style="background:#FFFFFF"></span> <code>#FFFFFF</code></div>
+  <div class="ratio">7.63:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.citation.text-retracted on surface-low-conf<br><span class="muted">tier: chip text (retracted) · target: 3:1</span></div>
+  <div><span class="swatch-mini" style="background:#A8A29E"></span> <code>#A8A29E</code></div>
+  <div><span class="swatch-mini" style="background:#FAFAF9"></span> <code>#FAFAF9</code></div>
+  <div class="ratio">2.41:1</div>
+  <div><span class="tag fail">FAIL</span></div>
+</div>
+
+</div>
+
+<h2>Tint stops — body-text-on-fill verification</h2>
+<p class="lede">The new 50–200 tint stops are designed as <b>fill backgrounds</b> under body text (stone-800 <code>#292524</code>), not as foregrounds on white. The brief §4.1 verification table puts these in "background fill" tier with a "≥3:1 mark differentiation" target — but the operationally meaningful contrast is text-on-fill, computed here.</p>
+<div class="card">
+<div class="header"><div>Ramp · Stop</div><div>Tint</div><div>Body text</div><div>Ratio</div><div>Verdict</div></div>
+
+<div class="pair">
+  <div>color.palette.risk.50<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#E9F9FD"></span> <code>#E9F9FD</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">14.04:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.risk.100<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#D0F0F8"></span> <code>#D0F0F8</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">12.64:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.risk.200<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#B0E0F2"></span> <code>#B0E0F2</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">10.68:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.risk.300<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#93C3E5"></span> <code>#93C3E5</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">8.07:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.financial.50<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#EAFBF1"></span> <code>#EAFBF1</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">14.13:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.financial.100<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#D4F2DF"></span> <code>#D4F2DF</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">12.69:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.financial.200<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#B3E6C4"></span> <code>#B3E6C4</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">10.86:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.financial.300<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#83D09F"></span> <code>#83D09F</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">8.30:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.operational.50<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#F0F6FF"></span> <code>#F0F6FF</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">13.96:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.operational.100<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#DEE9FF"></span> <code>#DEE9FF</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">12.43:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.operational.200<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#C5D7FF"></span> <code>#C5D7FF</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">10.50:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+<div class="pair">
+  <div>color.palette.operational.300<br><span class="muted">stone-800 on tint · target 4.5:1</span></div>
+  <div><span class="swatch-mini" style="background:#A2BAFA"></span> <code>#A2BAFA</code></div>
+  <div><span class="swatch-mini" style="background:#292524"></span> <code>#292524</code></div>
+  <div class="ratio">7.90:1</div>
+  <div><span class="tag pass">PASS</span></div>
+</div>
+
+</div>
+
+<h2>Audit findings</h2>
+<ol>
+<li><b>FAIL: <code>color.risk.medium</code> + <code>color.risk.high</code> as text-on-white</b> (2.15:1, 2.80:1). These tokens are documented as risk-band labels but the underlying primitives (amber-500, orange-500) cannot carry text on white. Used as <i>fill</i> behind dark text they're fine. Recommended fix: swap the risk-band semantic to alias darker stops of the new <code>color.palette.risk.{600..800}</code> ramp; flagged for v4.3.</li>
+<li><b>FAIL: <code>color.band.very-low.text</code> + <code>color.band.high.text</code></b> (white on emerald-500 = 2.54:1; white on orange-500 = 2.80:1). The dark-mode override (Phase 2.2) lifts the bg L* and flips text dark, clearing 7.8 / 7.4. Same lift-and-flip should apply to light mode in v4.3.</li>
+<li><b>FAIL: <code>color.border.default</code> + <code>color.border.subtle</code></b> (1.26, 1.09 vs white, target 3:1). <i>Note:</i> these are <b>decorative borders</b> per WCAG 1.4.11 carve-out (purely cosmetic dividers; informational borders are separate). Not an action item — but the audit doc flags the carve-out explicitly so future copywriting on the borders' role doesn't drift into "informational" framing.</li>
+<li><b>FAIL: <code>color.citation.text-retracted</code> on <code>surface-low-conf</code></b> (2.41:1). Retracted state is strikethrough + <code>aria-disabled="true"</code> per spec §7.12.7; low contrast is intentional ("do not engage"). Documented as an intentional carve-out, not a fix-it bug.</li>
+</ol>
+
+<p style="margin-top:32px;" class="muted"><b>Method.</b> WCAG 2.2 contrast ratio = (L1 + 0.05) / (L2 + 0.05), where L is relative luminance per WCAG 2.2 §1.4.3. sRGB transfer per IEC 61966-2-1. All values computed in JS at page load; refresh to recompute.</p>
+</div>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patterns — RisqBase Design System</title>
+  <meta name="description" content="Composite recipes — multi-component arrangements with voice, accessibility, and states defined together." />
+  <link rel="stylesheet" href="/_shared/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__brand">
+      <span class="site-header__brand-mark" aria-hidden="true"></span>
+      <span class="site-header__brand-label">RisqBase Design System</span>
+    </a>
+    <span class="site-header__version">v4.2.1</span>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/tokens/">Tokens</a>
+      <a href="/components/">Components</a>
+      <a href="/charts/">Charts</a>
+      <a href="/patterns/" class="is-current">Patterns</a>
+      <a href="/changelog/">Changelog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <span class="eyebrow">Recipes</span>
+  <h1>Patterns</h1>
+  <p class="lede">Composite recipes — multi-component arrangements where the visual layout, the voice / tone, the accessibility behaviour, and the state transitions are defined as a single unit. Authored under spec §8.17 (composite chart recipes) and §20 (interaction patterns).</p>
+
+  <h2>Live recipes</h2>
+  <p>The first three recipes shipped in v4.2.1 A3:</p>
+
+  <div class="card-grid card-grid--two">
+    <div class="card">
+      <span class="card__eyebrow">§8.17.1</span>
+      <h3>Risk-band dashboard tile</h3>
+      <p>Metric card + sparkline + gauge + band-coloured rule. Used on overview dashboards. Voice template: <code>"{count} {entity} now sit in the {band} band — {delta} since {period}."</code></p>
+    </div>
+    <div class="card">
+      <span class="card__eyebrow">§8.17.2</span>
+      <h3>Compliance posture composite</h3>
+      <p>Stacked horizontal bar (composition) + outlier dot annotations + IRIS-narrated summary text. Used on compliance audit overview surfaces.</p>
+    </div>
+    <div class="card">
+      <span class="card__eyebrow">§8.17.3</span>
+      <h3>Vendor-risk scatter + flag</h3>
+      <p>Scatter (correlation between risk-score and time-since-review) with flagged vendors elevated via Citation chip annotations.</p>
+    </div>
+  </div>
+
+  <h2>Recipe shape (per spec §20.0)</h2>
+  <p>Every recipe ships with five required sections — landing as MDX in <code>docs/design-system/v4.2.1/recipes/&lt;name&gt;.md</code>:</p>
+  <ul>
+    <li><strong>Anatomy</strong> — every component named, in arrangement order.</li>
+    <li><strong>Tokens consumed</strong> — exhaustive list with semantic role (no primitive references).</li>
+    <li><strong>Voice examples</strong> — paired templates at compact / default / comfortable density (per <code>voice_examples</code> binding §20.0.1).</li>
+    <li><strong>Accessibility contract</strong> — ARIA bindings, keyboard, screen-reader narrative, reduced-motion fallback, forced-colors fallback.</li>
+    <li><strong>States</strong> — empty / loading / error / partial / live (≥5 enumerated).</li>
+  </ul>
+
+  <h2>Coming in v4.3</h2>
+  <p>Three more recipes are commissioned for v4.3:</p>
+  <ul>
+    <li>IRIS chat thread + Citation chip cluster</li>
+    <li>Multi-step DPIA flow (Header eyebrow → progress → SectionEyebrow stack)</li>
+    <li>Live-telemetry collector status row (badge + sparkline + status pill)</li>
+  </ul>
+  <p>Tracked in <code>docs/design-system/v4.3/plan.md</code>.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__primary">
+      <p class="site-footer__org">RisqBase d.o.o.</p>
+      <address class="site-footer__address">Zaostroška 3, 10000 Zagreb, Croatia</address>
+      <p style="margin-top: var(--space-3);">A compliance-intelligence design system, built in the open.</p>
+    </div>
+    <div class="site-footer__col">
+      <h4>System</h4>
+      <ul>
+        <li><a href="/tokens/">Tokens</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="/charts/">Charts</a></li>
+        <li><a href="/patterns/">Patterns</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="/changelog/">Changelog</a></li>
+        <li><a href="/brief-401.html">BRIEF-401</a></li>
+        <li><a href="https://github.com/Risqbase-Inc/ui-components">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="https://ralia.io">RALIA</a></li>
+        <li><a href="https://risqbase.com">risqbase.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__meta">
+    <span>© 2026 RisqBase d.o.o.</span>
+    <span><code>@risqbase-inc/ui-components</code> — v1.3.0 published</span>
+  </div>
+</footer>
+
+</body>
+</html>

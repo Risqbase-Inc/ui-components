@@ -204,3 +204,11 @@ For consumer-app integration: see [`docs/theming.md`](docs/theming.md).
 
 MIT for code (`src/`, `tools/`, `tokens/`, build outputs).
 Documentation under `docs/` is governed by the design-system release process.
+
+## Security
+
+To report a security vulnerability, please follow the procedure documented in [`SECURITY.md`](SECURITY.md). Do not file public GitHub issues for security concerns.
+
+---
+
+Maintained by **RisqBase d.o.o.**, registered in Croatia. Registered office: Zaostroška 3, 10000 Zagreb, Croatia. Design system site: [design.risqbase.com](https://design.risqbase.com).

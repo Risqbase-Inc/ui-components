@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palette swatches — RisqBase Design System</title>
+  <meta name="description" content="Every chart-domain primitive colour stop, AA-contrast-verified. Sourced from BRIEF-401 Phase 2.1." />
+  <link rel="stylesheet" href="/_shared/site.css" />
+  <style>
+    .canvas-frame {
+      width: 100%;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-2xl);
+      background: var(--white);
+      overflow: hidden;
+      height: calc(100vh - 280px);
+      min-height: 38rem;
+    }
+    .canvas-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__brand">
+      <span class="site-header__brand-mark" aria-hidden="true"></span>
+      <span class="site-header__brand-label">RisqBase Design System</span>
+    </a>
+    <span class="site-header__version">v4.2.1</span>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/tokens/" class="is-current">Tokens</a>
+      <a href="/components/">Components</a>
+      <a href="/charts/">Charts</a>
+      <a href="/patterns/">Patterns</a>
+      <a href="/changelog/">Changelog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <span class="eyebrow">Tokens · BRIEF-401 Phase 2.1</span>
+  <h1>Palette swatches</h1>
+  <p class="lede">Every chart-domain primitive stop — risk / financial / operational sequentials and the diverging-warm / diverging-cool extensions. Each cell is the canonical hex, the OKLCH L*/C/H triple, and the AA contrast ratio against the surface listed in BRIEF-401 §4.1. Open the standalone canvas: <a href="/_canvas/palette-swatches.html">/_canvas/palette-swatches.html</a>.</p>
+
+  <div class="canvas-frame">
+    <iframe src="/_canvas/palette-swatches.html" title="Palette swatches (interactive)"></iframe>
+  </div>
+
+  <h2>Related</h2>
+  <ul>
+    <li><a href="/tokens/contrast.html">AA contrast verification table</a> — pair-by-pair ratios for every token combination.</li>
+    <li><a href="/tokens/palette-explorations.html">Palette explorations</a> — alternatives considered + rejected (RdYlGn traffic-light, pure-red monochromatic risk, gold-yellow financial, etc.).</li>
+    <li><a href="/brief-401.html">BRIEF-401 rationale deck</a> — the 18-slide explanation of every value-selection decision.</li>
+  </ul>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__primary">
+      <p class="site-footer__org">RisqBase d.o.o.</p>
+      <address class="site-footer__address">Zaostroška 3, 10000 Zagreb, Croatia</address>
+      <p style="margin-top: var(--space-3);">A compliance-intelligence design system, built in the open.</p>
+    </div>
+    <div class="site-footer__col">
+      <h4>System</h4>
+      <ul>
+        <li><a href="/tokens/">Tokens</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="/charts/">Charts</a></li>
+        <li><a href="/patterns/">Patterns</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="/changelog/">Changelog</a></li>
+        <li><a href="/brief-401.html">BRIEF-401</a></li>
+        <li><a href="https://github.com/Risqbase-Inc/ui-components">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="https://ralia.io">RALIA</a></li>
+        <li><a href="https://risqbase.com">risqbase.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__meta">
+    <span>© 2026 RisqBase d.o.o.</span>
+    <span><code>@risqbase-inc/ui-components</code> — v1.3.0 published</span>
+  </div>
+</footer>
+
+</body>
+</html>
