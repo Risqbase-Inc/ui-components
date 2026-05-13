@@ -144,6 +144,9 @@ export function Footer({ variant = 'risqbase' }: FooterProps) {
               <p className={`${metaClasses} text-sm mt-1`}>
                 © 2026 RisqBase d.o.o. All rights reserved.
               </p>
+              <address className={`${metaClasses} text-sm not-italic mt-1`}>
+                Registered office: Zaostroška 3, 10000 Zagreb, Croatia
+              </address>
             </div>
 
             {/* Trust Badges */}

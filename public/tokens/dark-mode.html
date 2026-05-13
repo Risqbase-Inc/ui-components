@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark mode canvas — RisqBase Design System</title>
+  <link rel="stylesheet" href="/_shared/site.css" />
+  <style>
+    .canvas-frame {
+      width: 100%;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-2xl);
+      background: var(--white);
+      overflow: hidden;
+      height: calc(100vh - 280px);
+      min-height: 38rem;
+    }
+    .canvas-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__brand">
+      <span class="site-header__brand-mark" aria-hidden="true"></span>
+      <span class="site-header__brand-label">RisqBase Design System</span>
+    </a>
+    <span class="site-header__version">v4.2.1</span>
+    <nav class="site-header__nav" aria-label="Primary">
+      <a href="/" >Home</a>
+      <a href="/tokens/" class="is-current">Tokens</a>
+      <a href="/components/" >Components</a>
+      <a href="/charts/" >Charts</a>
+      <a href="/patterns/" >Patterns</a>
+      <a href="/changelog/" >Changelog</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <span class="eyebrow">Tokens · BRIEF-401 Phase 2.2</span>
+  <h1>Dark mode canvas</h1>
+  <p class="lede">Side-by-side renders of every shipped component + every risk-band combination + chart container + gauge family in light and dark. 47 override entries cover surfaces / text / borders / action / chart container / 5×4 bands / gauge family. Pure white is reserved; surfaces sit at OKLCH L*≈0.18–0.28; brand brightens to indigo-500 equivalent.</p>
+
+  <div class="canvas-frame">
+    <iframe src="/_canvas/dark-mode-canvas.html" title="Dark mode canvas (interactive)"></iframe>
+  </div>
+
+  <p style="margin-top: var(--space-6);">
+    Open the standalone canvas: <a href="/_canvas/dark-mode-canvas.html">/_canvas/dark-mode-canvas.html</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__primary">
+      <p class="site-footer__org">RisqBase d.o.o.</p>
+      <address class="site-footer__address">Zaostroška 3, 10000 Zagreb, Croatia</address>
+      <p style="margin-top: var(--space-3);">A compliance-intelligence design system, built in the open.</p>
+    </div>
+    <div class="site-footer__col">
+      <h4>System</h4>
+      <ul>
+        <li><a href="/tokens/">Tokens</a></li>
+        <li><a href="/components/">Components</a></li>
+        <li><a href="/charts/">Charts</a></li>
+        <li><a href="/patterns/">Patterns</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="/changelog/">Changelog</a></li>
+        <li><a href="/brief-401.html">BRIEF-401</a></li>
+        <li><a href="https://github.com/Risqbase-Inc/ui-components">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="https://ralia.io">RALIA</a></li>
+        <li><a href="https://risqbase.com">risqbase.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__meta">
+    <span>© 2026 RisqBase d.o.o.</span>
+    <span><code>@risqbase-inc/ui-components</code> — v1.3.0 published</span>
+  </div>
+</footer>
+
+</body>
+</html>

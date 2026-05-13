@@ -80,7 +80,11 @@
     "type": "git",
     "url": "git+https://github.com/Risqbase-Inc/ui-components.git"
   },
-  "author": "RisqBase <dev@risqbase.com>",
+  "author": {
+    "name": "RisqBase d.o.o.",
+    "email": "dev@risqbase.com",
+    "url": "https://risqbase.com"
+  },
   "license": "MIT",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

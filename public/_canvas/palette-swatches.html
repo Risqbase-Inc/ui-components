@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<title>BRIEF-401 — Palette swatches</title>
+<style>
+:root {
+  --ink: #1C1917; --ink-2: #44403C; --ink-3: #78716C; --rule: #E7E5E4;
+  --surface: #FFFFFF; --surface-2: #FAFAF9; --indigo: #4F46E5;
+  --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Geist", "Inter", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font: 14px/1.5 var(--sans); color: var(--ink); background: var(--surface-2); -webkit-font-smoothing: antialiased; }
+.shell { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+.brand { display:flex; align-items:baseline; gap: 12px; margin-bottom: 4px; }
+.brand b { font-weight: 700; letter-spacing: -0.01em; font-size: 20px; }
+.brand .doc { color: var(--ink-3); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+h1 { font-size: 28px; letter-spacing: -0.015em; margin: 8px 0 12px; font-weight: 600; }
+h2 { font-size: 18px; letter-spacing: -0.01em; margin: 36px 0 10px; font-weight: 600; }
+h3 { font-size: 14px; margin: 24px 0 6px; font-weight: 600; }
+p, li { max-width: 75ch; }
+p.lede { color: var(--ink-2); max-width: 75ch; margin: 0 0 24px; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 12px; }
+th { text-align: left; font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--ink); font-family: var(--sans); }
+td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.tag { display:inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-family: var(--mono); }
+.tag.pass { background: #E7F6EC; color: #036633; }
+.tag.fail { background: #FCE7E7; color: #9A1F1F; }
+.tag.flag { background: #FEF3C7; color: #7A5A04; }
+.swatch { width: 100%; height: 56px; border-radius: 8px; display: flex; align-items: flex-end; justify-content: space-between; padding: 6px 10px; color: #fff; font-family: var(--mono); font-size: 11px; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
+.swatch.tint { color: #1C1917; text-shadow: none; }
+.swatch .stop { opacity: 0.9; }
+.ramp { display: grid; grid-template-columns: 88px repeat(10, 1fr); gap: 6px; align-items: center; margin-bottom: 14px; }
+.ramp .name { font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.ramp.div { grid-template-columns: 88px repeat(4, 1fr); }
+.legend { display: flex; gap: 16px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.muted { color: var(--ink-3); }
+.kbd { font-family: var(--mono); background: #F5F5F4; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+.aa { font-family: var(--mono); font-size: 11px; padding: 6px 10px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 88px repeat(10, 1fr); gap: 6px; }
+.aa div:first-child { color: var(--ink-3); }
+.aa.div { grid-template-columns: 88px repeat(4, 1fr); }
+.aa .v { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.aa .v .ratio { font-weight: 600; }
+.aa .v .tag { padding: 1px 6px; }
+.demo { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 16px; }
+.demo .tile { height: 140px; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+.demo .tile .num { font-family: var(--mono); font-size: 32px; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.demo .tile .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8; }
+</style></head><body>
+<div class="shell">
+    <div class="brand"><b>RisqBase Design System</b><span class="doc">BRIEF-401 / PHASE 2.1</span></div>
+    <h1>Palette swatches — 38 chart-domain primitives</h1>
+<p class="lede">Every hex value in <code>artefacts/tokens-primitive-color-chart.json</code> rendered as a swatch with its OKLCH coordinates and AA-contrast verification baked in. Three sequential ramps (10 stops each) + two diverging extensions (4 stops each) = 38 stops. Refresh to recompute contrast.</p>
+
+<h2>Risk — cool→warm hue rotation</h2>
+<div class="ramp"><div class="name">color.palette.risk</div><div class="swatch tint" style="background:#E9F9FD;"><span class="stop">50</span><span class="hex">#E9F9FD</span></div><div class="swatch tint" style="background:#D0F0F8;"><span class="stop">100</span><span class="hex">#D0F0F8</span></div><div class="swatch tint" style="background:#B0E0F2;"><span class="stop">200</span><span class="hex">#B0E0F2</span></div><div class="swatch tint" style="background:#93C3E5;"><span class="stop">300</span><span class="hex">#93C3E5</span></div><div class="swatch tint" style="background:#9B9BBA;"><span class="stop">400</span><span class="hex">#9B9BBA</span></div><div class="swatch " style="background:#C36051;"><span class="stop">500</span><span class="hex">#C36051</span></div><div class="swatch " style="background:#B82927;"><span class="stop">600</span><span class="hex">#B82927</span></div><div class="swatch " style="background:#990011;"><span class="stop">700</span><span class="hex">#990011</span></div><div class="swatch " style="background:#6A000B;"><span class="stop">800</span><span class="hex">#6A000B</span></div><div class="swatch " style="background:#380104;"><span class="stop">900</span><span class="hex">#380104</span></div></div>
+<div class="aa">
+  <div>vs. white</div>
+  <div class="v"><span class="ratio">1.08:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.20:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.42:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.88:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">2.70:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">4.11:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">6.20:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">8.89:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">12.98:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">17.88:1</span><span class="tag pass">PASS</span></div>
+</div>
+<div class="legend"><span><i style="background:#E9F6EC"></i> tints (50-200): designed as fills under stone-800 text; FAIL vs white is by intent</span></div>
+
+<h2>Financial — monochromatic emerald</h2>
+<div class="ramp"><div class="name">color.palette.financial</div><div class="swatch tint" style="background:#EAFBF1;"><span class="stop">50</span><span class="hex">#EAFBF1</span></div><div class="swatch tint" style="background:#D4F2DF;"><span class="stop">100</span><span class="hex">#D4F2DF</span></div><div class="swatch tint" style="background:#B3E6C4;"><span class="stop">200</span><span class="hex">#B3E6C4</span></div><div class="swatch tint" style="background:#83D09F;"><span class="stop">300</span><span class="hex">#83D09F</span></div><div class="swatch tint" style="background:#4CB779;"><span class="stop">400</span><span class="hex">#4CB779</span></div><div class="swatch " style="background:#009C56;"><span class="stop">500</span><span class="hex">#009C56</span></div><div class="swatch " style="background:#007F40;"><span class="stop">600</span><span class="hex">#007F40</span></div><div class="swatch " style="background:#006432;"><span class="stop">700</span><span class="hex">#006432</span></div><div class="swatch " style="background:#004323;"><span class="stop">800</span><span class="hex">#004323</span></div><div class="swatch " style="background:#002110;"><span class="stop">900</span><span class="hex">#002110</span></div></div>
+<div class="aa">
+  <div>vs. white</div>
+  <div class="v"><span class="ratio">1.07:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.20:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.40:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.83:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">2.51:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">3.57:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">5.11:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">7.32:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">11.49:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">17.14:1</span><span class="tag pass">PASS</span></div>
+</div>
+
+<h2>Operational — monochromatic indigo→midnight</h2>
+<div class="ramp"><div class="name">color.palette.operational</div><div class="swatch tint" style="background:#F0F6FF;"><span class="stop">50</span><span class="hex">#F0F6FF</span></div><div class="swatch tint" style="background:#DEE9FF;"><span class="stop">100</span><span class="hex">#DEE9FF</span></div><div class="swatch tint" style="background:#C5D7FF;"><span class="stop">200</span><span class="hex">#C5D7FF</span></div><div class="swatch tint" style="background:#A2BAFA;"><span class="stop">300</span><span class="hex">#A2BAFA</span></div><div class="swatch tint" style="background:#7A9AF2;"><span class="stop">400</span><span class="hex">#7A9AF2</span></div><div class="swatch " style="background:#5578E9;"><span class="stop">500</span><span class="hex">#5578E9</span></div><div class="swatch " style="background:#395CCD;"><span class="stop">600</span><span class="hex">#395CCD</span></div><div class="swatch " style="background:#2746A3;"><span class="stop">700</span><span class="hex">#2746A3</span></div><div class="swatch " style="background:#15306F;"><span class="stop">800</span><span class="hex">#15306F</span></div><div class="swatch " style="background:#05173B;"><span class="stop">900</span><span class="hex">#05173B</span></div></div>
+<div class="aa">
+  <div>vs. white</div>
+  <div class="v"><span class="ratio">1.09:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.22:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.44:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.92:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">2.72:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">4.00:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">5.86:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">8.43:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">12.47:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">17.62:1</span><span class="tag pass">PASS</span></div>
+</div>
+
+<h2>Diverging — warm spectrum (4 stops)</h2>
+<div class="ramp div"><div class="name">color.palette.diverging-warm</div><div class="swatch" style="background:#670000"><span class="stop">n4</span><span class="hex">#670000</span></div><div class="swatch" style="background:#8D0000"><span class="stop">n3</span><span class="hex">#8D0000</span></div><div class="swatch" style="background:#7B2900"><span class="stop">p3</span><span class="hex">#7B2900</span></div><div class="swatch" style="background:#502000"><span class="stop">p4</span><span class="hex">#502000</span></div></div>
+<div class="aa div">
+  <div>vs. white</div>
+  <div class="v"><span class="ratio">13.32:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.85:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.73:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">13.57:1</span><span class="tag pass">PASS ≥7</span></div>
+</div>
+
+<h2>Diverging — cool spectrum (4 stops)</h2>
+<div class="ramp div"><div class="name">color.palette.diverging-cool</div><div class="swatch" style="background:#670000"><span class="stop">n4</span><span class="hex">#670000</span></div><div class="swatch" style="background:#7B2900"><span class="stop">n3</span><span class="hex">#7B2900</span></div><div class="swatch" style="background:#005456"><span class="stop">p3</span><span class="hex">#005456</span></div><div class="swatch" style="background:#002570"><span class="stop">p4</span><span class="hex">#002570</span></div></div>
+<div class="aa div">
+  <div>vs. white</div>
+  <div class="v"><span class="ratio">13.32:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.73:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">8.74:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">14.01:1</span><span class="tag pass">PASS ≥7</span></div>
+</div>
+
+<h2>Demo — KPI tiles using stop 500 + stop 50</h2>
+<div class="demo">
+  <div class="tile" style="background:#E9F9FD;color:#1C1917"><div class="num">87.2%</div><div><span class="label">Risk · Coverage</span><br><span style="font-family:var(--mono);font-size:11px;color:#57534E">fill: risk.50</span></div></div>
+  <div class="tile" style="background:#EAFBF1;color:#1C1917"><div class="num">€2.4M</div><div><span class="label">Financial · YTD</span><br><span style="font-family:var(--mono);font-size:11px;color:#57534E">fill: financial.50</span></div></div>
+  <div class="tile" style="background:#F0F6FF;color:#1C1917"><div class="num">99.7%</div><div><span class="label">Operational · Uptime</span><br><span style="font-family:var(--mono);font-size:11px;color:#57534E">fill: operational.50</span></div></div>
+  <div class="tile" style="background:#B82927;color:#FFFFFF"><div class="num">12</div><div><span class="label">Critical findings</span><br><span style="font-family:var(--mono);font-size:11px;opacity:0.8">fill: risk.600</span></div></div>
+  <div class="tile" style="background:#006432;color:#FFFFFF"><div class="num">+18.4%</div><div><span class="label">Revenue · QoQ</span><br><span style="font-family:var(--mono);font-size:11px;opacity:0.8">fill: financial.700</span></div></div>
+</div>
+</div>
+</body></html>
