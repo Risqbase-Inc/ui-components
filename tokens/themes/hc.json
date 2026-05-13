@@ -1,3 +1,760 @@
 {
-  "$comment": "High-contrast theme override stub. G4 fills values in S4 per implementation-plan §4 (U5.5) and §6 R3. Until then this is intentionally empty: Style Dictionary inherits light values, and the lint rule verifies any keys added here also exist in primitive/semantic/component."
+  "$comment": "High-contrast / forced-colors theme overrides. Populated in BRIEF-401 Phase 2.3 (2026-05-13). $value entries are CSS system colour keywords (Canvas, CanvasText, Highlight, LinkText, ButtonFace, ButtonText) — NOT hex. The browser/OS substitutes the user's forced palette at render time; many tokens collapse to the same keyword (file is short by design). Chart marks differentiate via shape / dash / pattern only — never colour (spec §8.5.4, §8.16.2-4). Borders 1-2px CanvasText. Focus rings 2-3px Highlight outset. See artefacts/hc-mode-rationale.md.",
+  "color": {
+    "surface": {
+      "default": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "OS-supplied surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/surface/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "OS-supplied surface (forced-colors collapses elevation)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/surface/subtle"
+          }
+        }
+      },
+      "muted": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "OS-supplied surface (forced-colors collapses elevation)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/surface/muted"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Inverse = foreground keyword (modal scrims read as solid foreground)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/surface/inverse"
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "OS-supplied foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/text/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Subtle collapses to foreground in HC",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/text/subtle"
+          }
+        }
+      },
+      "on-action": {
+        "$value": "ButtonText",
+        "$type": "color",
+        "$description": "Text on action surfaces uses button-text pair",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/text/on-action"
+          }
+        }
+      },
+      "on-inverse": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Text on inverse uses canvas keyword",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/text/on-inverse"
+          }
+        }
+      },
+      "on-inverse-subtle": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Subtle on inverse collapses",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/text/on-inverse-subtle"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "OS-supplied border (1-2px CanvasText)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/border/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Subtle collapses to default border",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/border/subtle"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Inverse border swaps to canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/border/inverse"
+          }
+        }
+      },
+      "focus": {
+        "$value": "Highlight",
+        "$type": "color",
+        "$description": "Focus ring uses Highlight (2-3px outset)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/border/focus"
+          }
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "ButtonFace",
+        "$type": "color",
+        "$description": "Primary action surface — OS button face",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/action/primary"
+          }
+        }
+      },
+      "primary-hover": {
+        "$value": "Highlight",
+        "$type": "color",
+        "$description": "Hover state uses Highlight",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/action/primary-hover"
+          }
+        }
+      },
+      "primary-subtle": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Subtle hover collapses to canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/action/primary-subtle"
+          }
+        }
+      }
+    },
+    "chart": {
+      "axis": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Chart axis = foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/axis"
+          }
+        }
+      },
+      "gridline": {
+        "$value": "GrayText",
+        "$type": "color",
+        "$description": "Gridlines use GrayText keyword (subtler than axis)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/gridline"
+          }
+        }
+      },
+      "plot-area-bg": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Plot area = canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/plot-area-bg"
+          }
+        }
+      },
+      "legend-bg": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Legend background = canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/legend-bg"
+          }
+        }
+      },
+      "tooltip-surface": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Tooltip surface = canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/tooltip-surface"
+          }
+        }
+      },
+      "tooltip-border": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Tooltip border = foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/tooltip-border"
+          }
+        }
+      },
+      "tooltip-text": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Tooltip text = foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/chart/tooltip-text"
+          }
+        }
+      }
+    },
+    "band": {
+      "$comment": "All band colour resolves to ButtonText on ButtonFace — band SEVERITY is communicated by adjacent text + icon shape, not colour. Per spec §8.5.4 + §8.16.2.",
+      "very-low": {
+        "bg": {
+          "$value": "ButtonFace",
+          "$type": "color",
+          "$description": "Very-low band bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-low band border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-low band text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-low band icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-low/icon"
+            }
+          }
+        }
+      },
+      "low": {
+        "bg": {
+          "$value": "ButtonFace",
+          "$type": "color",
+          "$description": "Low band bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Low band border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Low band text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Low band icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/low/icon"
+            }
+          }
+        }
+      },
+      "medium": {
+        "bg": {
+          "$value": "ButtonFace",
+          "$type": "color",
+          "$description": "Medium band bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/medium/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Medium band border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/medium/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Medium band text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/medium/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Medium band icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/medium/icon"
+            }
+          }
+        }
+      },
+      "high": {
+        "bg": {
+          "$value": "ButtonFace",
+          "$type": "color",
+          "$description": "High band bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "High band border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "High band text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "High band icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/high/icon"
+            }
+          }
+        }
+      },
+      "very-high": {
+        "bg": {
+          "$value": "ButtonFace",
+          "$type": "color",
+          "$description": "Very-high band bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-high band border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-high band text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "ButtonText",
+          "$type": "color",
+          "$description": "Very-high band icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "hc",
+              "variable": "color/band/very-high/icon"
+            }
+          }
+        }
+      }
+    },
+    "gauge": {
+      "track": {
+        "$value": "GrayText",
+        "$type": "color",
+        "$description": "Gauge track = GrayText (subtler than arc)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/gauge/track"
+          }
+        }
+      },
+      "arc-teal": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Gauge arc = foreground — severity via band-label text only",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/gauge/arc-teal"
+          }
+        }
+      },
+      "arc-indigo": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Gauge arc indigo = foreground in HC",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/gauge/arc-indigo"
+          }
+        }
+      },
+      "arc-stone": {
+        "$value": "GrayText",
+        "$type": "color",
+        "$description": "Gauge outer ring (dual-ring) = GrayText",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/gauge/arc-stone"
+          }
+        }
+      }
+    },
+    "citation": {
+      "surface-default": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Citation chip surface — canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/surface-default"
+          }
+        }
+      },
+      "surface-low-conf": {
+        "$value": "Canvas",
+        "$type": "color",
+        "$description": "Low-confidence chip surface — canvas (state cue via icon shape, not colour)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/surface-low-conf"
+          }
+        }
+      },
+      "border-default": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Chip border — 1-2px CanvasText",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/border-default"
+          }
+        }
+      },
+      "border-retracted": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Retracted border — CanvasText (strikethrough text + aria-disabled carries the state)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/border-retracted"
+          }
+        }
+      },
+      "text-default": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Chip text — foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/text-default"
+          }
+        }
+      },
+      "text-retracted": {
+        "$value": "GrayText",
+        "$type": "color",
+        "$description": "Retracted chip text — GrayText",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/text-retracted"
+          }
+        }
+      },
+      "icon-default": {
+        "$value": "CanvasText",
+        "$type": "color",
+        "$description": "Chip glyph — foreground",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/icon-default"
+          }
+        }
+      },
+      "hover": {
+        "$value": "Highlight",
+        "$type": "color",
+        "$description": "Chip hover overlay — Highlight",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/hover"
+          }
+        }
+      },
+      "active": {
+        "$value": "Highlight",
+        "$type": "color",
+        "$description": "Chip active overlay — Highlight",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "hc",
+            "variable": "color/citation/active"
+          }
+        }
+      }
+    }
+  }
 }
