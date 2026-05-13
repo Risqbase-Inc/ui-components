@@ -1,0 +1,641 @@
+{
+  "$comment": "Print theme overrides. Populated in BRIEF-401 Phase 2.4 (2026-05-13). Pure white surfaces (#FFFFFF), three-tier black text (100% / 80% / 60%), two-tier black borders (30% / 80%). Chart fills lose chromatic colour and resolve to greyscale luminance equivalents; pattern fills (tokens/component/print-patterns.json) carry the differentiation. Spec §8.16. Sources: NYT printing standards, FT charting print conventions, ColorBrewer greyscale.",
+  "color": {
+    "surface": {
+      "default": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Pure white — print page",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/surface/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "No tint in print",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/surface/subtle"
+          }
+        }
+      },
+      "muted": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "No tint in print",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/surface/muted"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Inverse — solid black for callouts",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/surface/inverse"
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "#333333",
+        "$type": "color",
+        "$description": "80% black — body text on white",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/text/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "#999999",
+        "$type": "color",
+        "$description": "60% black — secondary text on white",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/text/subtle"
+          }
+        }
+      },
+      "on-action": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "White on black callouts",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/text/on-action"
+          }
+        }
+      },
+      "on-inverse": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "White text on inverse",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/text/on-inverse"
+          }
+        }
+      },
+      "on-inverse-subtle": {
+        "$value": "#CCCCCC",
+        "$type": "color",
+        "$description": "Subtle white on inverse",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/text/on-inverse-subtle"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "#B3B3B3",
+        "$type": "color",
+        "$description": "30% black — default rule",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/border/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "#E5E5E5",
+        "$type": "color",
+        "$description": "10% black — subtle rule (just visible on white)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/border/subtle"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "White rule on black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/border/inverse"
+          }
+        }
+      },
+      "focus": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Focus ring — solid black 2px outset (print rarely shows focus; provided for completeness)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/border/focus"
+          }
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Primary action — solid black in print",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/action/primary"
+          }
+        }
+      },
+      "primary-hover": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Hover collapses in print",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/action/primary-hover"
+          }
+        }
+      },
+      "primary-subtle": {
+        "$value": "#F2F2F2",
+        "$type": "color",
+        "$description": "5% black wash",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/action/primary-subtle"
+          }
+        }
+      }
+    },
+    "chart": {
+      "axis": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Chart axis — solid black 1px",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/axis"
+          }
+        }
+      },
+      "gridline": {
+        "$value": "#CCCCCC",
+        "$type": "color",
+        "$description": "Gridlines — 20% black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/gridline"
+          }
+        }
+      },
+      "plot-area-bg": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Plot area = white",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/plot-area-bg"
+          }
+        }
+      },
+      "legend-bg": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Legend = white",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/legend-bg"
+          }
+        }
+      },
+      "tooltip-surface": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Tooltips collapse to legend rows in print (§8.16.6)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/tooltip-surface"
+          }
+        }
+      },
+      "tooltip-border": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "If rendered: solid black 1px",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/tooltip-border"
+          }
+        }
+      },
+      "tooltip-text": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Tooltip text = solid black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/chart/tooltip-text"
+          }
+        }
+      }
+    },
+    "band": {
+      "$comment": "Print band colour collapses to greyscale luminance tiers + pattern fills. The 5-band semantic preserves rank-order via stepped grey, with the per-band pattern.print.* asset overlaid in chart fills (§8.16.2). Adjacent text + icon shape (per §8.5.4) carries the categorical meaning.",
+      "very-low": {
+        "bg": {
+          "$value": "#F2F2F2",
+          "$type": "color",
+          "$description": "Very-low band bg — 5% black",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Very-low border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Very-low text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Very-low icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-low/icon"
+            }
+          }
+        }
+      },
+      "low": {
+        "bg": {
+          "$value": "#D9D9D9",
+          "$type": "color",
+          "$description": "Low band bg — 15% black",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Low border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Low text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Low icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/low/icon"
+            }
+          }
+        }
+      },
+      "medium": {
+        "bg": {
+          "$value": "#B3B3B3",
+          "$type": "color",
+          "$description": "Medium band bg — 30% black",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/medium/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Medium border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/medium/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Medium text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/medium/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Medium icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/medium/icon"
+            }
+          }
+        }
+      },
+      "high": {
+        "bg": {
+          "$value": "#737373",
+          "$type": "color",
+          "$description": "High band bg — 55% black",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "High border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$description": "High text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$description": "High icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/high/icon"
+            }
+          }
+        }
+      },
+      "very-high": {
+        "bg": {
+          "$value": "#333333",
+          "$type": "color",
+          "$description": "Very-high band bg — 80% black",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "#000000",
+          "$type": "color",
+          "$description": "Very-high border",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$description": "Very-high text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "#FFFFFF",
+          "$type": "color",
+          "$description": "Very-high icon",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "print",
+              "variable": "color/band/very-high/icon"
+            }
+          }
+        }
+      }
+    },
+    "gauge": {
+      "track": {
+        "$value": "#E5E5E5",
+        "$type": "color",
+        "$description": "Gauge track — 10% black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/gauge/track"
+          }
+        }
+      },
+      "arc-teal": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Gauge arc — solid black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/gauge/arc-teal"
+          }
+        }
+      },
+      "arc-indigo": {
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Gauge arc indigo — solid black in print",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/gauge/arc-indigo"
+          }
+        }
+      },
+      "arc-stone": {
+        "$value": "#999999",
+        "$type": "color",
+        "$description": "Gauge outer ring — 60% black",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "print",
+            "variable": "color/gauge/arc-stone"
+          }
+        }
+      }
+    }
+  }
+}
