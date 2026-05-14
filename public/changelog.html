@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Changelog · RisqBase Design System</title>
 <link rel="stylesheet" href="styles.css"/>
+<link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon"/>
+<link rel="icon" href="/icon.svg" type="image/svg+xml"/>
 <style>
 .entry { padding: 0; overflow: hidden; }
 .entry .head { padding: 24px 32px; border-bottom: 1px solid var(--color-border-default); }
@@ -49,7 +51,8 @@
   <div class="group">
     <h4>Releases</h4>
     <ul>
-      <li><a href="#brief-401" class="is-active">2026-05-14 · BRIEF-401 (v1.4.0)</a></li>
+      <li><a href="#unreleased" class="is-active">2026-05-14 · Chromatic activation (unreleased)</a></li>
+      <li><a href="#brief-401">2026-05-14 · BRIEF-401 (v1.4.0)</a></li>
       <li><a href="#v4-2-1">2026-05-11 · v4.2.1 patch</a></li>
       <li><a href="#v4-2">2026-05-07 · v4.2 (v1.1.0)</a></li>
       <li><a href="#v4-1-1">2026-04-12 · v4.1.1 patch</a></li>
@@ -69,6 +72,60 @@
   <p class="eyebrow">Changelog</p>
   <h1>What shipped, when, why.</h1>
   <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code>. Substantive entries link to PRs on GitHub and the design rationale that motivated them. Spec-level changes track in <code>docs/design-system/v4.2/spec.md</code>; package versions track here.</p>
+
+  <!-- ════════════════════════════════ Unreleased ═══════════════════════ -->
+  <article id="unreleased" class="card entry" style="margin-bottom: 32px;">
+    <div class="head">
+      <div class="row">
+        <div>
+          <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+          <h2>Chromatic visual regression activated.</h2>
+          <p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Closes v4.2.1 G5. Storybook 8.6 + Chromatic protect every component, every theme, every PR.</p>
+        </div>
+        <div class="meta" style="text-align:right; align-self:flex-end;">
+          <span>2026-05-14</span>
+          <span>·</span>
+          <span>folds into <b style="color:var(--color-text-default);">v1.4.0</b></span>
+          <span>·</span>
+          <span>spec v4.2.1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <div class="section">
+        <h3>What this gives you</h3>
+        <p>Every PR that touches <code>src/</code>, <code>tokens/</code>, or <code>.storybook/</code> now produces a Chromatic build URL with side-by-side diffs across light, dark, HC, and print themes. Approving the build promotes the new pixels to baseline; rejecting it blocks merge. The dark / HC / print themes that just landed in BRIEF-401 are protected from silent regression.</p>
+      </div>
+
+      <div class="section">
+        <h3>What landed</h3>
+        <ul style="margin:0;">
+          <li><b>5 core components</b> instrumented with co-located <code>.stories.tsx</code> files - Button, Badge, Header, Footer, SectionEyebrow.</li>
+          <li><b>19 stories</b> in four canonical shapes per component - <code>Default</code> · <code>Variants</code> · <code>States/Composed/WithSibling</code> · <code>Gallery</code> (print).</li>
+          <li><b>62 captures</b> in the initial baseline grid (stories × theme matrix, with print opt-in per Gallery).</li>
+          <li><b>PR-only workflow</b> at <code>.github/workflows/chromatic.yml</code> - TurboSnap, <code>autoAcceptChanges: main</code> for first-time baselines, gated by the <code>CHROMATIC_PROJECT_TOKEN</code> repo secret.</li>
+          <li><b>Storybook 8.6</b> with addons essentials + themes + a11y + viewport. Pinned to <code>^8.6</code> majors per spec (Storybook 9 split <code>addon-essentials</code>, breaking the spec's config shape).</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>Why this matters now</h3>
+        <p>v4.2.1 G5 ("visual regression baseline audit") was deferred to S5 of the implementation programme. With v1.4.0 about to publish to GitHub Packages and downstream consumers (marketing site this weekend, RALIA end June) starting to adopt, the regression-protection had to land <em>before</em> adoption ramps. Otherwise: silent theme drift in production with no diff to catch it.</p>
+      </div>
+
+      <div class="section">
+        <h3>References</h3>
+        <ul style="margin:0;">
+          <li><a href="https://github.com/Risqbase-Inc/ui-components/pull/44">PR #44</a> - activation</li>
+          <li><a href="https://www.chromatic.com/library?appId=69fe9aac8c64261fca691a4c">Chromatic library</a> - baseline grid</li>
+          <li><a href="https://github.com/Risqbase-Inc/ui-components/blob/main/docs/design-system/v4.2.1/v4.2.1-COMPLETE.md">v4.2.1-COMPLETE.md</a> - G5 row marked resolved</li>
+        </ul>
+      </div>
+
+    </div>
+  </article>
 
   <!-- ════════════════════════════════ BRIEF-401 ═══════════════════════ -->
   <article id="brief-401" class="card entry" style="border-color: var(--color-action-primary); border-width: 2px; margin-bottom: 32px;">
@@ -257,7 +314,7 @@ import { themeInitScript } from '@risqbase-inc/ui-components';
 
 <footer class="sitefoot">
   <div class="inner">
-    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and Cortex.</p></div>
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and RisqBase operations.</p></div>
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
