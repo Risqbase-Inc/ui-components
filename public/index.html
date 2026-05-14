@@ -1,225 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RisqBase Design System</title>
-  <meta name="description" content="The RisqBase Design System — tokens, components, charts, and patterns for compliance intelligence products." />
-  <link rel="stylesheet" href="/_shared/site.css" />
-  <style>
-    .signatures {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-      gap: var(--space-4);
-      margin: var(--space-4) 0 var(--space-12);
-    }
-    .signature {
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-2xl);
-      padding: var(--space-5);
-      background: var(--surface-default);
-    }
-    .signature h3 { margin: 0 0 var(--space-2); font-size: 1rem; }
-    .signature p  { margin: 0; color: var(--text-subtle); font-size: 0.875rem; }
-    .signature__demo {
-      height: 5rem;
-      border-radius: var(--radius-md);
-      margin-bottom: var(--space-3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .signature__demo--iris {
-      background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);
-      color: white;
-      font-weight: 600;
-      font-family: var(--font-mono);
-    }
-    .signature__demo--gauge {
-      background: var(--stone-50);
-      color: var(--stone-800);
-    }
-    .signature__demo--citation {
-      background: var(--white);
-      color: var(--stone-700);
-      border: 1px dashed var(--stone-300);
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: var(--space-2);
-    }
-    .signature__demo--arc {
-      background: radial-gradient(circle at 50% 100%, var(--indigo-100) 0%, transparent 70%),
-                  radial-gradient(circle at 50% 100%, transparent 30%, var(--indigo-400) 31%, transparent 32%),
-                  radial-gradient(circle at 50% 100%, transparent 50%, var(--indigo-600) 51%, transparent 52%);
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-      gap: var(--space-4);
-      margin: var(--space-4) 0 var(--space-12);
-    }
-    .stat {
-      border-top: 2px solid var(--action-primary);
-      padding-top: var(--space-3);
-    }
-    .stat__num { font-size: 1.75rem; font-weight: 600; color: var(--text-default); }
-    .stat__label { font-size: 0.8125rem; color: var(--text-subtle); }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RisqBase Design System</title>
+<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
-<!-- ───────── Site header ───────── -->
-<header class="site-header">
-  <div class="site-header__inner">
-    <a href="/" class="site-header__brand">
-      <span class="site-header__brand-mark" aria-hidden="true"></span>
-      <span class="site-header__brand-label">RisqBase Design System</span>
-    </a>
-    <span class="site-header__version">v4.2.1</span>
-    <nav class="site-header__nav" aria-label="Primary">
-      <a href="/" class="is-current">Home</a>
-      <a href="/tokens/">Tokens</a>
-      <a href="/components/">Components</a>
-      <a href="/charts/">Charts</a>
-      <a href="/patterns/">Patterns</a>
-      <a href="/changelog/">Changelog</a>
-    </nav>
-  </div>
+<header class="topbar">
+  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="index.html" class="is-active">Home</a>
+    <a href="tokens.html">Tokens</a>
+    <a href="components.html">Components</a>
+    <a href="charts.html">Charts</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
 </header>
 
-<main class="page">
-
-  <section class="hero">
-    <span class="eyebrow">Design System v4.2.1</span>
-    <h1>A compliance-intelligence design system, built in the open.</h1>
-    <p class="lede">241 tokens, 5 shipping components, 28 chart types, 84 glossary entries, three themes (light · dark · high-contrast · print). Authored to GOV-DS-2026-01. Used in RALIA and Cortex.</p>
-    <div class="hero__actions">
-      <a class="btn btn--primary" href="/tokens/">Browse tokens →</a>
-      <a class="btn btn--secondary" href="/components/">Browse components</a>
-      <a class="btn btn--ghost" href="/brief-401.html">Latest brief: BRIEF-401</a>
+<section style="background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 96px 24px;">
+  <div style="max-width: 1080px; margin: 0 auto;">
+    <p class="eyebrow">RisqBase Design System · v4.2.1</p>
+    <h1 style="font-size: 64px; line-height: 1.05; max-width: 18ch;">A design system for serious work, used daily.</h1>
+    <p class="lede" style="font-size: 21px; max-width: 58ch; margin-top: 24px;">Authority, precision, intelligence - kept warm enough to use four hours a day. One system; three products; one set of tokens, components, chart types, and content rules. Built on W3C Design Tokens, themed via CSS variables, AA-verified end-to-end.</p>
+    <div style="display: flex; gap: 12px; margin-top: 40px;">
+      <a class="btn btn-primary" href="components.html">Browse components →</a>
+      <a class="btn btn-secondary" href="tokens.html">Open the token tree</a>
     </div>
-  </section>
-
-  <section class="callout">
-    <span class="callout__tag">latest</span>
-    <p><strong>BRIEF-401 — Implementation audit + value-selection pass.</strong> 38 chart-domain primitive hex values, dark + HC + print themes, scopes[] migration across 131 tokens. Shipped 2026-05-13. <a href="/brief-401.html">Read the rationale →</a></p>
-  </section>
-
-  <h2>Four signature elements</h2>
-  <p class="lede">Every RisqBase surface is recognisably built on these four primitives. They appear together in the marketing site, RALIA, Cortex, and every component on this site.</p>
-  <div class="signatures">
-    <div class="signature">
-      <div class="signature__demo signature__demo--iris">IRIS</div>
-      <h3>IRIS teal</h3>
-      <p>The narrative-AI surface colour. Used for IRIS chat, AI-driven insights, and Gauge default arc.</p>
+    <div style="display: flex; gap: 24px; margin-top: 56px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle); flex-wrap: wrap;">
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">244</b>&nbsp; tokens</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">5</b>&nbsp; shipped components</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">28</b>&nbsp; chart types</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">84</b>&nbsp; glossary entries</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">4</b>&nbsp; themes (light · dark · HC · print)</span>
     </div>
-    <div class="signature">
-      <div class="signature__demo signature__demo--gauge">
-        <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true">
-          <circle cx="30" cy="30" r="24" fill="none" stroke="#E7E5E4" stroke-width="5" />
-          <circle cx="30" cy="30" r="24" fill="none" stroke="#0D9488" stroke-width="5" stroke-dasharray="113 151" stroke-linecap="round" transform="rotate(-90 30 30)" />
-        </svg>
+  </div>
+</section>
+
+<!-- BRIEF-401 callout -->
+<section style="max-width: 1080px; margin: 64px auto 0; padding: 0 24px;">
+  <a href="changelog.html#brief-401" class="card" style="display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; text-decoration: none; border-color: var(--color-action-primary); border-width: 2px;">
+    <div>
+      <span class="pill pill-new" style="margin-bottom: 10px;"><i></i> NEW · 2026-05-13</span>
+      <h2 style="margin: 8px 0 6px; font-size: 22px;">BRIEF-401 just landed - substrate is complete.</h2>
+      <p style="color: var(--color-text-subtle); margin: 0;">38 chart-domain primitive hex values · dark + HC + print theme overrides · 131 scopes[] entries patched · implementation audit. Seven PRs merged to <code>main</code>; package version bumped to <code>1.2.0</code>.</p>
+    </div>
+    <div style="font-size: 28px; color: var(--color-action-primary);">→</div>
+  </a>
+</section>
+
+<!-- Four signature elements -->
+<section style="max-width: 1080px; margin: 96px auto 0; padding: 0 24px;">
+  <p class="eyebrow">The four signature elements</p>
+  <h2 style="margin-top: 4px;">In isolation, these identify the system.</h2>
+  <p class="lede">Brand identifiers that any of our three products can carry. Iris teal, the gauge family, the citation chip, and the concentric-arc pattern - together they say "RisqBase" without the wordmark.</p>
+
+  <div class="card-grid cols-2" style="margin-top: 40px;">
+
+    <!-- Iris teal -->
+    <a href="tokens.html#iris" class="card" style="text-decoration: none;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <div style="width: 56px; height: 56px; border-radius: 12px; background: var(--color-iris);"></div>
+        <div>
+          <h3 style="margin: 0;">Iris Teal</h3>
+          <p style="margin: 4px 0 0; color: var(--color-text-subtle); font-size: 14px;">The AI / intelligence accent.</p>
+        </div>
       </div>
-      <h3>Gauge family</h3>
-      <p>Severity-encoded arc + numeral. Anchors any "how-much" view across the platform.</p>
+      <p style="margin: 0; font-size: 14px;">Rooted in the eye-and-perception metaphor. No competitor uses teal for AI. <code>#0D9488</code>.</p>
+    </a>
+
+    <!-- Gauge family -->
+    <a href="components.html#gauge" class="card" style="text-decoration: none;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#E7E5E4" stroke-width="6"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#0D9488" stroke-width="6" stroke-dasharray="100 138" stroke-linecap="round" transform="rotate(-90 28 28)"/>
+        </svg>
+        <div>
+          <h3 style="margin: 0;">Gauge family</h3>
+          <p style="margin: 4px 0 0; color: var(--color-text-subtle); font-size: 14px;">Generic primitive + RALIA risk-gauge configuration.</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px;">Dual-ring delta encoding tells a mitigation story. Four canonical sizes. <code>data-viz/Gauge</code>.</p>
+    </a>
+
+    <!-- Citation chip -->
+    <a href="components.html#citation-chip" class="card" style="text-decoration: none;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #fff; border: 1px solid var(--color-border-default); border-radius: 8px; font-size: 13px; color: var(--color-text-subtle); font-family: var(--font-mono);">
+          <span>📄</span> GDPR Art. 35, §2
+        </div>
+        <div style="flex: 1;">
+          <h3 style="margin: 0;">Citation chip</h3>
+          <p style="margin: 4px 0 0; color: var(--color-text-subtle); font-size: 14px;">Six states. AI claims always sourced.</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px;">Verified · pending · low-confidence · retracted · external · multi-source. <code>ai/CitationChip</code>.</p>
+    </a>
+
+    <!-- Concentric arc pattern -->
+    <a href="patterns.html" class="card" style="text-decoration: none;">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <circle cx="28" cy="28" r="6" fill="none" stroke="#0D9488" stroke-width="1.5"/>
+          <circle cx="28" cy="28" r="14" fill="none" stroke="#0D9488" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#0D9488" stroke-width="1.5" opacity="0.3"/>
+        </svg>
+        <div>
+          <h3 style="margin: 0;">Concentric-arc pattern</h3>
+          <p style="margin: 4px 0 0; color: var(--color-text-subtle); font-size: 14px;">Extends gauge geometry to brand surfaces.</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px;">Marketing site, regulator PDFs, hero blocks. Restraint: never inside the app.</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- Quick navigation -->
+<section style="max-width: 1080px; margin: 96px auto 0; padding: 0 24px;">
+  <p class="eyebrow">Where to look</p>
+  <h2 style="margin-top: 4px;">Five sections. Every claim verifiable in code.</h2>
+
+  <div class="card-grid cols-3" style="margin-top: 32px;">
+    <a href="tokens.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Tokens</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">244 entries · 4 themes. Primitive → semantic → component. W3C Design Tokens Format.</p></a>
+    <a href="components.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Components</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">5 shipped · 4 promoted in v4.2 · roadmap visible. Anatomy diagrams, props tables, accessibility.</p></a>
+    <a href="charts.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Charts</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">28 active types across 10 purpose groups · decision matrix · per-type print + HC encoding.</p></a>
+    <a href="patterns.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Patterns</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Composite recipes - dashboard-chart-row · time-comparison · distribution-drilldown.</p></a>
+    <a href="changelog.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Changelog</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">BRIEF-401 (v1.4.0) · v4.2.1 patch · the full release ladder.</p></a>
+    <a href="https://github.com/Risqbase-Inc/ui-components" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Source ↗</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">github.com/Risqbase-Inc/ui-components · MIT · contributions through G4.</p></a>
+  </div>
+</section>
+
+<!-- Theme coverage -->
+<section style="max-width: 1080px; margin: 96px auto 0; padding: 0 24px;">
+  <p class="eyebrow">Theme coverage</p>
+  <h2 style="margin-top: 4px;">Four themes. Three of them landed yesterday.</h2>
+
+  <div class="card-grid cols-4" style="margin-top: 32px;">
+    <div class="card">
+      <div style="background: #FFFFFF; border: 1px solid var(--color-border-default); border-radius: 6px; height: 96px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle);">light</div>
+        <div style="display: flex; gap: 4px;"><div style="width: 16px; height: 16px; background: #4F46E5; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #0D9488; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #DC2626; border-radius: 3px;"></div></div>
+      </div>
+      <h3 style="margin: 12px 0 4px; font-size: 16px;">Light</h3>
+      <p style="margin: 0; font-size: 13px; color: var(--color-text-subtle);">v4.1 baseline · the default. <span class="pill pill-stable" style="margin-left: 4px;"><i></i> stable</span></p>
     </div>
-    <div class="signature">
-      <div class="signature__demo signature__demo--citation">📄 GDPR Art. 35</div>
-      <h3>Citation chip</h3>
-      <p>Verified-source attribution. Every AI-asserted claim that touches user data carries one of these.</p>
+    <div class="card">
+      <div style="background: #101214; border: 1px solid #5E6266; border-radius: 6px; height: 96px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: #A2A7AB;">dark</div>
+        <div style="display: flex; gap: 4px;"><div style="width: 16px; height: 16px; background: #4768DB; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #27C7AC; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #DF273C; border-radius: 3px;"></div></div>
+      </div>
+      <h3 style="margin: 12px 0 4px; font-size: 16px;">Dark</h3>
+      <p style="margin: 0; font-size: 13px; color: var(--color-text-subtle);">Surfaces L\* 0.18 · brand brightens. <span class="pill pill-new" style="margin-left: 4px;"><i></i> v1.4.0</span></p>
     </div>
-    <div class="signature">
-      <div class="signature__demo signature__demo--arc" aria-hidden="true"></div>
-      <h3>Concentric arc pattern</h3>
-      <p>Background motif on hero sections; informs Gauge geometry, radial chart families, and Iris status rings.</p>
+    <div class="card">
+      <div style="background: #FFFFFF; border: 1px solid #000; border-radius: 6px; height: 96px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: #000;">HC</div>
+        <div style="display: flex; gap: 4px;"><div style="width: 16px; height: 16px; background: #fff; border: 1px solid #000; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #000; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #fff; border: 1px solid #000; border-radius: 3px;"></div></div>
+      </div>
+      <h3 style="margin: 12px 0 4px; font-size: 16px;">High contrast</h3>
+      <p style="margin: 0; font-size: 13px; color: var(--color-text-subtle);">CSS system keywords · shape carries meaning. <span class="pill pill-new" style="margin-left: 4px;"><i></i> v1.4.0</span></p>
+    </div>
+    <div class="card">
+      <div style="background: #FFFFFF; border: 1px solid #B3B3B3; border-radius: 6px; height: 96px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: #333;">print</div>
+        <div style="display: flex; gap: 4px;"><div style="width: 16px; height: 16px; background: #333; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background: #999; border-radius: 3px;"></div><div style="width: 16px; height: 16px; background-image: repeating-linear-gradient(45deg,#000,#000 2px,#fff 2px,#fff 5px); border-radius: 3px;"></div></div>
+      </div>
+      <h3 style="margin: 12px 0 4px; font-size: 16px;">Print</h3>
+      <p style="margin: 0; font-size: 13px; color: var(--color-text-subtle);">Monochrome · 7-tier ladder · 4 pattern fills. <span class="pill pill-new" style="margin-left: 4px;"><i></i> v1.4.0</span></p>
     </div>
   </div>
+</section>
 
-  <h2>What's in the box</h2>
-  <div class="stats">
-    <div class="stat"><div class="stat__num">241</div><div class="stat__label">enumerated tokens</div></div>
-    <div class="stat"><div class="stat__num">5</div><div class="stat__label">shipping components</div></div>
-    <div class="stat"><div class="stat__num">28</div><div class="stat__label">chart types</div></div>
-    <div class="stat"><div class="stat__num">84</div><div class="stat__label">glossary entries</div></div>
-    <div class="stat"><div class="stat__num">3</div><div class="stat__label">themes (light · dark · HC · print)</div></div>
-  </div>
+<!-- Reading list (lifted from spec §0.3 sources cited) -->
+<section style="max-width: 1080px; margin: 96px auto 0; padding: 0 24px;">
+  <p class="eyebrow">Sources studied</p>
+  <h2 style="margin-top: 4px;">Where our conventions came from.</h2>
+  <p class="lede">Every borrowing is cited inline in the spec section that uses it. Transparency, not endorsement.</p>
+  <table class="tbl">
+    <thead><tr><th>System</th><th>Studied for</th><th>Licence</th></tr></thead>
+    <tbody>
+      <tr><td>Apple HIG · Swift Charts</td><td>Signature-element treatment; compositional grammar; restraint</td><td>Proprietary (read-only ref)</td></tr>
+      <tr><td>Adobe Spectrum</td><td>Per-component accessibility depth; data-viz palette taxonomy</td><td>Apache 2.0</td></tr>
+      <tr><td>IBM Carbon</td><td>Token architecture; themes; contextual + role tokens</td><td>Apache 2.0</td></tr>
+      <tr><td>Shopify Polaris</td><td>Patterns layer; content-design as a first-class layer; recipe model</td><td>MIT</td></tr>
+      <tr><td>GitHub Primer</td><td>Repo topology; W3C Design Tokens Format; OSS governance</td><td>MIT</td></tr>
+      <tr><td>Observable Plot</td><td>Open-source grammar - closest to our actual chart implementation</td><td>ISC</td></tr>
+      <tr><td>Datawrapper Academy</td><td>Chart-type-by-purpose taxonomy; single-hue sequential ramps</td><td>CC BY-NC</td></tr>
+      <tr><td>W3C Design Tokens CG</td><td>Token format specification</td><td>W3C Community licence</td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <h2>Where to start</h2>
-  <div class="card-grid">
-    <a class="card" href="/tokens/">
-      <span class="card__eyebrow">Foundations</span>
-      <h3>Tokens</h3>
-      <p>Colour ramps, scales, themes, the three signature systems (dark / HC / print) — and how to consume them.</p>
-    </a>
-    <a class="card" href="/components/">
-      <span class="card__eyebrow">UI primitives</span>
-      <h3>Components</h3>
-      <p>Five shipping React components — Button, Header, Footer, Badge, SectionEyebrow — with variants and tokens consumed.</p>
-    </a>
-    <a class="card" href="/charts/">
-      <span class="card__eyebrow">Data visualisation</span>
-      <h3>Charts</h3>
-      <p>The 28-type taxonomy, choice-guidance matrix, and the categorical / sequential / diverging palettes.</p>
-    </a>
-    <a class="card" href="/patterns/">
-      <span class="card__eyebrow">Recipes</span>
-      <h3>Patterns</h3>
-      <p>Composite recipes — multi-component arrangements with voice + accessibility + states defined together.</p>
-    </a>
-    <a class="card" href="/changelog/">
-      <span class="card__eyebrow">History</span>
-      <h3>Changelog</h3>
-      <p>Releases of <code>@risqbase-inc/ui-components</code>. BRIEF-401 lands as the latest entry. Managed by release-please.</p>
-    </a>
-    <a class="card" href="/brief-401.html">
-      <span class="card__eyebrow">Briefs</span>
-      <h3>BRIEF-401</h3>
-      <p>Implementation audit + Claude Design's value-selection rationale. Read why every colour, theme, and scope[] was chosen.</p>
-    </a>
-  </div>
-
-</main>
-
-<!-- ───────── Site footer ───────── -->
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__primary">
-      <p class="site-footer__org">RisqBase d.o.o.</p>
-      <address class="site-footer__address">Zaostroška 3, 10000 Zagreb, Croatia</address>
-      <p style="margin-top: var(--space-3);">A compliance-intelligence design system, built in the open.</p>
+<footer class="sitefoot">
+  <div class="inner">
+    <div>
+      <h5>RisqBase Design System</h5>
+      <p style="font-size: 14px;">The design baseline for RALIA, RisqBase marketing, and Cortex. Authority, precision, intelligence - used daily by DPOs, legal counsel, compliance officers, and operations teams at serious organisations.</p>
     </div>
-    <div class="site-footer__col">
-      <h4>System</h4>
-      <ul>
-        <li><a href="/tokens/">Tokens</a></li>
-        <li><a href="/components/">Components</a></li>
-        <li><a href="/charts/">Charts</a></li>
-        <li><a href="/patterns/">Patterns</a></li>
-      </ul>
+    <div>
+      <h5>Browse</h5>
+      <a href="tokens.html">Tokens</a>
+      <a href="components.html">Components</a>
+      <a href="charts.html">Charts</a>
+      <a href="patterns.html">Patterns</a>
     </div>
-    <div class="site-footer__col">
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="/changelog/">Changelog</a></li>
-        <li><a href="/brief-401.html">BRIEF-401</a></li>
-        <li><a href="https://github.com/Risqbase-Inc/ui-components">GitHub</a></li>
-        <li><a href="https://github.com/Risqbase-Inc/ui-components/tree/main/docs/design-system/v4.2.1">v4.2.1 spec</a></li>
-      </ul>
+    <div>
+      <h5>Reference</h5>
+      <a href="changelog.html">Changelog</a>
+      <a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a>
+      <a href="changelog.html#brief-401">BRIEF-401</a>
     </div>
-    <div class="site-footer__col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="https://ralia.io">RALIA</a></li>
-        <li><a href="https://risqbase.com">risqbase.com</a></li>
-      </ul>
+    <div>
+      <h5>Connect</h5>
+      <a href="mailto:design@risqbase.com">design@risqbase.com</a>
+      <a href="https://ralia.io">RALIA</a>
+      <a href="https://risqbase.com">RisqBase d.o.o.</a>
     </div>
-  </div>
-  <div class="site-footer__meta">
-    <span>© 2026 RisqBase d.o.o.</span>
-    <span><code>@risqbase-inc/ui-components</code> — v1.3.0 published, v1.4.0 pending</span>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 
+<script src="site.js"></script>
 </body>
 </html>
