@@ -1,0 +1,31 @@
+name: 'Chromatic'
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'tokens/**'
+      - '.storybook/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Required for TurboSnap baseline lookup
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build:tokens
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build:storybook
+          onlyChanged: true            # TurboSnap
+          exitOnceUploaded: true
+          autoAcceptChanges: 'main'    # main-branch builds auto-accept; PRs require review

@@ -1,3 +1,6 @@
+# Storybook static build output
+storybook-static
+
 # Logs
 logs
 *.log
