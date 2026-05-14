@@ -14,6 +14,29 @@
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
 - **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
+## [1.4.0](https://github.com/Risqbase-Inc/ui-components/compare/v1.3.0...v1.4.0) (2026-05-14)
+
+
+### Features
+
+* design site v1 — Claude Design import (replaces [#40](https://github.com/Risqbase-Inc/ui-components/issues/40) prototype) ([1709d7e](https://github.com/Risqbase-Inc/ui-components/commit/1709d7ee45a9c41fb958b2691816aea1b9ec657e))
+* design site v1 — Claude Design import (supersedes [#40](https://github.com/Risqbase-Inc/ui-components/issues/40)) ([#42](https://github.com/Risqbase-Inc/ui-components/issues/42)) ([d0992e2](https://github.com/Risqbase-Inc/ui-components/commit/d0992e29df789375ec4fa48826ec3b26b0d6a93f))
+* **design-site:** import favicon — current r|ↄ brand mark ([ddcb942](https://github.com/Risqbase-Inc/ui-components/commit/ddcb942dc1a65c52e1dbbe630b3c0700c89100b2))
+* **design-site:** recover lost commits + close v4.2.1 G5 ([#45](https://github.com/Risqbase-Inc/ui-components/issues/45)) ([2bebb33](https://github.com/Risqbase-Inc/ui-components/commit/2bebb332f237a86af87734340aee1c45b3e0dbbd))
+* design-system v1 site + RisqBase d.o.o. registered office in Footer ([18185bc](https://github.com/Risqbase-Inc/ui-components/commit/18185bc9c6a2fbeec7b1bfac1efb76f6db20f63a))
+* design-system v1 site + RisqBase d.o.o. registered office in Footer ([#40](https://github.com/Risqbase-Inc/ui-components/issues/40)) ([4eed2a0](https://github.com/Risqbase-Inc/ui-components/commit/4eed2a0c4c481c59669237ec68fd5a9645974f7c))
+* **tokens:** add scopes[] to semantic + component figma extensions (BRIEF-401) ([#34](https://github.com/Risqbase-Inc/ui-components/issues/34)) ([d83c774](https://github.com/Risqbase-Inc/ui-components/commit/d83c774fca6affc90bbcca4a014d3f8e06850493))
+
+
+### Bug Fixes
+
+* **design-site:** rename Cortex to RisqBase operations externally ([03f3184](https://github.com/Risqbase-Inc/ui-components/commit/03f3184085028d320be7c8a5b3e9042e9f73a7ca))
+
+
+### Documentation
+
+* mark v4.2.1 G5 resolved + add Chromatic changelog entry ([fec4a97](https://github.com/Risqbase-Inc/ui-components/commit/fec4a9762d73d52be2ccd1e2c321e4a930b5795c))
+
 ## 1.3.0 (pending tag) — Design System v4.2
 
 S1 of the v4.2 implementation programme is the largest single sprint in the package's history: ~1,800 lines of new and changed code across `src/`, `tokens/`, and `tools/`, plus the W3C-format token corpus, the Style Dictionary build pipeline, and the SSR-safe theming infrastructure. This release ships those changes; subsequent v4.2 sprints (S2 — data-viz, S3 — ai, S4 — content/dark/HC, S5 — Figma, S6 — consumer migration) layer additional v1.3.x and v1.4.x releases on top.
