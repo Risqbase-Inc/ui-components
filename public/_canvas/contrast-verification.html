@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"/>
-<title>BRIEF-401 — Contrast verification</title>
+<title>BRIEF-401 - Contrast verification</title>
 <style>
 :root {
   --ink: #1C1917; --ink-2: #44403C; --ink-3: #78716C; --rule: #E7E5E4;
@@ -219,8 +219,8 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: mi
 
 </div>
 
-<h2>Tint stops — body-text-on-fill verification</h2>
-<p class="lede">The new 50–200 tint stops are designed as <b>fill backgrounds</b> under body text (stone-800 <code>#292524</code>), not as foregrounds on white. The brief §4.1 verification table puts these in "background fill" tier with a "≥3:1 mark differentiation" target — but the operationally meaningful contrast is text-on-fill, computed here.</p>
+<h2>Tint stops - body-text-on-fill verification</h2>
+<p class="lede">The new 50–200 tint stops are designed as <b>fill backgrounds</b> under body text (stone-800 <code>#292524</code>), not as foregrounds on white. The brief §4.1 verification table puts these in "background fill" tier with a "≥3:1 mark differentiation" target - but the operationally meaningful contrast is text-on-fill, computed here.</p>
 <div class="card">
 <div class="header"><div>Ramp · Stop</div><div>Tint</div><div>Body text</div><div>Ratio</div><div>Verdict</div></div>
 
@@ -326,7 +326,7 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: mi
 <ol>
 <li><b>FAIL: <code>color.risk.medium</code> + <code>color.risk.high</code> as text-on-white</b> (2.15:1, 2.80:1). These tokens are documented as risk-band labels but the underlying primitives (amber-500, orange-500) cannot carry text on white. Used as <i>fill</i> behind dark text they're fine. Recommended fix: swap the risk-band semantic to alias darker stops of the new <code>color.palette.risk.{600..800}</code> ramp; flagged for v4.3.</li>
 <li><b>FAIL: <code>color.band.very-low.text</code> + <code>color.band.high.text</code></b> (white on emerald-500 = 2.54:1; white on orange-500 = 2.80:1). The dark-mode override (Phase 2.2) lifts the bg L* and flips text dark, clearing 7.8 / 7.4. Same lift-and-flip should apply to light mode in v4.3.</li>
-<li><b>FAIL: <code>color.border.default</code> + <code>color.border.subtle</code></b> (1.26, 1.09 vs white, target 3:1). <i>Note:</i> these are <b>decorative borders</b> per WCAG 1.4.11 carve-out (purely cosmetic dividers; informational borders are separate). Not an action item — but the audit doc flags the carve-out explicitly so future copywriting on the borders' role doesn't drift into "informational" framing.</li>
+<li><b>FAIL: <code>color.border.default</code> + <code>color.border.subtle</code></b> (1.26, 1.09 vs white, target 3:1). <i>Note:</i> these are <b>decorative borders</b> per WCAG 1.4.11 carve-out (purely cosmetic dividers; informational borders are separate). Not an action item - but the audit doc flags the carve-out explicitly so future copywriting on the borders' role doesn't drift into "informational" framing.</li>
 <li><b>FAIL: <code>color.citation.text-retracted</code> on <code>surface-low-conf</code></b> (2.41:1). Retracted state is strikethrough + <code>aria-disabled="true"</code> per spec §7.12.7; low contrast is intentional ("do not engage"). Documented as an intentional carve-out, not a fix-it bug.</li>
 </ol>
 

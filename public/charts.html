@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Charts · RisqBase Design System</title>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.filter-bar { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--color-border-default); margin-bottom: 24px; position: sticky; top: 56px; background: var(--color-surface-default); z-index: 20; }
+.filter-bar button { padding: 6px 14px; border: 1px solid var(--color-border-default); border-radius: 9999px; background: transparent; cursor: pointer; font-family: inherit; font-size: 13px; color: var(--color-text-default); font-weight: 500; }
+.filter-bar button:hover { border-color: var(--color-action-primary); color: var(--color-action-primary); }
+.filter-bar button.is-active { background: var(--color-action-primary); color: var(--color-text-on-action); border-color: var(--color-action-primary); }
+.chart-card { padding: 0; overflow: hidden; }
+.chart-card .vis { background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 20px; height: 100px; display: flex; align-items: center; justify-content: center; }
+.chart-card .info { padding: 14px 18px; }
+.chart-card .info h4 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+.chart-card .info p { margin: 0; font-size: 12px; color: var(--color-text-subtle); }
+.chart-card .info .group { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.chart-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 1080px) { .chart-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px)  { .chart-grid { grid-template-columns: repeat(2, 1fr); } }
+.deferred { opacity: 0.5; }
+.deferred .vis { background: repeating-linear-gradient(45deg, var(--color-surface-muted) 0, var(--color-surface-muted) 8px, var(--color-surface-subtle) 8px, var(--color-surface-subtle) 16px); }
+.dm-table .row { display: grid; grid-template-columns: 1.4fr 80px 2fr 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--color-border-subtle); align-items: center; font-size: 14px; }
+.dm-table .row.h { border-bottom: 2px solid var(--color-text-default); font-weight: 600; font-size: 13px; padding: 10px 0; }
+.dm-table .dm-id { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); }
+.dm-table .canonical { color: var(--color-action-primary); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tokens.html">Tokens</a>
+    <a href="components.html">Components</a>
+    <a href="charts.html" class="is-active">Charts</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+</header>
+
+<div class="shell">
+
+<aside class="sidenav">
+  <div class="group">
+    <h4>On this page</h4>
+    <ul>
+      <li><a href="#taxonomy">28-type taxonomy</a></li>
+      <li><a href="#decision">Decision matrix</a></li>
+      <li><a href="#palettes">Palettes</a></li>
+      <li><a href="#themes-chart">Chart themes</a></li>
+      <li><a href="#library">Library pin (Visx)</a></li>
+      <li><a href="#a11y">Accessibility</a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Reference</h4>
+    <ul>
+      <li><a href="patterns.html">Composite recipes</a></li>
+      <li><a href="tokens.html#chart-primitives">Chart-domain ramps</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="content wide">
+  <p class="eyebrow">Charts</p>
+  <h1>28 active types. Ten purpose groups. One menu.</h1>
+  <p class="lede">Every chart in any RisqBase product must be classifiable as exactly one of the canonical types. If a proposed chart can&apos;t be classified, reconsider the chart before inventing a new type. Sources: Datawrapper Academy, Apple Swift Charts, Observable Plot, Cleveland-McGill perceptual ranking.</p>
+
+  <h2 id="taxonomy">The 28-type taxonomy</h2>
+  <p>Filter by purpose group to find a chart that fits the question you&apos;re asking the data.</p>
+
+  <div class="filter-bar">
+    <button data-filter-group="all" class="is-active">All (28)</button>
+    <button data-filter-group="comparison">Comparison · 5</button>
+    <button data-filter-group="distribution">Distribution · 4</button>
+    <button data-filter-group="composition">Composition · 5</button>
+    <button data-filter-group="relationship">Relationship · 2</button>
+    <button data-filter-group="time">Time · 3</button>
+    <button data-filter-group="geographic">Geographic · 2</button>
+    <button data-filter-group="part-to-whole">Part-to-whole · 3</button>
+    <button data-filter-group="single-value">Single-value · 3</button>
+    <button data-filter-group="flow">Flow · 1</button>
+    <button data-filter-group="heatmap">Heatmap · 1</button>
+    <button data-filter-group="deferred">Deferred to v5 · 4</button>
+  </div>
+
+  <div class="chart-grid">
+
+    <!-- COMPARISON -->
+    <div class="card chart-card" data-group="comparison">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="6"  y="20" width="14" height="40" fill="#4F46E5"/><rect x="28" y="10" width="14" height="50" fill="#4F46E5"/><rect x="50" y="32" width="14" height="28" fill="#4F46E5"/><rect x="72" y="22" width="14" height="38" fill="#4F46E5"/><rect x="94" y="42" width="14" height="18" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Comparison</div><h4>Bar (vertical)</h4><p>2–12 categories, short labels.</p></div>
+    </div>
+    <div class="card chart-card" data-group="comparison">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="0" y="6"  width="80" height="8" fill="#4F46E5"/><rect x="0" y="18" width="50" height="8" fill="#4F46E5"/><rect x="0" y="30" width="100" height="8" fill="#4F46E5"/><rect x="0" y="42" width="35" height="8" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Comparison</div><h4>Bar (horizontal)</h4><p>8–40 categories or long labels.</p></div>
+    </div>
+    <div class="card chart-card" data-group="comparison">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g><rect x="10" y="20" width="10" height="40" fill="#4F46E5"/><rect x="22" y="32" width="10" height="28" fill="#0D9488"/></g><g><rect x="44" y="10" width="10" height="50" fill="#4F46E5"/><rect x="56" y="24" width="10" height="36" fill="#0D9488"/></g><g><rect x="78" y="28" width="10" height="32" fill="#4F46E5"/><rect x="90" y="14" width="10" height="46" fill="#0D9488"/></g></svg></div>
+      <div class="info"><div class="group">Comparison</div><h4>Grouped bar</h4><p>2–4 sub-series across 2–8 categories.</p></div>
+    </div>
+    <div class="card chart-card" data-group="comparison">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><line x1="10" y1="60" x2="10" y2="22" stroke="#4F46E5" stroke-width="2"/><circle cx="10" cy="22" r="5" fill="#4F46E5"/><line x1="32" y1="60" x2="32" y2="12" stroke="#4F46E5" stroke-width="2"/><circle cx="32" cy="12" r="5" fill="#4F46E5"/><line x1="54" y1="60" x2="54" y2="34" stroke="#4F46E5" stroke-width="2"/><circle cx="54" cy="34" r="5" fill="#4F46E5"/><line x1="76" y1="60" x2="76" y2="24" stroke="#4F46E5" stroke-width="2"/><circle cx="76" cy="24" r="5" fill="#4F46E5"/><line x1="98" y1="60" x2="98" y2="42" stroke="#4F46E5" stroke-width="2"/><circle cx="98" cy="42" r="5" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Comparison</div><h4>Lollipop</h4><p>Values cluster at similar magnitudes.</p></div>
+    </div>
+    <div class="card chart-card" data-group="comparison">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="14" cy="22" r="5" fill="#4F46E5"/><circle cx="34" cy="40" r="5" fill="#4F46E5"/><circle cx="54" cy="14" r="5" fill="#4F46E5"/><circle cx="74" cy="30" r="5" fill="#4F46E5"/><circle cx="94" cy="48" r="5" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Comparison</div><h4>Dot plot</h4><p>Comparing categories where zero matters.</p></div>
+    </div>
+
+    <!-- DISTRIBUTION -->
+    <div class="card chart-card" data-group="distribution">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="6"  y="48" width="14" height="12" fill="#4F46E5"/><rect x="22" y="30" width="14" height="30" fill="#4F46E5"/><rect x="38" y="14" width="14" height="46" fill="#4F46E5"/><rect x="54" y="22" width="14" height="38" fill="#4F46E5"/><rect x="70" y="38" width="14" height="22" fill="#4F46E5"/><rect x="86" y="46" width="14" height="14" fill="#4F46E5"/><rect x="102" y="54" width="14" height="6" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Distribution</div><h4>Histogram</h4><p>Frequency distribution of a continuous variable.</p></div>
+    </div>
+    <div class="card chart-card" data-group="distribution">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g transform="translate(20,0)"><line x1="0" y1="30" x2="60" y2="30" stroke="#4F46E5"/><line x1="0" y1="22" x2="0" y2="38" stroke="#4F46E5" stroke-width="2"/><rect x="14" y="18" width="32" height="24" fill="none" stroke="#4F46E5" stroke-width="2"/><line x1="60" y1="22" x2="60" y2="38" stroke="#4F46E5" stroke-width="2"/><line x1="28" y1="18" x2="28" y2="42" stroke="#4F46E5" stroke-width="2"/></g></svg></div>
+      <div class="info"><div class="group">Distribution</div><h4>Box plot</h4><p>Five-number summary across 2–12 groups.</p></div>
+    </div>
+    <div class="card chart-card" data-group="distribution">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><path d="M 20 30 Q 30 10, 40 10 Q 50 10, 50 30 Q 50 50, 40 50 Q 30 50, 20 30 Z" fill="#4F46E5" opacity="0.4"/><path d="M 60 30 Q 75 5, 90 30 Q 75 55, 60 30 Z" fill="#4F46E5" opacity="0.4"/></svg></div>
+      <div class="info"><div class="group">Distribution</div><h4>Violin</h4><p>Distribution shape, not just summary.</p></div>
+    </div>
+    <div class="card chart-card" data-group="distribution">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><path d="M 6 50 Q 30 20, 50 20 Q 70 20, 80 35 Q 100 50, 114 50 L 114 60 L 6 60 Z" fill="#4F46E5" opacity="0.3"/><path d="M 6 50 Q 30 20, 50 20 Q 70 20, 80 35 Q 100 50, 114 50" fill="none" stroke="#4F46E5" stroke-width="1.5"/></svg></div>
+      <div class="info"><div class="group">Distribution</div><h4>Density curve</h4><p>2–3 overlapping distributions.</p></div>
+    </div>
+
+    <!-- COMPOSITION -->
+    <div class="card chart-card" data-group="composition">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g><rect x="10" y="32" width="14" height="28" fill="#4F46E5"/><rect x="10" y="20" width="14" height="12" fill="#0D9488"/><rect x="10" y="12" width="14" height="8" fill="#A5B4FC"/></g><g><rect x="38" y="20" width="14" height="40" fill="#4F46E5"/><rect x="38" y="8" width="14" height="12" fill="#0D9488"/></g><g><rect x="66" y="38" width="14" height="22" fill="#4F46E5"/><rect x="66" y="18" width="14" height="20" fill="#0D9488"/><rect x="66" y="10" width="14" height="8" fill="#A5B4FC"/></g><g><rect x="94" y="30" width="14" height="30" fill="#4F46E5"/><rect x="94" y="14" width="14" height="16" fill="#0D9488"/></g></svg></div>
+      <div class="info"><div class="group">Composition</div><h4>Stacked bar</h4><p>2–6 components; exact totals matter.</p></div>
+    </div>
+    <div class="card chart-card" data-group="composition">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><path d="M 0 40 L 30 30 L 60 35 L 90 20 L 120 22 L 120 60 L 0 60 Z" fill="#4F46E5" opacity="0.7"/><path d="M 0 40 L 30 30 L 60 35 L 90 20 L 120 22 L 120 10 L 90 5 L 60 18 L 30 12 L 0 22 Z" fill="#0D9488" opacity="0.7"/></svg></div>
+      <div class="info"><div class="group">Composition</div><h4>Stacked area</h4><p>Time-series cumulative decomposition.</p></div>
+    </div>
+    <div class="card chart-card" data-group="composition">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="2" y="2" width="60" height="38" fill="#4F46E5"/><rect x="64" y="2" width="40" height="22" fill="#0D9488"/><rect x="106" y="2" width="12" height="22" fill="#A5B4FC"/><rect x="64" y="26" width="54" height="14" fill="#A5B4FC" opacity="0.8"/><rect x="2" y="42" width="46" height="16" fill="#0D9488" opacity="0.7"/><rect x="50" y="42" width="68" height="16" fill="#4F46E5" opacity="0.7"/></svg></div>
+      <div class="info"><div class="group">Composition</div><h4>Treemap</h4><p>10–50 leaves; ranking over exact values.</p></div>
+    </div>
+    <div class="card chart-card" data-group="composition">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="60" cy="30" r="8" fill="#4F46E5"/><path d="M 60 22 A 16 16 0 0 1 76 30 L 68 30 Z" fill="#0D9488"/><path d="M 76 30 A 16 16 0 0 1 60 46 L 60 38 Z" fill="#A5B4FC"/><path d="M 60 46 A 16 16 0 0 1 44 30 L 52 30 Z" fill="#F59E0B"/><circle cx="60" cy="30" r="24" fill="none" stroke="#E7E5E4" stroke-width="1"/></svg></div>
+      <div class="info"><div class="group">Composition</div><h4>Sunburst</h4><p>Part-to-whole emphasising the hierarchy.</p></div>
+    </div>
+    <div class="card chart-card" data-group="composition">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g>${Array.from({length: 50}).map((_,i)=>`<rect x="${(i%10)*11+4}" y="${Math.floor(i/10)*11+4}" width="9" height="9" fill="${i<30?'#4F46E5':i<42?'#0D9488':'#E7E5E4'}"/>`).join('')}</g></svg></div>
+      <div class="info"><div class="group">Composition</div><h4>Waffle</h4><p>Single value as ~100 unit-squares.</p></div>
+    </div>
+
+    <!-- RELATIONSHIP -->
+    <div class="card chart-card" data-group="relationship">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="14" cy="48" r="3" fill="#4F46E5"/><circle cx="26" cy="40" r="3" fill="#4F46E5"/><circle cx="38" cy="44" r="3" fill="#4F46E5"/><circle cx="50" cy="34" r="3" fill="#4F46E5"/><circle cx="62" cy="30" r="3" fill="#4F46E5"/><circle cx="74" cy="22" r="3" fill="#4F46E5"/><circle cx="86" cy="14" r="3" fill="#4F46E5"/><circle cx="98" cy="20" r="3" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Relationship</div><h4>Scatter</h4><p>Two continuous vars, 10–10,000 observations.</p></div>
+    </div>
+    <div class="card chart-card" data-group="relationship">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="10" y="20" width="10" height="40" fill="#4F46E5"/><rect x="22" y="14" width="10" height="46" fill="#0D9488"/><rect x="48" y="28" width="10" height="32" fill="#4F46E5"/><rect x="60" y="22" width="10" height="38" fill="#0D9488"/><rect x="86" y="38" width="10" height="22" fill="#4F46E5"/><rect x="98" y="32" width="10" height="28" fill="#0D9488"/></svg></div>
+      <div class="info"><div class="group">Relationship</div><h4>Paired bar</h4><p>Before / after · plan / actual.</p></div>
+    </div>
+
+    <!-- TIME -->
+    <div class="card chart-card" data-group="time">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><polyline points="6,46 24,38 42,40 60,28 78,22 96,30 114,18" fill="none" stroke="#4F46E5" stroke-width="2"/><polyline points="6,52 24,48 42,42 60,38 78,30 96,32 114,28" fill="none" stroke="#0D9488" stroke-width="2"/></svg></div>
+      <div class="info"><div class="group">Time</div><h4>Line</h4><p>1–8 series on a continuous time axis.</p></div>
+    </div>
+    <div class="card chart-card" data-group="time">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><path d="M 6 46 L 24 38 L 42 40 L 60 28 L 78 22 L 96 30 L 114 18 L 114 60 L 6 60 Z" fill="#4F46E5" opacity="0.3"/><path d="M 6 46 L 24 38 L 42 40 L 60 28 L 78 22 L 96 30 L 114 18" fill="none" stroke="#4F46E5" stroke-width="2"/></svg></div>
+      <div class="info"><div class="group">Time</div><h4>Area</h4><p>Single series cumulative magnitude.</p></div>
+    </div>
+    <div class="card chart-card" data-group="time">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><polyline points="2,30 12,28 22,26 32,32 42,24 52,22 62,20 72,28 82,18 92,16 102,22 112,12 118,14" fill="none" stroke="#4F46E5" stroke-width="1.5"/></svg></div>
+      <div class="info"><div class="group">Time</div><h4>Sparkline</h4><p>Inline trend · 64×24 default.</p></div>
+    </div>
+
+    <!-- GEOGRAPHIC -->
+    <div class="card chart-card" data-group="geographic">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g><rect x="6"  y="6"  width="24" height="20" fill="#A5B4FC"/><rect x="32" y="6"  width="24" height="20" fill="#4F46E5"/><rect x="58" y="6"  width="24" height="20" fill="#312E81"/><rect x="84" y="6"  width="24" height="20" fill="#6366F1"/><rect x="6"  y="28" width="24" height="20" fill="#4F46E5"/><rect x="32" y="28" width="24" height="20" fill="#A5B4FC"/><rect x="58" y="28" width="24" height="20" fill="#6366F1"/><rect x="84" y="28" width="24" height="20" fill="#312E81"/></g></svg></div>
+      <div class="info"><div class="group">Geographic</div><h4>Choropleth</h4><p>Map-bound categorical / sequential.</p></div>
+    </div>
+    <div class="card chart-card" data-group="geographic">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="0" y="0" width="120" height="60" fill="#F5F5F4"/><circle cx="22" cy="18" r="6" fill="#4F46E5" opacity="0.7"/><circle cx="60" cy="32" r="10" fill="#4F46E5" opacity="0.7"/><circle cx="92" cy="22" r="4" fill="#4F46E5" opacity="0.7"/><circle cx="38" cy="44" r="7" fill="#4F46E5" opacity="0.7"/><circle cx="98" cy="46" r="5" fill="#4F46E5" opacity="0.7"/></svg></div>
+      <div class="info"><div class="group">Geographic</div><h4>Symbol map</h4><p>Map-bound magnitude bubbles.</p></div>
+    </div>
+
+    <!-- PART-TO-WHOLE -->
+    <div class="card chart-card" data-group="part-to-whole">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="60" cy="30" r="22" fill="none" stroke="#E7E5E4" stroke-width="12"/><circle cx="60" cy="30" r="22" fill="none" stroke="#4F46E5" stroke-width="12" stroke-dasharray="86 138" transform="rotate(-90 60 30)"/></svg></div>
+      <div class="info"><div class="group">Part-to-whole</div><h4>Donut</h4><p>2–5 parts; prohibitions enforced.</p></div>
+    </div>
+    <div class="card chart-card" data-group="part-to-whole">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g>${Array.from({length:50}).map((_,i)=>`<rect x="${(i%10)*11+4}" y="${Math.floor(i/10)*11+4}" width="9" height="9" fill="${i<32?'#4F46E5':i<46?'#0D9488':'#E7E5E4'}"/>`).join('')}</g></svg></div>
+      <div class="info"><div class="group">Part-to-whole</div><h4>Waffle (large)</h4><p>Part-to-whole at scale.</p></div>
+    </div>
+    <div class="card chart-card" data-group="part-to-whole">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="6" y="20" width="108" height="20" fill="#E7E5E4"/><rect x="6" y="20" width="50" height="20" fill="#4F46E5"/><rect x="56" y="20" width="32" height="20" fill="#0D9488"/><rect x="88" y="20" width="20" height="20" fill="#A5B4FC"/></svg></div>
+      <div class="info"><div class="group">Part-to-whole</div><h4>Stacked-bar-100%</h4><p>Single bar broken into shares.</p></div>
+    </div>
+
+    <!-- SINGLE-VALUE -->
+    <div class="card chart-card" data-group="single-value">
+      <div class="vis"><div style="font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--color-text-default);letter-spacing:-0.02em;">87.2%<div style="font-family:var(--font-sans);font-size:10px;color:var(--color-text-subtle);font-weight:400;letter-spacing:0;text-transform:uppercase;">Coverage</div></div></div>
+      <div class="info"><div class="group">Single-value</div><h4>Metric / KPI card</h4><p>Counts · currency · duration.</p></div>
+    </div>
+    <div class="card chart-card" data-group="single-value">
+      <div class="vis"><svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="#E7E5E4" stroke-width="6"/><circle cx="30" cy="30" r="24" fill="none" stroke="#0D9488" stroke-width="6" stroke-dasharray="100 151" stroke-linecap="round" transform="rotate(-90 30 30)"/></svg></div>
+      <div class="info"><div class="group">Single-value</div><h4>Gauge</h4><p>0–100 score · primitive in <code>data-viz/</code>.</p></div>
+    </div>
+    <div class="card chart-card" data-group="single-value">
+      <div class="vis"><svg width="80" height="14" viewBox="0 0 80 14"><rect x="2" y="2" width="6" height="10" fill="#4F46E5"/><rect x="10" y="0" width="6" height="14" fill="#4F46E5"/><rect x="18" y="4" width="6" height="8" fill="#4F46E5"/><rect x="26" y="2" width="6" height="10" fill="#4F46E5"/><rect x="34" y="0" width="6" height="14" fill="#4F46E5"/><rect x="42" y="6" width="6" height="6" fill="#4F46E5"/><rect x="50" y="2" width="6" height="10" fill="#4F46E5"/><rect x="58" y="0" width="6" height="14" fill="#4F46E5"/><rect x="66" y="4" width="6" height="8" fill="#4F46E5"/><rect x="74" y="2" width="6" height="10" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Single-value</div><h4>Sparkbar</h4><p>Inline bar trend.</p></div>
+    </div>
+
+    <!-- FLOW -->
+    <div class="card chart-card" data-group="flow">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><polygon points="6,6 114,12 100,30 18,36" fill="#4F46E5" opacity="0.8"/><polygon points="18,36 100,30 86,46 30,52" fill="#0D9488" opacity="0.8"/><polygon points="30,52 86,46 70,60 40,60" fill="#A5B4FC" opacity="0.8"/></svg></div>
+      <div class="info"><div class="group">Flow</div><h4>Funnel</h4><p>Conversion drop-off across stages.</p></div>
+    </div>
+
+    <!-- HEATMAP -->
+    <div class="card chart-card" data-group="heatmap">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><g>${[0.1,0.3,0.5,0.7,0.9,0.6,0.2,0.4,0.5,0.7,0.9,0.5,0.8,0.3,0.1,0.2,0.4,0.6,0.8,0.5,0.1,0.3,0.5,0.7,0.4,0.6,0.8,0.2,0.4,0.6].map((v,i)=>`<rect x="${(i%10)*11+4}" y="${Math.floor(i/10)*15+5}" width="10" height="14" fill="#4F46E5" opacity="${v}"/>`).join('')}</g></svg></div>
+      <div class="info"><div class="group">Heatmap</div><h4>Heatmap</h4><p>Two-dimensional categorical / sequential.</p></div>
+    </div>
+
+    <!-- DEFERRED -->
+    <div class="card chart-card deferred" data-group="deferred">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><line x1="10" y1="10" x2="10" y2="50" stroke="#4F46E5"/><rect x="6" y="20" width="8" height="20" fill="#4F46E5"/><line x1="34" y1="14" x2="34" y2="46" stroke="#4F46E5"/><rect x="30" y="22" width="8" height="14" fill="#4F46E5"/></svg></div>
+      <div class="info"><div class="group">Time · DEFERRED v5</div><h4>Candlestick</h4><p>OHLC encoding.</p></div>
+    </div>
+    <div class="card chart-card deferred" data-group="deferred">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><circle cx="20" cy="40" r="6" fill="#4F46E5"/><circle cx="60" cy="20" r="12" fill="#4F46E5" opacity="0.6"/><circle cx="100" cy="38" r="9" fill="#4F46E5" opacity="0.7"/></svg></div>
+      <div class="info"><div class="group">Relationship · DEFERRED</div><h4>Bubble</h4><p>Prohibited per §8.1.3 (area mis-perceived).</p></div>
+    </div>
+    <div class="card chart-card deferred" data-group="deferred">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><path d="M 6 8 Q 60 16 114 32" stroke="#4F46E5" stroke-width="2" fill="none"/><path d="M 6 30 Q 60 38 114 22" stroke="#0D9488" stroke-width="2" fill="none"/></svg></div>
+      <div class="info"><div class="group">Geographic · DEFERRED v5</div><h4>Flow map</h4><p>Origin-destination arcs.</p></div>
+    </div>
+    <div class="card chart-card deferred" data-group="deferred">
+      <div class="vis"><svg width="120" height="60" viewBox="0 0 120 60"><rect x="2" y="6" width="20" height="48" fill="#4F46E5"/><rect x="98" y="6" width="20" height="20" fill="#0D9488"/><rect x="98" y="28" width="20" height="26" fill="#A5B4FC"/><path d="M 22 18 Q 60 18 98 14" stroke="#4F46E5" stroke-width="6" fill="none" opacity="0.5"/><path d="M 22 42 Q 60 42 98 40" stroke="#A5B4FC" stroke-width="14" fill="none" opacity="0.5"/></svg></div>
+      <div class="info"><div class="group">Flow · DEFERRED v5</div><h4>Sankey</h4><p>Multi-stage flow.</p></div>
+    </div>
+
+  </div>
+
+  <h2 id="decision" style="margin-top:64px;">Decision matrix</h2>
+  <p>Eleven rows mapping data-shape → canonical chart type. If the data fits more than one row, prefer the type with higher Cleveland-McGill perceptual rank.</p>
+
+  <div class="card" style="padding:0; overflow:hidden; margin-top:24px;">
+    <div class="dm-table" style="padding:0 24px 16px;">
+      <div class="row h"><div>If your data is…</div><div>DM #</div><div>Canonical type</div><div>Fallback</div></div>
+      <div class="row"><div>2–12 discrete categories, short labels</div><div class="dm-id">DM-1</div><div class="canonical">Bar (vertical)</div><div>Lollipop · Dot plot</div></div>
+      <div class="row"><div>8–40 categories OR long labels</div><div class="dm-id">DM-2</div><div class="canonical">Bar (horizontal)</div><div>Lollipop</div></div>
+      <div class="row"><div>2–4 sub-series across 2–8 categories</div><div class="dm-id">DM-3</div><div class="canonical">Grouped bar</div><div>Paired bar (n=2)</div></div>
+      <div class="row"><div>Frequency distribution of one continuous var</div><div class="dm-id">DM-4</div><div class="canonical">Histogram</div><div>Box plot · Violin</div></div>
+      <div class="row"><div>Mutually-exclusive components, totals matter</div><div class="dm-id">DM-5</div><div class="canonical">Stacked bar</div><div>Waffle · Stacked-bar-100%</div></div>
+      <div class="row"><div>Hierarchical part-to-whole, 10–50 leaves</div><div class="dm-id">DM-6</div><div class="canonical">Treemap</div><div>Sunburst</div></div>
+      <div class="row"><div>Time-series, 1–8 series</div><div class="dm-id">DM-7</div><div class="canonical">Line</div><div>Area · Small multiples</div></div>
+      <div class="row"><div>Two continuous vars, looking for correlation</div><div class="dm-id">DM-8</div><div class="canonical">Scatter</div><div>Small-multiples scatter</div></div>
+      <div class="row"><div>Map-bound data with regional granularity</div><div class="dm-id">DM-9</div><div class="canonical">Choropleth</div><div>Symbol map</div></div>
+      <div class="row"><div>Single value, 0–100, "how much of x is good"</div><div class="dm-id">DM-10</div><div class="canonical">Gauge</div><div>Metric card</div></div>
+      <div class="row"><div>Single value, count / currency / duration</div><div class="dm-id">DM-11</div><div class="canonical">Metric / KPI card</div><div>Sparkline appended</div></div>
+    </div>
+  </div>
+
+  <h2 id="palettes" style="margin-top:64px;">Palettes</h2>
+  <div class="card-grid cols-3" style="margin-top:24px;">
+    <div class="card">
+      <h3 style="margin:0 0 6px;">Categorical · 8 colours</h3>
+      <p style="font-size:14px; color:var(--color-text-subtle); margin:0 0 12px;">Ordered for perceptual difference. Cycle past 8 → use small-multiples.</p>
+      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;">
+        <div style="height:24px;background:#4F46E5;border-radius:3px;"></div>
+        <div style="height:24px;background:#0D9488;border-radius:3px;"></div>
+        <div style="height:24px;background:#F59E0B;border-radius:3px;"></div>
+        <div style="height:24px;background:#10B981;border-radius:3px;"></div>
+        <div style="height:24px;background:#8B5CF6;border-radius:3px;"></div>
+        <div style="height:24px;background:#F43F5E;border-radius:3px;"></div>
+        <div style="height:24px;background:#0EA5E9;border-radius:3px;"></div>
+        <div style="height:24px;background:#84CC16;border-radius:3px;"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 6px;">Sequential · 10 stops</h3>
+      <p style="font-size:14px; color:var(--color-text-subtle); margin:0 0 12px;">Single-hue per domain: risk · financial · operational.</p>
+      <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:2px;">
+        ${[160,158,156,155,155,155,156,158,160,162].map((h,i)=>`<div style="height:24px;background:oklch(${0.972 - i*0.083} 0.${String([22,40,70,105,135,155,150,130,95,60][i]).padStart(3,'0')} ${h});border-radius:3px;"></div>`).join('')}
+      </div>
+      <p style="font-size:12px;color:var(--color-text-subtle);margin:8px 0 0;">Above: financial ramp · L\\* 97 → 18.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 6px;">Diverging · 9 stops</h3>
+      <p style="font-size:14px; color:var(--color-text-subtle); margin:0 0 12px;">Warm + cool variants. n4 / p4 ≥7:1 vs surface.</p>
+      <div style="display:flex;gap:2px;align-items:stretch;">
+        <div style="flex:1;height:24px;background:#670000;border-radius:3px 0 0 3px;"></div>
+        <div style="flex:1;height:24px;background:#8D0000;"></div>
+        <div style="flex:1;height:24px;background:#B91C1C;"></div>
+        <div style="flex:1;height:24px;background:#EF4444;"></div>
+        <div style="flex:1;height:24px;background:#D6D3D1;"></div>
+        <div style="flex:1;height:24px;background:#14B8A6;"></div>
+        <div style="flex:1;height:24px;background:#0F766E;"></div>
+        <div style="flex:1;height:24px;background:#005456;"></div>
+        <div style="flex:1;height:24px;background:#002570;border-radius:0 3px 3px 0;"></div>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-subtle);margin:8px 0 0;">Above: cool diverging · 9-stop.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:24px;"><a href="tokens.html#chart-primitives">Full chart-domain ramps in the token explorer →</a></p>
+
+  <h2 id="themes-chart" style="margin-top:64px;">Themes</h2>
+  <p>Charts inherit the active theme via CSS variables. In <b>dark</b>, plot-area + legend + tooltip darken; mark colours stay in family but L\\* lifts for readability. In <b>HC</b>, marks differentiate via shape, dash, and pattern - colour cannot carry meaning. In <b>print</b>, fills collapse to greyscale with pattern overlays.</p>
+
+  <h2 id="library" style="margin-top:64px;">Library pin</h2>
+  <p><code>visx@^3.0.0</code> is the charting library (per spec §8.7). <a href="https://airbnb.io/visx">Visx</a> is composable Visx-component wrappers around D3 utilities. <code>peerDependencies</code> declared; CI-locked via <code>package-lock.json</code>; the 4.x upgrade is a major version bump.</p>
+  <p class="muted">Rejected: Recharts (limited composition), Observable Plot (Node-only data-grammar), Nivo (heavier runtime), Direct D3 (no React idiom).</p>
+
+  <h2 id="a11y" style="margin-top:64px;">Accessibility</h2>
+  <ul>
+    <li><b>Keyboard.</b> <kbd class="kbd">Tab</kbd> into chart · <kbd class="kbd">Arrow keys</kbd> between marks · <kbd class="kbd">Enter</kbd> activate · <kbd class="kbd">Escape</kbd> exit · <kbd class="kbd">t</kbd> toggle data-table fallback (§8.6).</li>
+    <li><b>Screen reader.</b> Every chart carries a per-type ARIA narrative; data-table fallback always available.</li>
+    <li><b>HC mode.</b> Marks differentiate via shape (8 variants), dash (6 styles), or pattern (4 fills) - never colour alone.</li>
+    <li><b>Sonification.</b> Deferred to v4.3 per §8.5.6. Instrumentation surfaces preserved.</li>
+  </ul>
+
+</div>
+
+</div>
+
+<footer class="sitefoot">
+  <div class="inner">
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and Cortex.</p></div>
+    <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
+    <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
+    <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

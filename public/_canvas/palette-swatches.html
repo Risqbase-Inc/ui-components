@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"/>
-<title>BRIEF-401 — Palette swatches</title>
+<title>BRIEF-401 - Palette swatches</title>
 <style>
 :root {
   --ink: #1C1917; --ink-2: #44403C; --ink-3: #78716C; --rule: #E7E5E4;
@@ -54,10 +54,10 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: mi
 </style></head><body>
 <div class="shell">
     <div class="brand"><b>RisqBase Design System</b><span class="doc">BRIEF-401 / PHASE 2.1</span></div>
-    <h1>Palette swatches — 38 chart-domain primitives</h1>
+    <h1>Palette swatches - 38 chart-domain primitives</h1>
 <p class="lede">Every hex value in <code>artefacts/tokens-primitive-color-chart.json</code> rendered as a swatch with its OKLCH coordinates and AA-contrast verification baked in. Three sequential ramps (10 stops each) + two diverging extensions (4 stops each) = 38 stops. Refresh to recompute contrast.</p>
 
-<h2>Risk — cool→warm hue rotation</h2>
+<h2>Risk - cool→warm hue rotation</h2>
 <div class="ramp"><div class="name">color.palette.risk</div><div class="swatch tint" style="background:#E9F9FD;"><span class="stop">50</span><span class="hex">#E9F9FD</span></div><div class="swatch tint" style="background:#D0F0F8;"><span class="stop">100</span><span class="hex">#D0F0F8</span></div><div class="swatch tint" style="background:#B0E0F2;"><span class="stop">200</span><span class="hex">#B0E0F2</span></div><div class="swatch tint" style="background:#93C3E5;"><span class="stop">300</span><span class="hex">#93C3E5</span></div><div class="swatch tint" style="background:#9B9BBA;"><span class="stop">400</span><span class="hex">#9B9BBA</span></div><div class="swatch " style="background:#C36051;"><span class="stop">500</span><span class="hex">#C36051</span></div><div class="swatch " style="background:#B82927;"><span class="stop">600</span><span class="hex">#B82927</span></div><div class="swatch " style="background:#990011;"><span class="stop">700</span><span class="hex">#990011</span></div><div class="swatch " style="background:#6A000B;"><span class="stop">800</span><span class="hex">#6A000B</span></div><div class="swatch " style="background:#380104;"><span class="stop">900</span><span class="hex">#380104</span></div></div>
 <div class="aa">
   <div>vs. white</div>
@@ -65,35 +65,35 @@ td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: mi
 </div>
 <div class="legend"><span><i style="background:#E9F6EC"></i> tints (50-200): designed as fills under stone-800 text; FAIL vs white is by intent</span></div>
 
-<h2>Financial — monochromatic emerald</h2>
+<h2>Financial - monochromatic emerald</h2>
 <div class="ramp"><div class="name">color.palette.financial</div><div class="swatch tint" style="background:#EAFBF1;"><span class="stop">50</span><span class="hex">#EAFBF1</span></div><div class="swatch tint" style="background:#D4F2DF;"><span class="stop">100</span><span class="hex">#D4F2DF</span></div><div class="swatch tint" style="background:#B3E6C4;"><span class="stop">200</span><span class="hex">#B3E6C4</span></div><div class="swatch tint" style="background:#83D09F;"><span class="stop">300</span><span class="hex">#83D09F</span></div><div class="swatch tint" style="background:#4CB779;"><span class="stop">400</span><span class="hex">#4CB779</span></div><div class="swatch " style="background:#009C56;"><span class="stop">500</span><span class="hex">#009C56</span></div><div class="swatch " style="background:#007F40;"><span class="stop">600</span><span class="hex">#007F40</span></div><div class="swatch " style="background:#006432;"><span class="stop">700</span><span class="hex">#006432</span></div><div class="swatch " style="background:#004323;"><span class="stop">800</span><span class="hex">#004323</span></div><div class="swatch " style="background:#002110;"><span class="stop">900</span><span class="hex">#002110</span></div></div>
 <div class="aa">
   <div>vs. white</div>
   <div class="v"><span class="ratio">1.07:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.20:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.40:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.83:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">2.51:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">3.57:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">5.11:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">7.32:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">11.49:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">17.14:1</span><span class="tag pass">PASS</span></div>
 </div>
 
-<h2>Operational — monochromatic indigo→midnight</h2>
+<h2>Operational - monochromatic indigo→midnight</h2>
 <div class="ramp"><div class="name">color.palette.operational</div><div class="swatch tint" style="background:#F0F6FF;"><span class="stop">50</span><span class="hex">#F0F6FF</span></div><div class="swatch tint" style="background:#DEE9FF;"><span class="stop">100</span><span class="hex">#DEE9FF</span></div><div class="swatch tint" style="background:#C5D7FF;"><span class="stop">200</span><span class="hex">#C5D7FF</span></div><div class="swatch tint" style="background:#A2BAFA;"><span class="stop">300</span><span class="hex">#A2BAFA</span></div><div class="swatch tint" style="background:#7A9AF2;"><span class="stop">400</span><span class="hex">#7A9AF2</span></div><div class="swatch " style="background:#5578E9;"><span class="stop">500</span><span class="hex">#5578E9</span></div><div class="swatch " style="background:#395CCD;"><span class="stop">600</span><span class="hex">#395CCD</span></div><div class="swatch " style="background:#2746A3;"><span class="stop">700</span><span class="hex">#2746A3</span></div><div class="swatch " style="background:#15306F;"><span class="stop">800</span><span class="hex">#15306F</span></div><div class="swatch " style="background:#05173B;"><span class="stop">900</span><span class="hex">#05173B</span></div></div>
 <div class="aa">
   <div>vs. white</div>
   <div class="v"><span class="ratio">1.09:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.22:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.44:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">1.92:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">2.72:1</span><span class="tag fail">tint</span></div><div class="v"><span class="ratio">4.00:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">5.86:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">8.43:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">12.47:1</span><span class="tag pass">PASS</span></div><div class="v"><span class="ratio">17.62:1</span><span class="tag pass">PASS</span></div>
 </div>
 
-<h2>Diverging — warm spectrum (4 stops)</h2>
+<h2>Diverging - warm spectrum (4 stops)</h2>
 <div class="ramp div"><div class="name">color.palette.diverging-warm</div><div class="swatch" style="background:#670000"><span class="stop">n4</span><span class="hex">#670000</span></div><div class="swatch" style="background:#8D0000"><span class="stop">n3</span><span class="hex">#8D0000</span></div><div class="swatch" style="background:#7B2900"><span class="stop">p3</span><span class="hex">#7B2900</span></div><div class="swatch" style="background:#502000"><span class="stop">p4</span><span class="hex">#502000</span></div></div>
 <div class="aa div">
   <div>vs. white</div>
   <div class="v"><span class="ratio">13.32:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.85:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.73:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">13.57:1</span><span class="tag pass">PASS ≥7</span></div>
 </div>
 
-<h2>Diverging — cool spectrum (4 stops)</h2>
+<h2>Diverging - cool spectrum (4 stops)</h2>
 <div class="ramp div"><div class="name">color.palette.diverging-cool</div><div class="swatch" style="background:#670000"><span class="stop">n4</span><span class="hex">#670000</span></div><div class="swatch" style="background:#7B2900"><span class="stop">n3</span><span class="hex">#7B2900</span></div><div class="swatch" style="background:#005456"><span class="stop">p3</span><span class="hex">#005456</span></div><div class="swatch" style="background:#002570"><span class="stop">p4</span><span class="hex">#002570</span></div></div>
 <div class="aa div">
   <div>vs. white</div>
   <div class="v"><span class="ratio">13.32:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">9.73:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">8.74:1</span><span class="tag pass">PASS ≥7</span></div><div class="v"><span class="ratio">14.01:1</span><span class="tag pass">PASS ≥7</span></div>
 </div>
 
-<h2>Demo — KPI tiles using stop 500 + stop 50</h2>
+<h2>Demo - KPI tiles using stop 500 + stop 50</h2>
 <div class="demo">
   <div class="tile" style="background:#E9F9FD;color:#1C1917"><div class="num">87.2%</div><div><span class="label">Risk · Coverage</span><br><span style="font-family:var(--mono);font-size:11px;color:#57534E">fill: risk.50</span></div></div>
   <div class="tile" style="background:#EAFBF1;color:#1C1917"><div class="num">€2.4M</div><div><span class="label">Financial · YTD</span><br><span style="font-family:var(--mono);font-size:11px;color:#57534E">fill: financial.50</span></div></div>

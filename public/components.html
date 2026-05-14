@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Components · RisqBase Design System</title>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.comp-card { display: block; text-decoration: none; padding: 0; overflow: hidden; }
+.comp-card .preview { background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 32px 24px; height: 140px; display: flex; align-items: center; justify-content: center; }
+.comp-card .meta { padding: 16px 20px; }
+.comp-card h3 { margin: 0 0 4px; font-size: 16px; }
+.comp-card p { margin: 0; font-size: 13px; color: var(--color-text-subtle); }
+.comp-card:hover { border-color: var(--color-action-primary); }
+.comp-card:hover h3 { color: var(--color-action-primary); }
+.roadmap-card { padding: 18px 20px; }
+.roadmap-card .info { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.roadmap-card h3 { margin: 0 0 2px; font-size: 15px; }
+.roadmap-card .domain { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
+.roadmap-card .desc { font-size: 13px; color: var(--color-text-subtle); margin: 4px 0 0; }
+.preview-mini-badge { display: inline-flex; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tokens.html">Tokens</a>
+    <a href="components.html" class="is-active">Components</a>
+    <a href="charts.html">Charts</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+</header>
+
+<div class="shell">
+
+<aside class="sidenav">
+  <div class="group">
+    <h4>Shipped - core</h4>
+    <ul>
+      <li><a href="components/button.html">Button</a></li>
+      <li><a href="components.html#header">Header</a></li>
+      <li><a href="components.html#footer">Footer</a></li>
+      <li><a href="components.html#badge">Badge</a></li>
+      <li><a href="components.html#section-eyebrow">SectionEyebrow</a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Shipped - data-viz</h4>
+    <ul>
+      <li><a href="components.html#gauge">Gauge primitive <span class="badge">v4.2</span></a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Shipped - ai</h4>
+    <ul>
+      <li><a href="components.html#citation-chip">CitationChip <span class="badge">v4.2</span></a></li>
+      <li><a href="components.html#streaming-text">StreamingText <span class="badge">v4.2</span></a></li>
+      <li><a href="components.html#prompt-chip">PromptChip <span class="badge">v4.2</span></a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Roadmap</h4>
+    <ul>
+      <li><a href="components.html#roadmap">Promotion criteria</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="content wide">
+  <p class="eyebrow">Components</p>
+  <h1>Five shipped. Four promoted to shared in v4.2. The system is the menu.</h1>
+  <p class="lede">Every component composes from the §7.0 anatomy noun glossary. New variants reuse existing nouns; new components require G4 approval. No component reaches past the token layer to invent a colour.</p>
+
+  <h2 style="margin-top:48px;">Core - shipped</h2>
+  <p>Five universally-applicable primitives. All in <code>src/core/</code>. All on role tokens. All themed.</p>
+
+  <div class="card-grid cols-3" style="margin-top:24px;">
+
+    <a href="components/button.html" class="card comp-card">
+      <div class="preview">
+        <button class="btn btn-primary">Sign up</button>
+      </div>
+      <div class="meta">
+        <h3>Button</h3>
+        <p>Primary · secondary · ghost · 3 sizes</p>
+      </div>
+    </a>
+
+    <a href="components.html#header" class="card comp-card">
+      <div class="preview" style="padding:0; align-items:stretch; flex-direction:column;">
+        <div style="background:#fff; border-bottom:1px solid var(--color-border-subtle); padding:10px 14px; display:flex; align-items:center; justify-content:space-between; width:100%;">
+          <span style="font-weight:700; color:var(--color-action-primary); font-size:13px;">RisqBase</span>
+          <span style="font-size:11px; color:var(--color-text-subtle);">Features · Pricing</span>
+        </div>
+        <div style="flex:1; background:var(--color-surface-subtle);"></div>
+      </div>
+      <div class="meta">
+        <h3 id="header">Header</h3>
+        <p>RisqBase / RALIA variant · sticky · nav links · CTA</p>
+      </div>
+    </a>
+
+    <a href="components.html#footer" class="card comp-card">
+      <div class="preview" style="padding:0; align-items:stretch; flex-direction:column;">
+        <div style="flex:1; background:var(--color-surface-subtle);"></div>
+        <div style="background:var(--color-surface-inverse); color:#A8A29E; padding:10px 14px; display:flex; justify-content:space-between; width:100%; font-size:11px;">
+          <span>RisqBase</span>
+          <span>© 2026</span>
+        </div>
+      </div>
+      <div class="meta">
+        <h3 id="footer">Footer</h3>
+        <p>4-column nav · trust badges · bottom bar</p>
+      </div>
+    </a>
+
+    <a href="components.html#badge" class="card comp-card">
+      <div class="preview" style="gap:8px;">
+        <span class="preview-mini-badge" style="background:#4F46E5;color:#fff;">Most Popular</span>
+        <span class="preview-mini-badge" style="background:#E0E7FF;color:#4F46E5;">Standalone</span>
+      </div>
+      <div class="meta">
+        <h3 id="badge">Badge</h3>
+        <p>Default · highlight · subtle</p>
+      </div>
+    </a>
+
+    <a href="components.html#section-eyebrow" class="card comp-card">
+      <div class="preview">
+        <div>
+          <p class="eyebrow" style="margin:0 0 4px;">Compliance · DPIA</p>
+          <h3 style="margin:0; font-size:18px;">Section heading</h3>
+        </div>
+      </div>
+      <div class="meta">
+        <h3 id="section-eyebrow">SectionEyebrow</h3>
+        <p>Eyebrow label above headings</p>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 style="margin-top:64px;">Data-viz - shipped</h2>
+  <p>Generic primitives promoted from RALIA in v4.2.</p>
+
+  <div class="card-grid cols-3" style="margin-top:24px;">
+
+    <a href="components.html#gauge" class="card comp-card">
+      <div class="preview">
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="34" fill="none" stroke="#E7E5E4" stroke-width="6"/>
+          <circle cx="40" cy="40" r="34" fill="none" stroke="#0D9488" stroke-width="6" stroke-dasharray="140 214" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <text x="40" y="46" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="18" font-weight="600" fill="#1C1917">66</text>
+        </svg>
+      </div>
+      <div class="meta">
+        <h3 id="gauge">Gauge primitive</h3>
+        <p>0–100 · single / dual variant · 4 sizes · teal / indigo / stone</p>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 style="margin-top:64px;">AI - shipped <span class="pill pill-stable" style="vertical-align:middle;margin-left:8px;"><i></i> v4.2 promoted</span></h2>
+  <p>AI pattern primitives - generic, shared. RALIA owns the IRIS character; the machinery is public.</p>
+
+  <div class="card-grid cols-3" style="margin-top:24px;">
+
+    <a href="components.html#citation-chip" class="card comp-card">
+      <div class="preview">
+        <span style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#fff; border:1px solid var(--color-border-default); border-radius:8px; font-size:13px; color:var(--color-text-subtle); font-family:var(--font-mono);">📄 GDPR Art. 35, §2</span>
+      </div>
+      <div class="meta">
+        <h3 id="citation-chip">CitationChip</h3>
+        <p>6 states: verified · pending · low-confidence · retracted · external · multi-source</p>
+      </div>
+    </a>
+
+    <a href="components.html#streaming-text" class="card comp-card">
+      <div class="preview">
+        <div style="font-size:14px; color:var(--color-text-default);">Article 35 mandates a DPIA<span style="background:var(--color-iris); width:8px; height:18px; display:inline-block; vertical-align:middle; margin-left:2px; animation:none;"></span></div>
+      </div>
+      <div class="meta">
+        <h3 id="streaming-text">StreamingText</h3>
+        <p>Token-by-token reveal · citation slot · error-mid-stream · aria-live polite</p>
+      </div>
+    </a>
+
+    <a href="components.html#prompt-chip" class="card comp-card">
+      <div class="preview">
+        <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:#CCFBF1; color:#115E59; border-radius:9999px; font-size:13px;">Summarise this assessment</span>
+      </div>
+      <div class="meta">
+        <h3 id="prompt-chip">PromptChip</h3>
+        <p>Pre-filled prompt suggestion · IRIS empty state</p>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 id="roadmap" style="margin-top:64px;">Roadmap</h2>
+  <p>Promotion to the shared system is adoption-driven (§23). A pattern must be reused by 2+ products before it earns the role-token + cross-product audit step. The deferred set:</p>
+
+  <div class="card-grid cols-2" style="margin-top:24px;">
+    <div class="card roadmap-card">
+      <div class="info"><h3>Cards · KPI / Metric</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Specced in §7.10. Hero / default / compact sizes. Awaiting Cortex adoption evidence.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Tables · 3 densities</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Specced in §7.5. Density-aware (compact / default / comfortable). RALIA-shipped, promotion in progress.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Inputs · field anatomy</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Text · select · radio · checkbox · file. Validation timing per §7.6.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Forms · field groups</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Inline + summary validation. <code>:focus-within</code> highlighting.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Toasts</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">5s default + Cmd-Z undo. Stacked positioning bottom-right.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>LongOperation</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Promoted from RALIA. Stepped pattern · cancel · run-in-background.</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Command palette</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
+      <p class="domain">core/</p>
+      <p class="desc">Cmd/Ctrl+K. ARIA combobox pattern. Cross-product destination map (§5.8.3.2).</p>
+    </div>
+    <div class="card roadmap-card">
+      <div class="info"><h3>Chart components - 28 types</h3><span class="pill pill-deferred"><i></i> v4.3+</span></div>
+      <p class="domain">data-viz/</p>
+      <p class="desc">Visx@^3-backed. Per-type print + HC encoding. <a href="charts.html">Browse the taxonomy →</a></p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:64px;">Anatomy noun glossary</h2>
+  <p>Every component composes from a stable noun set defined in §7.0. New variants reuse existing nouns. New nouns require G4 approval. The glossary is the cross-product translator: a "centre-value" on a RALIA risk gauge means the same as a "centre-value" on a Cortex operational gauge.</p>
+
+  <table class="tbl" style="margin-top:24px;">
+    <thead><tr><th>Category</th><th>Nouns</th></tr></thead>
+    <tbody>
+      <tr><td><b>Container</b></td><td><code>surface</code> · <code>chrome</code> · <code>canvas</code> · <code>gutter</code> · <code>rail</code> · <code>strip</code> · <code>divider</code> · <code>affordance</code></td></tr>
+      <tr><td><b>Track / arc</b></td><td><code>track</code> · <code>arc</code> · <code>bar</code> · <code>thumb</code> · <code>tick</code> · <code>terminus</code> · <code>segment</code></td></tr>
+      <tr><td><b>Label / value</b></td><td><code>eyebrow</code> · <code>title</code> · <code>subtitle</code> · <code>caption</code> · <code>centre-value</code> · <code>band-label</code> · <code>delta-pill</code> · <code>metadata-strip</code></td></tr>
+      <tr><td><b>Action</b></td><td><code>trigger</code> · <code>dismiss</code> · <code>primary</code> · <code>secondary</code> · <code>tertiary</code> · <code>overflow</code></td></tr>
+      <tr><td><b>State indicator</b></td><td><code>dot</code> · <code>badge</code> · <code>indicator</code> · <code>glyph</code> · <code>ring</code> · <code>highlight</code></td></tr>
+      <tr><td><b>IRIS-specific</b></td><td><code>lettermark</code> · <code>streamhead</code> · <code>citation chip</code> · <code>prompt chip</code></td></tr>
+      <tr><td><b>Pattern-level</b></td><td><code>hero</code> · <code>fold</code> · <code>shelf</code> · <code>rail</code> · <code>footer-bar</code></td></tr>
+      <tr><td><b>Chart anatomy</b></td><td><code>plot-area</code> · <code>axis</code> · <code>gridline</code> · <code>legend</code> · <code>tooltip</code> · <code>mark</code> · <code>series</code> · <code>category</code> · <code>annotation</code> · <code>rule-mark</code> · <code>null-marker</code> · …</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:24px; font-size:14px; color:var(--color-text-subtle);">Full glossary in spec §7.0.1–§7.0.10 (canonical · normative).</p>
+
+</div>
+
+</div>
+
+<footer class="sitefoot">
+  <div class="inner">
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and Cortex.</p></div>
+    <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
+    <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
+    <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

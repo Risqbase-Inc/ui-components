@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Patterns · RisqBase Design System</title>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+.recipe { padding: 0; overflow: hidden; }
+.recipe .head { padding: 24px 32px; border-bottom: 1px solid var(--color-border-default); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.recipe .head h2 { margin: 0 0 6px; font-size: 22px; }
+.recipe .head .meta { display: flex; gap: 6px; flex-wrap: wrap; }
+.recipe .body { padding: 24px 32px; }
+.recipe .preview { background: var(--color-surface-subtle); border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px; }
+.recipe .schema { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-border-subtle); font-size: 14px; }
+.recipe .schema:last-child { border-bottom: 0; }
+.recipe .schema .key { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.05em; }
+.preview-grid-12 { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+.preview-cell { background: #fff; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); padding: 16px; min-height: 100px; display: flex; flex-direction: column; gap: 4px; }
+.preview-cell .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-subtle); text-transform: uppercase; letter-spacing: 0.06em; }
+.preview-cell .val { font-family: var(--font-mono); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--color-text-default); line-height: 1.1; }
+.preview-cell .delta { font-size: 12px; color: var(--color-iris); margin-top: auto; }
+.preview-cell .delta.down { color: #DC2626; }
+.preview-cell .spark { height: 28px; display: flex; align-items: flex-end; gap: 2px; margin-top: auto; }
+.preview-cell .spark i { width: 8px; background: var(--color-action-primary); border-radius: 1px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tokens.html">Tokens</a>
+    <a href="components.html">Components</a>
+    <a href="charts.html">Charts</a>
+    <a href="patterns.html" class="is-active">Patterns</a>
+    <a href="changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+</header>
+
+<div class="shell">
+
+<aside class="sidenav">
+  <div class="group">
+    <h4>Composite recipes</h4>
+    <ul>
+      <li><a href="#dashboard-chart-row" class="is-active">dashboard-chart-row</a></li>
+      <li><a href="#time-comparison-chart">time-comparison-chart</a></li>
+      <li><a href="#distribution-drilldown">distribution-drilldown</a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Reference</h4>
+    <ul>
+      <li><a href="#schema">Recipe schema (§20.0)</a></li>
+      <li><a href="#voice">voice_examples binding (§20.0.1)</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="content wide">
+  <p class="eyebrow">Patterns</p>
+  <h1>Composite recipes - pre-composed UI worth giving a name.</h1>
+  <p class="lede">Each recipe specifies a composition the system endorses: which components, in which arrangement, for which problem, with which voice. Recipes are how the system answers questions like "how do we lay out a dashboard row?" without re-deciding every time. Spec §8.17.</p>
+
+  <h2 id="dashboard-chart-row" style="margin-top:48px;">dashboard-chart-row</h2>
+  <div class="card recipe">
+    <div class="head">
+      <div>
+        <h2>Dashboard chart row</h2>
+        <p style="margin:0; color:var(--color-text-subtle); font-size:14px;">12-column grid · metric-card + sparkline + horizontal-bar · responsive stacking.</p>
+      </div>
+      <div class="meta">
+        <span class="pill pill-stable"><i></i> public</span>
+        <span class="pill pill-stable"><i></i> stable</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="preview">
+        <div class="preview-grid-12">
+          <div class="preview-cell" style="grid-column: span 3;"><span class="lbl">Open DPIAs</span><span class="val">147</span><span class="delta">↑ 12 vs last month</span></div>
+          <div class="preview-cell" style="grid-column: span 3;"><span class="lbl">Coverage</span><span class="val">87.2%</span><span class="delta">↑ 4.1 pts</span></div>
+          <div class="preview-cell" style="grid-column: span 3;"><span class="lbl">Avg time-to-sign</span><span class="val">4.2 d</span><span class="delta down">↓ 0.8 d</span></div>
+          <div class="preview-cell" style="grid-column: span 3;"><span class="lbl">Fines YTD</span><span class="val">€0</span><span class="delta">→ no change</span></div>
+        </div>
+      </div>
+
+      <h3>Schema (§20.0)</h3>
+      <div class="schema"><div class="key">id</div><div><code>dashboard-chart-row</code></div></div>
+      <div class="schema"><div class="key">visibility</div><div>PUBLIC</div></div>
+      <div class="schema"><div class="key">status</div><div><span class="pill pill-stable"><i></i> stable</span></div></div>
+      <div class="schema"><div class="key">problem</div><div>How do we render a top-of-dashboard summary that lets a reader compare 3–4 KPIs at a glance?</div></div>
+      <div class="schema"><div class="key">when to use</div><div>Top-fold of any dashboard. 3–4 metrics of comparable importance. Each metric must accept a delta + period caption.</div></div>
+      <div class="schema"><div class="key">when not to use</div><div>Fewer than 3 metrics (use single KPI card). More than 6 (overwhelm; reach for a small-multiples grid). Metric of incomparable type (count + currency + percent + duration - collapse to count + percent only and put the rest in detail).</div></div>
+      <div class="schema"><div class="key">composed of</div><div>Metric card (§7.10) × n · sparkline (§8.1.1 time)</div></div>
+      <div class="schema"><div class="key">layout</div><div>12-column grid. Each card spans 3 (4 cards · default), 4 (3 cards), or 6 (2 cards). Responsive: stack to 1 column at &lt;640px.</div></div>
+      <div class="schema"><div class="key">variants</div><div><code>comparison-mode</code> · <code>score-mode</code> (replaces metric card with gauge)</div></div>
+      <div class="schema"><div class="key">keyboard</div><div>Cards are <kbd class="kbd">Tab</kbd>-navigable when interactive. Sparkline focuses on <kbd class="kbd">Tab</kbd>.</div></div>
+      <div class="schema"><div class="key">voice examples</div><div>Tied to <code>template_id 10.5.5</code> (help text). Each card title sentence-case verb-or-noun; delta uses arrows + tabular-nums per §10.3.3.2.</div></div>
+      <div class="schema"><div class="key">accessibility</div><div>Per-card <code>aria-label</code> reads as "{title}: {value} {delta description}".</div></div>
+      <div class="schema"><div class="key">last reviewed</div><div>2026-05-07 (v4.2)</div></div>
+    </div>
+  </div>
+
+  <h2 id="time-comparison-chart" style="margin-top:48px;">time-comparison-chart</h2>
+  <div class="card recipe">
+    <div class="head">
+      <div>
+        <h2>Time comparison chart</h2>
+        <p style="margin:0; color:var(--color-text-subtle); font-size:14px;">Line (2 series) + metric card + sparkbar · vertical stack.</p>
+      </div>
+      <div class="meta">
+        <span class="pill pill-stable"><i></i> public</span>
+        <span class="pill pill-stable"><i></i> stable</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="preview" style="display:grid; grid-template-columns:2fr 1fr; gap:16px;">
+        <div style="background:#fff; border:1px solid var(--color-border-default); border-radius:var(--radius-md); padding:20px;">
+          <p style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-subtle);text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Assessments completed</p>
+          <h3 style="margin:0 0 4px; font-size:18px;">Trend · 12 months</h3>
+          <svg width="100%" height="120" viewBox="0 0 360 120" preserveAspectRatio="none">
+            <line x1="0" y1="100" x2="360" y2="100" stroke="#E7E5E4"/>
+            <line x1="0" y1="60" x2="360" y2="60" stroke="#F5F5F4"/>
+            <line x1="0" y1="20" x2="360" y2="20" stroke="#F5F5F4"/>
+            <polyline points="0,80 30,75 60,72 90,68 120,55 150,52 180,40 210,38 240,30 270,25 300,18 330,22 360,15" fill="none" stroke="#4F46E5" stroke-width="2"/>
+            <polyline points="0,95 30,93 60,88 90,85 120,80 150,76 180,72 210,68 240,62 270,58 300,52 330,48 360,42" fill="none" stroke="#0D9488" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+          <div style="display:flex; gap:16px; margin-top:8px; font-size:12px; color:var(--color-text-subtle);">
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:12px;height:2px;background:#4F46E5;display:inline-block;"></span> Plan</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:12px;height:2px;background:#0D9488;display:inline-block;border-top:2px dashed #0D9488;"></span> Actual</span>
+          </div>
+        </div>
+        <div class="preview-cell"><span class="lbl">YTD delta</span><span class="val">+38%</span><span class="delta">↑ vs plan</span></div>
+      </div>
+
+      <h3>Schema (§20.0)</h3>
+      <div class="schema"><div class="key">id</div><div><code>time-comparison-chart</code></div></div>
+      <div class="schema"><div class="key">problem</div><div>How do we show plan-vs-actual or this-period-vs-last over time, with the delta foregrounded?</div></div>
+      <div class="schema"><div class="key">when to use</div><div>Two time-series of the same metric, ≤24 data points. Reader cares about the delta as much as the trend.</div></div>
+      <div class="schema"><div class="key">when not to use</div><div>More than 2 series (use small-multiples line). Categorical x-axis (use grouped bar instead).</div></div>
+      <div class="schema"><div class="key">composed of</div><div>Line × 2 series · Metric card · Sparkbar (delta-mode variant)</div></div>
+      <div class="schema"><div class="key">variants</div><div><code>delta-mode</code> (paired-bar of period-by-period delta) · <code>annotation-mode</code> (RuleMark events overlaid)</div></div>
+      <div class="schema"><div class="key">voice examples</div><div>Title: "{metric} · {period}". Caption sentence-case. Delta: <code>↑/↓ {magnitude} vs {comparator}</code>. Tied to <code>template_id 10.5.3</code>.</div></div>
+      <div class="schema"><div class="key">accessibility</div><div>Data-table fallback toggleable with <kbd class="kbd">t</kbd>. Both series carry <code>aria-label</code> from the legend.</div></div>
+      <div class="schema"><div class="key">last reviewed</div><div>2026-05-07 (v4.2)</div></div>
+    </div>
+  </div>
+
+  <h2 id="distribution-drilldown" style="margin-top:48px;">distribution-drilldown</h2>
+  <div class="card recipe">
+    <div class="head">
+      <div>
+        <h2>Distribution drilldown</h2>
+        <p style="margin:0; color:var(--color-text-subtle); font-size:14px;">Histogram + box-plot + bar-horizontal + metric card · 7:5 split layout.</p>
+      </div>
+      <div class="meta">
+        <span class="pill pill-stable"><i></i> public</span>
+        <span class="pill pill-stable"><i></i> stable</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="preview" style="display:grid; grid-template-columns:7fr 5fr; gap:16px;">
+        <div style="background:#fff; border:1px solid var(--color-border-default); border-radius:var(--radius-md); padding:20px;">
+          <p style="font-family:var(--font-mono);font-size:11px;color:var(--color-text-subtle);text-transform:uppercase;letter-spacing:0.06em;margin:0 0 6px;">Time-to-completion (days)</p>
+          <h3 style="margin:0 0 10px; font-size:16px;">Distribution · 240 assessments</h3>
+          <svg width="100%" height="100" viewBox="0 0 360 100" preserveAspectRatio="none">
+            <rect x="0"   y="80" width="32" height="20" fill="#4F46E5" opacity="0.6"/>
+            <rect x="34"  y="60" width="32" height="40" fill="#4F46E5" opacity="0.7"/>
+            <rect x="68"  y="30" width="32" height="70" fill="#4F46E5"/>
+            <rect x="102" y="10" width="32" height="90" fill="#4F46E5"/>
+            <rect x="136" y="25" width="32" height="75" fill="#4F46E5"/>
+            <rect x="170" y="50" width="32" height="50" fill="#4F46E5" opacity="0.8"/>
+            <rect x="204" y="65" width="32" height="35" fill="#4F46E5" opacity="0.7"/>
+            <rect x="238" y="80" width="32" height="20" fill="#4F46E5" opacity="0.6"/>
+            <rect x="272" y="88" width="32" height="12" fill="#4F46E5" opacity="0.5"/>
+            <rect x="306" y="94" width="32" height="6" fill="#4F46E5" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="preview-cell"><span class="lbl">Median</span><span class="val">4.2 d</span><span class="delta">P95 8.6 d</span></div>
+      </div>
+
+      <h3>Schema (§20.0)</h3>
+      <div class="schema"><div class="key">id</div><div><code>distribution-drilldown</code></div></div>
+      <div class="schema"><div class="key">problem</div><div>How do we show a distribution AND let the reader drill into a specific bin?</div></div>
+      <div class="schema"><div class="key">when to use</div><div>Continuous variable with ≥50 observations. Reader wants to see shape + summary + outliers, then click into a slice.</div></div>
+      <div class="schema"><div class="key">when not to use</div><div>n &lt; 30 (use bar chart instead). Two-dimensional distribution (use heatmap).</div></div>
+      <div class="schema"><div class="key">composed of</div><div>Histogram · Box plot · Bar (horizontal) for binned drilldown · Metric card</div></div>
+      <div class="schema"><div class="key">layout</div><div>7:5 horizontal split desktop · stack to vertical &lt;800px</div></div>
+      <div class="schema"><div class="key">variants</div><div><code>table-detail</code> (replaces bar with paginated table) · <code>filter-bound</code> (histogram clicks drive surrounding filters)</div></div>
+      <div class="schema"><div class="key">voice examples</div><div>Stat language: median, P95, IQR - defined per glossary §10.6. Tied to <code>template_id 10.8.1</code> (AI-hedging where IRIS surfaces stats).</div></div>
+      <div class="schema"><div class="key">accessibility</div><div>Histogram bins focusable via arrow keys. Data-table toggle <kbd class="kbd">t</kbd>.</div></div>
+      <div class="schema"><div class="key">last reviewed</div><div>2026-05-07 (v4.2)</div></div>
+    </div>
+  </div>
+
+  <h2 id="schema" style="margin-top:64px;">Recipe schema</h2>
+  <p>Every recipe authored to the same §20.0 schema. Editors can grep for "patterns/*.mdx" + assert each carries <code>template_id</code> + <code>voice_examples</code> per §20.0.1.</p>
+  <div class="code-block"><button class="copy">Copy</button><pre><code>// docs/patterns/&lt;recipe-id&gt;.mdx
+---
+id: dashboard-chart-row
+title: Dashboard chart row
+visibility: PUBLIC
+status: stable
+problem: |
+  How do we render a top-of-dashboard summary…
+when_to_use: |
+  Top-fold of any dashboard…
+when_not_to_use: |
+  Fewer than 3 metrics…
+composed_of:
+  - Metric / KPI card (§7.10)
+  - Sparkline (§8.1.1 time)
+layout: |
+  12-column grid…
+variants:
+  - id: comparison-mode
+    description: …
+  - id: score-mode
+    description: …
+voice_examples:
+  - template_id: 10.5.5
+    context: card-title
+    rendered: "Open DPIAs"
+  - template_id: 10.5.5
+    context: card-delta
+    rendered: "↑ 12 vs last month"
+keyboard: |
+  Tab into cards…
+accessibility: |
+  Per-card aria-label…
+last_reviewed: 2026-05-07
+owner: G4
+---
+
+(Body content - usage examples, code snippets, anti-patterns.)</code></pre></div>
+
+  <h2 id="voice" style="margin-top:48px;">voice_examples binding (§20.0.1)</h2>
+  <p>Every <code>voice_examples</code> entry must carry a <code>template_id</code> matching <code>^10\.[58]\.\d+$</code> - referencing a real template from spec §10.5 or §10.8. The CI gate <code>lint:recipes-voice</code> enforces this. Without the binding, the glossary is decorative; with it, copy on every shipped surface is testably the same word, the same sentence shape, the same hedge.</p>
+
+</div>
+
+</div>
+
+<footer class="sitefoot">
+  <div class="inner">
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and Cortex.</p></div>
+    <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
+    <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
+    <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

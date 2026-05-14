@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Button · RisqBase Design System</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+.demo-block { background: var(--color-surface-subtle); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-8); display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+.demo-block.dark { background: #101214; border-color: #3B3D3F; }
+.demo-row { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-4); align-items: center; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border-subtle); }
+.demo-row .label { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); }
+.demo-row .label code { font-size: 11px; }
+.anatomy { background: var(--color-surface-subtle); border-radius: var(--radius-md); padding: var(--space-8); }
+.anatomy svg { display: block; margin: 0 auto; }
+.dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-top: var(--space-4); }
+.dos-donts .card { padding: var(--space-4) var(--space-6); }
+.dos-donts .card .head { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.dos-donts .do .head { color: #166534; }
+.dos-donts .dont .head { color: #9A1F1F; }
+.dos-donts .preview { background: var(--color-surface-subtle); border-radius: var(--radius-sm); padding: var(--space-4); margin-bottom: 12px; display: flex; justify-content: center; align-items: center; min-height: 80px; }
+.dos-donts p { font-size: 13px; margin: 0; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="../index.html">Home</a>
+    <a href="../tokens.html">Tokens</a>
+    <a href="../components.html" class="is-active">Components</a>
+    <a href="../charts.html">Charts</a>
+    <a href="../patterns.html">Patterns</a>
+    <a href="../changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+</header>
+
+<div class="shell">
+
+<aside class="sidenav">
+  <div class="group">
+    <h4>Shipped - core</h4>
+    <ul>
+      <li><a href="button.html" class="is-active">Button</a></li>
+      <li><a href="../components.html#header">Header</a></li>
+      <li><a href="../components.html#footer">Footer</a></li>
+      <li><a href="../components.html#badge">Badge</a></li>
+      <li><a href="../components.html#section-eyebrow">SectionEyebrow</a></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>On this page</h4>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#variants">Variants</a></li>
+      <li><a href="#sizes">Sizes</a></li>
+      <li><a href="#states">States</a></li>
+      <li><a href="#anatomy">Anatomy</a></li>
+      <li><a href="#props">Props</a></li>
+      <li><a href="#tokens">Tokens consumed</a></li>
+      <li><a href="#a11y">Accessibility</a></li>
+      <li><a href="#dos-donts">Do &amp; don&apos;t</a></li>
+      <li><a href="#code">Code</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="content">
+
+  <p class="eyebrow">Components / core / Button</p>
+  <h1>Button</h1>
+  <p class="lede">The primary action affordance. Three variants - <code>primary</code>, <code>secondary</code>, <code>ghost</code> - and three sizes (<code>sm</code>, <code>md</code>, <code>lg</code>). On role tokens; themed through CSS variables; identical pixels to the v1.x release.</p>
+  <div style="display:flex; gap:8px; margin-bottom:32px;">
+    <span class="pill pill-stable"><i></i> stable</span>
+    <span class="pill pill-stable"><i></i> v1.x</span>
+    <span class="pill pill-stable"><i></i> AA verified</span>
+  </div>
+
+  <h2 id="overview">Overview</h2>
+  <div class="demo-block">
+    <button class="btn btn-primary">Sign up</button>
+    <button class="btn btn-secondary">Cancel</button>
+    <button class="btn btn-ghost">Learn more</button>
+  </div>
+
+  <h2 id="variants">Variants</h2>
+  <p>One primary action per region (§21.8). Secondary &amp; ghost are supporting actions.</p>
+
+  <div class="demo-row">
+    <div class="label"><code>primary</code></div>
+    <div class="demo-block"><button class="btn btn-primary">Sign up</button><button class="btn btn-primary">Save changes</button><button class="btn btn-primary">Run assessment →</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label"><code>secondary</code></div>
+    <div class="demo-block"><button class="btn btn-secondary">Cancel</button><button class="btn btn-secondary">Edit</button><button class="btn btn-secondary">View report</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label"><code>ghost</code></div>
+    <div class="demo-block"><button class="btn btn-ghost">Skip</button><button class="btn btn-ghost">Reset filters</button><button class="btn btn-ghost">Learn more →</button></div>
+  </div>
+
+  <h2 id="sizes">Sizes</h2>
+  <p>Hit target is ≥44×44 at <code>md</code> and <code>lg</code> per §5.8.1. <code>sm</code> reserves for table-cell actions and inline contexts where the surrounding text-size justifies the smaller target.</p>
+
+  <div class="demo-row">
+    <div class="label"><code>sm</code> · 28h</div>
+    <div class="demo-block"><button class="btn btn-primary" style="padding:6px 12px;font-size:13px;">Save</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label"><code>md</code> · 36h (default)</div>
+    <div class="demo-block"><button class="btn btn-primary">Save</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label"><code>lg</code> · 44h</div>
+    <div class="demo-block"><button class="btn btn-primary" style="padding:12px 24px;font-size:16px;">Save</button></div>
+  </div>
+
+  <h2 id="states">States</h2>
+  <p>Default · hover · focus-visible · active · disabled. <code>:focus-visible</code> shows the indigo ring; mouse focus is suppressed via <code>:focus:not(:focus-visible)</code> (§5.8.1).</p>
+
+  <div class="demo-row">
+    <div class="label">default</div>
+    <div class="demo-block"><button class="btn btn-primary">Save</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label">hover</div>
+    <div class="demo-block"><button class="btn btn-primary" style="background:var(--color-action-primary-hover);">Save</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label">focus-visible</div>
+    <div class="demo-block"><button class="btn btn-primary" style="box-shadow:0 0 0 2px var(--color-surface-default), 0 0 0 4px var(--color-border-focus);">Save</button></div>
+  </div>
+  <div class="demo-row">
+    <div class="label">disabled</div>
+    <div class="demo-block"><button class="btn btn-primary" disabled style="opacity:0.5;cursor:not-allowed;">Save</button></div>
+  </div>
+
+  <h3>Across themes</h3>
+  <div class="card-grid cols-2" style="margin-top:12px;">
+    <div class="demo-block"><button class="btn btn-primary">Light</button><button class="btn btn-secondary">Light</button><button class="btn btn-ghost">Light</button></div>
+    <div class="demo-block dark">
+      <button class="btn" style="background:#4768DB;color:#fff;">Dark</button>
+      <button class="btn" style="background:transparent;color:#4768DB;border:1px solid #4768DB;">Dark</button>
+      <button class="btn" style="background:transparent;color:#4768DB;">Dark</button>
+    </div>
+  </div>
+
+  <h2 id="anatomy">Anatomy</h2>
+  <div class="anatomy">
+    <svg width="520" height="160" viewBox="0 0 520 160">
+      <!-- Button shape -->
+      <rect x="160" y="50" width="200" height="60" rx="14" fill="#4F46E5"/>
+      <text x="260" y="86" text-anchor="middle" fill="#fff" font-family="ui-sans-serif,system-ui" font-size="18" font-weight="600">Sign up</text>
+
+      <!-- Labels -->
+      <line x1="160" y1="50" x2="100" y2="22" stroke="#A8A29E" stroke-width="1"/>
+      <text x="96" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#1C1917">surface (background)</text>
+
+      <line x1="260" y1="80" x2="380" y2="22" stroke="#A8A29E" stroke-width="1"/>
+      <text x="384" y="18" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#1C1917">label (foreground)</text>
+
+      <line x1="160" y1="80" x2="80" y2="80" stroke="#A8A29E" stroke-width="1"/>
+      <text x="76" y="84" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#1C1917">gutter (padding)</text>
+
+      <line x1="360" y1="110" x2="440" y2="138" stroke="#A8A29E" stroke-width="1"/>
+      <text x="444" y="142" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#1C1917">terminus (radius 12px)</text>
+    </svg>
+    <p style="text-align:center; font-size:13px; color:var(--color-text-subtle); margin-top:16px;">Anatomy uses §7.0 nouns. The button has no <code>chrome</code>, no <code>rail</code>, no <code>divider</code> - keeping it minimal is the point.</p>
+  </div>
+
+  <h2 id="props">Props</h2>
+  <table class="tbl">
+    <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td><code>"primary" | "secondary" | "ghost"</code></td><td><code>"primary"</code></td><td>One primary per region.</td></tr>
+      <tr><td><code>size</code></td><td><code>"sm" | "md" | "lg"</code></td><td><code>"md"</code></td><td>md / lg meet 44×44 hit-target.</td></tr>
+      <tr><td><code>href</code></td><td><code>string</code></td><td>-</td><td>When set, renders as <code>&lt;Link&gt;</code> instead of <code>&lt;button&gt;</code>.</td></tr>
+      <tr><td><code>children</code></td><td><code>ReactNode</code></td><td>required</td><td>Accessible name derives from children.</td></tr>
+      <tr><td><code>className</code></td><td><code>string</code></td><td><code>""</code></td><td>Appended after variant + size classes.</td></tr>
+      <tr><td><code>...rest</code></td><td><code>ButtonHTMLAttributes</code></td><td>-</td><td>Passes through to underlying <code>&lt;button&gt;</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="tokens">Tokens consumed</h2>
+  <p>Every visual property routes through a component-tier role token → semantic → primitive. No bare hex; no Tailwind colour utilities.</p>
+  <table class="tbl">
+    <thead><tr><th>Token</th><th>Resolves to</th><th>Used for</th></tr></thead>
+    <tbody>
+      <tr><td><code>color.button.primary.background.default</code></td><td><code>color.action.primary</code> → <code>indigo.600 #4F46E5</code></td><td>Primary bg</td></tr>
+      <tr><td><code>color.button.primary.background.hover</code></td><td><code>color.action.primary-hover</code> → <code>indigo.700 #4338CA</code></td><td>Primary hover</td></tr>
+      <tr><td><code>color.button.primary.foreground.default</code></td><td><code>color.text.on-action</code> → <code>#FFFFFF</code></td><td>Primary text</td></tr>
+      <tr><td><code>color.button.secondary.background.default</code></td><td><code>color.surface.default</code></td><td>Secondary bg</td></tr>
+      <tr><td><code>color.button.secondary.background.hover</code></td><td><code>color.action.primary-subtle</code> → <code>#E0E7FF</code></td><td>Secondary hover</td></tr>
+      <tr><td><code>color.button.secondary.foreground.default</code></td><td><code>color.action.primary</code></td><td>Secondary text + border</td></tr>
+      <tr><td><code>color.button.secondary.border.default</code></td><td><code>color.action.primary</code></td><td>Secondary border</td></tr>
+      <tr><td><code>color.button.ghost.background.default</code></td><td><code>transparent</code> (literal)</td><td>Ghost bg</td></tr>
+      <tr><td><code>color.button.ghost.background.hover</code></td><td><code>color.action.primary-subtle</code></td><td>Ghost hover</td></tr>
+      <tr><td><code>color.button.ghost.foreground.default</code></td><td><code>color.action.primary</code></td><td>Ghost text</td></tr>
+      <tr><td><code>color.button.focus-ring</code></td><td><code>color.border.focus</code> → <code>indigo.500</code></td><td>Focus-visible ring</td></tr>
+      <tr><td><code>dimension.radius.button.default</code></td><td><code>radius.lg</code> → <code>12px</code></td><td>Border-radius (all variants)</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:14px; color:var(--color-text-subtle);">Worked example: hover bg traces as <code>indigo.700</code> (primitive) → <code>action.primary-hover</code> (semantic) → <code>button.primary.background.hover</code> (component) → CSS variable <code>--color-button-primary-background-hover</code>. Brand refresh cascades automatically.</p>
+
+  <h2 id="a11y">Accessibility</h2>
+  <table class="tbl">
+    <thead><tr><th>Concern</th><th>Specification</th></tr></thead>
+    <tbody>
+      <tr><td>Element</td><td><code>&lt;button type="button"&gt;</code> when no <code>href</code>; <code>&lt;a&gt;</code> when present. Never <code>&lt;div role="button"&gt;</code>.</td></tr>
+      <tr><td>Accessible name</td><td>Derived from <code>children</code>. Icon-only buttons require <code>aria-label</code>.</td></tr>
+      <tr><td>Keyboard activation</td><td><kbd class="kbd">Enter</kbd> + <kbd class="kbd">Space</kbd> trigger the button. <kbd class="kbd">Tab</kbd> moves focus per §5.8.</td></tr>
+      <tr><td>Focus ring</td><td><code>:focus-visible</code> shows 2px indigo-500 ring at 2px offset. <code>:focus:not(:focus-visible)</code> suppresses mouse focus.</td></tr>
+      <tr><td>Hit target</td><td>≥44×44px at <code>md</code> and <code>lg</code> (WCAG 2.5.5).</td></tr>
+      <tr><td>Disabled state</td><td><code>aria-disabled="true"</code> when interactive but not actionable. <code>disabled</code> attribute when not focusable.</td></tr>
+      <tr><td>Forced colors</td><td>Border resolves to <code>ButtonText</code>; surface to <code>ButtonFace</code>; focus to <code>Highlight</code>. Pre-styled by OS.</td></tr>
+      <tr><td>Reduced motion</td><td>Transitions on hover / focus collapse to instant under <code>prefers-reduced-motion: reduce</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="dos-donts">Do &amp; don&apos;t</h2>
+  <div class="dos-donts">
+    <div class="card do">
+      <div class="head"><span>✓</span> Do</div>
+      <div class="preview"><button class="btn btn-primary">Save assessment</button></div>
+      <p>One primary action per region. Sentence case. Verb + object. The button names the work it does.</p>
+    </div>
+    <div class="card dont">
+      <div class="head"><span>✗</span> Don't</div>
+      <div class="preview" style="gap:8px;"><button class="btn btn-primary">SAVE</button><button class="btn btn-primary">OK</button></div>
+      <p>All-caps shouts. "OK" doesn't name the action. Two primaries side-by-side: the reader has no signal which is the right path.</p>
+    </div>
+  </div>
+
+  <h2 id="code">Code</h2>
+  <h3>Import</h3>
+  <div class="code-block"><button class="copy">Copy</button><pre><code>import { Button, PrimaryButton, SecondaryButton, GhostButton } from '@risqbase-inc/ui-components';
+// or the per-domain sub-path:
+import { Button } from '@risqbase-inc/ui-components/core';</code></pre></div>
+
+  <h3>Basic usage</h3>
+  <div class="code-block"><button class="copy">Copy</button><pre><code>&lt;Button variant="primary" size="md" onClick={handleSave}&gt;
+  Save assessment
+&lt;/Button&gt;
+
+&lt;Button variant="secondary" href="/cancel"&gt;
+  Cancel
+&lt;/Button&gt;
+
+&lt;Button variant="ghost" size="sm" onClick={() =&gt; setOpen(false)}&gt;
+  Skip
+&lt;/Button&gt;</code></pre></div>
+
+  <h3>Shortcut components</h3>
+  <div class="code-block"><button class="copy">Copy</button><pre><code>&lt;PrimaryButton&gt;Sign up&lt;/PrimaryButton&gt;
+&lt;SecondaryButton&gt;Cancel&lt;/SecondaryButton&gt;
+&lt;GhostButton&gt;Skip&lt;/GhostButton&gt;</code></pre></div>
+
+  <h3>Source on GitHub</h3>
+  <p><a href="https://github.com/Risqbase-Inc/ui-components/tree/main/src/core/Button">github.com/Risqbase-Inc/ui-components / src/core/Button</a></p>
+
+</div>
+
+</div>
+
+<footer class="sitefoot">
+  <div class="inner">
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and Cortex.</p></div>
+    <div><h5>Browse</h5><a href="../tokens.html">Tokens</a><a href="../components.html">Components</a><a href="../charts.html">Charts</a><a href="../patterns.html">Patterns</a></div>
+    <div><h5>Reference</h5><a href="../changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
+    <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+  </div>
+</footer>
+
+<script src="../site.js"></script>
+</body>
+</html>
