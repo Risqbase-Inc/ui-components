@@ -174,6 +174,49 @@ npm run lint:tokens   # W3C-schema lint over tokens/**/*.json
 `dist/tokens.css`, `dist/tailwind-tokens.js`, `dist/figma-tokens.json`, and
 `src/tokens/generated.ts`), then tsup compiles every entry point in `tsup.config.ts`.
 
+## Visual regression
+
+Every component ships with a Storybook story (`*.stories.tsx`). Chromatic captures
+those stories on every PR and on every push to `main` and posts a comment with
+the diff URL. `Chromatic` is a required status check on `main` — PRs cannot merge
+until either zero visual diffs or explicit approval in the Chromatic UI.
+
+### How to review a Chromatic comment
+
+Click the link in the PR comment. Three buckets appear:
+
+- **Changed** — side-by-side, before vs after. If the change is intended, click
+  "Accept". If it's an unintended regression, fix the code and push again.
+- **New** — first time we've seen this story / mode. Approve to register the
+  baseline; deny to keep the snapshot off-baseline.
+- **Errors** — story failed to render. Fix locally and push.
+
+### When a diff looks wrong
+
+Don't approve. Revert the offending commit (or pin the regression) and
+investigate. Every approval becomes the new "before" picture for the next PR; an
+accidental approval bakes a regression into the baseline permanently.
+
+### When a diff looks right but you're not sure
+
+Get a second opinion. The Chromatic UI surfaces every snapshot URL — paste it
+into the PR thread, tag a designer or a maintainer. Approvals are durable
+(branch-scoped during PR, global once merged to `main`), so a moment's care is
+cheap.
+
+### Animations
+
+Components with continuous animation (Skeleton, IrisThinking, StreamingText) use
+`chromatic: { pauseAnimationAtEnd: true }` or `chromatic: { delay: <ms> }` in
+their stories to keep snapshots deterministic. If you add a new animated
+primitive, do the same — uncaptured animation = flaky baselines.
+
+### Operations + token rotation
+
+The full operator's guide — wiring the Chromatic project, rotating the project
+token, cost considerations, what NOT to do — lives at
+[`docs/contributing/chromatic.md`](docs/contributing/chromatic.md).
+
 ## Versioning
 
 The package follows semver. v1.3.0 is the first v4.2-implementation release; further v4.2
