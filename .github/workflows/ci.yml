@@ -41,3 +41,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # v4.3 §11.1 row 8 — contrast verification. Non-blocking informational
+      # step initially; promote to blocking once any baseline failures are
+      # resolved. See scripts/verify-contrast.mjs for the methodology.
+      - name: Verify contrast (informational)
+        continue-on-error: true
+        run: npm run verify:contrast

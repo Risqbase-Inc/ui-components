@@ -53,6 +53,7 @@
     "dev": "npm run build:tokens && tsup --watch",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "lint:tokens": "node tools/tokens-build/lint.js",
+    "verify:contrast": "node scripts/verify-contrast.mjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "storybook": "npm run build:tokens && storybook dev -p 6006"
