@@ -114,6 +114,52 @@ import { Button, CitationChip } from '@risqbase-inc/ui-components'
 
 ---
 
+## §4 Token graph (as shipped)
+
+Full primitive / semantic / component enumeration lives in the source-of-truth
+document. Two v4.3 additions and one contract change are recorded here because
+they carry runtime constraints.
+
+### §4.1 New `iris.*` semantic chain (10 tokens)
+
+| Token | Resolves to | Purpose |
+|---|---|---|
+| `iris.accent` | `palette.teal.600` | Signature colour — lettermark, focus halo, prompt-chip |
+| `iris.accent-hover` | `palette.teal.700` | Hover state |
+| `iris.accent-subtle` | `palette.teal.100` | Focus halo, prompt-chip hover background |
+| `iris.accent-on` | `neutral.white` | Text / icon on Iris accent — **AA Large + Non-Text only** (see §4.2) |
+| `iris.accent-on-dark` | `neutral.stone.900` | Text / icon on Iris accent — **AA Normal-safe** (see §4.2) |
+| `iris.surface` | `palette.teal.50` | Iris panel background, conversation strip |
+| `iris.streamhead` | `palette.teal.600` | StreamingText cursor |
+| `iris.thinking-outer` | `palette.teal.300` | IrisThinking outer arc |
+| `iris.thinking-mid` | `palette.teal.500` | IrisThinking middle arc |
+| `iris.thinking-inner` | `palette.teal.700` | IrisThinking inner arc |
+
+### §4.2 `iris.*` contrast contract
+
+`iris.accent-on` paired with `iris.accent` computes to **3.74:1** — below WCAG 2.2 AA Normal (4.5:1), above AA Large + Non-Text (3:1). Rather than darken `iris.accent` (which cascades through `gauge.arc-teal`, `chart.cat.2`, the Risk Gauge family, and every Layer-3 showcase composition), the system **accepts the ratio and constrains where the white glyph applies**. Body-sized text on `iris.accent` resolves through the new `iris.accent-on-dark` token (= `stone-900`, computes to ~4.67:1 — AA Normal-safe).
+
+| Surface category | `iris.accent-on` (white) | `iris.accent-on-dark` (stone-900) | Rationale |
+|---|:---:|:---:|---|
+| FAB · ≥24px font on ≥56px container | ✓ | ✓ | AA Large + Non-Text · 3:1 floor |
+| Lettermark sz-48 / sz-72 / sz-120 · ≥26px font | ✓ | ✓ | AA Large |
+| Streamhead cursor / status dot / arc strokes | ✓ | — | Non-Text · 3:1 floor |
+| Icon strokes on `iris.accent` surfaces | ✓ | — | Non-Text · 3:1 floor |
+| Lettermark sz-16, sz-24 · 10–14px glyph | **✗** | ✓ | Below AA Large — switch to dark glyph |
+| Body text · captions · fine print on `iris.accent` | **✗** | ✓ | Below AA Normal — switch to dark glyph |
+| Any label below 18.66px bold or 24px regular | **✗** | ✓ | Below AA Large |
+| Body text on `iris.surface` (teal-50) ground | use `iris.accent` text | n/a | Inverted pairing — `iris.accent` text on `iris.surface` ≈ 6.8:1 |
+
+**Rationale.** `iris.accent` (teal-600) is the canonical Iris signature colour. The 3.74:1 contrast is genuinely sufficient at the sizes Iris actually ships at; the constraint above makes "where it isn't" explicit and enforceable via:
+
+1. Two distinct token names (`accent-on` vs `accent-on-dark`) — consumers pick the right one at authoring time.
+2. **Scanner rule R11** (CI-blocking in consumer scanners; see [`scanner-rule-r11.md`](./scanner-rule-r11.md)) — flags small text using `iris.accent-on` on an `iris.accent` surface where AA Large doesn't apply.
+3. A small-size glyph variant in any Iris lettermark / character composition (Layer-3, lives in RALIA — see §5.4 showcase pages).
+
+The `accent-on-dark` token carries a `contrastPair` annotation against `iris.accent` so the contrast verifier (PR #51 / `scripts/verify-contrast.mjs`) reports it on every run.
+
+---
+
 ## §5 Component catalogue (as shipped in v2.0.0)
 
 | Component | Layer | Domain | Promotion |
@@ -156,16 +202,27 @@ each component in `src/{core,ai,data-viz}/<name>/{accessibility,tokens}.md`.
 - [x] D-001 / D-002 / D-003 resolutions reflected in tokens + component code
 - [x] Root barrel emits soft-deprecation warning in dev (§9.2)
 - [x] `tsc --strict` + `eslint` clean
+- [x] `<TelemetryBeacon>` instrumentation on every primitive (5 v4.2.1 + 20 v4.3 = 25 components) — *closed by PR #49 addendum 1*
+- [x] Modal / Drawer / Sheet rebased on `@radix-ui/react-dialog` — *closed by PR #49 addendum 1*
+- [x] `ChartContainer` rebased on visx@^3 — *closed by PR #49 addendum 1*
+- [x] Radix / visx scoped as `peerDependencies` with visx flagged optional — *closed by PR #49 addendum 2*
+- [x] Storybook stories for the 20 new components + extended Badge — *closed by PR #50*
+- [x] Chromatic workflow updated (`push:main`, `chromaui/action@v11`, `exitZeroOnChanges:false`) — *closed by PR #50*
+- [x] Per-component contrast verification (`scripts/verify-contrast.mjs` + CI hook) — *closed by PR #51*
+- [x] `iris.*` §4.2 contrast contract — accept the 3.74:1 ratio for `iris.accent-on` on `iris.accent`, add companion `iris.accent-on-dark` (~4.67:1) for AA-Normal-safe text, enforce via R11 — *closed by PR #52 (this addendum)*
+- [x] Scanner rule R11 canonical definition + reference implementation — *closed by PR #52*
 
-### Out of scope for this PR (tracked elsewhere)
+### Pending — admin actions (cannot land via a PR)
 
-- [ ] Storybook entries for the 20 new components — landed alongside Chromatic baseline refresh
-- [ ] `<TelemetryBeacon>` instrumentation per primitive (depends on telemetry collector — v4.2 audit U4.2 / U4.3)
-- [ ] Per-component visual-regression baselines (Chromatic)
-- [ ] `design.risqbase.com` docs site
-- [ ] Consumer migrations (RALIA / marketing) per §9.3 / §9.4
-- [ ] Layer-3 RALIA showcase pages (§5.4 — live on the docs site)
-- [ ] Scanner rules R9 + R10 (live in consumer repos)
+- [ ] Create Chromatic project; add `CHROMATIC_PROJECT_TOKEN` to repo secrets; enable `Chromatic` as a required status check on `main`. Step-by-step in `docs/contributing/chromatic.md`.
+
+### Out of scope for this PR (downstream)
+
+- [ ] `design.risqbase.com` docs site (target 30 June 2026)
+- [ ] Consumer migrations per §9.3 / §9.4 (RALIA, marketing)
+- [ ] Layer-3 RALIA showcase pages (live on the docs site)
+- [ ] Scanner rules R9 + R10 + R11 wired into consumer scanners (live in `Risqbase-Inc/Ralia` and the marketing-site repo)
+- [ ] Updates to the 10 RALIA redesigns + 8 marketing demos for small-lettermark dark-glyph variant per §4.2 (consumer-repo work)
 
 ---
 
