@@ -7,8 +7,6 @@ export interface BaseOverlayProps {
   title?: ReactNode
   'aria-label'?: string
   children: ReactNode
-  /** Body `inert` while open — disable for nested overlays. Default true. */
-  inertBackground?: boolean
   /** Close on backdrop click. Default true. */
   dismissOnBackdrop?: boolean
   /** Close on Esc. Default true. */

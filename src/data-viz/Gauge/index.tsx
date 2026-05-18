@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { GaugeProps, GaugeSize, GaugePalette } from './types'
 
 // Generic stroked-arc primitive — the *configuration* that makes a
@@ -54,6 +55,8 @@ export function Gauge({
   const innerOffset = innerC * (1 - clamp(innerValue ?? 0) / 100)
 
   return (
+    <>
+    <TelemetryBeacon component="Gauge" variant={variant} meta={{ size, palette }} />
     <span
       role="img"
       aria-label={ariaLabel}
@@ -121,6 +124,7 @@ export function Gauge({
         </span>
       )}
     </span>
+    </>
   )
 }
 

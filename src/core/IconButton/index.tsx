@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { IconButtonProps } from './types'
 
 // Hit target is always ≥ 24×24 regardless of the visual icon size — the
@@ -30,9 +31,12 @@ export function IconButton({
     'inline-flex items-center justify-center rounded-[var(--dimension-radius-md)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
   const combined = `${base} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`
   return (
-    <button type="button" className={combined} {...props}>
-      {icon}
-    </button>
+    <>
+      <TelemetryBeacon component="IconButton" variant={variant} meta={{ size }} />
+      <button type="button" className={combined} {...props}>
+        {icon}
+      </button>
+    </>
   )
 }
 

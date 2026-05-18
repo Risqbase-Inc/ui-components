@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { IrisThinkingProps } from './types'
 
 // Concentric-arc rotation: outer 2.4s · middle 1.8s reversed · inner
@@ -16,6 +17,8 @@ export function IrisThinking({ size = 'md', label = 'Thinking', className = '' }
   // Three concentric circles with stroke-dasharray to draw arcs (~75% of perimeter).
   const radii = [d / 2 - stroke, d / 2 - stroke * 2.5, d / 2 - stroke * 4]
   return (
+    <>
+    <TelemetryBeacon component="IrisThinking" meta={{ size }} />
     <span
       role="status"
       aria-label={label}
@@ -58,6 +61,7 @@ export function IrisThinking({ size = 'md', label = 'Thinking', className = '' }
         />
       </svg>
     </span>
+    </>
   )
 }
 

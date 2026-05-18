@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { ButtonProps } from './types'
 
 // Role tokens (spec §15.2; resolved values in dist/tokens.css). Each
@@ -38,18 +39,26 @@ export function Button({
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-[var(--dimension-radius-button-default)] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
   const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`
 
+  const beacon = <TelemetryBeacon component="Button" variant={variant} meta={{ size, hasHref: Boolean(href) }} />
+
   if (href) {
     return (
-      <Link href={href} className={combinedStyles}>
-        {children}
-      </Link>
+      <>
+        {beacon}
+        <Link href={href} className={combinedStyles}>
+          {children}
+        </Link>
+      </>
     )
   }
 
   return (
-    <button className={combinedStyles} {...props}>
-      {children}
-    </button>
+    <>
+      {beacon}
+      <button className={combinedStyles} {...props}>
+        {children}
+      </button>
+    </>
   )
 }
 

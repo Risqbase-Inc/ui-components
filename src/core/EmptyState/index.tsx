@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { EmptyStateProps } from './types'
 
 // Eight variants, all share the same layout. Variant is currently a
@@ -15,6 +16,8 @@ export function EmptyState({
   className = '',
 }: EmptyStateProps) {
   return (
+    <>
+    <TelemetryBeacon component="EmptyState" variant={_variant} />
     <div
       data-empty-variant={_variant}
       className={`flex flex-col items-center justify-center text-center px-6 py-12 ${className}`}
@@ -35,6 +38,7 @@ export function EmptyState({
         </div>
       )}
     </div>
+    </>
   )
 }
 

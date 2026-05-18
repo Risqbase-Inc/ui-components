@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { FooterProps } from './types'
 
 // Role tokens (spec §15.2; resolved values in dist/tokens.css). Canonical
@@ -18,6 +19,8 @@ export function Footer({ variant = 'risqbase' }: FooterProps) {
   const tagline = variant === 'ralia' ? 'by RisqBase' : null
 
   return (
+    <>
+    <TelemetryBeacon component="Footer" variant={variant} />
     <footer className="bg-[var(--color-footer-background)]">
       {/* Navigation Links Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -162,6 +165,7 @@ export function Footer({ variant = 'risqbase' }: FooterProps) {
         </div>
       </div>
     </footer>
+    </>
   )
 }
 

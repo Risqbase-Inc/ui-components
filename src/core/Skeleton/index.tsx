@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { SkeletonProps } from './types'
 
 // Shimmer at 1.4s linear infinite; respects `prefers-reduced-motion`.
@@ -41,8 +42,14 @@ export function Skeleton({
       {...(i === 0 ? props : {})}
     />
   ))
-  if (count === 1) return blocks[0]
-  return <div className="flex flex-col gap-2">{blocks}</div>
+  const beacon = <TelemetryBeacon component="Skeleton" variant={variant} meta={{ count }} />
+  if (count === 1) return <>{beacon}{blocks[0]}</>
+  return (
+    <>
+      {beacon}
+      <div className="flex flex-col gap-2">{blocks}</div>
+    </>
+  )
 }
 
 export type { SkeletonProps, SkeletonVariant } from './types'

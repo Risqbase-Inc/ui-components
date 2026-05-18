@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { BadgeProps, BandBadgeProps } from './types'
 
 // Role tokens (spec §15.2; resolved values in dist/tokens.css). The five
@@ -31,9 +32,10 @@ export function Badge({
   const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${className}`
 
   return (
-    <span className={combinedStyles}>
-      {children}
-    </span>
+    <>
+      <TelemetryBeacon component="Badge" variant={variant} />
+      <span className={combinedStyles}>{children}</span>
+    </>
   )
 }
 

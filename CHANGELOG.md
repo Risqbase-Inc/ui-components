@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Design System v4.3 — package side, addendum (Claude Design strategic decisions)
+
+- **`<TelemetryBeacon>` stub landed.** New no-op primitive at `core/TelemetryBeacon` — production no-op, dev `console.debug` gated on `NEXT_PUBLIC_TELEMETRY_DEBUG=1`. All 25 primitives (5 v4.2.1 + 20 v4.3) now emit a mount beacon. When the collector lands (audit U4.2 / U4.3), the dispatch wires in at the Beacon — no component-side change.
+- **Modal / Drawer / Sheet rebased on `@radix-ui/react-dialog`.** Public API unchanged (`open` / `onClose` / `title` / `aria-label` / `dismissOnBackdrop` / `dismissOnEsc`). The hand-rolled `Overlay.tsx` is deleted; Radix handles focus trap, focus restoration, ARIA wiring, scroll-lock, and pointer suppression on background siblings. The `inertBackground` prop is removed (Radix's `modal=true` default supersedes; nested overlays don't need it).
+- **`ChartContainer` rebased on visx@^3** (honouring v4.2.1 audit row A1's pin). `line` / `bar` / `sparkline` use `@visx/scale`, `@visx/shape`, `@visx/group`. `heatmap` / `area` / `choropleth` / `metric-card` deferred to v4.4 unlock by importing the matching visx package; no architecture change.
+- **`iris.*` namespace retained.** Confirmed canonical; no `ai.character.*` rebase.
+- New dependencies: `@radix-ui/react-dialog@^1.1.15`, `@visx/group@^3.12`, `@visx/scale@^3.12`, `@visx/shape@^3.12`.
+
 ### Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)
 
 **MAJOR**. Implements the package half of GOV-DS-2026-02 v4.3 (CEO-approved 18 May 2026). The docs site (`design.risqbase.com`), telemetry dashboard, consumer migrations (RALIA, marketing), and Layer-3 showcase pages land in separate PRs per spec §9 / §11.

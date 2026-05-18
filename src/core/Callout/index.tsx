@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { CalloutProps, CalloutIntent } from './types'
 
 // Replaces the AI-slop left-border-accent pattern. v4.3 §5.1, closes
@@ -86,6 +87,8 @@ export function Callout({
   const ariaRole = intentRoles[intent]
   const renderedIcon = icon === undefined ? defaultIcons[intent] : icon
   return (
+    <>
+    <TelemetryBeacon component="Callout" variant={intent} />
     <div
       role={ariaRole === 'note' ? undefined : ariaRole}
       className={`flex gap-3 rounded-[var(--dimension-radius-md)] border ${style.border} ${style.bg} p-4 text-[var(--color-text-default)] ${className}`}
@@ -100,6 +103,7 @@ export function Callout({
         <div className="text-sm leading-relaxed">{children}</div>
       </div>
     </div>
+    </>
   )
 }
 

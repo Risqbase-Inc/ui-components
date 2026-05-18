@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { ClientScopeBannerProps, ClientScopeState } from './types'
 
 // Persistent below-header strip on every Practice route — surfaces the
@@ -44,6 +45,8 @@ export function ClientScopeBanner({
   const verified = formatVerified(isolationVerifiedAt)
 
   return (
+    <>
+    <TelemetryBeacon component="ClientScopeBanner" variant={state} meta={{ hasClient: Boolean(client) }} />
     <div
       role="region"
       aria-label="Active scope"
@@ -86,6 +89,7 @@ export function ClientScopeBanner({
         )}
       </div>
     </div>
+    </>
   )
 }
 

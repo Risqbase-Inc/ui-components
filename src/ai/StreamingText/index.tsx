@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { StreamingTextProps } from './types'
 
 // Constant cadence (default 35 tok/s). Renders tokens incrementally so
@@ -32,6 +33,8 @@ export function StreamingText({
 
   const done = revealed >= tokens.length
   return (
+    <>
+    <TelemetryBeacon component="StreamingText" meta={{ cadence, tokenCount: tokens.length }} />
     <span className={className} aria-live="polite" aria-atomic="false">
       {tokens.slice(0, revealed).map((tok, i) => (
         <span key={i}>{tok}</span>
@@ -46,6 +49,7 @@ export function StreamingText({
         </span>
       )}
     </span>
+    </>
   )
 }
 

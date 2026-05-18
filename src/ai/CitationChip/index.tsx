@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { CitationChipProps, CitationVariant } from './types'
 
 // Nine variants resolve through the `citation.*` token chain (v4.3 §4.2).
@@ -92,17 +93,27 @@ export function CitationChip({
     </>
   )
 
+  const beacon = (
+    <TelemetryBeacon component="CitationChip" variant={variant} meta={{ interactive: Boolean(onOpen) }} />
+  )
+
   if (onOpen) {
     return (
-      <button type="button" onClick={onOpen} aria-label={accessibleName} className={styles}>
-        {content}
-      </button>
+      <>
+        {beacon}
+        <button type="button" onClick={onOpen} aria-label={accessibleName} className={styles}>
+          {content}
+        </button>
+      </>
     )
   }
   return (
-    <span role="note" aria-label={accessibleName} className={styles}>
-      {content}
-    </span>
+    <>
+      {beacon}
+      <span role="note" aria-label={accessibleName} className={styles}>
+        {content}
+      </span>
+    </>
   )
 }
 

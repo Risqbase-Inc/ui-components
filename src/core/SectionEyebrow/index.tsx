@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { SectionEyebrowProps } from './types'
 
 // Role token (spec §15.2). Resolves identically to v1.x `text-indigo-600`
@@ -10,9 +11,10 @@ export function SectionEyebrow({
   const combinedStyles = `${baseStyles} ${className}`
 
   return (
-    <p className={combinedStyles}>
-      {children}
-    </p>
+    <>
+      <TelemetryBeacon component="SectionEyebrow" />
+      <p className={combinedStyles}>{children}</p>
+    </>
   )
 }
 

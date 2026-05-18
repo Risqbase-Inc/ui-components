@@ -1,5 +1,6 @@
 import { Gauge } from '../Gauge'
 import { BandBadge } from '../../core/Badge'
+import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { RiskGaugeProps, RiskGaugeRole } from './types'
 import type { BadgeBand } from '../../core/Badge/types'
 
@@ -38,6 +39,8 @@ export function RiskGauge({
   const deltaLabel = delta === 0 ? 'No change' : delta > 0 ? `−${delta}` : `+${Math.abs(delta)}`
 
   return (
+    <>
+    <TelemetryBeacon component="RiskGauge" variant={role} meta={{ band, delta }} />
     <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
       <Gauge
         value={residual}
@@ -61,6 +64,7 @@ export function RiskGauge({
         </div>
       )}
     </div>
+    </>
   )
 }
 

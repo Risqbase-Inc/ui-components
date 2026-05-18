@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { WizardProgressProps, WizardProgressStyle } from './types'
 
 // Auto-selects style by step count, per v4.3 §5.1:
@@ -21,20 +22,28 @@ export function WizardProgress({
 }: WizardProgressProps) {
   const resolved = style ?? pickStyle(steps.length)
   const ariaLabel = `Step ${current + 1} of ${steps.length}: ${labelText(steps[current]?.label)}`
+  const beacon = (
+    <TelemetryBeacon component="WizardProgress" variant={resolved} meta={{ stepCount: steps.length, current }} />
+  )
 
   if (resolved === 'percentage') {
     const p = typeof percent === 'number' ? Math.max(0, Math.min(100, percent)) : ((current + 1) / steps.length) * 100
     return (
+      <>
+      {beacon}
       <div className={className} role="progressbar" aria-valuenow={Math.round(p)} aria-valuemin={0} aria-valuemax={100} aria-label={ariaLabel}>
         <div className="w-full h-2 bg-[var(--color-surface-muted)] rounded-full overflow-hidden">
           <div className="h-full bg-[var(--color-action-primary)] transition-[width] duration-300" style={{ width: `${p}%` }} />
         </div>
       </div>
+      </>
     )
   }
 
   if (resolved === 'vertical') {
     return (
+      <>
+      {beacon}
       <ol className={`flex flex-col gap-3 ${className}`} aria-label={ariaLabel}>
         {steps.map((s, i) => (
           <li key={s.id} className="flex items-start gap-3" aria-current={i === current ? 'step' : undefined}>
@@ -45,11 +54,14 @@ export function WizardProgress({
           </li>
         ))}
       </ol>
+      </>
     )
   }
 
   // dots + numbered share the horizontal row
   return (
+    <>
+    {beacon}
     <ol className={`flex items-center gap-2 ${className}`} aria-label={ariaLabel}>
       {steps.map((s, i) => (
         <li key={s.id} className="flex items-center gap-2" aria-current={i === current ? 'step' : undefined}>
@@ -60,6 +72,7 @@ export function WizardProgress({
         </li>
       ))}
     </ol>
+    </>
   )
 }
 

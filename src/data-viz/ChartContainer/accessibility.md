@@ -1,6 +1,6 @@
 # ChartContainer — accessibility
 
-Ships as `beta` in v4.3 — the line / bar / sparkline machinery is stable; the screen-reader treatment is still maturing.
+Ships as `beta` in v4.3 — the line / bar / sparkline machinery is stable (visx-backed); the screen-reader treatment is still maturing.
 
 ## Contracts
 - Wrapped in `<figure role="img">` with a required `aria-label`. The SVG is `aria-hidden="true"`.

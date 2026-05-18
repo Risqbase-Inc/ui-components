@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { ToastProps, ToastViewportProps, ToastIntent, ToastQuadrant } from './types'
 
 // Focus-aware positioner — the viewport places toasts in the quadrant
@@ -32,6 +33,8 @@ export function Toast({ toast, onDismiss }: ToastProps) {
   }, [toast.id, toast.duration, onDismiss])
 
   return (
+    <>
+    <TelemetryBeacon component="Toast" variant={intent} meta={{ sticky: !toast.duration }} />
     <div
       role={ariaRoleFor[intent]}
       aria-live={ariaRoleFor[intent] === 'alert' ? 'assertive' : 'polite'}
@@ -62,6 +65,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
         </svg>
       </button>
     </div>
+    </>
   )
 }
 
@@ -109,6 +113,8 @@ export function ToastViewport({ toasts, onDismiss, quadrant }: ToastViewportProp
   const placement = quadrant ?? oppositeQuadrant(focusQuad)
 
   return (
+    <>
+    <TelemetryBeacon component="ToastViewport" meta={{ placement, count: toasts.length }} />
     <div
       aria-label="Notifications"
       className={`fixed z-40 flex flex-col gap-2 pointer-events-none ${quadrantClasses[placement]}`}
@@ -119,6 +125,7 @@ export function ToastViewport({ toasts, onDismiss, quadrant }: ToastViewportProp
         </div>
       ))}
     </div>
+    </>
   )
 }
 

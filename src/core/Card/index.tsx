@@ -1,3 +1,4 @@
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { CardProps } from './types'
 
 // Default radius is 16px (= `--dimension-radius-card-default`, =
@@ -29,9 +30,12 @@ export function Card({
 }: CardProps) {
   const base = 'rounded-[var(--dimension-radius-card-default)]'
   return (
-    <div className={`${base} ${variantStyles[variant]} ${paddingStyles[padding]} ${className}`} {...props}>
-      {children}
-    </div>
+    <>
+      <TelemetryBeacon component="Card" variant={variant} meta={{ padding }} />
+      <div className={`${base} ${variantStyles[variant]} ${paddingStyles[padding]} ${className}`} {...props}>
+        {children}
+      </div>
+    </>
   )
 }
 
