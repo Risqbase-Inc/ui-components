@@ -1,0 +1,14 @@
+# Tokens — `Toast` · `ToastViewport`
+
+| Token | Used for |
+|---|---|
+| `color.surface.default` | toast surface background |
+| `color.border.default` | surrounding border |
+| `color.callout.{info,success,warning,danger}.border` | left accent bar |
+| `color.callout.{info,success,warning,danger}.icon` | intent glyph |
+| `color.text.default` | title |
+| `color.text.subtle` | description, dismiss icon resting |
+| `color.action.primary` | action label |
+| `color.border.focus` | focus rings |
+| `dimension.radius.md` | toast corners |
+| `dimension.radius.sm` | inner control corners |

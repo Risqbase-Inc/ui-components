@@ -2,6 +2,63 @@
 
 ## Unreleased
 
+### Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)
+
+**MAJOR**. Implements the package half of GOV-DS-2026-02 v4.3 (CEO-approved 18 May 2026). The docs site (`design.risqbase.com`), telemetry dashboard, consumer migrations (RALIA, marketing), and Layer-3 showcase pages land in separate PRs per spec §9 / §11.
+
+#### Three-layer model
+
+- Layer 1 / Layer 2 / Layer 3 separation codified per v4.3 §2. Domain barrels (`/core`, `/ai`, `/data-viz`) are the public surface. Root barrel is **soft-deprecated** — dev builds emit a one-shot console warning; removal target v5.0 (§9.2).
+
+#### New components — 20 primitives across three domains
+
+**`/core` (Layer 1) — 12 new + extended Badge.**
+- `IconButton` (3 sizes × 3 variants, hit target ≥ 24×24 — closes RALIA F-015 / F-028 / F-037 / F-050).
+- `SkipLink` (closes RALIA F-053 + WCAG 2.4.1).
+- `Card` (3 variants × 4 padding levels, 16px default radius — closes RALIA F-060).
+- `Callout` (5 intents, replaces left-border-accent — closes RALIA F-002 + marketing C-05).
+- `Skeleton` (5 variants, motion-reduce safe — closes RALIA F-004).
+- `EmptyState` (8 variants — closes RALIA F-020 / F-055).
+- `WizardProgress` (auto-style by step count — closes RALIA F-010).
+- `Modal`, `Drawer`, `Sheet` (shared focus-trap + scrim + Esc + body inert — closes RALIA F-046).
+- `Toast` + `ToastViewport` (focus-aware quadrant positioner — closes RALIA F-054, WCAG 2.4.11).
+- `Badge` extended with `band-very-low` / `band-low` / `band-medium` / `band-high` / `band-very-high` variants + `BandBadge` wrapper (closes RALIA F-018).
+
+**`/ai` (Layer 2) — 5 new.**
+- `CitationChip` (9 variants — closes RALIA F-012 / F-025).
+- `IrisThinking` (3-arc rotation, reduced-motion fallback — closes RALIA F-011 / F-051).
+- `StreamingText` (constant 35 tok/s cadence — closes O-006).
+- `PromptChip` (Iris-accent halo on hover).
+- `ClientScopeBanner` (persistent below-header strip — closes RALIA F-043).
+
+**`/data-viz` (Layer 2) — 3 new.**
+- `Gauge` (generic stroked-arc, 4 sizes, 3 palettes — closes v4.2 audit U2.1).
+- `RiskGauge` (compliance-semantics wrapper: dual-ring + band-derivation + delta pill — closes v4.2 audit U2.2).
+- `ChartContainer` (`line` / `bar` / `sparkline` ship in v4.3; `heatmap` / `area` / `choropleth` / `metric-card` deferred to v4.4 per v4.1 §8.1.1).
+
+#### Tokens
+
+- **New `iris.*` semantic namespace** (9 tokens: `accent`, `accent-hover`, `accent-subtle`, `accent-on`, `surface`, `streamhead`, `thinking-outer`, `thinking-mid`, `thinking-inner`). Resolves through the teal palette but named explicitly so RALIA / Cortex / future products can re-bind the Iris character per product without touching primitives.
+- **Badge band variants** — `tokens/component/badge.json` extended with 15 `band.*` tokens (5 bands × 3 properties: background / foreground / border).
+- **New component-tier token files:** `card.json`, `callout.json`, `citation-chip.json`, `gauge.json`, `iris-thinking.json`.
+
+#### Tailwind preset
+
+- `font-sans` default updated to lead with Geist / Geist Sans (canonical primary per v4.3 §4.5); `font-mono` defaults to Geist Mono.
+- New `keyframes` and `animation` entries: `skeleton-shimmer`, `streamhead-blink`, `iris-thinking-rotate`, `iris-thinking-rotate-reverse`, `iris-thinking-pulse`.
+
+#### Resolutions
+
+- **D-001** Button radius ratified at 12px (`rounded-xl` / `--dimension-radius-button-default`).
+- **D-002** Header logo weight ratified at `font-bold`.
+- **D-003** Footer surface ratified at `surface-inverse` (stone-900).
+
+#### Spec
+
+- `docs/design-system/v4.3/RisqBase-DS-v4.3-Comprehensive.md` recorded as the canonical reference (GOV-DS-2026-02 v4.3, CEO-approved 18 May 2026).
+
+### Documentation
+
 ### Documentation
 
 - **Design System v4.2.1 — Complete.** All 14 spec-side gaps closed across 11 PRs (#17–#27) on 2026-05-11 + housekeeping PR landing the rename + tracker reconciliation. Documentation-only patch; no `@risqbase-inc/ui-components` version bump. Resolution log + outstanding handoffs in [`docs/design-system/v4.2.1/v4.2.1-COMPLETE.md`](docs/design-system/v4.2.1/v4.2.1-COMPLETE.md).

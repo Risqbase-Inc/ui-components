@@ -1,9 +1,8 @@
-import type { BadgeProps } from './types'
+import type { BadgeProps, BandBadgeProps } from './types'
 
-// Role tokens (spec §15.2; resolved values in dist/tokens.css). Default
-// and highlight variants resolve identically to v1.x; the `subtle` variant
-// shifts from Tailwind's `gray-100`/`gray-600` to `stone-100`/`stone-500`
-// (canonical neutral palette — flagged for S5 visual-regression baseline).
+// Role tokens (spec §15.2; resolved values in dist/tokens.css). The five
+// `band-*` variants land in v4.3 (§5.1, closes RALIA F-018) and resolve
+// through the canonical five-band semantic scale (`color.band.*`).
 const variantStyles = {
   default:
     'bg-[var(--color-badge-default-background)] text-[var(--color-badge-default-foreground)]',
@@ -11,6 +10,16 @@ const variantStyles = {
     'bg-[var(--color-badge-highlight-background)] text-[var(--color-badge-highlight-foreground)]',
   subtle:
     'bg-[var(--color-badge-subtle-background)] text-[var(--color-badge-subtle-foreground)]',
+  'band-very-low':
+    'bg-[var(--color-badge-band-very-low-background)] text-[var(--color-badge-band-very-low-foreground)] border border-[var(--color-badge-band-very-low-border)]',
+  'band-low':
+    'bg-[var(--color-badge-band-low-background)] text-[var(--color-badge-band-low-foreground)] border border-[var(--color-badge-band-low-border)]',
+  'band-medium':
+    'bg-[var(--color-badge-band-medium-background)] text-[var(--color-badge-band-medium-foreground)] border border-[var(--color-badge-band-medium-border)]',
+  'band-high':
+    'bg-[var(--color-badge-band-high-background)] text-[var(--color-badge-band-high-foreground)] border border-[var(--color-badge-band-high-border)]',
+  'band-very-high':
+    'bg-[var(--color-badge-band-very-high-background)] text-[var(--color-badge-band-very-high-foreground)] border border-[var(--color-badge-band-very-high-border)]',
 }
 
 export function Badge({
@@ -55,4 +64,15 @@ export function ComingSoonBadge() {
   return <Badge variant="subtle">Coming Soon</Badge>
 }
 
-export type { BadgeProps, BadgeVariant } from './types'
+// v4.3 — convenience wrapper that maps a `band` prop to the matching
+// `band-*` variant. Useful in charts/gauges/tables where the band is the
+// data and the visual is incidental.
+export function BandBadge({ band, children, className }: BandBadgeProps) {
+  return (
+    <Badge variant={`band-${band}` as BadgeProps['variant']} className={className}>
+      {children}
+    </Badge>
+  )
+}
+
+export type { BadgeProps, BadgeVariant, BadgeBand, BandBadgeProps } from './types'

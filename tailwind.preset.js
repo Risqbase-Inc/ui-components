@@ -20,7 +20,8 @@ module.exports = {
         // light values; dark/HC override at runtime via `data-theme`.
         ...generated.colors,
         // Legacy alias retained for v1.x consumer code that uses
-        // `text-brand-600` / `bg-brand-100` etc. Drops in v2.0.
+        // `text-brand-600` / `bg-brand-100` etc. Soft-deprecated in v2.0;
+        // removal scheduled for v3.0 once consumer migrations complete.
         brand: {
           50: '#EEF2FF',
           100: '#E0E7FF',
@@ -39,7 +40,51 @@ module.exports = {
       borderRadius: { ...generated.borderRadius },
       transitionDuration: { ...generated.transitionDuration },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        // Geist Sans is the canonical primary font per v4.3 §4.5; Inter
+        // stack remains as the fallback chain for environments where the
+        // Geist face hasn't loaded yet.
+        sans: [
+          'Geist',
+          'Geist Sans',
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
+        mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+      },
+      keyframes: {
+        // v4.3 — animations needed by core primitives. Each respects
+        // `prefers-reduced-motion: reduce` via the consumer's Tailwind
+        // config (set `motion-reduce:animate-none` on the consuming
+        // element).
+        'skeleton-shimmer': {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+        'streamhead-blink': {
+          '0%, 50%': { opacity: '1' },
+          '50.01%, 100%': { opacity: '0' },
+        },
+        'iris-thinking-rotate': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        'iris-thinking-rotate-reverse': {
+          '0%': { transform: 'rotate(360deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+        'iris-thinking-pulse': {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'skeleton-shimmer': 'skeleton-shimmer 1.4s linear infinite',
+        'streamhead-blink': 'streamhead-blink 1s steps(2) infinite',
       },
     },
   },
