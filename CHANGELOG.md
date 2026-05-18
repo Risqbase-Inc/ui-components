@@ -8,7 +8,7 @@
 - **Modal / Drawer / Sheet rebased on `@radix-ui/react-dialog`.** Public API unchanged (`open` / `onClose` / `title` / `aria-label` / `dismissOnBackdrop` / `dismissOnEsc`). The hand-rolled `Overlay.tsx` is deleted; Radix handles focus trap, focus restoration, ARIA wiring, scroll-lock, and pointer suppression on background siblings. The `inertBackground` prop is removed (Radix's `modal=true` default supersedes; nested overlays don't need it).
 - **`ChartContainer` rebased on visx@^3** (honouring v4.2.1 audit row A1's pin). `line` / `bar` / `sparkline` use `@visx/scale`, `@visx/shape`, `@visx/group`. `heatmap` / `area` / `choropleth` / `metric-card` deferred to v4.4 unlock by importing the matching visx package; no architecture change.
 - **`iris.*` namespace retained.** Confirmed canonical; no `ai.character.*` rebase.
-- New dependencies: `@radix-ui/react-dialog@^1.1.15`, `@visx/group@^3.12`, `@visx/scale@^3.12`, `@visx/shape@^3.12`.
+- **Packaging shape** — Radix Dialog + visx land as `peerDependencies`, not runtime `dependencies`. `@radix-ui/react-dialog` is **required** (every consumer of `Modal` / `Drawer` / `Sheet` needs it). The three visx packages (`@visx/group`, `@visx/scale`, `@visx/shape`) are flagged **optional** in `peerDependenciesMeta` — consumers that never import `ChartContainer` aren't forced to install them. All four are mirrored in `devDependencies` so local builds, tests, and Storybook keep resolving. This is the standard packaging shape for a React UI library that wraps third-party primitives (mirrors Radix-derived libs, MUI, Chakra, Mantine, shadcn).
 
 ### Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)
 
