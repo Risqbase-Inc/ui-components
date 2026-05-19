@@ -1,11 +1,18 @@
-// AI domain — components specifically supporting AI features (spec §22.2.1).
+// AI — Layer-2 domain primitives for AI surfaces (spec §3, v4.3 §5.2).
 //
-// Populated in S3: CitationChip (all 6 states), StreamingText, PromptChip,
-// IRIS lettermark glyph. The IRIS *character* (FAB, panel, conversation
-// memory, personality voice) remains in `Risqbase-Inc/Ralia` per §22.3.
-//
-// Empty placeholder so `@risqbase-inc/ui-components/ai` resolves cleanly
-// from S1 onwards — consumers can import the path even though no symbols
-// are exported yet.
+// The components here are public, MIT-licensed building blocks. The
+// *characters* that consume them — Iris in RALIA, and any future
+// character in Cortex — are product configurations (Layer 3) and
+// remain in their respective product repos.
 
-export {}
+export { CitationChip } from './CitationChip'
+export { IrisThinking } from './IrisThinking'
+export { StreamingText } from './StreamingText'
+export { PromptChip } from './PromptChip'
+export { ClientScopeBanner } from './ClientScopeBanner'
+
+export type { CitationChipProps, CitationVariant } from './CitationChip/types'
+export type { IrisThinkingProps, IrisThinkingSize } from './IrisThinking/types'
+export type { StreamingTextProps } from './StreamingText/types'
+export type { PromptChipProps } from './PromptChip/types'
+export type { ClientScopeBannerProps, ClientScopeState } from './ClientScopeBanner/types'

@@ -1,0 +1,57 @@
+{
+  "color": {
+    "card": {
+      "background-default": {
+        "$value": "{color.surface.default}",
+        "$type": "color",
+        "$description": "Card default background — white",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/card/background-default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+        }
+      },
+      "background-subtle": {
+        "$value": "{color.surface.subtle}",
+        "$type": "color",
+        "$description": "Card subtle background — stone-50",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/card/background-subtle", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+        }
+      },
+      "background-inverse": {
+        "$value": "{color.surface.inverse}",
+        "$type": "color",
+        "$description": "Card inverse background — stone-900",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/card/background-inverse", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+        }
+      },
+      "border-default": {
+        "$value": "{color.border.default}",
+        "$type": "color",
+        "$description": "Card default border",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/card/border-default", "scopes": ["STROKE_COLOR"] }
+        }
+      }
+    }
+  },
+  "dimension": {
+    "radius": {
+      "card": {
+        "default": {
+          "$value": "{dimension.radius.xl}",
+          "$type": "dimension",
+          "$description": "Card default radius — 16px (v4.3 §4.4)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "dimension/radius/card/default" }
+          }
+        }
+      }
+    }
+  }
+}

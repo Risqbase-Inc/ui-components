@@ -1,0 +1,10 @@
+{
+  "color": {
+    "iris-thinking": {
+      "$comment": "Component-tier wrapper around the semantic `color.iris.thinking-*` chain (v4.3 §4.3). Used by IrisThinking primitive in @risqbase-inc/ui-components/ai. The component is Layer 2; the Iris character that consumes it is Layer 3 (RALIA-private).",
+      "outer": { "$value": "{color.iris.thinking-outer}", "$type": "color", "$description": "IrisThinking outer arc — teal-300", "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/iris-thinking/outer", "scopes": ["STROKE_COLOR"] } } },
+      "mid":   { "$value": "{color.iris.thinking-mid}",   "$type": "color", "$description": "IrisThinking middle arc — teal-500", "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/iris-thinking/mid", "scopes": ["STROKE_COLOR"] } } },
+      "inner": { "$value": "{color.iris.thinking-inner}", "$type": "color", "$description": "IrisThinking inner arc — teal-700", "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/iris-thinking/inner", "scopes": ["STROKE_COLOR"] } } }
+    }
+  }
+}

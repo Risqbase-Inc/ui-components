@@ -4,6 +4,7 @@
 // change introduces any client-only behaviour.
 
 import Link from 'next/link'
+import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { HeaderProps } from './types'
 
 // Role tokens (spec §15.2; resolved values in dist/tokens.css). Two
@@ -20,6 +21,8 @@ export function Header({ variant = 'risqbase', showLaunchDate = false }: HeaderP
   const tagline = isRalia ? 'by RisqBase' : null
 
   return (
+    <>
+    <TelemetryBeacon component="Header" variant={variant} />
     <header className="bg-[var(--color-header-background)] border-b border-[var(--color-header-border)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -78,6 +81,7 @@ export function Header({ variant = 'risqbase', showLaunchDate = false }: HeaderP
         </div>
       </div>
     </header>
+    </>
   )
 }
 

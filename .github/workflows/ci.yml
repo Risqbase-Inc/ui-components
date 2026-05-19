@@ -24,7 +24,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        # --legacy-peer-deps since v2.0.0 — Radix Dialog + visx land as
+        # peerDependencies (with visx flagged optional in
+        # peerDependenciesMeta); their peer graphs aren't strict, so
+        # npm's default resolver bails.
+        run: npm ci --legacy-peer-deps
 
       - name: Token lint
         run: npm run lint:tokens
