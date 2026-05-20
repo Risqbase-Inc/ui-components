@@ -69,9 +69,15 @@
     "@visx/shape": "^3.12.0"
   },
   "peerDependenciesMeta": {
-    "@visx/group": { "optional": true },
-    "@visx/scale": { "optional": true },
-    "@visx/shape": { "optional": true }
+    "@visx/group": {
+      "optional": true
+    },
+    "@visx/scale": {
+      "optional": true
+    },
+    "@visx/shape": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

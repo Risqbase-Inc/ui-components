@@ -94,6 +94,24 @@ Out of scope (consumer-repo work):
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
 - **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
+## [2.0.0](https://github.com/Risqbase-Inc/ui-components/compare/v1.4.0...v2.0.0) (2026-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* design system v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`) ([#49](https://github.com/Risqbase-Inc/ui-components/issues/49))
+
+### Features
+
+* contrast verification script + CI integration (PR 3) ([eca0f7a](https://github.com/Risqbase-Inc/ui-components/commit/eca0f7a4ca24a2cf497f6bfd40a6af907e36c1f3))
+* contrast verification script + CI integration (PR 3) ([8f4576d](https://github.com/Risqbase-Inc/ui-components/commit/8f4576d869c006471ec49cf559355ff74009f9a9))
+* contrast verification script + CI integration (v4.3 PR 3 of programme — supersedes closed [#51](https://github.com/Risqbase-Inc/ui-components/issues/51)) ([#54](https://github.com/Risqbase-Inc/ui-components/issues/54)) ([eca0f7a](https://github.com/Risqbase-Inc/ui-components/commit/eca0f7a4ca24a2cf497f6bfd40a6af907e36c1f3))
+* design system v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`) ([#49](https://github.com/Risqbase-Inc/ui-components/issues/49)) ([faef998](https://github.com/Risqbase-Inc/ui-components/commit/faef9986a1087f2144c3593b5f5bfa5f332876e6))
+* iris.accent-on §4.2 contrast contract + R11 scanner rule (PR 4) ([c0db3b4](https://github.com/Risqbase-Inc/ui-components/commit/c0db3b44f1c700f95562b1f957021adc2dd11998))
+* iris.accent-on §4.2 contrast contract + R11 scanner rule (v4.3 PR 4 — supersedes closed [#52](https://github.com/Risqbase-Inc/ui-components/issues/52)) ([#55](https://github.com/Risqbase-Inc/ui-components/issues/55)) ([2ac62dc](https://github.com/Risqbase-Inc/ui-components/commit/2ac62dc8a1061a923c3ac1d63bc7a2238baa2355))
+* v4.3 stories + Chromatic baseline (PR 2 of programme) ([b7a0a52](https://github.com/Risqbase-Inc/ui-components/commit/b7a0a52dde2ac3b3275b54668f3ec974a1e9dbd3))
+* v4.3 stories + Chromatic baseline (v4.3 PR 2 — supersedes closed [#50](https://github.com/Risqbase-Inc/ui-components/issues/50)) ([#56](https://github.com/Risqbase-Inc/ui-components/issues/56)) ([2d6ef82](https://github.com/Risqbase-Inc/ui-components/commit/2d6ef82591fde06952f8a725d09ac0919588ce79))
+
 ## [1.4.0](https://github.com/Risqbase-Inc/ui-components/compare/v1.3.0...v1.4.0) (2026-05-14)
 
 
