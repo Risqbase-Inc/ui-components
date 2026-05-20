@@ -157,20 +157,39 @@ export const BareNoChrome: Story = {
   args: { clients: attention3, bare: true },
 }
 
-export const ResponsiveBreakpoints: Story = {
+// Responsive breakpoint stories — split into three so each can carry
+// `chromatic.viewports` without conflicting with the preview's per-theme
+// `modes` (Chromatic forbids both on the same story). Each story
+// disables the per-theme `modes` and captures one viewport width.
+// Spec §3.1 mandates 3-col / 2-col / 1-col responsive behaviour at
+// 1024 / 640 / <640.
+
+export const ResponsiveDesktop: Story = {
   args: { clients: attention3, mode: 'attention' },
   parameters: {
-    viewport: {
-      defaultViewport: 'tablet',
-    },
-    chromatic: {
-      viewports: [1280, 768, 375],
-    },
+    chromatic: { viewports: [1280], modes: { light: { theme: 'light' } } },
     docs: {
-      description: {
-        story:
-          'Chromatic captures this story at 1280 / 768 / 375 widths. Spec §3.1 mandates 3-col / 2-col / 1-col responsive behaviour; the inline grid template applies `desktopColumns` and a container-query fallback collapses below 1024px.',
-      },
+      description: { story: 'Desktop (≥ 1024px) — `desktopColumns` (default 3) columns.' },
+    },
+  },
+}
+
+export const ResponsiveTablet: Story = {
+  args: { clients: attention3, mode: 'attention' },
+  parameters: {
+    chromatic: { viewports: [768], modes: { light: { theme: 'light' } } },
+    docs: {
+      description: { story: 'Tablet (640–1023px) — collapses to 2 columns.' },
+    },
+  },
+}
+
+export const ResponsiveMobile: Story = {
+  args: { clients: attention3, mode: 'attention' },
+  parameters: {
+    chromatic: { viewports: [375], modes: { light: { theme: 'light' } } },
+    docs: {
+      description: { story: 'Mobile (< 640px) — collapses to a single column.' },
     },
   },
 }
