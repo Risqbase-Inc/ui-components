@@ -14,8 +14,16 @@ When the graph is rendered without interaction (`onEntityClick` and `onAlertClic
 
 ### 1.1 Markup
 
+The `<figure>` joins both the SVG `<desc>` ID and the `<figcaption>` ID
+in its `aria-describedby` so the assistive-tech announcement covers the
+narrative summary and the enumerated entity list (G5-FU-2 fix, 2026-05-20).
+The inner `<svg>` keeps `aria-describedby` pointing only at the `<desc>`
+to avoid double-announcement.
+
 ```html
-<figure role="figure">
+<figure role="figure"
+        aria-labelledby="ig-title-{id}"
+        aria-describedby="ig-desc-{id} ig-caption-{id}">
   <svg
     role="img"
     aria-labelledby="ig-title-{id}"
