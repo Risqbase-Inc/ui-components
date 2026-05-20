@@ -94,6 +94,19 @@ Out of scope (consumer-repo work):
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
 - **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
+## [2.1.1](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.0...v2.1.1) (2026-05-20)
+
+
+### Bug Fixes
+
+* **v2.1.1:** post-merge audit bundle — useId + env-guard + React 19 hygiene + figcaption ([9b2c686](https://github.com/Risqbase-Inc/ui-components/commit/9b2c6862bc961f4b5c735e3b097432febf30162c))
+* **v2.1.1:** post-merge audit bundle (useId + env-guard + React 19 hygiene + figcaption) ([#65](https://github.com/Risqbase-Inc/ui-components/issues/65)) ([9b2c686](https://github.com/Risqbase-Inc/ui-components/commit/9b2c6862bc961f4b5c735e3b097432febf30162c))
+
+
+### Documentation
+
+* **v2.1.1:** chromatic-acceptance discipline + BRIEF-439 test-runner wiring ([#67](https://github.com/Risqbase-Inc/ui-components/issues/67)) ([41a5d02](https://github.com/Risqbase-Inc/ui-components/commit/41a5d026bbc4a77e819df2d6a9f171766438ded8))
+
 ## [2.1.0](https://github.com/Risqbase-Inc/ui-components/compare/v2.0.0...v2.1.0) (2026-05-20)
 
 
