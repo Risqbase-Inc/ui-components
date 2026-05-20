@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { CitationChipProps, CitationVariant } from './types'
 
@@ -51,7 +51,9 @@ const variantStyles: Record<CitationVariant, string> = {
     'bg-[var(--color-citation-chip-surface)] text-[var(--color-citation-chip-text)] border-[var(--color-iris-accent)]',
 }
 
-const variantGlyph: Record<CitationVariant, JSX.Element | null> = {
+// G1-NIT-8 (CEO 2026-05-20): React 19 hygiene — `JSX.Element` global is
+// deprecated; prefer `ReactElement` imported from 'react'.
+const variantGlyph: Record<CitationVariant, ReactElement | null> = {
   verified: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} className="w-3 h-3"><polyline points="20 6 9 17 4 12" /></svg>
   ),

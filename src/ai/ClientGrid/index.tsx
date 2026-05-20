@@ -241,7 +241,9 @@ export function ClientGrid({
   // Dev-mode warning + production fallback (pill becomes presentational).
   let resolvedAlertClick = onAlertClick
   if (onAlertClick && onClientClick) {
-    if (process.env.NODE_ENV !== 'production') {
+    // G1-BUG-2 (CEO 2026-05-20): guard `process` for browser bundles
+    // where the global isn't defined (no bundler shim).
+    if (typeof process !== 'undefined' && process.env?.NODE_ENV !== 'production') {
       // eslint-disable-next-line no-console
       console.warn(
         '[ClientGrid] `onAlertClick` and `onClientClick` cannot be combined — the card-click handler takes precedence; the alert pill becomes presentational. See docs/specs/v2.1.0/04-ClientGrid.md §7.1.'

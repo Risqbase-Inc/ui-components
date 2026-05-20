@@ -1,4 +1,4 @@
-import { useMemo, type KeyboardEvent } from 'react'
+import { useId, useMemo, type KeyboardEvent } from 'react'
 import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type {
   CategoryPalette,
@@ -101,7 +101,9 @@ export function ImpactGraph(props: ImpactGraphProps) {
   }, [layouts])
 
   const resolvedAriaLabel = ariaLabel ?? buildAriaLabel(alert, entities, categories, cascades)
-  const figureId = useMemo(() => `ig-${Math.random().toString(36).slice(2, 9)}`, [])
+  // G1-BUG-1 / G5-FU-1 (CEO 2026-05-20): useId() replaces Math.random()
+  // for SSR-stable IDs — avoids React 19 hydration mismatch warnings.
+  const figureId = useId()
 
   const handleKeyDown = (
     e: KeyboardEvent<HTMLAnchorElement>,
@@ -123,7 +125,10 @@ export function ImpactGraph(props: ImpactGraphProps) {
     <figure
       role="figure"
       aria-labelledby={`${figureId}-title`}
-      aria-describedby={`${figureId}-desc`}
+      // G5-FU-2 (CEO 2026-05-20): figcaption ID joined into
+      // aria-describedby so SR announces both the <desc> summary and
+      // the enumerated entity list (see accessibility.md §1.2).
+      aria-describedby={`${figureId}-desc ${figureId}-caption`}
       className={`relative ${className}`}
       style={{ width: '100%', maxWidth: width, margin: 0 }}
     >
@@ -341,7 +346,9 @@ export function ImpactGraph(props: ImpactGraphProps) {
                 r={centreR}
                 fill="none"
                 stroke={SEVERITY_RING_FILL[alert.severity]}
-                strokeWidth={onAlertClick ? 2 : 2}
+                // G1-NIT-2 (CEO 2026-05-20): tautology removed — width
+                // was `onAlertClick ? 2 : 2`; both branches identical.
+                strokeWidth={2}
                 aria-hidden="true"
                 className={onAlertClick ? 'impact-graph__centre-ring--interactive' : ''}
               />
