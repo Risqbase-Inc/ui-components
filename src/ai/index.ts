@@ -10,9 +10,21 @@ export { IrisThinking } from './IrisThinking'
 export { StreamingText } from './StreamingText'
 export { PromptChip } from './PromptChip'
 export { ClientScopeBanner } from './ClientScopeBanner'
+export { CompliancePostureStrip } from './CompliancePostureStrip'
+export { ClientGrid } from './ClientGrid'
 
 export type { CitationChipProps, CitationVariant } from './CitationChip/types'
 export type { IrisThinkingProps, IrisThinkingSize } from './IrisThinking/types'
 export type { StreamingTextProps } from './StreamingText/types'
 export type { PromptChipProps } from './PromptChip/types'
 export type { ClientScopeBannerProps, ClientScopeState } from './ClientScopeBanner/types'
+export type {
+  ClientPosture,
+  CompliancePostureStripProps,
+  PostureSort,
+} from './CompliancePostureStrip/types'
+export type {
+  ClientCardData,
+  ClientGridMode,
+  ClientGridProps,
+} from './ClientGrid/types'
