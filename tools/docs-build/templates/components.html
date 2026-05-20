@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Components · RisqBase Design System</title>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon"/>
+<link rel="icon" href="/icon.svg" type="image/svg+xml"/>
+<style>
+.comp-card { display: block; text-decoration: none; padding: 0; overflow: hidden; }
+.comp-card .preview { background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 32px 24px; height: 80px; display: flex; align-items: center; justify-content: center; }
+.comp-card .meta { padding: 16px 20px; }
+.comp-card h3 { margin: 0 0 4px; font-size: 16px; }
+.comp-card p { margin: 0; font-size: 12px; color: var(--color-text-subtle); }
+.comp-card p code { font-size: 11px; }
+.comp-card:hover { border-color: var(--color-action-primary); }
+.comp-card:hover h3 { color: var(--color-action-primary); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="tokens.html">Tokens</a>
+    <a href="components.html" class="is-active">Components</a>
+    <a href="charts.html">Charts</a>
+    <a href="patterns.html">Patterns</a>
+    <a href="changelog.html">Changelog</a>
+  </nav>
+  <span class="version-pill">@risqbase-inc/ui-components · v{{PKG_VERSION}}</span>
+</header>
+
+<div class="shell">
+
+<aside class="sidenav">
+  <div class="group">
+    <h4>Core</h4>
+    <ul>
+      {{COMPONENT_LIST_CORE}}
+    </ul>
+  </div>
+  <div class="group">
+    <h4>AI</h4>
+    <ul>
+      {{COMPONENT_LIST_AI}}
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Data viz</h4>
+    <ul>
+      {{COMPONENT_LIST_VIZ}}
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Marketing</h4>
+    <ul>
+      {{COMPONENT_LIST_MARKETING}}
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Reference</h4>
+    <ul>
+      <li><a href="#roadmap">Promotion criteria</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="content wide">
+  <p class="eyebrow">Components</p>
+  <h1>{{COMPONENT_COUNT}} shipped across four domains. The system is the menu.</h1>
+  <p class="lede">Every component composes from the §7.0 anatomy noun glossary. New variants reuse existing nouns; new components require G4 approval. No component reaches past the token layer to invent a colour. List below is generated from <code>src/{core,ai,data-viz,marketing}/*/</code> at build time — no separate registry to drift.</p>
+
+  <h2 id="core" style="margin-top:48px;">Core</h2>
+  <p>Universally-applicable primitives. All in <code>src/core/</code>. All on role tokens. All themed.</p>
+  {{COMPONENT_GRID_CORE}}
+
+  <h2 id="ai" style="margin-top:48px;">AI</h2>
+  <p>Layer-2 domain primitives for AI surfaces. The components are public, MIT-licensed building blocks — the <em>characters</em> that consume them (Iris in RALIA) are product configurations (Layer 3) in their respective product repos.</p>
+  {{COMPONENT_GRID_AI}}
+
+  <h2 id="data-viz" style="margin-top:48px;">Data viz</h2>
+  <p>Layer-2 chart + gauge primitives. <code>ChartContainer</code> currently ships line, bar, sparkline; heatmap / area / choropleth / metric-card unlock in v4.4 by importing the matching visx package.</p>
+  {{COMPONENT_GRID_VIZ}}
+
+  <h2 id="marketing" style="margin-top:48px;">Marketing</h2>
+  <p>Layer-2 primitives intended for the marketing-site surface only. Not used inside the authed RALIA app.</p>
+  {{COMPONENT_GRID_MARKETING}}
+
+  <h2 id="roadmap" style="margin-top:64px;">Promotion criteria</h2>
+  <p>A component graduates from <em>incubator</em> to <em>shipped</em> when it (1) has co-located <code>accessibility.md</code> + <code>tokens.md</code>, (2) carries a Storybook story file, (3) passes Chromatic baselines across all themes, (4) is referenced by at least one consumer (RALIA, marketing site, or Cortex), and (5) clears G4 design review.</p>
+
+</div>
+
+</div>
+
+<footer class="sitefoot">
+  <div class="inner">
+    <div><h5>RisqBase Design System</h5><p style="font-size:14px;">The design baseline for RALIA, RisqBase marketing, and RisqBase operations.</p></div>
+    <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
+    <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
+    <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v{{PKG_VERSION}} · Spec v{{SPEC_VERSION}} · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

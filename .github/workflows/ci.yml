@@ -42,6 +42,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      # BRIEF-436 — docs site drift check. The public/*.html files are
+      # generator output (tools/docs-build/). If a PR touches CHANGELOG.md,
+      # src/, package.json, etc. without re-running `npm run docs:build`,
+      # the on-disk HTML drifts from what the generator would emit. This
+      # gate fails the PR with a clear remediation message.
+      - name: Docs site drift check
+        run: npm run docs:check
+
       # v4.3 §11.1 row 8 — contrast verification. Non-blocking informational
       # step initially; promote to blocking once any baseline failures are
       # resolved. See scripts/verify-contrast.mjs for the methodology.

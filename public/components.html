@@ -9,18 +9,13 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml"/>
 <style>
 .comp-card { display: block; text-decoration: none; padding: 0; overflow: hidden; }
-.comp-card .preview { background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 32px 24px; height: 140px; display: flex; align-items: center; justify-content: center; }
+.comp-card .preview { background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 32px 24px; height: 80px; display: flex; align-items: center; justify-content: center; }
 .comp-card .meta { padding: 16px 20px; }
 .comp-card h3 { margin: 0 0 4px; font-size: 16px; }
-.comp-card p { margin: 0; font-size: 13px; color: var(--color-text-subtle); }
+.comp-card p { margin: 0; font-size: 12px; color: var(--color-text-subtle); }
+.comp-card p code { font-size: 11px; }
 .comp-card:hover { border-color: var(--color-action-primary); }
 .comp-card:hover h3 { color: var(--color-action-primary); }
-.roadmap-card { padding: 18px 20px; }
-.roadmap-card .info { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.roadmap-card h3 { margin: 0 0 2px; font-size: 15px; }
-.roadmap-card .domain { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-subtle); }
-.roadmap-card .desc { font-size: 13px; color: var(--color-text-subtle); margin: 4px 0 0; }
-.preview-mini-badge { display: inline-flex; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -35,240 +30,317 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
 </header>
 
 <div class="shell">
 
 <aside class="sidenav">
   <div class="group">
-    <h4>Shipped - core</h4>
+    <h4>Core</h4>
     <ul>
-      <li><a href="components/button.html">Button</a></li>
-      <li><a href="components.html#header">Header</a></li>
-      <li><a href="components.html#footer">Footer</a></li>
-      <li><a href="components.html#badge">Badge</a></li>
-      <li><a href="components.html#section-eyebrow">SectionEyebrow</a></li>
+      <li><a href="#badge">Badge</a></li>
+      <li><a href="#button">Button</a></li>
+      <li><a href="#callout">Callout</a></li>
+      <li><a href="#card">Card</a></li>
+      <li><a href="#empty-state">EmptyState</a></li>
+      <li><a href="#footer">Footer</a></li>
+      <li><a href="#header">Header</a></li>
+      <li><a href="#icon-button">IconButton</a></li>
+      <li><a href="#modal">Modal</a></li>
+      <li><a href="#section-eyebrow">SectionEyebrow</a></li>
+      <li><a href="#skeleton">Skeleton</a></li>
+      <li><a href="#skip-link">SkipLink</a></li>
+      <li><a href="#telemetry-beacon">TelemetryBeacon</a></li>
+      <li><a href="#toast">Toast</a></li>
+      <li><a href="#wizard-progress">WizardProgress</a></li>
     </ul>
   </div>
   <div class="group">
-    <h4>Shipped - data-viz</h4>
+    <h4>AI</h4>
     <ul>
-      <li><a href="components.html#gauge">Gauge primitive <span class="badge">v4.2</span></a></li>
+      <li><a href="#citation-chip">CitationChip</a></li>
+      <li><a href="#client-scope-banner">ClientScopeBanner</a></li>
+      <li><a href="#iris-thinking">IrisThinking</a></li>
+      <li><a href="#prompt-chip">PromptChip</a></li>
+      <li><a href="#streaming-text">StreamingText</a></li>
     </ul>
   </div>
   <div class="group">
-    <h4>Shipped - ai</h4>
+    <h4>Data viz</h4>
     <ul>
-      <li><a href="components.html#citation-chip">CitationChip <span class="badge">v4.2</span></a></li>
-      <li><a href="components.html#streaming-text">StreamingText <span class="badge">v4.2</span></a></li>
-      <li><a href="components.html#prompt-chip">PromptChip <span class="badge">v4.2</span></a></li>
+      <li><a href="#chart-container">ChartContainer</a></li>
+      <li><a href="#gauge">Gauge</a></li>
+      <li><a href="#risk-gauge">RiskGauge</a></li>
     </ul>
   </div>
   <div class="group">
-    <h4>Roadmap</h4>
+    <h4>Marketing</h4>
     <ul>
-      <li><a href="components.html#roadmap">Promotion criteria</a></li>
+      <li><em>none yet</em></li>
+    </ul>
+  </div>
+  <div class="group">
+    <h4>Reference</h4>
+    <ul>
+      <li><a href="#roadmap">Promotion criteria</a></li>
     </ul>
   </div>
 </aside>
 
 <div class="content wide">
   <p class="eyebrow">Components</p>
-  <h1>Five shipped. Four promoted to shared in v4.2. The system is the menu.</h1>
-  <p class="lede">Every component composes from the §7.0 anatomy noun glossary. New variants reuse existing nouns; new components require G4 approval. No component reaches past the token layer to invent a colour.</p>
+  <h1>23 shipped across four domains. The system is the menu.</h1>
+  <p class="lede">Every component composes from the §7.0 anatomy noun glossary. New variants reuse existing nouns; new components require G4 approval. No component reaches past the token layer to invent a colour. List below is generated from <code>src/{core,ai,data-viz,marketing}/*/</code> at build time — no separate registry to drift.</p>
 
-  <h2 style="margin-top:48px;">Core - shipped</h2>
-  <p>Five universally-applicable primitives. All in <code>src/core/</code>. All on role tokens. All themed.</p>
-
+  <h2 id="core" style="margin-top:48px;">Core</h2>
+  <p>Universally-applicable primitives. All in <code>src/core/</code>. All on role tokens. All themed.</p>
   <div class="card-grid cols-3" style="margin-top:24px;">
+    <div class="card comp-card" id="badge">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Badge
+      </div>
+      <div class="meta">
+        <h3>Badge</h3>
+        <p><code>import { Badge } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
 
-    <a href="components/button.html" class="card comp-card">
-      <div class="preview">
-        <button class="btn btn-primary">Sign up</button>
+    <div class="card comp-card" id="button">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Button
       </div>
       <div class="meta">
         <h3>Button</h3>
-        <p>Primary · secondary · ghost · 3 sizes</p>
+        <p><code>import { Button } from '@risqbase-inc/ui-components/core'</code></p>
       </div>
-    </a>
+    </div>
 
-    <a href="components.html#header" class="card comp-card">
-      <div class="preview" style="padding:0; align-items:stretch; flex-direction:column;">
-        <div style="background:#fff; border-bottom:1px solid var(--color-border-subtle); padding:10px 14px; display:flex; align-items:center; justify-content:space-between; width:100%;">
-          <span style="font-weight:700; color:var(--color-action-primary); font-size:13px;">RisqBase</span>
-          <span style="font-size:11px; color:var(--color-text-subtle);">Features · Pricing</span>
-        </div>
-        <div style="flex:1; background:var(--color-surface-subtle);"></div>
+    <div class="card comp-card" id="callout">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Callout
       </div>
       <div class="meta">
-        <h3 id="header">Header</h3>
-        <p>RisqBase / RALIA variant · sticky · nav links · CTA</p>
+        <h3>Callout</h3>
+        <p><code>import { Callout } from '@risqbase-inc/ui-components/core'</code></p>
       </div>
-    </a>
+    </div>
 
-    <a href="components.html#footer" class="card comp-card">
-      <div class="preview" style="padding:0; align-items:stretch; flex-direction:column;">
-        <div style="flex:1; background:var(--color-surface-subtle);"></div>
-        <div style="background:var(--color-surface-inverse); color:#A8A29E; padding:10px 14px; display:flex; justify-content:space-between; width:100%; font-size:11px;">
-          <span>RisqBase</span>
-          <span>© 2026</span>
-        </div>
+    <div class="card comp-card" id="card">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Card
       </div>
       <div class="meta">
-        <h3 id="footer">Footer</h3>
-        <p>4-column nav · trust badges · bottom bar</p>
+        <h3>Card</h3>
+        <p><code>import { Card } from '@risqbase-inc/ui-components/core'</code></p>
       </div>
-    </a>
+    </div>
 
-    <a href="components.html#badge" class="card comp-card">
-      <div class="preview" style="gap:8px;">
-        <span class="preview-mini-badge" style="background:#4F46E5;color:#fff;">Most Popular</span>
-        <span class="preview-mini-badge" style="background:#E0E7FF;color:#4F46E5;">Standalone</span>
+    <div class="card comp-card" id="empty-state">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        EmptyState
       </div>
       <div class="meta">
-        <h3 id="badge">Badge</h3>
-        <p>Default · highlight · subtle</p>
+        <h3>EmptyState</h3>
+        <p><code>import { EmptyState } from '@risqbase-inc/ui-components/core'</code></p>
       </div>
-    </a>
+    </div>
 
-    <a href="components.html#section-eyebrow" class="card comp-card">
-      <div class="preview">
-        <div>
-          <p class="eyebrow" style="margin:0 0 4px;">Compliance · DPIA</p>
-          <h3 style="margin:0; font-size:18px;">Section heading</h3>
-        </div>
+    <div class="card comp-card" id="footer">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Footer
       </div>
       <div class="meta">
-        <h3 id="section-eyebrow">SectionEyebrow</h3>
-        <p>Eyebrow label above headings</p>
+        <h3>Footer</h3>
+        <p><code>import { Footer } from '@risqbase-inc/ui-components/core'</code></p>
       </div>
-    </a>
+    </div>
 
+    <div class="card comp-card" id="header">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Header
+      </div>
+      <div class="meta">
+        <h3>Header</h3>
+        <p><code>import { Header } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="icon-button">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        IconButton
+      </div>
+      <div class="meta">
+        <h3>IconButton</h3>
+        <p><code>import { IconButton } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="modal">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Modal
+      </div>
+      <div class="meta">
+        <h3>Modal</h3>
+        <p><code>import { Modal } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="section-eyebrow">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        SectionEyebrow
+      </div>
+      <div class="meta">
+        <h3>SectionEyebrow</h3>
+        <p><code>import { SectionEyebrow } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="skeleton">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Skeleton
+      </div>
+      <div class="meta">
+        <h3>Skeleton</h3>
+        <p><code>import { Skeleton } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="skip-link">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        SkipLink
+      </div>
+      <div class="meta">
+        <h3>SkipLink</h3>
+        <p><code>import { SkipLink } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="telemetry-beacon">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        TelemetryBeacon
+      </div>
+      <div class="meta">
+        <h3>TelemetryBeacon</h3>
+        <p><code>import { TelemetryBeacon } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="toast">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Toast
+      </div>
+      <div class="meta">
+        <h3>Toast</h3>
+        <p><code>import { Toast } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="wizard-progress">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        WizardProgress
+      </div>
+      <div class="meta">
+        <h3>WizardProgress</h3>
+        <p><code>import { WizardProgress } from '@risqbase-inc/ui-components/core'</code></p>
+      </div>
+    </div>
   </div>
 
-  <h2 style="margin-top:64px;">Data-viz - shipped</h2>
-  <p>Generic primitives promoted from RALIA in v4.2.</p>
-
+  <h2 id="ai" style="margin-top:48px;">AI</h2>
+  <p>Layer-2 domain primitives for AI surfaces. The components are public, MIT-licensed building blocks — the <em>characters</em> that consume them (Iris in RALIA) are product configurations (Layer 3) in their respective product repos.</p>
   <div class="card-grid cols-3" style="margin-top:24px;">
-
-    <a href="components.html#gauge" class="card comp-card">
-      <div class="preview">
-        <svg width="80" height="80" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="34" fill="none" stroke="#E7E5E4" stroke-width="6"/>
-          <circle cx="40" cy="40" r="34" fill="none" stroke="#0D9488" stroke-width="6" stroke-dasharray="140 214" stroke-linecap="round" transform="rotate(-90 40 40)"/>
-          <text x="40" y="46" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="18" font-weight="600" fill="#1C1917">66</text>
-        </svg>
+    <div class="card comp-card" id="citation-chip">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        CitationChip
       </div>
       <div class="meta">
-        <h3 id="gauge">Gauge primitive</h3>
-        <p>0–100 · single / dual variant · 4 sizes · teal / indigo / stone</p>
+        <h3>CitationChip</h3>
+        <p><code>import { CitationChip } from '@risqbase-inc/ui-components/ai'</code></p>
       </div>
-    </a>
+    </div>
 
+    <div class="card comp-card" id="client-scope-banner">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        ClientScopeBanner
+      </div>
+      <div class="meta">
+        <h3>ClientScopeBanner</h3>
+        <p><code>import { ClientScopeBanner } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="iris-thinking">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        IrisThinking
+      </div>
+      <div class="meta">
+        <h3>IrisThinking</h3>
+        <p><code>import { IrisThinking } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="prompt-chip">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        PromptChip
+      </div>
+      <div class="meta">
+        <h3>PromptChip</h3>
+        <p><code>import { PromptChip } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="streaming-text">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        StreamingText
+      </div>
+      <div class="meta">
+        <h3>StreamingText</h3>
+        <p><code>import { StreamingText } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
   </div>
 
-  <h2 style="margin-top:64px;">AI - shipped <span class="pill pill-stable" style="vertical-align:middle;margin-left:8px;"><i></i> v4.2 promoted</span></h2>
-  <p>AI pattern primitives - generic, shared. RALIA owns the IRIS character; the machinery is public.</p>
-
+  <h2 id="data-viz" style="margin-top:48px;">Data viz</h2>
+  <p>Layer-2 chart + gauge primitives. <code>ChartContainer</code> currently ships line, bar, sparkline; heatmap / area / choropleth / metric-card unlock in v4.4 by importing the matching visx package.</p>
   <div class="card-grid cols-3" style="margin-top:24px;">
-
-    <a href="components.html#citation-chip" class="card comp-card">
-      <div class="preview">
-        <span style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; background:#fff; border:1px solid var(--color-border-default); border-radius:8px; font-size:13px; color:var(--color-text-subtle); font-family:var(--font-mono);">📄 GDPR Art. 35, §2</span>
+    <div class="card comp-card" id="chart-container">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        ChartContainer
       </div>
       <div class="meta">
-        <h3 id="citation-chip">CitationChip</h3>
-        <p>6 states: verified · pending · low-confidence · retracted · external · multi-source</p>
+        <h3>ChartContainer</h3>
+        <p><code>import { ChartContainer } from '@risqbase-inc/ui-components/data-viz'</code></p>
       </div>
-    </a>
+    </div>
 
-    <a href="components.html#streaming-text" class="card comp-card">
-      <div class="preview">
-        <div style="font-size:14px; color:var(--color-text-default);">Article 35 mandates a DPIA<span style="background:var(--color-iris); width:8px; height:18px; display:inline-block; vertical-align:middle; margin-left:2px; animation:none;"></span></div>
-      </div>
-      <div class="meta">
-        <h3 id="streaming-text">StreamingText</h3>
-        <p>Token-by-token reveal · citation slot · error-mid-stream · aria-live polite</p>
-      </div>
-    </a>
-
-    <a href="components.html#prompt-chip" class="card comp-card">
-      <div class="preview">
-        <span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:#CCFBF1; color:#115E59; border-radius:9999px; font-size:13px;">Summarise this assessment</span>
+    <div class="card comp-card" id="gauge">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        Gauge
       </div>
       <div class="meta">
-        <h3 id="prompt-chip">PromptChip</h3>
-        <p>Pre-filled prompt suggestion · IRIS empty state</p>
+        <h3>Gauge</h3>
+        <p><code>import { Gauge } from '@risqbase-inc/ui-components/data-viz'</code></p>
       </div>
-    </a>
+    </div>
 
-  </div>
-
-  <h2 id="roadmap" style="margin-top:64px;">Roadmap</h2>
-  <p>Promotion to the shared system is adoption-driven (§23). A pattern must be reused by 2+ products before it earns the role-token + cross-product audit step. The deferred set:</p>
-
-  <div class="card-grid cols-2" style="margin-top:24px;">
-    <div class="card roadmap-card">
-      <div class="info"><h3>Cards · KPI / Metric</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Specced in §7.10. Hero / default / compact sizes. Awaiting RisqBase operations adoption evidence.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Tables · 3 densities</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Specced in §7.5. Density-aware (compact / default / comfortable). RALIA-shipped, promotion in progress.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Inputs · field anatomy</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Text · select · radio · checkbox · file. Validation timing per §7.6.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Forms · field groups</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Inline + summary validation. <code>:focus-within</code> highlighting.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Toasts</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">5s default + Cmd-Z undo. Stacked positioning bottom-right.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>LongOperation</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Promoted from RALIA. Stepped pattern · cancel · run-in-background.</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Command palette</h3><span class="pill pill-deferred"><i></i> v4.3</span></div>
-      <p class="domain">core/</p>
-      <p class="desc">Cmd/Ctrl+K. ARIA combobox pattern. Cross-product destination map (§5.8.3.2).</p>
-    </div>
-    <div class="card roadmap-card">
-      <div class="info"><h3>Chart components - 28 types</h3><span class="pill pill-deferred"><i></i> v4.3+</span></div>
-      <p class="domain">data-viz/</p>
-      <p class="desc">Visx@^3-backed. Per-type print + HC encoding. <a href="charts.html">Browse the taxonomy →</a></p>
+    <div class="card comp-card" id="risk-gauge">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        RiskGauge
+      </div>
+      <div class="meta">
+        <h3>RiskGauge</h3>
+        <p><code>import { RiskGauge } from '@risqbase-inc/ui-components/data-viz'</code></p>
+      </div>
     </div>
   </div>
 
-  <h2 style="margin-top:64px;">Anatomy noun glossary</h2>
-  <p>Every component composes from a stable noun set defined in §7.0. New variants reuse existing nouns. New nouns require G4 approval. The glossary is the cross-product translator: a "centre-value" on a RALIA risk gauge means the same as a "centre-value" on a RisqBase operations gauge.</p>
+  <h2 id="marketing" style="margin-top:48px;">Marketing</h2>
+  <p>Layer-2 primitives intended for the marketing-site surface only. Not used inside the authed RALIA app.</p>
+  <p style="color: var(--color-text-subtle); font-size: 14px;">No components in <code>marketing</code> yet — coming in a later release.</p>
 
-  <table class="tbl" style="margin-top:24px;">
-    <thead><tr><th>Category</th><th>Nouns</th></tr></thead>
-    <tbody>
-      <tr><td><b>Container</b></td><td><code>surface</code> · <code>chrome</code> · <code>canvas</code> · <code>gutter</code> · <code>rail</code> · <code>strip</code> · <code>divider</code> · <code>affordance</code></td></tr>
-      <tr><td><b>Track / arc</b></td><td><code>track</code> · <code>arc</code> · <code>bar</code> · <code>thumb</code> · <code>tick</code> · <code>terminus</code> · <code>segment</code></td></tr>
-      <tr><td><b>Label / value</b></td><td><code>eyebrow</code> · <code>title</code> · <code>subtitle</code> · <code>caption</code> · <code>centre-value</code> · <code>band-label</code> · <code>delta-pill</code> · <code>metadata-strip</code></td></tr>
-      <tr><td><b>Action</b></td><td><code>trigger</code> · <code>dismiss</code> · <code>primary</code> · <code>secondary</code> · <code>tertiary</code> · <code>overflow</code></td></tr>
-      <tr><td><b>State indicator</b></td><td><code>dot</code> · <code>badge</code> · <code>indicator</code> · <code>glyph</code> · <code>ring</code> · <code>highlight</code></td></tr>
-      <tr><td><b>IRIS-specific</b></td><td><code>lettermark</code> · <code>streamhead</code> · <code>citation chip</code> · <code>prompt chip</code></td></tr>
-      <tr><td><b>Pattern-level</b></td><td><code>hero</code> · <code>fold</code> · <code>shelf</code> · <code>rail</code> · <code>footer-bar</code></td></tr>
-      <tr><td><b>Chart anatomy</b></td><td><code>plot-area</code> · <code>axis</code> · <code>gridline</code> · <code>legend</code> · <code>tooltip</code> · <code>mark</code> · <code>series</code> · <code>category</code> · <code>annotation</code> · <code>rule-mark</code> · <code>null-marker</code> · …</td></tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top:24px; font-size:14px; color:var(--color-text-subtle);">Full glossary in spec §7.0.1–§7.0.10 (canonical · normative).</p>
+  <h2 id="roadmap" style="margin-top:64px;">Promotion criteria</h2>
+  <p>A component graduates from <em>incubator</em> to <em>shipped</em> when it (1) has co-located <code>accessibility.md</code> + <code>tokens.md</code>, (2) carries a Storybook story file, (3) passes Chromatic baselines across all themes, (4) is referenced by at least one consumer (RALIA, marketing site, or Cortex), and (5) clears G4 design review.</p>
 
 </div>
 
@@ -280,7 +352,7 @@
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 
