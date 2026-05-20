@@ -31,7 +31,13 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        # --legacy-peer-deps required since v2.0.0 — Radix Dialog + visx land as
+        # peerDependencies; npm strict resolution fails on visx@3.x ↔ React 18
+        # peer constraint even though resolved versions are compatible. Pattern
+        # matches every other workflow in .github/workflows/ (ci, chromatic,
+        # docs-publish). Without this, publish silently fails on every release
+        # (v2.0.0, v2.1.0, v2.1.1 all failed — fixed 2026-05-20).
+        run: npm ci --legacy-peer-deps
 
       - name: Build
         run: npm run build
