@@ -1,0 +1,92 @@
+name: Docs Publish
+
+# BRIEF-436 — auto-regenerate design.risqbase.com `public/*.html` whenever
+# a source-of-truth file changes on main. The PR-gate `docs:check` (CI
+# workflow) catches drift *before* merge; this workflow is the safety net
+# that catches direct-to-main commits, release-please bumps, and any other
+# path that lands without going through PR review.
+#
+# Vercel auto-deploys from `public/` on every commit to `main`; this
+# workflow simply ensures `public/*.html` is current before Vercel pulls.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'CHANGELOG.md'
+      - 'package.json'
+      - 'src/**'
+      - 'tokens/**'
+      - 'dist/tokens.css'  # in case dist is committed for any reason
+      - 'docs/design-system/**'
+      - 'tools/docs-build/**'
+      - 'public/styles.css'
+
+concurrency:
+  # Serialise: two pushes to main shouldn't race a regen-commit-push back
+  # to main. Don't cancel in-progress — let the first finish so its commit
+  # lands cleanly.
+  group: docs-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write  # required to commit regenerated public/*.html back to main
+
+jobs:
+  regenerate:
+    name: Regenerate public/*.html
+    runs-on: ubuntu-latest
+    # Skip if the push was made by this workflow itself (commit author
+    # `github-actions[bot]`) — prevents an infinite regen loop.
+    if: github.event.head_commit.author.email != 'github-actions[bot]@users.noreply.github.com'
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          # Need history for git diff + write access for commit-push.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Token build first — generator falls back to tokens/**/*.json if
+      # dist/tokens.css is missing, but the CSS is more accurate.
+      - name: Build tokens
+        run: npm run build:tokens
+
+      - name: Regenerate docs HTML
+        run: npm run docs:build
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet public/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No drift detected — public/*.html is current."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Drift detected — will commit regenerated files."
+            git diff --stat public/
+          fi
+
+      - name: Commit and push regenerated docs
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/
+          git commit -m "chore(docs): regenerate public/*.html via tools/docs-build [skip ci]
+
+Triggered by upstream change in src/, CHANGELOG.md, package.json,
+tokens/, or docs/design-system/. See BRIEF-436."
+          git push origin "HEAD:${BRANCH}"

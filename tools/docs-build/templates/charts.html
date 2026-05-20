@@ -41,7 +41,7 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v{{PKG_VERSION}}</span>
 </header>
 
 <div class="shell">
@@ -70,7 +70,7 @@
 <div class="content wide">
   <p class="eyebrow">Charts</p>
   <h1>28 active types. Ten purpose groups. One menu.</h1>
-  <p class="lede">Every chart in any RisqBase product must be classifiable as exactly one of the canonical types. If a proposed chart can&apos;t be classified, reconsider the chart before inventing a new type. <code>ChartContainer</code> currently implements <b>3</b> of these as React primitives (line · bar · sparkline); the rest are taxonomy entries with library guidance pending v4.4. Sources: Datawrapper Academy, Apple Swift Charts, Observable Plot, Cleveland-McGill perceptual ranking.</p>
+  <p class="lede">Every chart in any RisqBase product must be classifiable as exactly one of the canonical types. If a proposed chart can&apos;t be classified, reconsider the chart before inventing a new type. <code>ChartContainer</code> currently implements <b>{{CHART_TYPE_COUNT}}</b> of these as React primitives ({{CHART_TYPES_LIST}}); the rest are taxonomy entries with library guidance pending v4.4. Sources: Datawrapper Academy, Apple Swift Charts, Observable Plot, Cleveland-McGill perceptual ranking.</p>
 
   <h2 id="taxonomy">The 28-type taxonomy</h2>
   <p>Filter by purpose group to find a chart that fits the question you&apos;re asking the data.</p>
@@ -337,7 +337,7 @@
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v{{PKG_VERSION}} · Spec v{{SPEC_VERSION}} · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 

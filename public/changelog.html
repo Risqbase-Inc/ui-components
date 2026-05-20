@@ -14,20 +14,12 @@
 .entry .head h2 { margin: 0 0 4px; font-size: 22px; }
 .entry .head .meta { display: flex; gap: 8px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); }
 .entry .body { padding: 24px 32px; }
-.section { margin-bottom: 32px; }
-.section:last-child { margin-bottom: 0; }
-.section h3 { margin: 0 0 8px; font-size: 16px; }
-.pr-list { list-style: none; padding: 0; margin: 0; }
-.pr-list li { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--color-border-subtle); align-items: baseline; font-size: 14px; }
-.pr-list li:last-child { border-bottom: 0; }
-.pr-list .pr-num { font-family: var(--font-mono); font-size: 13px; color: var(--color-action-primary); font-weight: 500; }
-.pr-list .pr-title { font-weight: 500; }
-.pr-list .pr-meta { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-subtle); }
-.timeline { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--color-border-subtle); }
-.timeline:last-child { border-bottom: 0; }
-.timeline .when { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle); }
-.timeline .what h4 { margin: 0 0 4px; font-size: 15px; }
-.timeline .what p { margin: 0; font-size: 14px; color: var(--color-text-subtle); }
+.entry .body h4 { font-size: 15px; margin: 16px 0 6px; }
+.entry .body h5 { font-size: 14px; margin: 12px 0 4px; color: var(--color-text-subtle); }
+.entry .body p { margin: 8px 0; }
+.entry .body ul { margin: 8px 0 16px; padding-left: 20px; }
+.entry .body li { margin-bottom: 4px; }
+.entry .body pre { background: var(--color-surface-subtle); padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -42,7 +34,7 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html" class="is-active">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v1.4.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
 </header>
 
 <div class="shell">
@@ -51,12 +43,17 @@
   <div class="group">
     <h4>Releases</h4>
     <ul>
-      <li><a href="#unreleased" class="is-active">2026-05-14 · Chromatic activation (unreleased)</a></li>
-      <li><a href="#brief-401">2026-05-14 · BRIEF-401 (v1.4.0)</a></li>
-      <li><a href="#v4-2-1">2026-05-11 · v4.2.1 patch</a></li>
-      <li><a href="#v4-2">2026-05-07 · v4.2 (v1.1.0)</a></li>
-      <li><a href="#v4-1-1">2026-04-12 · v4.1.1 patch</a></li>
-      <li><a href="#v4-1">2026-03-21 · v4.1</a></li>
+      <li><a href="#design-system-v4-3-package-side-addendum-2-iris-accent-on-contra">Unreleased · Design System v4.3 — package side, addendum 2 (iris.accent-on contrast contract + R11)</a></li>
+      <li><a href="#design-system-v4-3-package-side-addendum-claude-design-strategic">Unreleased · Design System v4.3 — package side, addendum (Claude Design strategic decisions)</a></li>
+      <li><a href="#design-system-v4-3-package-side-risqbase-inc-ui-components-2-0-0">Unreleased · Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)</a></li>
+      <li><a href="#documentation">Unreleased · Documentation</a></li>
+      <li><a href="#documentation-2">Unreleased · Documentation</a></li>
+      <li><a href="#v2-0-0">2026-05-20 · v2.0.0 — 2026-05-20</a></li>
+      <li><a href="#v1-4-0">2026-05-14 · v1.4.0 — 2026-05-14</a></li>
+      <li><a href="#v1-3-0">Unreleased · v1.3.0</a></li>
+      <li><a href="#v1-2-0">2026-02-03 · v1.2.0 — 2026-02-03</a></li>
+      <li><a href="#v1-1-1">Unreleased · v1.1.1</a></li>
+      <li><a href="#v1-0-0">Unreleased · v1.0.0</a></li>
     </ul>
   </div>
   <div class="group">
@@ -71,241 +68,386 @@
 
   <p class="eyebrow">Changelog</p>
   <h1>What shipped, when, why.</h1>
-  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code>. Substantive entries link to PRs on GitHub and the design rationale that motivated them. Spec-level changes track in <code>docs/design-system/v4.2/spec.md</code>; package versions track here.</p>
+  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.0.0</b>, against spec <b>v4.3</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
 
-  <!-- ════════════════════════════════ Unreleased ═══════════════════════ -->
-  <article id="unreleased" class="card entry" style="margin-bottom: 32px;">
-    <div class="head">
-      <div class="row">
-        <div>
-          <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
-          <h2>Chromatic visual regression activated.</h2>
-          <p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Closes v4.2.1 G5. Storybook 8.6 + Chromatic protect every component, every theme, every PR.</p>
-        </div>
-        <div class="meta" style="text-align:right; align-self:flex-end;">
-          <span>2026-05-14</span>
-          <span>·</span>
-          <span>folds into <b style="color:var(--color-text-default);">v1.4.0</b></span>
-          <span>·</span>
-          <span>spec v4.2.1</span>
-        </div>
+  <article id="design-system-v4-3-package-side-addendum-2-iris-accent-on-contra" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Design System v4.3 — package side, addendum 2 (iris.accent-on contrast contract + R11)</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
       </div>
     </div>
+  </div>
+  <div class="body">
+    <p>Resolves the contrast finding surfaced by PR #51's <code>verify:contrast</code> script. Claude Design's call: accept the 3.74:1 ratio (don't darken <code>iris.accent</code>), constrain where the white glyph applies, enforce via a new scanner rule.</p>
+<ul>
+<li><strong>New token <code>iris.accent-on-dark</code></strong> → <code>stone-900</code>. Computes to <strong>4.67:1</strong> on <code>iris.accent</code> (teal-600) — clears AA Normal. Carries a <code>contrastPair</code> annotation so the verifier picks it up. The <code>iris.accent-on</code> token (white) stays at 3.74:1 with a contract update in its <code>$description</code> constraining it to AA Large + Non-Text uses.</li>
+<li><strong>Spec doc — <code>docs/design-system/v4.3/RisqBase-DS-v4.3-Comprehensive.md</code> §4.2 contrast contract</strong> — table of approved / not-approved surface categories, rationale for keeping teal-600, and pointers to the enforcement mechanisms.</li>
+<li><strong>Scanner rule R11</strong> — new in v4.3. <code>docs/design-system/v4.3/scanner-rule-r11.md</code> is the canonical rule definition; <code>scripts/scanner-rules/r11-iris-accent-on.mjs</code> is the reference detection implementation (regex-based; emits <code>error</code> for clear violations, <code>warn</code> for ambiguous). Consumer scanners (RALIA, marketing) import or copy the function into their <code>scripts/lib/design-rules.mjs</code>. The package's <code>files</code> array now publishes <code>scripts/scanner-rules/</code> so consumers pick up rule updates through their normal version bump.</li>
+<li><strong>Primitive docs</strong> — <code>IrisThinking/accessibility.md</code> and <code>PromptChip/accessibility.md</code> now reference the §4.2 contract. The package's own primitives don't violate R11 (verified: <code>node scripts/scanner-rules/r11-iris-accent-on.mjs src → no violations</code>); the contract is for consumer compositions that use Iris-accent backgrounds.</li>
+</ul>
+<p>Out of scope (consumer-repo work):</p>
+<ul>
+<li>Updates to the 10 RALIA redesigns (<code>audit-deliverable/redesigns/*.html</code>) — live in <code>Risqbase-Inc/Ralia</code>.</li>
+<li>Updates to the 8 marketing demos — live in the marketing-site repo.</li>
+<li>Wiring R11 into consumer-side <code>scripts/lib/design-rules.mjs</code> + CI — happens in each consumer scanner.</li>
+<li>Baseline generation for existing showcase violations — each consumer regenerates against its own tree.</li>
+</ul>
+  </div>
+</article>
 
-    <div class="body">
-
-      <div class="section">
-        <h3>What this gives you</h3>
-        <p>Every PR that touches <code>src/</code>, <code>tokens/</code>, or <code>.storybook/</code> now produces a Chromatic build URL with side-by-side diffs across light, dark, HC, and print themes. Approving the build promotes the new pixels to baseline; rejecting it blocks merge. The dark / HC / print themes that just landed in BRIEF-401 are protected from silent regression.</p>
+<article id="design-system-v4-3-package-side-addendum-claude-design-strategic" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Design System v4.3 — package side, addendum (Claude Design strategic decisions)</h2>
       </div>
-
-      <div class="section">
-        <h3>What landed</h3>
-        <ul style="margin:0;">
-          <li><b>5 core components</b> instrumented with co-located <code>.stories.tsx</code> files - Button, Badge, Header, Footer, SectionEyebrow.</li>
-          <li><b>19 stories</b> in four canonical shapes per component - <code>Default</code> · <code>Variants</code> · <code>States/Composed/WithSibling</code> · <code>Gallery</code> (print).</li>
-          <li><b>62 captures</b> in the initial baseline grid (stories × theme matrix, with print opt-in per Gallery).</li>
-          <li><b>PR-only workflow</b> at <code>.github/workflows/chromatic.yml</code> - TurboSnap, <code>autoAcceptChanges: main</code> for first-time baselines, gated by the <code>CHROMATIC_PROJECT_TOKEN</code> repo secret.</li>
-          <li><b>Storybook 8.6</b> with addons essentials + themes + a11y + viewport. Pinned to <code>^8.6</code> majors per spec (Storybook 9 split <code>addon-essentials</code>, breaking the spec's config shape).</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h3>Why this matters now</h3>
-        <p>v4.2.1 G5 ("visual regression baseline audit") was deferred to S5 of the implementation programme. With v1.4.0 about to publish to GitHub Packages and downstream consumers (marketing site this weekend, RALIA end June) starting to adopt, the regression-protection had to land <em>before</em> adoption ramps. Otherwise: silent theme drift in production with no diff to catch it.</p>
-      </div>
-
-      <div class="section">
-        <h3>References</h3>
-        <ul style="margin:0;">
-          <li><a href="https://github.com/Risqbase-Inc/ui-components/pull/44">PR #44</a> - activation</li>
-          <li><a href="https://www.chromatic.com/library?appId=69fe9aac8c64261fca691a4c">Chromatic library</a> - baseline grid</li>
-          <li><a href="https://github.com/Risqbase-Inc/ui-components/blob/main/docs/design-system/v4.2.1/v4.2.1-COMPLETE.md">v4.2.1-COMPLETE.md</a> - G5 row marked resolved</li>
-        </ul>
-      </div>
-
-    </div>
-  </article>
-
-  <!-- ════════════════════════════════ BRIEF-401 ═══════════════════════ -->
-  <article id="brief-401" class="card entry" style="border-color: var(--color-action-primary); border-width: 2px; margin-bottom: 32px;">
-    <div class="head" style="background: linear-gradient(180deg, var(--color-action-primary-subtle) 0%, transparent 100%);">
-      <div class="row">
-        <div>
-          <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> NEW</span>
-          <h2>BRIEF-401 - Substrate complete.</h2>
-          <p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Audit + value-pass closes the v4.2.1 deferrals. Substrate complete; consumers can migrate.</p>
-        </div>
-        <div class="meta" style="text-align:right; align-self:flex-end;">
-          <span>2026-05-14</span>
-          <span>·</span>
-          <span>package v1.1.1 → <b style="color:var(--color-text-default);">v1.4.0</b></span>
-          <span>·</span>
-          <span>spec v4.2.1</span>
-        </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
       </div>
     </div>
+  </div>
+  <div class="body">
+    <ul>
+<li><strong><code>&lt;TelemetryBeacon&gt;</code> stub landed.</strong> New no-op primitive at <code>core/TelemetryBeacon</code> — production no-op, dev <code>console.debug</code> gated on <code>NEXT_PUBLIC_TELEMETRY_DEBUG=1</code>. All 25 primitives (5 v4.2.1 + 20 v4.3) now emit a mount beacon. When the collector lands (audit U4.2 / U4.3), the dispatch wires in at the Beacon — no component-side change.</li>
+<li><strong>Modal / Drawer / Sheet rebased on <code>@radix-ui/react-dialog</code>.</strong> Public API unchanged (<code>open</code> / <code>onClose</code> / <code>title</code> / <code>aria-label</code> / <code>dismissOnBackdrop</code> / <code>dismissOnEsc</code>). The hand-rolled <code>Overlay.tsx</code> is deleted; Radix handles focus trap, focus restoration, ARIA wiring, scroll-lock, and pointer suppression on background siblings. The <code>inertBackground</code> prop is removed (Radix's <code>modal=true</code> default supersedes; nested overlays don't need it).</li>
+<li><strong><code>ChartContainer</code> rebased on visx@^3</strong> (honouring v4.2.1 audit row A1's pin). <code>line</code> / <code>bar</code> / <code>sparkline</code> use <code>@visx/scale</code>, <code>@visx/shape</code>, <code>@visx/group</code>. <code>heatmap</code> / <code>area</code> / <code>choropleth</code> / <code>metric-card</code> deferred to v4.4 unlock by importing the matching visx package; no architecture change.</li>
+<li>**<code>iris.*</code> namespace retained.** Confirmed canonical; no <code>ai.character.*</code> rebase.</li>
+<li><strong>Packaging shape</strong> — Radix Dialog + visx land as <code>peerDependencies</code>, not runtime <code>dependencies</code>. <code>@radix-ui/react-dialog</code> is <strong>required</strong> (every consumer of <code>Modal</code> / <code>Drawer</code> / <code>Sheet</code> needs it). The three visx packages (<code>@visx/group</code>, <code>@visx/scale</code>, <code>@visx/shape</code>) are flagged <strong>optional</strong> in <code>peerDependenciesMeta</code> — consumers that never import <code>ChartContainer</code> aren't forced to install them. All four are mirrored in <code>devDependencies</code> so local builds, tests, and Storybook keep resolving. This is the standard packaging shape for a React UI library that wraps third-party primitives (mirrors Radix-derived libs, MUI, Chakra, Mantine, shadcn).</li>
+</ul>
+  </div>
+</article>
 
-    <div class="body">
-
-      <div class="section">
-        <h3>Summary</h3>
-        <p>The v4.2.1 patch (2026-05-11) shipped 241 enumerated tokens, the full 28-chart-type taxonomy, and the 84-term glossary - but explicitly deferred four substrate items: <b>38 chart-domain primitive hex values</b> · <b>dark + HC + print theme override values</b> · <b>scopes[] migration</b> per v4.2.1 A7. BRIEF-401 closes all four, plus the implementation audit that surfaces four real AA-contrast failures (back-ported to v4.3 follow-ups).</p>
+<article id="design-system-v4-3-package-side-risqbase-inc-ui-components-2-0-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)</h2>
       </div>
-
-      <div class="section">
-        <h3>What landed</h3>
-        <ul style="margin:0;">
-          <li><b>38 chart-domain primitive hex values</b> - three sequential ramps (risk, financial, operational) × 10 stops + two diverging extensions × 4 stops. OKLCH-perceptually-equal-stepped; every stop AA-verified. <a href="tokens.html#chart-primitives">See in the token tree →</a></li>
-          <li><b>Dark theme override values</b> - 47 entries. Surfaces L\* 0.18 (never #000); brand brightens to indigo-500-equivalent <code>#4768DB</code>; risk bands lift-and-flip. AA-clean across the board.</li>
-          <li><b>HC (forced-colors) theme override values</b> - CSS system keywords (Canvas, CanvasText, Highlight, …). Chart marks differentiate via shape / dash / pattern only.</li>
-          <li><b>Print theme + 4 pattern-fill SVG-data-URI assets</b> - pure-white surfaces · 7-tier black ladder · pattern density tracks band severity inversely.</li>
-          <li><b>scopes[] migration patch</b> - 131 entries (95 semantic + 36 component) carry the v4.2.1 A7 required <code>scopes[]</code> array.</li>
-          <li><b>Implementation audit</b> - read-only PASS / FLAG / FAIL across token tree, AA contrast, components, Figma, consumers, visual regression. <a href="https://github.com/Risqbase-Inc/ui-components/blob/main/docs/audits/2026-05-13-implementation-audit.md">Read the audit →</a></li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h3>PRs (7) merged</h3>
-        <ol class="pr-list">
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/30">#30</a></span><span class="pr-title">feat(tokens): populate 38 chart-domain primitive hex values</span><span class="pr-meta">claude-design/brief-401-chart-primitives</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/31">#31</a></span><span class="pr-title">feat(tokens): populate dark-mode override values<br><span style="font-size:12px;color:var(--color-text-subtle);font-weight:400;">+ FU-7 absorbed: 38 → 47 entries</span></span><span class="pr-meta">claude-design/brief-401-dark-overrides</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/32">#32</a></span><span class="pr-title">feat(tokens): populate HC forced-colors override values</span><span class="pr-meta">claude-design/brief-401-hc-overrides</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/33">#33</a></span><span class="pr-title">feat(tokens): populate print theme + add print pattern-fill assets</span><span class="pr-meta">claude-design/brief-401-print-tokens</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/34">#34</a></span><span class="pr-title">feat(tokens): add scopes[] to semantic + component figma extensions</span><span class="pr-meta">claude-design/brief-401-scopes-patch</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/35">#35</a></span><span class="pr-title">docs(audits): land BRIEF-401 implementation audit</span><span class="pr-meta">claude-design/brief-401-audit-doc</span></li>
-          <li><span class="pr-num"><a href="https://github.com/Risqbase-Inc/ui-components/pull/36">#36</a></span><span class="pr-title">chore(design-system): close BRIEF-401 implementation audit + value pass</span><span class="pr-meta">claude-design/brief-401-summary</span></li>
-        </ol>
-      </div>
-
-      <div class="section">
-        <h3>Design rationale</h3>
-        <p>Five rationale docs ship alongside the value pass:</p>
-        <ul style="margin:0;">
-          <li><a href="https://github.com/Risqbase-Inc/ui-components/blob/main/docs/audits/2026-05-13-implementation-audit.md">2026-05-13-implementation-audit.md</a> - PASS/FLAG/FAIL across 6 sections</li>
-          <li><b>palette-rationale.md</b> - OKLCH method, per-ramp anchors, rejected alternatives (≥2 per ramp)</li>
-          <li><b>dark-mode-rationale.md</b> - four design principles + per-family rationale + AA verification matrix</li>
-          <li><b>hc-mode-rationale.md</b> - three operating rules for forced-colors</li>
-          <li><b>print-rationale.md</b> - why monochrome + pattern, seven-tier black ladder, per-band encoding</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h3>Audit findings - back-ported to v4.3</h3>
-        <p>Four real AA-contrast failures in the existing light-mode semantic layer surfaced during Phase 1. The dark-mode overrides already use a lift-and-flip pattern that fixes the analogous issue on dark canvases; the v4.3 patch will back-port the same to light:</p>
-        <table class="tbl">
-          <thead><tr><th>Token</th><th>Ratio</th><th>Target</th><th>Fix</th></tr></thead>
-          <tbody>
-            <tr><td><code>color.risk.medium</code> on white</td><td class="num">2.15:1</td><td class="num">4.5:1</td><td>Rebind to <code>color.palette.risk.700</code></td></tr>
-            <tr><td><code>color.risk.high</code> on white</td><td class="num">2.80:1</td><td class="num">4.5:1</td><td>Rebind to <code>color.palette.risk.700</code></td></tr>
-            <tr><td><code>color.band.very-low.text</code> on bg</td><td class="num">2.54:1</td><td class="num">4.5:1</td><td>Lift bg L*, flip text dark</td></tr>
-            <tr><td><code>color.band.high.text</code> on bg</td><td class="num">2.80:1</td><td class="num">4.5:1</td><td>Lift bg L*, flip text dark</td></tr>
-          </tbody>
-        </table>
-        <p style="font-size:13px; color:var(--color-text-subtle);">Plus six other audit-surfaced follow-ups in <code>artefacts/BRIEF-401-follow-ups.md</code>. None block consumer migration to v1.4.0.</p>
-      </div>
-
-      <div class="section">
-        <h3>How to consume</h3>
-        <div class="code-block"><button class="copy">Copy</button><pre><code>npm i @risqbase-inc/ui-components@^1.2.0
-
-# In your root layout:
-&lt;html data-theme="auto"&gt;  &lt;!-- light · dark · hc --&gt;
-
-# Theme init is SSR-safe; reads localStorage on hydrate.
-import { themeInitScript } from '@risqbase-inc/ui-components';
-// ... inject themeInitScript before any client component renders.</code></pre></div>
-        <p style="font-size:13px; color:var(--color-text-subtle); margin-top:12px;">No breaking changes from v1.1.x. Minor revision (additive only).</p>
-      </div>
-
-    </div>
-  </article>
-
-  <!-- ════════════════════════════════ v4.2.1 ════════════════════════ -->
-  <article id="v4-2-1" class="card entry">
-    <div class="head">
-      <div class="row">
-        <div>
-          <h2>v4.2.1 patch - substrate enumeration.</h2>
-          <p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Documentation-only patch closing 14 spec-side gaps from the post-v4.2 audit.</p>
-        </div>
-        <div class="meta"><span>2026-05-11</span><span>·</span><span>spec v4.2 → v4.2.1</span><span>·</span><span>no package version bump</span></div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
       </div>
     </div>
-    <div class="body">
-      <p>Three substrate items (P0) closed: §15.6 token coverage expanded from ~30 → <b>241 enumerated</b> (38 chart-domain primitives marked TBD for BRIEF-401) · §8.1.1 chart taxonomy 7 → <b>28 active types</b> + 11-row decision matrix · §10.6 glossary structure → <b>84 canonical entries</b>.</p>
-      <p>Seven audit-flagged items (P1) - print variants per chart type · Visx@^3 library pin · composite recipes · promotion log · number formatting · voice_examples template binding · Figma <code>$extensions</code> key reconciliation.</p>
-      <p>Four governance-hygiene items (P2). Resolution: 14 of 14 rows closed across 11 PRs.</p>
-    </div>
-  </article>
+  </div>
+  <div class="body">
+    <p><strong>MAJOR</strong>. Implements the package half of GOV-DS-2026-02 v4.3 (CEO-approved 18 May 2026). The docs site (<code>design.risqbase.com</code>), telemetry dashboard, consumer migrations (RALIA, marketing), and Layer-3 showcase pages land in separate PRs per spec §9 / §11.</p>
+<h4>Three-layer model</h4>
+<ul>
+<li>Layer 1 / Layer 2 / Layer 3 separation codified per v4.3 §2. Domain barrels (<code>/core</code>, <code>/ai</code>, <code>/data-viz</code>) are the public surface. Root barrel is <strong>soft-deprecated</strong> — dev builds emit a one-shot console warning; removal target v5.0 (§9.2).</li>
+</ul>
+<h4>New components — 20 primitives across three domains</h4>
+<p><strong><code>/core</code> (Layer 1) — 12 new + extended Badge.</strong></p>
+<ul>
+<li><code>IconButton</code> (3 sizes × 3 variants, hit target ≥ 24×24 — closes RALIA F-015 / F-028 / F-037 / F-050).</li>
+<li><code>SkipLink</code> (closes RALIA F-053 + WCAG 2.4.1).</li>
+<li><code>Card</code> (3 variants × 4 padding levels, 16px default radius — closes RALIA F-060).</li>
+<li><code>Callout</code> (5 intents, replaces left-border-accent — closes RALIA F-002 + marketing C-05).</li>
+<li><code>Skeleton</code> (5 variants, motion-reduce safe — closes RALIA F-004).</li>
+<li><code>EmptyState</code> (8 variants — closes RALIA F-020 / F-055).</li>
+<li><code>WizardProgress</code> (auto-style by step count — closes RALIA F-010).</li>
+<li><code>Modal</code>, <code>Drawer</code>, <code>Sheet</code> (shared focus-trap + scrim + Esc + body inert — closes RALIA F-046).</li>
+<li><code>Toast</code> + <code>ToastViewport</code> (focus-aware quadrant positioner — closes RALIA F-054, WCAG 2.4.11).</li>
+<li><code>Badge</code> extended with <code>band-very-low</code> / <code>band-low</code> / <code>band-medium</code> / <code>band-high</code> / <code>band-very-high</code> variants + <code>BandBadge</code> wrapper (closes RALIA F-018).</li>
+</ul>
+<p><strong><code>/ai</code> (Layer 2) — 5 new.</strong></p>
+<ul>
+<li><code>CitationChip</code> (9 variants — closes RALIA F-012 / F-025).</li>
+<li><code>IrisThinking</code> (3-arc rotation, reduced-motion fallback — closes RALIA F-011 / F-051).</li>
+<li><code>StreamingText</code> (constant 35 tok/s cadence — closes O-006).</li>
+<li><code>PromptChip</code> (Iris-accent halo on hover).</li>
+<li><code>ClientScopeBanner</code> (persistent below-header strip — closes RALIA F-043).</li>
+</ul>
+<p><strong><code>/data-viz</code> (Layer 2) — 3 new.</strong></p>
+<ul>
+<li><code>Gauge</code> (generic stroked-arc, 4 sizes, 3 palettes — closes v4.2 audit U2.1).</li>
+<li><code>RiskGauge</code> (compliance-semantics wrapper: dual-ring + band-derivation + delta pill — closes v4.2 audit U2.2).</li>
+<li><code>ChartContainer</code> (<code>line</code> / <code>bar</code> / <code>sparkline</code> ship in v4.3; <code>heatmap</code> / <code>area</code> / <code>choropleth</code> / <code>metric-card</code> deferred to v4.4 per v4.1 §8.1.1).</li>
+</ul>
+<h4>Tokens</h4>
+<ul>
+<li>**New <code>iris.*</code> semantic namespace** (9 tokens: <code>accent</code>, <code>accent-hover</code>, <code>accent-subtle</code>, <code>accent-on</code>, <code>surface</code>, <code>streamhead</code>, <code>thinking-outer</code>, <code>thinking-mid</code>, <code>thinking-inner</code>). Resolves through the teal palette but named explicitly so RALIA / Cortex / future products can re-bind the Iris character per product without touching primitives.</li>
+<li><strong>Badge band variants</strong> — <code>tokens/component/badge.json</code> extended with 15 <code>band.*</code> tokens (5 bands × 3 properties: background / foreground / border).</li>
+<li><strong>New component-tier token files:</strong> <code>card.json</code>, <code>callout.json</code>, <code>citation-chip.json</code>, <code>gauge.json</code>, <code>iris-thinking.json</code>.</li>
+</ul>
+<h4>Tailwind preset</h4>
+<ul>
+<li><code>font-sans</code> default updated to lead with Geist / Geist Sans (canonical primary per v4.3 §4.5); <code>font-mono</code> defaults to Geist Mono.</li>
+<li>New <code>keyframes</code> and <code>animation</code> entries: <code>skeleton-shimmer</code>, <code>streamhead-blink</code>, <code>iris-thinking-rotate</code>, <code>iris-thinking-rotate-reverse</code>, <code>iris-thinking-pulse</code>.</li>
+</ul>
+<h4>Resolutions</h4>
+<ul>
+<li><strong>D-001</strong> Button radius ratified at 12px (<code>rounded-xl</code> / <code>--dimension-radius-button-default</code>).</li>
+<li><strong>D-002</strong> Header logo weight ratified at <code>font-bold</code>.</li>
+<li><strong>D-003</strong> Footer surface ratified at <code>surface-inverse</code> (stone-900).</li>
+</ul>
+<h4>Spec</h4>
+<ul>
+<li><code>docs/design-system/v4.3/RisqBase-DS-v4.3-Comprehensive.md</code> recorded as the canonical reference (GOV-DS-2026-02 v4.3, CEO-approved 18 May 2026).</li>
+</ul>
+  </div>
+</article>
 
-  <!-- ════════════════════════════════ v4.2 ═══════════════════════════ -->
-  <article id="v4-2" class="card entry">
-    <div class="head">
-      <div class="row">
-        <div>
-          <h2>v4.2 - first-class data-viz; IRIS decoupled.</h2>
-          <p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">The canonical world-class baseline. Six fundamental improvements.</p>
-        </div>
-        <div class="meta"><span>2026-05-07</span><span>·</span><span>package v1.0.x → <b style="color:var(--color-text-default);">v1.1.0</b></span><span>·</span><span>spec v4.1.1 → v4.2</span></div>
+<article id="documentation" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Documentation</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
       </div>
     </div>
-    <div class="body">
-      <ul style="margin:0;">
-        <li><b>F1</b> · First-class Data Visualisation System - §7.0 anatomy nouns, §8 full chapter, §15 chart palette tokens, §17 checklist row-expansion, §22 <code>data-viz/</code> domain.</li>
-        <li><b>F2</b> · Signatures decoupled from RALIA - generic Gauge primitive promoted to <code>data-viz/</code>; <code>ai/</code> domain added with Citation Chip, StreamingText, PromptChip, LongOperation promoted from RALIA.</li>
-        <li><b>F3</b> · Content design as a first-class layer - §10 expansion · 84-term canonical glossary · localisation rules.</li>
-        <li><b>F4</b> · Component telemetry + adoption discipline - §15.7 · §18.3 · §23 (adoption as promotion criterion).</li>
-        <li><b>F5</b> · Figma ↔ code token sync - W3C Design Tokens Format · <code>$extensions.com.risqbase.figma</code>.</li>
-        <li><b>F6</b> · Cross-cutting consolidation - 5 domains incl. <code>ai/</code> + <code>data-viz/</code>.</li>
-      </ul>
-    </div>
-  </article>
+  </div>
+  <div class="body">
+    
+  </div>
+</article>
 
-  <!-- ════════════════════════════════ v4.1.1 ═════════════════════════ -->
-  <article id="v4-1-1" class="card entry">
-    <div class="head">
-      <div class="row">
-        <div>
-          <h2>v4.1.1 patch - Linear-inspired keyboard grammar.</h2>
-        </div>
-        <div class="meta"><span>2026-04-12</span><span>·</span><span>spec v4.1 → v4.1.1</span></div>
+<article id="documentation-2" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Documentation</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
       </div>
     </div>
-    <div class="body">
-      <p>§5.8.3 keyboard shortcuts re-organised under four verbs (go-to, find/run, act-on-focus, submit/save) with cross-product destination map. <code>?</code> opens the cheatsheet.</p>
-    </div>
-  </article>
+  </div>
+  <div class="body">
+    <ul>
+<li><strong>Design System v4.2.1 — Complete.</strong> All 14 spec-side gaps closed across 11 PRs (#17–#27) on 2026-05-11 + housekeeping PR landing the rename + tracker reconciliation. Documentation-only patch; no <code>@risqbase-inc/ui-components</code> version bump. Resolution log + outstanding handoffs in <a href="docs/design-system/v4.2.1/v4.2.1-COMPLETE.md"><code>docs/design-system/v4.2.1/v4.2.1-COMPLETE.md</code></a>.</li>
+<li><strong>P2 governance hygiene (G1–G4):</strong> §8.5.6 sonification deferral, §16.2 marketing→content rename, §17 row-count drift note, §18 doc-site status note.</li>
+<li><strong>P1 audit-flagged (A1–A7):</strong> §8.7 visx@^3.0.0 library pin, §10.3.3 number-formatting (4 typed tables), §15.1 + §15.8.4 Figma <code>$extensions</code> key, §20.0.1 voice_examples template binding, §23.7 promotion log (5 rows), §8.16 print variants for all 28 chart types, §8.17 three composite recipes.</li>
+<li><strong>P0 substrate (T1–T3):</strong> §15.6 token enumeration (241 tokens authored; 38 TBD primitives queued for Claude Design), §8.1.1 chart taxonomy (7 → 28 active types + 11-row decision matrix), §10.6 canonical glossary (14 → 84 entries across 6 sub-categories).</li>
+<li><strong>Section-ID corrections</strong> (5) recorded in <code>v4.2.1-COMPLETE.md</code> resolution log — patch plan's section IDs vs as-shipped spec.</li>
+<li><strong>Tracker-table reconciliation</strong> — 6 row-state mismatches between entry-section headers and bottom tracker fixed in the housekeeping PR.</li>
+<li><code>docs/design-system/v4.2/audit.md</code> &quot;What needs honest attention before v4.2.1&quot; updated to reference the completion document.</li>
+<li><code>docs/design-system/v4.2/v4.2.1-backlog.md</code> (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.</li>
+<li><strong>BRIEF-401 — DS implementation audit + value-pass.</strong> <code>docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md</code> commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, <code>scopes[]</code> patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.</li>
+</ul>
+  </div>
+</article>
 
-  <!-- ════════════════════════════════ v4.1 ═══════════════════════════ -->
-  <article id="v4-1" class="card entry">
-    <div class="head">
-      <div class="row">
-        <div>
-          <h2>v4.1 - command palette, density, role tokens.</h2>
-        </div>
-        <div class="meta"><span>2026-03-21</span><span>·</span><span>package v0.x → <b style="color:var(--color-text-default);">v1.0.0</b></span></div>
+<article id="v2-0-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 2.0.0</span>
+        <h2>v2.0.0 — 2026-05-20</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>2026-05-20</span>
+        <span>·</span><span>v2.0.0</span>
       </div>
     </div>
-    <div class="body">
-      <p>Three-mode density scaling (compact / default / comfortable). Cmd/Ctrl+K command palette with WAI-ARIA combobox. Role-token tier above semantic.</p>
+  </div>
+  <div class="body">
+    <h5>⚠ BREAKING CHANGES</h5>
+<p>* design system v4.3 — package side (<code>@risqbase-inc/ui-components@2.0.0</code>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/49">#49</a>)</p>
+<h5>Features</h5>
+<p><em> contrast verification script + CI integration (PR 3) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/eca0f7a4ca24a2cf497f6bfd40a6af907e36c1f3">eca0f7a</a>) </em> contrast verification script + CI integration (PR 3) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/8f4576d869c006471ec49cf559355ff74009f9a9">8f4576d</a>) <em> contrast verification script + CI integration (v4.3 PR 3 of programme — supersedes closed <a href="https://github.com/Risqbase-Inc/ui-components/issues/51">#51</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/54">#54</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/eca0f7a4ca24a2cf497f6bfd40a6af907e36c1f3">eca0f7a</a>) </em> design system v4.3 — package side (<code>@risqbase-inc/ui-components@2.0.0</code>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/49">#49</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/faef9986a1087f2144c3593b5f5bfa5f332876e6">faef998</a>) <em> iris.accent-on §4.2 contrast contract + R11 scanner rule (PR 4) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/c0db3b44f1c700f95562b1f957021adc2dd11998">c0db3b4</a>) </em> iris.accent-on §4.2 contrast contract + R11 scanner rule (v4.3 PR 4 — supersedes closed <a href="https://github.com/Risqbase-Inc/ui-components/issues/52">#52</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/55">#55</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/2ac62dc8a1061a923c3ac1d63bc7a2238baa2355">2ac62dc</a>) <em> v4.3 stories + Chromatic baseline (PR 2 of programme) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/b7a0a52dde2ac3b3275b54668f3ec974a1e9dbd3">b7a0a52</a>) </em> v4.3 stories + Chromatic baseline (v4.3 PR 2 — supersedes closed <a href="https://github.com/Risqbase-Inc/ui-components/issues/50">#50</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/56">#56</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/2d6ef82591fde06952f8a725d09ac0919588ce79">2d6ef82</a>)</p>
+  </div>
+</article>
+
+<article id="v1-4-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 1.4.0</span>
+        <h2>v1.4.0 — 2026-05-14</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>2026-05-14</span>
+        <span>·</span><span>v1.4.0</span>
+      </div>
     </div>
-  </article>
+  </div>
+  <div class="body">
+    <h5>Features</h5>
+<p><em> design site v1 — Claude Design import (replaces <a href="https://github.com/Risqbase-Inc/ui-components/issues/40">#40</a> prototype) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/1709d7ee45a9c41fb958b2691816aea1b9ec657e">1709d7e</a>) </em> design site v1 — Claude Design import (supersedes <a href="https://github.com/Risqbase-Inc/ui-components/issues/40">#40</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/42">#42</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/d0992e29df789375ec4fa48826ec3b26b0d6a93f">d0992e2</a>) <em> <strong>design-site:</strong> import favicon — current r|ↄ brand mark (<a href="https://github.com/Risqbase-Inc/ui-components/commit/ddcb942dc1a65c52e1dbbe630b3c0700c89100b2">ddcb942</a>) </em> <strong>design-site:</strong> recover lost commits + close v4.2.1 G5 (<a href="https://github.com/Risqbase-Inc/ui-components/issues/45">#45</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/2bebb332f237a86af87734340aee1c45b3e0dbbd">2bebb33</a>) <em> design-system v1 site + RisqBase d.o.o. registered office in Footer (<a href="https://github.com/Risqbase-Inc/ui-components/commit/18185bc9c6a2fbeec7b1bfac1efb76f6db20f63a">18185bc</a>) </em> design-system v1 site + RisqBase d.o.o. registered office in Footer (<a href="https://github.com/Risqbase-Inc/ui-components/issues/40">#40</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/4eed2a0c4c481c59669237ec68fd5a9645974f7c">4eed2a0</a>) * <strong>tokens:</strong> add scopes[] to semantic + component figma extensions (BRIEF-401) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/34">#34</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/d83c774fca6affc90bbcca4a014d3f8e06850493">d83c774</a>)</p>
+<h5>Bug Fixes</h5>
+<p>* <strong>design-site:</strong> rename Cortex to RisqBase operations externally (<a href="https://github.com/Risqbase-Inc/ui-components/commit/03f3184085028d320be7c8a5b3e9042e9f73a7ca">03f3184</a>)</p>
+<h5>Documentation</h5>
+<p>* mark v4.2.1 G5 resolved + add Chromatic changelog entry (<a href="https://github.com/Risqbase-Inc/ui-components/commit/fec4a9762d73d52be2ccd1e2c321e4a930b5795c">fec4a97</a>)</p>
+  </div>
+</article>
+
+<article id="v1-3-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 1.3.0</span>
+        <h2>v1.3.0</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        <span>·</span><span>v1.3.0</span>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <p>S1 of the v4.2 implementation programme is the largest single sprint in the package's history: ~1,800 lines of new and changed code across <code>src/</code>, <code>tokens/</code>, and <code>tools/</code>, plus the W3C-format token corpus, the Style Dictionary build pipeline, and the SSR-safe theming infrastructure. This release ships those changes; subsequent v4.2 sprints (S2 — data-viz, S3 — ai, S4 — content/dark/HC, S5 — Figma, S6 — consumer migration) layer additional v1.3.x and v1.4.x releases on top.</p>
+<h5>Added</h5>
+<p><strong>Sub-path imports</strong> (spec §22.2)</p>
+<ul>
+<li><code>src/</code> restructured into domain folders (<code>core/</code>, <code>ai/</code>, <code>data-viz/</code>, <code>content/</code>, <code>tokens/</code>, <code>primitives/</code>). Consumers can import from sub-paths:</li>
+<li><code>@risqbase-inc/ui-components/core</code> — the five v1.x components plus theming primitives.</li>
+<li><code>@risqbase-inc/ui-components/tokens</code> — typed design tokens.</li>
+<li><code>@risqbase-inc/ui-components/ai</code>, <code>/data-viz</code>, <code>/content</code> — empty placeholders today; reserved for S2 (data-viz), S3 (ai), S4 (content). Imports resolve cleanly from S1 onwards.</li>
+<li><code>primitives/</code> is intentionally internal-only.</li>
+</ul>
+<p><strong>Design tokens — three-tier W3C corpus</strong></p>
+<ul>
+<li>~150+ tokens authored as W3C Design Tokens Format JSON across primitive, semantic, and component tiers in <code>tokens/</code>.</li>
+<li>Style Dictionary build pipeline (<code>npm run build:tokens</code>) emits four artefacts: <code>dist/tokens.css</code>, <code>dist/tailwind-tokens.js</code>, <code>dist/figma-tokens.json</code>, and <code>src/tokens/generated.ts</code>.</li>
+<li>Schema lint (<code>npm run lint:tokens</code>) rejects W3C violations and unresolved <code>{token.path}</code> references.</li>
+<li>See <code>tokens/README.md</code> for authoring guidance.</li>
+</ul>
+<p><strong>Theming infrastructure</strong> (spec §15.2.1, plan D11)</p>
+<ul>
+<li><code>data-theme</code> attribute on <code>&lt;html&gt;</code> is the single switch for <code>light</code> | <code>dark</code> | <code>hc</code>. CSS custom properties cascade off the attribute; theme swaps require no React re-render.</li>
+<li>New public API (exported from both root and <code>/core</code>):</li>
+<li><code>setTheme(theme)</code> — runtime mode setter; persists to <code>localStorage</code>. SSR-safe (no-op on server).</li>
+<li><code>getTheme()</code> — read the active mode (returns <code>'light'</code> during SSR).</li>
+<li><code>themeInitScript</code> — ~280-byte SSR-safe init string. Inline as the <strong>first</strong> <code>&lt;script&gt;</code> in <code>&lt;head&gt;</code> to avoid flash-of-wrong-theme on reload.</li>
+<li><code>THEME_STORAGE_KEY</code> — <code>localStorage</code> key name (<code>'risqbase-ds-theme'</code>) for consumer integrations.</li>
+<li><code>Theme</code> — exported type alias: <code>'light' | 'dark' | 'hc'</code>.</li>
+<li>Light values shipped now; dark and HC token overrides are stub layers (<code>tokens/themes/{dark,hc}.json</code>) that G4 fills in S4. Until then, <code>setTheme('dark')</code> renders light values.</li>
+<li>See <code>docs/theming.md</code> for the consumer integration guide.</li>
+</ul>
+<p><strong>Toolchain</strong></p>
+<ul>
+<li><code>npm run lint:tokens</code> — schema lint over <code>tokens/**/*.json</code>.</li>
+<li><code>npm run build:tokens</code> — Style Dictionary build, runs first in <code>npm run build</code>.</li>
+</ul>
+<h5>Changed</h5>
+<ul>
+<li>Header, Footer, Button, Badge, SectionEyebrow migrated to consume role tokens via Tailwind arbitrary values (e.g. <code>bg-[var(--color-action-primary)]</code>). Migration is structural; no visual change is intended at light-mode parity (Chromatic verifies in G5).</li>
+<li>Stone-* (warm) neutral palette per spec §1; replaces <code>gray-*</code> references in component classNames where applicable.</li>
+<li>ESLint configuration moved into <code>package.json#eslintConfig</code> (single source of truth). <code>@typescript-eslint</code> remains at v6.21.0; the v8 upgrade is in flight in G1's parallel PR and will close behind it.</li>
+</ul>
+<h5>Backwards compatibility</h5>
+<ul>
+<li>Every v1.x export remains at the package root: <code>import { Button } from '@risqbase-inc/ui-components'</code> continues to work for all five components and for the new theme primitives. Sub-path imports are additive — no consumer is forced to migrate.</li>
+<li>The Tailwind preset (<code>@risqbase-inc/ui-components/tailwind.preset</code>) is unchanged in shape; new role tokens layer in.</li>
+</ul>
+<h5>Known gaps closing in later sprints</h5>
+<ul>
+<li><code>dist/tokens.css</code> ships <code>[data-theme=&quot;dark&quot;]</code> and <code>[data-theme=&quot;hc&quot;]</code> as stub blocks today — switching modes will render light values until G4 fills the overrides in S4 (per <code>implementation-plan.md</code> §6 R3). No consumer code change is required when those values land.</li>
+<li><code>.github/workflows/publish.yml</code> is gated by <code>if: false</code> pending the <code>apps/docs</code> path and monorepo-tool decision; the npm-publish-on-<code>v*.*.*</code>-tag flow is wired but not yet active. Owner: G1 (G1).</li>
+</ul>
+<h5>Documentation</h5>
+<p>This release lands alongside documentation that has shipped to <code>main</code> separately:</p>
+<ul>
+<li>v4.2 spec, plan, audit, and v4.2 README — PR #2.</li>
+<li>v4.2 implementation plan — PR #4.</li>
+<li>DevOps stubs (workflow scaffolding, Vercel placeholder, CODEOWNERS) — PR #3.</li>
+<li>Per-component <code>tokens.md</code> content — PR #9 (Frontend).</li>
+</ul>
+<p>In this PR (<code>s1/cleanup-3-doc-consistency</code>):</p>
+<ul>
+<li><code>notes/gov-id-format.md</code> flipped from <code>PENDING VERIFICATION</code> to <strong>VERIFIED</strong>; canonical format is <code>GOV-DS-&lt;YEAR&gt;-&lt;SEQ&gt;[-&lt;DOC-TYPE&gt;-&lt;VERSION&gt;]</code> with <code>&lt;VERSION&gt;</code> rendered dotted (e.g. <code>4.2</code>, not <code>420</code>).</li>
+<li><code>plan.md</code> and <code>audit.md</code> Document IDs corrected to <code>GOV-DS-2026-02-PLAN-4.2</code> and <code>GOV-DS-2026-02-AUDIT-4.2</code>.</li>
+<li><code>notes/audit-row-counts.md</code> and <code>notes/glossary-scope.md</code> carried forward from PR #11.</li>
+<li><code>implementation-plan.md</code> row-count reconciliation carried forward from PR #11 (§1 executive summary, §4 heading, §7 DoD).</li>
+<li><code>README.md</code> (repo root) refreshed: install, sub-path imports, theme API, build commands, available components, design-system reference.</li>
+</ul>
+<h5>Tracking</h5>
+<ul>
+<li>v4.2 supersedes v4.1.1 at the document level.</li>
+<li>v4.2.1 patch backlog is enumerated in <code>docs/design-system/v4.2/implementation-plan.md</code> §8 (motion tokens, sonification reconciliation, U1.9 chart-library decision, glossary term list, Figma metadata extension key, plus the historical <code>-420</code> strings preserved in PR #2's commit message footer — repo working tree is clean).</li>
+</ul>
+  </div>
+</article>
+
+<article id="v1-2-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 1.2.0</span>
+        <h2>v1.2.0 — 2026-02-03</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>2026-02-03</span>
+        <span>·</span><span>v1.2.0</span>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <ul>
+<li>Initial Header, Footer, Button, Badge, SectionEyebrow components.</li>
+<li>Tailwind preset with brand colours (indigo-600 primary).</li>
+<li>Documented in <code>CLAUDE.md</code>.</li>
+</ul>
+  </div>
+</article>
+
+<article id="v1-1-1" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 1.1.1</span>
+        <h2>v1.1.1</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        <span>·</span><span>v1.1.1</span>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <ul>
+<li>Footer legal-links route correction (always <code>risqbase.com</code>).</li>
+</ul>
+  </div>
+</article>
+
+<article id="v1-0-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 1.0.0</span>
+        <h2>v1.0.0</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        <span>·</span><span>v1.0.0</span>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <p>See git tags <code>v1.0.0</code> through <code>v1.1.0</code> for prior history.</p>
+  </div>
+</article>
 
   <h2 id="convention" style="margin-top:64px;">Versioning convention</h2>
   <p>The package and the spec version separately. <code>@risqbase-inc/ui-components</code> is semver:</p>
   <ul>
-    <li><b>Major</b> - breaking API change in a shipped component (renamed prop, removed variant, type-narrowing). Reviewed for migration cost across all three consumers before merge.</li>
-    <li><b>Minor</b> - additive - new components, new tokens, new variants. BRIEF-401 was a minor (1.1.x → 1.2.0).</li>
-    <li><b>Patch</b> - bug fix, contrast remediation, doc string fix. No new tokens; no new variants.</li>
+    <li><b>Major</b> — breaking API change in a shipped component (renamed prop, removed variant, type-narrowing). Reviewed for migration cost across all three consumers before merge.</li>
+    <li><b>Minor</b> — additive: new components, new tokens, new variants.</li>
+    <li><b>Patch</b> — bug fix, contrast remediation, doc string fix. No new tokens; no new variants.</li>
   </ul>
-  <p>The spec versions semantic but separately. v4.x is the current ladder. A spec point release (e.g. v4.2 → v4.2.1) doesn&apos;t always trigger a package version bump - sometimes the spec lands ahead of code.</p>
+  <p>The spec versions semantically but separately. v4.x is the current ladder. A spec point release doesn&apos;t always trigger a package version bump — sometimes the spec lands ahead of code.</p>
 
   <h2 style="margin-top:48px;">Where to follow</h2>
   <ul>
-    <li><a href="https://github.com/Risqbase-Inc/ui-components/releases">GitHub releases ↗</a> - every package version with notes</li>
-    <li><a href="https://github.com/Risqbase-Inc/ui-components/blob/main/CHANGELOG.md">CHANGELOG.md ↗</a> - long-form notes per release</li>
-    <li><a href="mailto:design@risqbase.com">design@risqbase.com</a> - direct line to the design council</li>
+    <li><a href="https://github.com/Risqbase-Inc/ui-components/releases">GitHub releases ↗</a> — every package version with notes</li>
+    <li><a href="https://github.com/Risqbase-Inc/ui-components/blob/main/CHANGELOG.md">CHANGELOG.md ↗</a> — long-form notes per release</li>
+    <li><a href="mailto:design@risqbase.com">design@risqbase.com</a> — direct line to the design council</li>
   </ul>
 
 </div>
@@ -318,7 +460,7 @@ import { themeInitScript } from '@risqbase-inc/ui-components';
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v1.4.0 · Spec v4.2.1 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 

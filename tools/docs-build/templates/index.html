@@ -20,12 +20,12 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v{{PKG_VERSION}}</span>
 </header>
 
 <section style="background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 96px 24px;">
   <div style="max-width: 1080px; margin: 0 auto;">
-    <p class="eyebrow">RisqBase Design System · v4.3</p>
+    <p class="eyebrow">RisqBase Design System · v{{SPEC_VERSION}}</p>
     <h1 style="font-size: 64px; line-height: 1.05; max-width: 18ch;">A design system for serious work, used daily.</h1>
     <p class="lede" style="font-size: 21px; max-width: 58ch; margin-top: 24px;">Authority, precision, intelligence - kept warm enough to use four hours a day. One system; three products; one set of tokens, components, chart types, and content rules. Built on W3C Design Tokens, themed via CSS variables, AA-verified end-to-end.</p>
     <div style="display: flex; gap: 12px; margin-top: 40px;">
@@ -33,10 +33,10 @@
       <a class="btn btn-secondary" href="tokens.html">Open the token tree</a>
     </div>
     <div style="display: flex; gap: 24px; margin-top: 56px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle); flex-wrap: wrap;">
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">359</b>&nbsp; tokens</span>
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">23</b>&nbsp; shipped components</span>
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">3</b>&nbsp; chart types</span>
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">3</b>&nbsp; themes (light · dark · HC)</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">{{TOKEN_COUNT}}</b>&nbsp; tokens</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">{{COMPONENT_COUNT}}</b>&nbsp; shipped components</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">{{CHART_TYPE_COUNT}}</b>&nbsp; chart types</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">{{THEME_COUNT}}</b>&nbsp; themes ({{THEME_LIST}})</span>
     </div>
   </div>
 </section>
@@ -115,11 +115,11 @@
   <h2 style="margin-top: 4px;">Five sections. Every claim verifiable in code.</h2>
 
   <div class="card-grid cols-3" style="margin-top: 32px;">
-    <a href="tokens.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Tokens</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">359 entries · 3 themes. Primitive → semantic → component. W3C Design Tokens Format.</p></a>
-    <a href="components.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Components</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">23 shipped across core, ai, data-viz, marketing. Anatomy diagrams, props tables, accessibility.</p></a>
-    <a href="charts.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Charts</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">3 active types in <code>ChartContainer</code> · decision matrix · per-type print + HC encoding.</p></a>
+    <a href="tokens.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Tokens</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">{{TOKEN_COUNT}} entries · {{THEME_COUNT}} themes. Primitive → semantic → component. W3C Design Tokens Format.</p></a>
+    <a href="components.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Components</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">{{COMPONENT_COUNT}} shipped across core, ai, data-viz, marketing. Anatomy diagrams, props tables, accessibility.</p></a>
+    <a href="charts.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Charts</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">{{CHART_TYPE_COUNT}} active types in <code>ChartContainer</code> · decision matrix · per-type print + HC encoding.</p></a>
     <a href="patterns.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Patterns</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Composite recipes - dashboard-chart-row · time-comparison · distribution-drilldown.</p></a>
-    <a href="changelog.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Changelog</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Current: <b>v2.0.0</b> · the full release ladder.</p></a>
+    <a href="changelog.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Changelog</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Current: <b>v{{PKG_VERSION}}</b> · the full release ladder.</p></a>
     <a href="https://github.com/Risqbase-Inc/ui-components" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Source ↗</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">github.com/Risqbase-Inc/ui-components · MIT · contributions through G4.</p></a>
   </div>
 </section>
@@ -127,8 +127,8 @@
 <!-- Theme coverage -->
 <section style="max-width: 1080px; margin: 96px auto 0; padding: 0 24px;">
   <p class="eyebrow">Theme coverage</p>
-  <h2 style="margin-top: 4px;">3 runtime themes — plus a print stylesheet.</h2>
-  <p class="lede"><code>data-theme</code> on <code>&lt;html&gt;</code> swaps between light · dark · HC. Print is a media-query stylesheet, not a <code>data-theme</code> value — assets ship with the package; activation is automatic on <code>@media print</code>.</p>
+  <h2 style="margin-top: 4px;">{{THEME_COUNT}} runtime themes — plus a print stylesheet.</h2>
+  <p class="lede"><code>data-theme</code> on <code>&lt;html&gt;</code> swaps between {{THEME_LIST}}. Print is a media-query stylesheet, not a <code>data-theme</code> value — assets ship with the package; activation is automatic on <code>@media print</code>.</p>
 
   <div class="card-grid cols-4" style="margin-top: 32px;">
     <div class="card">
@@ -210,7 +210,7 @@
       <a href="https://ralia.io">RALIA</a>
       <a href="https://risqbase.com">RisqBase d.o.o.</a>
     </div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v{{PKG_VERSION}} · Spec v{{SPEC_VERSION}} · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 
