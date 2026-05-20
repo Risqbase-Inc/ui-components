@@ -94,6 +94,29 @@ Out of scope (consumer-repo work):
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
 - **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
+## [2.1.0](https://github.com/Risqbase-Inc/ui-components/compare/v2.0.0...v2.1.0) (2026-05-20)
+
+
+### Features
+
+* **brief-436:** docs-site generator — replace hand-maintained HTML ([#64](https://github.com/Risqbase-Inc/ui-components/issues/64)) ([4b91fb6](https://github.com/Risqbase-Inc/ui-components/commit/4b91fb6d22210df2018b22a701296913cbc3911d))
+* **v2.1.0:** CitationChip stories + ArcDecoration + Header polish ([#63](https://github.com/Risqbase-Inc/ui-components/issues/63)) ([6264aa8](https://github.com/Risqbase-Inc/ui-components/commit/6264aa840d1113fad0edba47816d6ce246dd4a78))
+* **v2.1.0:** CompliancePostureStrip + ClientGrid — Practice Cockpit elements ([#62](https://github.com/Risqbase-Inc/ui-components/issues/62)) ([7055e07](https://github.com/Risqbase-Inc/ui-components/commit/7055e078cdf40290e29bb468ea2b1148495a33ee))
+* **v2.1.0:** HeroVideo wrapper ([#61](https://github.com/Risqbase-Inc/ui-components/issues/61)) ([cb07f6d](https://github.com/Risqbase-Inc/ui-components/commit/cb07f6db9b72ae27b29de315ff7b6cf5fcbb6642))
+* **v2.1.0:** HeroVideo wrapper + v4.4 elevation/loading tokens ([cb07f6d](https://github.com/Risqbase-Inc/ui-components/commit/cb07f6db9b72ae27b29de315ff7b6cf5fcbb6642))
+* **v2.1.0:** ImpactGraph primitive + MarketingImpactGraph wrapper + v4.4 token extension ([#60](https://github.com/Risqbase-Inc/ui-components/issues/60)) ([0ad0fae](https://github.com/Risqbase-Inc/ui-components/commit/0ad0faece1f092b951578018f0cfbc75132d45dd))
+
+
+### Bug Fixes
+
+* **security:** guard mergeDeep against prototype pollution (CodeQL alert from PR [#54](https://github.com/Risqbase-Inc/ui-components/issues/54)) ([#58](https://github.com/Risqbase-Inc/ui-components/issues/58)) ([542fe7b](https://github.com/Risqbase-Inc/ui-components/commit/542fe7bd0b6cbc8c8436697af7185079e764a85c))
+* **security:** guard mergeDeep against prototype pollution (codeql alert) ([b78609e](https://github.com/Risqbase-Inc/ui-components/commit/b78609e50a89c832f4955df633743669d8cacb8e))
+
+
+### Documentation
+
+* **v2.1.0:** spec pack post-G4 corrections (Elena PASS) ([ce91627](https://github.com/Risqbase-Inc/ui-components/commit/ce916275dd008619aa5d119892e0044932962087))
+
 ## [2.0.0](https://github.com/Risqbase-Inc/ui-components/compare/v1.4.0...v2.0.0) (2026-05-20)
 
 
