@@ -83,4 +83,12 @@ export interface ImpactGraphProps {
   className?: string
   /** Override the structured SR summary; useful for marketing-frozen renders. */
   ariaLabel?: string
+  /**
+   * G4 FU-5 (MIG-2): per-entity x/y position overrides keyed by entity id.
+   * When present for a given id, bypasses the procedural sector-layout
+   * for that entity (haloRadius / radius / clauseLabel positioning still
+   * computed). Use sparingly for art-directed hero renders only; the
+   * deterministic engine remains the default.
+   */
+  positionOverrides?: Record<string, { x: number; y: number }>
 }

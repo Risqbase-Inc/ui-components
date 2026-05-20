@@ -139,7 +139,12 @@ export function HeaderNavDropdown({
         id={panelId}
         hidden={!open}
         data-open={open ? 'true' : 'false'}
-        className="risqbase-header-dropdown-panel absolute left-0 mt-2 min-w-[240px] z-50"
+        // G4 FU-13 (HDR-3): `max-w` clamp prevents panel from overflowing
+        // the right viewport edge at 375px (RALIA platform low-end
+        // breakpoint) when a trigger sits near the right of the header.
+        // 32px reserves the standard 16px gutter on each side. min-w
+        // still wins inside the clamp.
+        className="risqbase-header-dropdown-panel absolute left-0 mt-2 min-w-[240px] max-w-[calc(100vw-32px)] z-50"
         style={{
           background: 'var(--color-surface-default)',
           border: '1px solid var(--color-border-default)',

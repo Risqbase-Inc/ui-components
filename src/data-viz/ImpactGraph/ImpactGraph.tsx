@@ -74,17 +74,33 @@ export function ImpactGraph(props: ImpactGraphProps) {
     onAlertClick,
     className = '',
     ariaLabel,
+    positionOverrides,
   } = props
 
   checkUnknownCategories(entities, categories)
+
+  // G4 FU-1 (IG-1): defence-in-depth runtime guard on `alert.title`.
+  // The `[string, string]` literal type catches authoring mistakes at
+  // compile-time; this guard catches at-runtime mistakes from JSON
+  // fixtures / API payloads that bypass the type system.
+  if (process.env.NODE_ENV !== 'production') {
+    if (!Array.isArray(alert.title) || alert.title.length !== 2) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `ImpactGraph: alert.title must be a 2-element [string, string] ` +
+          `tuple; received ${Array.isArray(alert.title) ? `${alert.title.length}-element array` : typeof alert.title}. ` +
+          `Centre node may render with undefined/missing lines.`
+      )
+    }
+  }
 
   const interactive = Boolean(onEntityClick || onAlertClick)
   const { cx, cy } = getCentre(width, height)
   const centreR = getCentreRadius(width)
 
   const layouts = useMemo(
-    () => layoutEntities({ entities, categories, width, height }),
-    [entities, categories, width, height]
+    () => layoutEntities({ entities, categories, width, height, positionOverrides }),
+    [entities, categories, width, height, positionOverrides]
   )
 
   const labelPositions = useMemo(
@@ -101,9 +117,11 @@ export function ImpactGraph(props: ImpactGraphProps) {
   }, [layouts])
 
   const resolvedAriaLabel = ariaLabel ?? buildAriaLabel(alert, entities, categories, cascades)
-  // G1-BUG-1 / G5-FU-1 (CEO 2026-05-20): useId() replaces Math.random()
-  // for SSR-stable IDs — avoids React 19 hydration mismatch warnings.
-  const figureId = useId()
+  // G4 FU-2 (IG-2): SSR-stable id via React 18 `useId()` — `Math.random()`
+  // would mismatch between server-render and client-hydration and trip
+  // an `aria-labelledby` hydration warning. Same pattern as HeroVideo.
+  const stableId = useId()
+  const figureId = `ig-${stableId.replace(/[^a-z0-9]/gi, '')}`
 
   const handleKeyDown = (
     e: KeyboardEvent<HTMLAnchorElement>,
@@ -315,7 +333,7 @@ export function ImpactGraph(props: ImpactGraphProps) {
                       if (ent) onEntityClick(ent)
                     })
                   }
-                  style={{ cursor: 'pointer', outline: 'none' }}
+                  style={{ cursor: 'pointer' }}
                 >
                   {node}
                 </a>
@@ -400,7 +418,7 @@ export function ImpactGraph(props: ImpactGraphProps) {
                   onAlertClick()
                 }}
                 onKeyDown={(e) => handleKeyDown(e, onAlertClick)}
-                style={{ cursor: 'pointer', outline: 'none' }}
+                style={{ cursor: 'pointer' }}
               >
                 {centreNode}
               </a>
@@ -522,6 +540,15 @@ export function ImpactGraph(props: ImpactGraphProps) {
         @keyframes impact-graph-pulse {
           0%, 100% { stroke-width: 2; }
           50% { stroke-width: 3.5; }
+        }
+        /* G4 FU-3 (IG-3): resting outline declared here (not inline)
+           so the focus-visible rule does not have to overcome an
+           element-level inline outline:none on first-focus. Chromium/
+           Firefox previously painted their UA focus ring for one frame
+           before the focus-visible override landed. */
+        .impact-graph__node--interactive,
+        .impact-graph__centre--interactive {
+          outline: none;
         }
         .impact-graph__node--interactive:focus-visible,
         .impact-graph__centre--interactive:focus-visible {
