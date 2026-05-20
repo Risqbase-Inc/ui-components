@@ -22,5 +22,6 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'p
 export * from './core'
 export * from './ai'
 export * from './data-viz'
+export * from './marketing'
 export * from './content'
 export * from './tokens'

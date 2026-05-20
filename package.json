@@ -26,6 +26,11 @@
       "import": "./dist/data-viz/index.mjs",
       "require": "./dist/data-viz/index.js"
     },
+    "./marketing": {
+      "types": "./dist/marketing/index.d.ts",
+      "import": "./dist/marketing/index.mjs",
+      "require": "./dist/marketing/index.js"
+    },
     "./content": {
       "types": "./dist/content/index.d.ts",
       "import": "./dist/content/index.mjs",

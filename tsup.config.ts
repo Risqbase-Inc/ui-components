@@ -13,6 +13,7 @@ export default defineConfig({
     'core/index': 'src/core/index.ts',
     'ai/index': 'src/ai/index.ts',
     'data-viz/index': 'src/data-viz/index.ts',
+    'marketing/index': 'src/marketing/index.ts',
     'content/index': 'src/content/index.ts',
     'tokens/index': 'src/tokens/index.ts',
   },
