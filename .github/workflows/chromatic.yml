@@ -1,13 +1,13 @@
 name: 'Chromatic'
 
+# Two triggers — main-branch pushes lock the canonical baseline (and
+# auto-accept once reviewed via `autoAcceptChanges`), PRs run against
+# that baseline and gate the merge. v4.3 PR 2 of the programme.
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths:
-      - 'src/**'
-      - 'tokens/**'
-      - '.storybook/**'
-      - 'package.json'
-      - 'package-lock.json'
+    branches: [main]
 
 jobs:
   chromatic:
@@ -15,18 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Required for TurboSnap baseline lookup
+          fetch-depth: 0    # Required for baseline diffing + TurboSnap
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      # --legacy-peer-deps since v2.0.0 (Radix Dialog + visx peer-deps).
+      # Radix + visx are peer-deps; consumers may not have them. Local
+      # devDependencies mirror them so npm has something to install,
+      # but the peer graph isn't strict — use --legacy-peer-deps.
       - run: npm ci --legacy-peer-deps
       - run: npm run build:tokens
-      - uses: chromaui/action@latest
+      - uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build:storybook
-          onlyChanged: true            # TurboSnap
-          exitOnceUploaded: true
-          autoAcceptChanges: 'main'    # main-branch builds auto-accept; PRs require review
+          onlyChanged: true            # TurboSnap-equivalent free-tier path
+          exitZeroOnChanges: false     # block PRs with un-approved visual changes
+          autoAcceptChanges: 'main'    # main commits auto-approve once reviewed
