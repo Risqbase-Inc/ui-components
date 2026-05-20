@@ -34,7 +34,7 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html" class="is-active">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v2.1.0</span>
 </header>
 
 <div class="shell">
@@ -48,6 +48,7 @@
       <li><a href="#design-system-v4-3-package-side-risqbase-inc-ui-components-2-0-0">Unreleased · Design System v4.3 — package side (`@risqbase-inc/ui-components@2.0.0`)</a></li>
       <li><a href="#documentation">Unreleased · Documentation</a></li>
       <li><a href="#documentation-2">Unreleased · Documentation</a></li>
+      <li><a href="#v2-1-0">2026-05-20 · v2.1.0 — 2026-05-20</a></li>
       <li><a href="#v2-0-0">2026-05-20 · v2.0.0 — 2026-05-20</a></li>
       <li><a href="#v1-4-0">2026-05-14 · v1.4.0 — 2026-05-14</a></li>
       <li><a href="#v1-3-0">Unreleased · v1.3.0</a></li>
@@ -68,7 +69,7 @@
 
   <p class="eyebrow">Changelog</p>
   <h1>What shipped, when, why.</h1>
-  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.0.0</b>, against spec <b>v4.3</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
+  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.1.0</b>, against spec <b>v4.3</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
 
   <article id="design-system-v4-3-package-side-addendum-2-iris-accent-on-contra" class="card entry" style="margin-bottom: 32px;">
   <div class="head">
@@ -239,6 +240,29 @@
 <li><code>docs/design-system/v4.2/v4.2.1-backlog.md</code> (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.</li>
 <li><strong>BRIEF-401 — DS implementation audit + value-pass.</strong> <code>docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md</code> commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, <code>scopes[]</code> patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.</li>
 </ul>
+  </div>
+</article>
+
+<article id="v2-1-0" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-new" style="margin-bottom: 8px;"><i></i> 2.1.0</span>
+        <h2>v2.1.0 — 2026-05-20</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>2026-05-20</span>
+        <span>·</span><span>v2.1.0</span>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <h5>Features</h5>
+<p><em> <strong>brief-436:</strong> docs-site generator — replace hand-maintained HTML (<a href="https://github.com/Risqbase-Inc/ui-components/issues/64">#64</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/4b91fb6d22210df2018b22a701296913cbc3911d">4b91fb6</a>) </em> <strong>v2.1.0:</strong> CitationChip stories + ArcDecoration + Header polish (<a href="https://github.com/Risqbase-Inc/ui-components/issues/63">#63</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/6264aa840d1113fad0edba47816d6ce246dd4a78">6264aa8</a>) <em> <strong>v2.1.0:</strong> CompliancePostureStrip + ClientGrid — Practice Cockpit elements (<a href="https://github.com/Risqbase-Inc/ui-components/issues/62">#62</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/7055e078cdf40290e29bb468ea2b1148495a33ee">7055e07</a>) </em> <strong>v2.1.0:</strong> HeroVideo wrapper (<a href="https://github.com/Risqbase-Inc/ui-components/issues/61">#61</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/cb07f6db9b72ae27b29de315ff7b6cf5fcbb6642">cb07f6d</a>) <em> <strong>v2.1.0:</strong> HeroVideo wrapper + v4.4 elevation/loading tokens (<a href="https://github.com/Risqbase-Inc/ui-components/commit/cb07f6db9b72ae27b29de315ff7b6cf5fcbb6642">cb07f6d</a>) </em> <strong>v2.1.0:</strong> ImpactGraph primitive + MarketingImpactGraph wrapper + v4.4 token extension (<a href="https://github.com/Risqbase-Inc/ui-components/issues/60">#60</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/0ad0faece1f092b951578018f0cfbc75132d45dd">0ad0fae</a>)</p>
+<h5>Bug Fixes</h5>
+<p><em> <strong>security:</strong> guard mergeDeep against prototype pollution (CodeQL alert from PR <a href="https://github.com/Risqbase-Inc/ui-components/issues/54">#54</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/issues/58">#58</a>) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/542fe7bd0b6cbc8c8436697af7185079e764a85c">542fe7b</a>) </em> <strong>security:</strong> guard mergeDeep against prototype pollution (codeql alert) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/b78609e50a89c832f4955df633743669d8cacb8e">b78609e</a>)</p>
+<h5>Documentation</h5>
+<p>* <strong>v2.1.0:</strong> spec pack post-G4 corrections (Elena PASS) (<a href="https://github.com/Risqbase-Inc/ui-components/commit/ce916275dd008619aa5d119892e0044932962087">ce91627</a>)</p>
   </div>
 </article>
 
@@ -460,7 +484,7 @@
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 
