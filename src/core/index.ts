@@ -40,7 +40,15 @@ export { setTheme, getTheme, clearTheme, themeInitScript, THEME_STORAGE_KEY } fr
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/types'
 export type { BadgeProps, BadgeVariant, BadgeBand, BandBadgeProps } from './Badge/types'
 export type { HeaderProps, SiteVariant } from './Header/types'
-export type { FooterProps } from './Footer/types'
+export type { FooterProps, FooterLink, FooterSection } from './Footer/types'
+export {
+  DEFAULT_SECTIONS as FOOTER_DEFAULT_SECTIONS,
+  DEFAULT_PLATFORM_LINKS as FOOTER_DEFAULT_PLATFORM_LINKS,
+  DEFAULT_PRACTICE_LINKS as FOOTER_DEFAULT_PRACTICE_LINKS,
+  DEFAULT_SOLUTIONS_LINKS as FOOTER_DEFAULT_SOLUTIONS_LINKS,
+  DEFAULT_COMPANY_LINKS as FOOTER_DEFAULT_COMPANY_LINKS,
+  DEFAULT_LEGAL_LINKS as FOOTER_DEFAULT_LEGAL_LINKS,
+} from './Footer'
 export type { SectionEyebrowProps } from './SectionEyebrow/types'
 export type { IconButtonProps, IconButtonVariant, IconButtonSize } from './IconButton/types'
 export type { SkipLinkProps } from './SkipLink/types'
