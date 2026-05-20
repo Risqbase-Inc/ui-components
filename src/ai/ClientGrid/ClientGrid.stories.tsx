@@ -160,17 +160,36 @@ export const BareNoChrome: Story = {
 export const ResponsiveBreakpoints: Story = {
   args: { clients: attention3, mode: 'attention' },
   parameters: {
-    // NOTE: Chromatic v11 forbids combining per-story `viewports` with
-    // the global per-theme `modes` (set in .storybook/preview.ts). To
-    // keep this story present without breaking the build, we render
-    // three width-pinned wrappers inline and rely on the visual review
-    // for breakpoint regression. Genuine viewport-bound capture would
-    // need a Chromatic project-level escape hatch (out of scope here).
+    // FU-8 investigation outcome (2026-05-20, ADR-001 PR): the original
+    // shipped comment said "Chromatic v11 forbids combining per-story
+    // `viewports` with the global per-theme `modes`". This was a
+    // misdiagnosis. Chromatic v11's Modes API explicitly STACKS
+    // story-level modes on top of project-level modes — see
+    // https://www.chromatic.com/docs/modes/ "Story Mode Stacking". The
+    // mistake conflated the legacy `chromatic.viewports` parameter
+    // (which IS incompatible with the modes API) with story-level
+    // `chromatic.modes` containing viewport entries (which works
+    // correctly).
+    //
+    // Coverage is now split:
+    //   - This story (ResponsiveBreakpoints) stays as DOCUMENTATION —
+    //     side-by-side width-pinned wrappers help reviewers reason
+    //     about all three column counts at a glance, which a single
+    //     viewport-pinned capture cannot. Note: width-pinned wrappers
+    //     do NOT trigger the inner @media (min-width: …) breakpoint
+    //     (the inner query reads viewport, not parent width). So this
+    //     story is aspirational; the *real* breakpoint coverage lives
+    //     in the three sibling stories below.
+    //   - DesktopViewport / TabletViewport / MobileViewport — three
+    //     viewport-pinned regression captures (FU-8 fix). Each uses
+    //     story-level `chromatic.modes` to set a viewport; the
+    //     project-level theme modes (light / dark / hc) stack on top,
+    //     giving us 9 captures (3 viewports × 3 themes) per dispatch.
     layout: 'fullscreen',
     docs: {
       description: {
         story:
-          'Spec §3.1 mandates 3-col / 2-col / 1-col responsive behaviour at viewport widths 1024 / 640 / <640. The three wrappers below are width-pinned (NOT viewport-pinned) so reviewers can compare the column counts side-by-side. Genuine viewport regression is captured by the default theme modes; viewport-mode capture is omitted because Chromatic v11 disallows mixing viewports with modes.',
+          'Spec §3.1 mandates 3-col / 2-col / 1-col responsive behaviour at viewport widths 1024 / 640 / <640. The three wrappers below are width-pinned (NOT viewport-pinned) so reviewers can compare the column counts side-by-side. The genuine viewport regression captures live in the `DesktopViewport` / `TabletViewport` / `MobileViewport` sibling stories (FU-8).',
       },
     },
   },
@@ -196,4 +215,55 @@ export const ResponsiveBreakpoints: Story = {
       </div>
     </div>
   ),
+}
+
+// FU-8 fix (G4 audit CG-1, 2026-05-20): three viewport-pinned snapshot
+// stories that exercise the genuine inner @media (min-width: …) query
+// path. Each adds a single `viewport` mode at story-level — the project
+// preview.ts `light` / `dark` / `hc` theme modes stack on top, so the
+// Chromatic dispatch captures 9 frames total across these three stories.
+//
+// Pinned viewport widths follow Spec §3.1 breakpoint canon:
+//   - desktop: 1280px  → ≥ 1024 path → 3-column layout
+//   - tablet:   768px  → 640..1023 path → 2-column layout
+//   - mobile:   375px  → < 640 path → 1-column layout (RALIA platform
+//                       low-end floor; matches CitationChip story canon)
+
+export const DesktopViewport: Story = {
+  args: { clients: attention3, mode: 'attention' },
+  parameters: {
+    chromatic: { modes: { 'viewport-desktop-1280': { viewport: { width: 1280 } } } },
+    docs: {
+      description: {
+        story:
+          'Viewport-pinned 1280px capture — exercises the `@media (min-width: 1024px)` desktop path. Expected: 3 columns. Combined with project-level theme modes, dispatch captures 3 frames (light / dark / hc).',
+      },
+    },
+  },
+}
+
+export const TabletViewport: Story = {
+  args: { clients: attention3, mode: 'attention' },
+  parameters: {
+    chromatic: { modes: { 'viewport-tablet-768': { viewport: { width: 768 } } } },
+    docs: {
+      description: {
+        story:
+          'Viewport-pinned 768px capture — exercises the 640–1023 path. Expected: 2 columns. Combined with project-level theme modes, dispatch captures 3 frames (light / dark / hc).',
+      },
+    },
+  },
+}
+
+export const MobileViewport: Story = {
+  args: { clients: attention3, mode: 'attention' },
+  parameters: {
+    chromatic: { modes: { 'viewport-mobile-375': { viewport: { width: 375 } } } },
+    docs: {
+      description: {
+        story:
+          'Viewport-pinned 375px capture — exercises the `<640px` mobile path (RALIA platform low-end floor). Expected: 1 column. Combined with project-level theme modes, dispatch captures 3 frames (light / dark / hc).',
+      },
+    },
+  },
 }

@@ -66,3 +66,38 @@ export const BareEmbed: Story = {
     },
   },
 }
+
+// ---- 5. DemoDFidelitySnapshot — design-canon Chromatic baseline -----
+//
+// FU-4 (G4 audit MIG-1, 2026-05-20): the procedural layout engine
+// generates entity positions via category-sector polar layout + a
+// deterministic `stableHash`-driven jitter keyed off `entity.id`.
+// Because the layout is deterministic on (fixture, categories, viewBox),
+// the canvas is stable across renders — but a future layout refactor
+// (different polar formula, different jitter amplitude, different
+// category sector mapping) would silently shift every entity position.
+//
+// This story exists *purely* to lock the current canvas as the design
+// canon. Once the Chromatic baseline is accepted, any future drift in
+// MarketingImpactGraph's procedural output requires an explicit
+// re-acceptance click. That gives us a regression net that Demo D
+// pixel-comparison (rejected as too brittle — see G4 §2.2 adjudication)
+// would never give cleanly.
+//
+// DO NOT change this story's args. If you need a different fixture
+// captured, add a new `DemoEFidelitySnapshot` etc. — never re-aim the
+// existing snapshot.
+export const DemoDFidelitySnapshot: Story = {
+  args: { fixture: 'edpb-04-2026', withChrome: true, withLegend: true },
+  parameters: {
+    // Pause animation at end so the Chromatic capture is
+    // frame-deterministic (no centre-ring pulse mid-flight).
+    chromatic: { pauseAnimationAtEnd: true },
+    docs: {
+      description: {
+        story:
+          '**Design-canon fidelity snapshot (FU-4 / G4 audit MIG-1).** Captures the current `edpb-04-2026` fixture render as the marketing-canvas canon. Any future drift in the layout engine (different polar formula, jitter amplitude, sector mapping) will fail this Chromatic baseline and require explicit re-acceptance. Do not change args; add a new snapshot story for additional fixtures.',
+      },
+    },
+  },
+}
