@@ -161,3 +161,37 @@ Edge colours (very-high through low) do **not** need to meet text contrast — t
 4. **Reduced-motion** — system toggle on; pulse animation absent.
 5. **Zoom 200%** — no horizontal scroll inside the graph card; labels remain legible (no collision regressions).
 6. **Forced-colours mode** (Windows High Contrast) — graph degrades to system-colour palette; node and edge geometry remain readable. Acceptable to lose the colour-coded severity in this mode; the legend strip still names each band.
+
+---
+
+## §6 v2.1.1 G4 sweep notes (2026-05-20)
+
+### FU-1 (IG-1) — runtime guard on `alert.title`
+
+`alert.title` is typed as `[string, string]` (a 2-element tuple) and the
+SR `<title>` + visual centre node assume exactly two title lines. v2.1.1
+adds a dev-mode `console.warn` when the runtime payload violates this
+contract — covers JSON-fixture / API-payload cases that bypass TS at
+compile time.
+
+### FU-2 (IG-2) — `figureId` via `useId()`
+
+The figure id (used by `aria-labelledby` and `aria-describedby`) now
+comes from React 18 `useId()` instead of `Math.random()`. SSR-stable,
+matches the HeroVideo pattern.
+
+### FU-3 (IG-3) — focus-outline resting state
+
+`outline: none` moved out of the inline `style` prop and into the
+co-located `<style>` block on `.impact-graph__node--interactive` /
+`.impact-graph__centre--interactive` resting state. Eliminates the
+single-frame UA focus-ring flash that some Chromium / Firefox builds
+painted before the `focus-visible` rule landed.
+
+### FU-5 (MIG-2) — `positionOverrides` escape hatch
+
+Optional `positionOverrides?: Record<entityId, {x, y}>` prop on
+`ImpactGraph` lets a future art-directed fixture (e.g. a RALIA-app
+hero) hand-place a subset of entities while the rest go through the
+procedural sector layout. Use sparingly — the deterministic engine is
+the contract for marketing.

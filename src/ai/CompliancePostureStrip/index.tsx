@@ -202,7 +202,13 @@ export function CompliancePostureStrip({
                 <select
                   value={sort}
                   onChange={(e) => onSortChange?.(e.target.value as PostureSort)}
-                  className="ml-1 bg-transparent border-0 font-mono text-[10px] tracking-[0.04em] text-[var(--color-text-subtle)] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] cursor-pointer"
+                  // G4 FU-7 (CPS-1): `appearance-none` suppresses the UA
+                  // dropdown chrome that, on Safari + some Chromium themes,
+                  // overrides our `focus-visible:outline-*` declaration
+                  // with the native focus ring. Padding-right reserves
+                  // space where the native caret used to sit. The
+                  // focus-visible chain below now lands consistently.
+                  className="ml-1 bg-transparent border-0 font-mono text-[10px] tracking-[0.04em] text-[var(--color-text-subtle)] appearance-none pr-3 rounded-[var(--dimension-radius-sm)] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] cursor-pointer"
                   aria-label="Sort clients"
                 >
                   {sortOptions.map((opt) => (

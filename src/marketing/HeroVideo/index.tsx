@@ -371,7 +371,11 @@ export function HeroVideo({
         ref={containerRef}
         role="figure"
         aria-labelledby={titleId}
-        aria-describedby={descId}
+        // G4 FU-6 (HV-1): `<figcaption>` is already in the figure's
+        // accessible description per ARIA AAM (the figcaption is the
+        // figure's implicit description). Adding `aria-describedby` to
+        // the same id double-announces on NVDA. Removed — the
+        // figcaption below remains the SR carrier of `description`.
         className={`hv-root ${className}`}
         style={{
           position: 'relative',

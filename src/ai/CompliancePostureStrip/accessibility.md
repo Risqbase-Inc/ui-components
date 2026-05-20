@@ -12,7 +12,7 @@ A horizontal strip of N client posture indicators — modelled as a **list of su
 
 ## Sort affordance
 
-- When `onSortChange` is wired, the sort affordance is a native `<select>` with `aria-label="Sort clients"`. Native selects inherit OS-level keyboard + AT support — no custom disclosure pattern needed.
+- When `onSortChange` is wired, the sort affordance is a native `<select>` with `aria-label="Sort clients"`. Native selects inherit OS-level keyboard + AT support — no custom disclosure pattern needed. (v2.1.1 G4 FU-7 / CPS-1: the select carries `appearance-none` + `pr-3` + the same focus-visible chain as the cells, so Safari and the Chromium themes that would otherwise override our outline with the UA focus ring now render the canonical 2px `--color-action-primary` ring instead.)
 - The component does **not** own the sort-change live region. Consumers should mount a `role="status" aria-live="polite"` element nearby and update it on `onSortChange`. See the `WithLiveSortAndAnnouncer` story for reference wiring.
 
 ## Colour-only contracts

@@ -170,3 +170,30 @@ motion.
 7. **Loop boundary** — QA plays for 2 hours on monitored loop; confirms
    `onLoopRestart` fires ≈120 times; confirms no observable visual seam
    at the boundary (BRIEF-429 V2 §5 acceptance criterion).
+
+## Known follow-ups
+
+### G4 FU-6 (HV-1) — single-source `description` (v2.1.1 sweep, 2026-05-20)
+
+The `description` prop is rendered into the visually-hidden `<figcaption>`
+inside the `<figure>`. Because `<figcaption>` is the figure's implicit
+accessible description per the ARIA accessible-name-and-description
+computation, an additional `aria-describedby` on the figure element
+would cause NVDA to double-announce. v2.1.1 removed the
+`aria-describedby` reference; the figcaption remains the single SR
+carrier of the description.
+
+### G4 FU-17 (HV-3) — portrait-aspect overlay collision (planned, BRIEF-429 V3)
+
+When `aspectRatio="9/16"` (portrait) is used in a narrow viewport
+(e.g. mobile vertical phone @ 375×667), the bottom-anchored
+"Tap to play" overlay pill (centred horizontally at 12px from the
+bottom) and the CC pill (bottom-left at 12px) can overlap visually.
+
+Mitigation (deferred to BRIEF-429 V3 portrait support — out of v2.1.x
+hotfix scope): when viewport-height < 480px AND aspectRatio is taller
+than 1:1, stack the two pills vertically — the "Tap to play"
+acknowledgement above, the CC pill at the bottom-left. Implementation
+note: a single `@media (max-height: 480px)` rule inside the inline
+`<style>` block can pin the "Tap to play" `bottom` to `48px` instead
+of `12px`, clearing the CC pill on its 12px bottom anchor.

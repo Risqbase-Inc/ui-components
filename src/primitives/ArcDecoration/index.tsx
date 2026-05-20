@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import {
   PALETTE_TOKENS,
   RING_SPECS,
@@ -45,13 +44,11 @@ const ROTATION_DELTAS = [0, -15, -28, -40] as const
 // baseOpacity when overridden.
 const OPACITY_RAMP = [1.0, 0.7, 0.55, 1.0] as const
 
-const ANIMATION_STYLE: CSSProperties = {
-  // CSS variables consumed by the static class below. The class lives
-  // in dist/tokens.css (added by the v4.4 token build) — but since this
-  // primitive ships its own keyframe, the style block is inlined via a
-  // <style> tag adjacent to the SVG so consumers do not need extra CSS
-  // imports.
-}
+// G4 FU-15 (AD-1): dead `ANIMATION_STYLE` empty-object constant + its
+// `style={ANIMATION_STYLE}` prop removed. The actual animation lives
+// in the inline `<style>` keyframe block below; the empty constant was
+// a vestigial scaffold from an earlier iteration that consumers
+// (correctly) ignored.
 
 export function ArcDecoration({
   position = 'bottom-right',
@@ -109,7 +106,6 @@ export function ArcDecoration({
         height={size}
         viewBox={`0 0 ${size} ${size}`}
         className={className}
-        style={ANIMATION_STYLE}
       >
         <g transform={`translate(${tx} ${ty})`}>
           {activeRingIndices.map((ringIdx) => {

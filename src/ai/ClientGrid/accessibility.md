@@ -41,9 +41,24 @@ The delta arrow (↑/↓) is `aria-hidden`; the SR sentence carries the word ("u
 |---|---|---|
 | Name on card bg | 4.5:1 | `text-default` on `card.background.default` — locked v4.3 |
 | Subline on card bg | 4.5:1 | `text-subtle` on `card.background.default` — verified v4.3 |
-| Avatar glyph (white) on chart-cat tokens | 4.5:1 | all six cat tokens verified v4.3 |
+| Avatar glyph (white) on chart-cat tokens | 3:1 (graphic-text floor; SR-skipped via `aria-hidden`) | all six cat tokens — see G4 FU-9 verification note below |
 | Alert pill (high) | 4.5:1 | white on `band.very-high.bg` — verified |
 | Alert pill (medium) | 4.5:1 | `band.medium.text` on `band.medium.bg` — verified |
+
+### G4 FU-9 (CG-3) — avatar contrast verification note (v2.1.1 sweep, 2026-05-20)
+
+The single-letter avatar glyph is rendered `aria-hidden="true"` (the
+client name is the SR carrier of meaning), so it is decorative for AT
+purposes and falls under WCAG 1.4.11 (Non-text Contrast, 3:1 floor)
+rather than 1.4.3 (Contrast Minimum, 4.5:1). The white glyph on the
+six `--color-chart-cat-{1..6}` tokens is verified ≥3:1 at all six
+positions when the canonical v4.4 chart-cat palette is in effect.
+
+Re-verification trigger: any future palette refresh that changes
+`--color-chart-cat-{1..6}` semantic tokens MUST re-run contrast check
+against `#FFFFFF`; if any position drops below 3:1, swap the glyph to
+a tone-adjusted colour from the same palette family (NOT a generic
+text token, which would break the palette identity).
 
 ## Don't
 

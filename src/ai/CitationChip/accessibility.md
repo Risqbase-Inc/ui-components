@@ -24,7 +24,7 @@ Interactive chips (those with `onOpen` provided) render with `py-1` for a render
 ### Element + role
 
 - When `onOpen` is passed, the chip renders as a `<button type="button">` with the computed accessible name as `aria-label`.
-- When `onOpen` is omitted, the chip renders as `<span role="note">` with the same `aria-label` — read by screen readers without becoming a tab stop.
+- When `onOpen` is omitted, the chip renders as a bare `<span>` with the same `aria-label` — read by screen readers without becoming a tab stop. (v2.1.1 G4 FU-10 / CC-1: the `role="note"` previously applied to the non-interactive variant was removed; `note` is an ARIA 1.2 landmark and a long prose passage with 20+ inline chips would pollute landmark-jump navigation in NVDA / JAWS. The chip remains announced by AT via the `aria-label`.)
 - The visual glyph is `aria-hidden="true"`.
 - The multi-source count pill is `aria-hidden="true"` because the count is already part of the accessible name.
 - `retracted` content is styled with `line-through` — but the meaning is also surfaced via the accessible name ("Retracted source: …"), satisfying WCAG 1.4.1 (Use of Color).
@@ -37,6 +37,22 @@ When `label` is a non-string ReactNode, only the variant description goes into t
 ### Duplicate-string edge case
 
 For variants whose semantics imply unavailability (`retracted`, `retrieval-failed`), pass the original citation label (e.g. "Art. 35(3)(c)") when possible. The variant description is added automatically by the chip; passing redundant text in `label` (e.g. `<CitationChip variant="retrieval-failed" label="Source unavailable" />`) causes harmless double-announcement ("Retrieval failed: Source unavailable"). Tolerated but not preferred.
+
+### G4 FU-14 (CC-2) — `ai-inferred` dashed-border legibility note (v2.1.1 sweep, 2026-05-20)
+
+The `ai-inferred` variant uses a 1px dashed border. On high-DPI displays (retina,
+Surface, modern Android phones) Chromium and Safari sub-pixel-anti-alias 1px
+dashed strokes which can blur the dash gaps and read as solid at default zoom.
+Verified manually at 100% browser zoom on:
+
+- macOS Safari 18 retina — dashes visible
+- macOS Chrome 134 retina — dashes visible
+- iOS Safari 18 (iPhone 15, 3× DPR) — dashes visible
+- Windows 11 Chrome non-retina @ 1.0× DPR — dashes visible
+
+If a future browser refresh blurs the pattern, swap to `border-dotted` (slightly
+chunkier) or `border-2 border-dashed` (defeats the in-line typographic rhythm —
+last resort).
 
 ## Don't
 

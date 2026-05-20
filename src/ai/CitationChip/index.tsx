@@ -168,7 +168,15 @@ export function CitationChip({
   return (
     <>
       {beacon}
-      <span role="note" aria-label={accessibleName} className={styles}>
+      {/*
+        G4 FU-10 (CC-1): `role="note"` removed from the non-interactive
+        variant. `note` is an ARIA 1.2 landmark; a single page of prose
+        with 20+ inline chips would pollute the landmark list in NVDA /
+        JAWS landmark-jump navigation. The chip is still announced by
+        AT — `aria-label` gives it an accessible name on the bare span —
+        but it no longer registers as a landmark.
+      */}
+      <span aria-label={accessibleName} className={styles}>
         {content}
       </span>
     </>

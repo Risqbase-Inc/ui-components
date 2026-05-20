@@ -138,14 +138,19 @@ function bucketEntities(
   return buckets
 }
 
-/** Compute layout for every entity. Pure; idempotent given inputs. */
+/** Compute layout for every entity. Pure; idempotent given inputs.
+ *  G4 FU-5 (MIG-2): optional `positionOverrides` map bypasses procedural
+ *  placement for entities whose id is present — used for art-directed
+ *  hero fixtures where exact pixel placement matters. Radius / halo /
+ *  edge derivations still compute from the (now-fixed) x,y. */
 export function layoutEntities(
   props: Pick<ImpactGraphProps, 'entities' | 'categories'> & {
     width: number
     height: number
+    positionOverrides?: Record<string, { x: number; y: number }>
   }
 ): EntityLayout[] {
-  const { entities, categories, width, height } = props
+  const { entities, categories, width, height, positionOverrides } = props
   const { cx, cy } = getCentre(width, height)
   const centreR = getCentreRadius(width)
   const baseRadial = centreR * 1.6 // default radial distance per spec §2.2
@@ -169,8 +174,12 @@ export function layoutEntities(
       const radialJitter = hashToUnit(entity.id) * baseRadial * 0.3
       const r = Math.min(maxRadial, baseRadial + Math.abs(radialJitter) + i * 6)
       const rad = degToRad(angleDeg)
-      const x = cx + r * Math.cos(rad)
-      const y = cy + r * Math.sin(rad)
+      const proceduralX = cx + r * Math.cos(rad)
+      const proceduralY = cy + r * Math.sin(rad)
+      // G4 FU-5 (MIG-2): per-entity position override escape hatch.
+      const override = positionOverrides?.[entity.id]
+      const x = override ? override.x : proceduralX
+      const y = override ? override.y : proceduralY
 
       // Quadratic bezier control point: at half-distance along the
       // radial line, perpendicular-perturbed by ±8px. The perturbation

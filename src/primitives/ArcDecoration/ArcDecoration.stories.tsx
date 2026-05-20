@@ -123,7 +123,7 @@ export const Animated: Story = {
     docs: {
       description: {
         story:
-          'Animated variant — 60s linear rotation on the outermost ring. Respects `prefers-reduced-motion: reduce` (animation suppressed when the system flag is on).',
+          'Animated variant — 60s linear rotation on the outermost ring. Respects `prefers-reduced-motion: reduce` (animation suppressed when the system flag is on). G4 FU-16 (AD-2): an optional Chromatic `reducedMotion` mode baseline is the documented next step — it would capture the static frame the user sees when their OS reduced-motion preference is on. Deferred to the next Chromatic baseline-refresh window; until then the visual contract is "static frame under reduced motion === Default story output (animation suppressed)".',
       },
     },
   },
