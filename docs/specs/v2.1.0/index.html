@@ -93,8 +93,8 @@
     .table-wrap { background: var(--color-surface-default); border: 1px solid var(--color-border-default); border-radius: var(--dimension-radius-xl); overflow: hidden; }
 
     .pill { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; }
-    .pill-ok { background: var(--color-finding-resolved-bg); color: var(--color-finding-resolved-text); border: 1px solid var(--color-finding-resolved-border); }
-    .pill-yes { background: var(--color-finding-mandatory-bg); color: var(--color-finding-mandatory-text); border: 1px solid var(--color-finding-mandatory-border); }
+    .pill-ok { background: var(--color-band-very-low-bg); color: var(--color-band-very-low-text); border: 1px solid var(--color-band-very-low-border); }
+    .pill-yes { background: rgba(220, 38, 38, 0.12); color: var(--color-band-very-high-bg); border: 1px solid var(--color-band-very-high-border); }
     .pill-inline { background: var(--color-surface-muted); color: var(--color-text-subtle); border: 1px solid var(--color-border-default); }
     .pill-na { background: transparent; color: var(--color-text-subtle); border: 1px dashed var(--color-border-default); }
 
@@ -195,24 +195,28 @@
 
     <header class="frontmatter">
       <div>
-        <p class="eyebrow">v2.1.0 Pipeline · Claude Design · 2026-05-20</p>
+        <p class="eyebrow">v2.1.0 Pipeline · Claude Design · 2026-05-20 · <span style="color: var(--color-band-very-high-bg);">v2 — post-G4 corrections</span></p>
         <h1>@risqbase-inc/ui-components v2.1.0 — closing the four mandatory gaps + three optional clean-ups.</h1>
         <p>The 2026-05-19 Claude Code verification identified four components missing from <code>ui-components</code> that block wholesale marketing-repo consumption: <strong>ImpactGraph</strong>, <strong>HeroVideo</strong>, <strong>CompliancePostureStrip + ClientGrid</strong>. Plus a verification ask on the 9 <strong>CitationChip</strong> variants. This pack is the design spec for all four, plus three optional items the orchestrator flagged as cheap and high-value: <strong>ArcDecoration</strong> primitive, <strong>Header</strong> dropdown polish, <strong>VideoEmbed</strong> placeholder token swap.</p>
-        <p>CEO ratified Path X — full quality bar, natural pace. Specs land 20 May; engineering builds 21 May → 03 June; v2.1.0 publishes 05 June. The 25 May marketing launch is independent — it runs against the V2 demo HTMLs.</p>
+        <p>Elena G4's review (20 May, 14:45Z) returned <strong>CONCERNS</strong> with three empirical blockers — the original draft claimed "zero new tokens" but referenced tokens missing from the canonical <code>tokens/</code> source; Spec 03 called a non-existent <code>Gauge size="sm"</code>; Spec 05 described a different API than ships at v2.0.0. All three are corrected in this revision. A small <a href="00b-v4.4-token-extension.md">v4.4 token-extension brief</a> formalises 4 derived tokens (3 elevation shadows + skeleton shimmer) the audit pack had been consuming from demo CSS without source-of-truth backing. See <a href="G4-response.md">G4-response.md</a> for the per-finding resolution log.</p>
+        <p>CEO ratified Path X — full quality bar, natural pace. Specs land 20 May; corrections same day; engineering builds 22 May → 03 June; v2.1.0 publishes 05 June. The 25 May marketing launch is independent — it runs against the V2 demo HTMLs.</p>
       </div>
       <aside>
         <b>Pipeline snapshot</b>
         <dl>
           <dt>Package</dt><dd>@risqbase-inc/ui-components</dd>
           <dt>Version</dt><dd>v2.1.0 (semver-minor, additive)</dd>
-          <dt>DS</dt><dd>v4.3 (no token spec changes)</dd>
+          <dt>DS</dt><dd>v4.3 → <strong>v4.4</strong> (4 derived tokens)</dd>
           <dt>New components</dt><dd>6 (1 primitive · 1 marketing · 2 ai · 2 data-viz)</dd>
           <dt>Patches</dt><dd>2 in-place</dd>
-          <dt>Tokens added</dt><dd>0</dd>
+          <dt>Tokens added</dt><dd>0 primitive; <strong>4 derived</strong> (v4.4 brief)</dd>
           <dt>Breaking</dt><dd>0</dd>
-          <dt>Effort</dt><dd>~8.5 dev-days</dd>
+          <dt>Effort</dt><dd>~9.25 dev-days</dd>
         </dl>
         <p style="margin: 14px 0 0;"><b>Cover doc</b> · <a href="00-cover.md">00-cover.md</a> — cross-cutting decisions, naming, a11y matrix, consumption guide, sequencing.</p>
+        <p style="margin: 8px 0 0;"><b>v4.4 brief</b> · <a href="00b-v4.4-token-extension.md">00b-v4.4-token-extension.md</a></p>
+        <p style="margin: 8px 0 0;"><b>G4 response</b> · <a href="G4-response.md">G4-response.md</a></p>
+        <p style="margin: 8px 0 0;"><b>Verification</b> · <a href="verification-report.md">verification-report.md</a></p>
       </aside>
     </header>
 
@@ -377,7 +381,7 @@
             <span><span class="card-tag tag-verify">VERIFY</span> <span class="card-tag tag-low">CONFIRMATION</span></span>
           </div>
           <h3>CitationChip — variant coverage</h3>
-          <p class="desc">All 9 variants present in v2.0.0 (verified, pending, low-confidence, retracted, external, multi-source, ai-inferred, retrieval-failed, user-pinned). v2.1.0 ships <strong>two gating actions</strong>: add 4 missing stories, and replace technical variant slugs in <code>aria-label</code> with human-readable phrasings (“Verified source”, “Multiple sources”, ···).</p>
+          <p class="desc">All 9 variants present in v2.0.0 (verified, pending, low-confidence, retracted, external, multi-source, ai-inferred, retrieval-failed, user-pinned). v2.1.0 ships <strong>three gating actions</strong>: add missing stories (incl. <code>AllVariantsRow_Mobile</code>), combine variant description + label content into <code>aria-label</code> (remove duplicate SR-only suffix span), bump interactive padding to meet WCAG 2.5.8 (≥24px target size).</p>
           <div class="visual">
             <div class="vis-cit">
               <span class="cchip">Art. 35(3)(c)</span>
@@ -410,7 +414,8 @@
                   <circle cx="0" cy="0" r="440" fill="none" stroke="var(--color-palette-teal-600)" stroke-width="1" stroke-dasharray="260 2540" stroke-linecap="round" transform="rotate(-130)"/>
                   <circle cx="0" cy="0" r="360" fill="none" stroke="var(--color-palette-teal-500)" stroke-width="2" stroke-dasharray="220 2040" stroke-linecap="round" opacity="0.7" transform="rotate(-145)"/>
                   <circle cx="0" cy="0" r="280" fill="none" stroke="var(--color-palette-teal-300)" stroke-width="3" stroke-dasharray="170 1590" stroke-linecap="round" opacity="0.55" transform="rotate(-158)"/>
-                  <circle cx="0" cy="0" r="200" fill="none" stroke="var(--color-palette-stone-300)" stroke-width="4" stroke-dasharray="100 1156" stroke-linecap="round" opacity="0.5" transform="rotate(-170)"/>
+                  <circle cx="0" cy="0" r="200" fill="none" stroke="var(--color-palette-stone-300)" stroke-width="4" stroke-dasharray="130 1120" stroke-linecap="round" transform="rotate(-170)"/>
+                  <circle cx="-200" cy="0" r="4" fill="var(--color-palette-teal-300)" transform="rotate(-170)"/>
                 </g>
               </svg>
             </div>
@@ -556,9 +561,10 @@
         <table>
           <thead><tr><th class="shrink" style="width: 140px;">Date</th><th>Milestone</th><th class="shrink">Owner</th></tr></thead>
           <tbody>
-            <tr><td class="mono">2026-05-20</td><td><strong>This spec pack published</strong></td><td>Claude Design</td></tr>
-            <tr><td class="mono">2026-05-21</td><td>Elena G4 design review on the 8 specs; any deltas merged back</td><td>Elena</td></tr>
-            <tr><td class="mono">2026-05-22 → 06-03</td><td>Implementation PRs land into ui-components main (one per component; CI-gated on Chromatic + contrast script + token-lint)</td><td>Claude Code on Web</td></tr>
+            <tr><td class="mono">2026-05-20</td><td><strong>Spec pack published → Elena G4 returns CONCERNS</strong> (3 blockers + 11 refines). Claude Design files <a href="00b-v4.4-token-extension.md">v4.4 brief</a> + <a href="G4-response.md">G4-response.md</a> same day.</td><td>Claude Design</td></tr>
+            <tr><td class="mono">2026-05-21 AM</td><td>Token JSON entries land in <code>tokens/semantic/{elevation,loading}.json</code>; <code>dist/tokens.css</code> rebuilt</td><td>Claude Code on Web</td></tr>
+            <tr><td class="mono">2026-05-21 PM</td><td>Elena G4 re-pass on the corrected spec pack</td><td>Elena</td></tr>
+            <tr><td class="mono">2026-05-22 → 06-03</td><td>Implementation PRs land into ui-components main (one per component; CI-gated on Chromatic + contrast script + token-lint). Specs 01, 04, 06, 07, 08 may dispatch 22 May even if v4.4 lands mid-day; specs 02, 03, 05 dispatch after token + spec corrections settle.</td><td>Claude Code on Web</td></tr>
             <tr><td class="mono">2026-05-25</td><td>Marketing launch · runs against V2 demo HTMLs</td><td>Sophie G8</td></tr>
             <tr><td class="mono">2026-06-04</td><td>Sarah G5 visual regression sweep on Storybook + Chromatic baselines</td><td>Sarah</td></tr>
             <tr><td class="mono">2026-06-05</td><td><strong>CEO release sign-off · v2.1.0 published to GitHub Packages</strong></td><td>Fiyin / orchestrator</td></tr>
@@ -582,9 +588,10 @@
             <tr><td>ClientGrid</td><td class="mono">1 day</td><td>Composes existing Card; alert-pill story</td></tr>
             <tr><td>ArcDecoration</td><td class="mono">0.5 day</td><td>Static SVG; prop-driven ring count + palette</td></tr>
             <tr><td>Header polish</td><td class="mono">1 day</td><td>Disclosure pattern + a11y + ESC/outside-click + focus restore</td></tr>
-            <tr><td>CitationChip verification + a11y labels</td><td class="mono">0.5 day</td><td>Story coverage audit + SR-friendly variant labels + MDX convention update</td></tr>
+            <tr><td>CitationChip verification + a11y patch</td><td class="mono">0.5 day</td><td>Re-scope to actual v2.0.0 source (Annex A grep) · add 4 missing stories · combined-announcement aria-label · WCAG 2.5.8 min-height</td></tr>
             <tr><td>VideoEmbed token swap</td><td class="mono">0.25 day</td><td>Token rename + visual-regression snapshot</td></tr>
-            <tr><td><strong>Total</strong></td><td class="mono"><strong>~8.75 dev-days</strong></td><td>Sequential within one engineer; parallelisable to ~4 calendar days with two</td></tr>
+            <tr><td><strong>v4.4 token-extension brief</strong></td><td class="mono">0.5 day</td><td>4 derived tokens · 2 new JSON files · build + Chromatic re-baseline</td></tr>
+            <tr><td><strong>Total</strong></td><td class="mono"><strong>~9.25 dev-days</strong></td><td>Sequential within one engineer; parallelisable to ~4 calendar days with two. The v4.4 token PR runs in parallel with component PRs once JSON entries land EOD 21 May.</td></tr>
           </tbody>
         </table>
       </div>
@@ -595,7 +602,7 @@
     <section>
       <h2><span class="num">§6</span>Out of scope for v2.1.0 · captured for future</h2>
       <ul style="font-size: 14px; line-height: 1.7; color: var(--color-text-default); max-width: 78ch; padding-left: 18px;">
-        <li><strong>DS v4.4 token patch</strong> — deferred. Nothing in this cycle warrants one. If implementation surfaces a new canonical pattern, flag in the PR.</li>
+        <li><strong>DS v4.4 token patch</strong> — <span style="color: var(--color-band-very-high-bg); font-weight: 600;">promoted to in-scope</span> after Elena G4 review surfaced the demo-vs-source token drift. 4 derived tokens (3 elevation shadows + skeleton shimmer) added; see <a href="00b-v4.4-token-extension.md">v4.4 brief</a>. The <code>--color-impact-graph-edge-cascade</code> semantic remains deferred (single use case; don't generalise prematurely).</li>
         <li><strong>ImpactGraph real-product data binding</strong> — primitive exposes the API; consumer wiring lives in RALIA app, not in ui-components. RALIA team picks up post-1-July.</li>
         <li><strong>HeroVideo analytics binding</strong> — component exposes onPlay/onProgress/onComplete callbacks; consumer-side concern.</li>
         <li><strong>PracticeCockpitSurface monolith</strong> — explicitly rejected. CompliancePostureStrip and ClientGrid stay independent. The Cockpit hero composes from both.</li>
@@ -612,6 +619,9 @@
           <thead><tr><th class="shrink">File</th><th>Contents</th></tr></thead>
           <tbody>
             <tr><td><a href="00-cover.md">00-cover.md</a></td><td>Cross-cutting decisions · naming · token usage · a11y matrix · consumption guide · sequencing · effort</td></tr>
+            <tr><td><a href="00b-v4.4-token-extension.md">00b-v4.4-token-extension.md</a></td><td><strong>v4.4 derived-token brief</strong> · 3 elevation shadows + skeleton shimmer · closes G4 BLOCKER 1</td></tr>
+            <tr><td><a href="G4-response.md">G4-response.md</a></td><td><strong>G4 review response</strong> · per-finding resolution log · 3 blockers closed, 11 refines incorporated</td></tr>
+            <tr><td><a href="verification-report.md">verification-report.md</a></td><td><strong>Verification report</strong> · grep evidence per finding · 5 self-caught issues from grep sweep · lessons encoded</td></tr>
             <tr><td><a href="01-ImpactGraph.md">01-ImpactGraph.md</a></td><td>ImpactGraph primitive + MarketingImpactGraph wrapper · full TS API · layout algorithm · token chain · 16 Storybook stories</td></tr>
             <tr><td><a href="01-ImpactGraph.accessibility.md">01-ImpactGraph.accessibility.md</a></td><td>Static-render path · interactive-path keyboard nav · structured SR summary · focus rings · contrast · test plan</td></tr>
             <tr><td><a href="02-HeroVideo.md">02-HeroVideo.md</a></td><td>HeroVideo wrapper · lazy-load + autoplay lifecycle · 2×2 fallback grid · VTT caption styling · loop-handshake hook</td></tr>

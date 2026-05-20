@@ -1,7 +1,7 @@
 # 03 · CompliancePostureStrip
 
 > **Closes**: Demo C — /practice Cockpit hero rebuild. The "12 client posture at a glance" strip below the cockpit stats row.
-> **Composes with**: existing `core/Gauge` (consumed at `size="sm" variant="single" palette="teal"`); `ClientScopeBanner` (sits above on the Practice surface); `ClientGrid` (sits below).
+> **Composes with**: existing `core/Gauge` (consumed at `size="accessory" variant="single" palette="teal"` per shipped `GaugeSize` enum; see §3.4); `ClientScopeBanner` (sits above on the Practice surface); `ClientGrid` (sits below).
 > **Visual reference**: `Marketing Demo C - Practice Cockpit Hero.html` §2 (the `.cs-posture` block, 12 mini-gauges in a 12-column strip).
 > **Home**: `src/ai/CompliancePostureStrip/` — alongside ClientScopeBanner (Practice-domain components).
 > **Accessibility**: inline (§7 below).
@@ -76,6 +76,8 @@ grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
 gap: 6px;
 ```
 
+> **Layout note (G4 BLOCKER 2 follow-up)**: at the marketing-canon 12-client cockpit width (~1232px content area), `auto-fit` produces 12 equal cells in one row — matches Demo C visually. Beyond 12 entries (e.g. the `ManyClients` story at 30 entries), the grid wraps to a second row maintaining cell width. Sophie to confirm acceptable for marketing surface; the in-product Practice Cockpit surface uses the same component and benefits from the wrap behaviour as practices add clients. If `auto-fit` proves problematic, fall back to `repeat(min(N, 12), 1fr)` with row-wrap above 12. Recommend `auto-fit` as primary.
+
 Heading row:
 - Heading text: 14px medium `--color-text-default`.
 - Sort affordance: right-aligned mono 10px `--color-text-subtle`, letter-spacing 0.04em. Renders as `Sort: by risk` with a small chevron when interactive.
@@ -86,7 +88,7 @@ Heading row:
 ┌───────────────────────┐
 │   Acme Health         │  ← name, 9px, line-height 1.2, max 2 lines, ellipsis
 │                       │
-│        ◯              │  ← Gauge size="sm" (32×32)
+│        ◯              │  ← Gauge size="accessory" (32×32 per Demo C cell anatomy)
 │                       │
 │        58             │  ← residual numeric, mono 10px medium
 │      ┌────┐           │
@@ -103,28 +105,32 @@ Heading row:
 
 ### 3.3 Alert pill
 
-| `alertSeverity` | bg | text |
-|---|---|---|
-| `high` | `--color-band-very-high-bg` | white |
-| `medium` | `--color-band-medium-bg` | `--color-band-medium-text` |
+| `alertSeverity` | bg | text | content |
+|---|---|---|---|
+| `high` | `--color-band-very-high-bg` | white | `{alertCount} high` |
+| `medium` | `--color-band-medium-bg` | `--color-band-medium-text` | `{alertCount} med` |
 
-Pill is inline-block, 1px × 5px padding, `--font-mono` 8px font-weight 700, letter-spacing 0.04em, radius 9999px, margin-top 2px. Renders `{alertCount}` only when `alertCount > 0`.
+Pill is inline-block, 1px × 5px padding, `--font-mono` 8px font-weight 700, letter-spacing 0.04em, radius 9999px, margin-top 2px. **Pill text carries the band word** (per G4 REFINE 3.1): sighted users get the severity in text, not colour-only — the colour-blind-safe channel matters here because the pill is a 5-character chip with no surrounding context.
+
+Renders only when `alertCount > 0`. The mapping table for the SR-aria-label sentence on the cell button is in §7.
 
 ### 3.4 The gauge
 
-Consumes `core/Gauge`:
+Consumes `core/Gauge` at the **`accessory` size** (verified against `src/data-viz/Gauge/types.ts` — the shipped `GaugeSize` enum is `'inline' | 'accessory' | 'summary' | 'headline'`; there is no `'sm'`):
 
 ```tsx
 <Gauge
   value={residual}
   variant="single"
-  size="sm"
+  size="accessory"     // 32×32 per existing Gauge stories; matches Demo C cell anatomy
   palette={gaugePalette}
   aria-label={`${name}: residual ${residual}`}
 />
 ```
 
 The mini-gauge is decorative-with-data; full semantics live on the cell button.
+
+> **Pre-build check**: Sarah G5 to verify the rendered pixel size of `size="accessory"` against the Demo C `.cs-posture-strip` cell artwork. If the accessory size renders at e.g. 24×24 instead of 32×32, switch this spec to `size="inline"` and verify against that. The contract is "match Demo C's 32×32 mini-gauge geometry," not the named enum value. Document the chosen value in the MDX doc-block.
 
 ---
 
@@ -144,9 +150,10 @@ gauge arc               → var(--color-gauge-arc-teal) | var(--color-gauge-arc-
 alert pill high bg      → var(--color-band-very-high-bg)
 alert pill med bg       → var(--color-band-medium-bg)
 alert pill med text     → var(--color-band-medium-text)
+skeleton (loading)      → var(--color-skeleton-shimmer)   // v4.4 derived
 ```
 
-**Zero new tokens.**
+**Zero new primitive tokens.** `--color-skeleton-shimmer` is v4.4-derived (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)).
 
 ---
 
@@ -186,6 +193,8 @@ The strip is a **list of summary statistics**, not a chart. Mark it up as such.
 
 ### 7.1 Markup
 
+The strip is a list of summary statistics. The inner cell content is a mix of gauge + name + residual + optional pill — too complex to carry a single `aria-label` on the `<li>` directly. Wrap the content in an interior `<div role="img" aria-label="…">` so the SR receives a single structured statement per cell (per G4 REFINE 3.2):
+
 ```html
 <section aria-labelledby="cps-heading-{id}">
   <header>
@@ -196,20 +205,19 @@ The strip is a **list of summary statistics**, not a chart. Mark it up as such.
   </header>
   <ul role="list" aria-label="Client posture summary">
     <li>
-      <button aria-label="Acme Health: residual 58 out of 100, high band, 3 alerts. Activate to open.">
-        <span class="sr-only">Acme Health</span>
+      <div role="img" aria-label="Acme Health: residual 58 out of 100, high band, 3 high-severity alerts.">
         <span aria-hidden="true">Acme Health</span>
         <svg aria-hidden="true" /* gauge */ />
         <span aria-hidden="true">58</span>
-        <span aria-hidden="true">3</span>
-      </button>
+        <span aria-hidden="true">3 high</span>
+      </div>
     </li>
     <!-- ...11 more -->
   </ul>
 </section>
 ```
 
-Cells are `<button>` only when `onClick` is provided; otherwise plain `<li>` with the same `aria-label` on the `<li>` itself.
+When `onClick` is provided, wrap the `<div role="img">` in a `<button>` carrying the same `aria-label` plus `, Activate to open.`. Don't nest the role=img inside the button — the button's own `aria-label` supersedes.
 
 ### 7.2 Sort affordance
 
@@ -227,7 +235,7 @@ The component does not own the live region — it can't know what other surfaces
 
 ### 7.4 Colour-only severity
 
-The alert pill conveys severity (`high` vs `medium`) via colour. The textual `aria-label` of the cell carries the same information; this is sufficient. The pill text itself is the count, not the severity word — a sighted user reads "3" + colour; an SR user gets "3 alerts" plus the band word in the aria-label.
+The alert pill text now carries the band word (`3 high`, `1 med`) per G4 REFINE 3.1 — sighted users get severity in text + colour; SR users get the band word via the `aria-label` on the cell's `role="img"` wrapper. Colour-blind-safe by construction.
 
 ### 7.5 Focus ring
 

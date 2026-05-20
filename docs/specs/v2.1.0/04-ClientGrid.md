@@ -126,7 +126,7 @@ When `onAlertClick` is provided, the pill becomes a clickable button rather than
 | Element | Style |
 |---|---|
 | Residual | `--font-mono` 12px 600 `--color-text-default`, font-feature-settings 'tnum' |
-| Delta `↑/↓ N wk` | `--font-mono` 10px `--color-band-very-high-bg` for upward (worsening), `--color-palette-emerald-500` for downward (improving) |
+| Delta `↑/↓ N wk` | `--font-mono` 10px `--color-band-very-high-bg` for upward (worsening), `--color-band-very-low-bg` for downward (improving) |
 | Secondary stat | `--font-mono` 10px `--color-text-subtle`, `margin-left: auto` |
 
 The delta colour is **inverted by intent**: a *positive* `weeklyDelta` (risk went up) reads in alert colour; a *negative* `weeklyDelta` (risk went down) reads in emerald-positive. This is the opposite of stock-tickers but the right semantics for compliance.
@@ -160,7 +160,7 @@ name text            → var(--color-text-default)
 subline text         → var(--color-text-subtle)
 residual             → var(--color-text-default)
 delta up (worse)     → var(--color-band-very-high-bg)
-delta down (better)  → var(--color-palette-emerald-500)
+delta down (better)  → var(--color-band-very-low-bg)         // semantic; resolves to palette-emerald-500 (G4 REFINE 4.1)
 secondary stat       → var(--color-text-subtle)
 
 alert pill high bg   → var(--color-band-very-high-bg)
@@ -168,9 +168,10 @@ alert pill med bg    → var(--color-band-medium-bg)
 alert pill med text  → var(--color-band-medium-text)
 
 heading action       → var(--color-action-primary)
+skeleton (loading)   → var(--color-skeleton-shimmer)         // v4.4 derived
 ```
 
-**Zero new tokens.**
+**Zero new primitive tokens.** `--color-skeleton-shimmer` is v4.4-derived (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)).
 
 ---
 
@@ -183,7 +184,7 @@ heading action       → var(--color-action-primary)
 | Focus | 2px `--color-action-primary` outline, 2px offset |
 | Empty | "No clients" centred message + the optional heading action ("+ Add client"); 24px vertical padding |
 | Loading | render N skeleton cards (default 3) |
-| `mode='attention'` with no alert-carrying clients | render the empty state "No clients need attention this week" + a check glyph (`✓` in `--color-palette-emerald-500`) |
+| `mode='attention'` with no alert-carrying clients | render the empty state "No clients need attention this week" + a check glyph (`✓` in `--color-band-very-low-bg`); 24px vertical padding |
 
 ---
 

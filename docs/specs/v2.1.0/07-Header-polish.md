@@ -141,14 +141,14 @@ aria-current underline   → var(--color-action-primary)
 aria-current text        → var(--color-text-default)
 panel bg                 → var(--color-surface-default)
 panel border             → var(--color-border-default)
-panel shadow             → var(--shadow-floating)
+panel shadow             → var(--shadow-floating)            // v4.4 derived (see 00b-v4.4-token-extension.md)
 panel item text          → var(--color-text-default)
 panel item hover bg      → var(--color-surface-muted)
 panel eyebrow text       → var(--color-text-subtle)
 focus outline            → var(--color-action-primary)
 ```
 
-**Zero new tokens.**
+**Zero new primitive tokens.** The dropdown panel references `--shadow-floating`, which is a v4.4 derived token (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)).
 
 ---
 
@@ -165,6 +165,7 @@ core/Header
 ├── DropdownWithCurrentChild         — current pathname matches an item *inside* a dropdown; trigger underlines
 ├── KeyboardWalkthrough              — render with an instrument that exercises Tab/ESC; used by Sarah for a11y regression
 ├── DropdownReducedMotion            — verifies no transition under reduced-motion
+├── KeyboardWalkthroughReducedMotion — union of the two above (per G4 REFINE 7.1) — catches regressions where reduced-motion handling breaks specifically under keyboard nav, which manual a11y walkthroughs surface late
 └── LaunchDate                       — existing variant; verify it composes with dropdown
 ```
 

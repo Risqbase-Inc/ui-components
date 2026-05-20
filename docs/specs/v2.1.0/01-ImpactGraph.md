@@ -123,7 +123,7 @@ Engineering owns the layout. The contract:
 
   Each node also gets a soft halo at `opacity: 0.15` of the category colour, radius 1.6× node radius.
 
-- **Edge colour** is `--color-band-{severity}-bg`. **Edge thickness** in px = `{very-high: 2.5, high: 2, medium: 1.5, low: 1.5}`. **Edge curve**: quadratic bezier whose control point sits along the radial line at half-distance, perturbed perpendicular by ±8px so adjacent edges in the same sector don't overlay.
+- **Edge colour** is `--color-band-{severity}-border` (NOT `-bg` — see REFINE 1.2 in the G4 response. The `-border` token chain is the canonical stroke surface in v4.3; `-bg` is the canonical fill surface and is reserved here for the centre alert ring fill, where it reads as a halo). **Edge thickness** in px = `{very-high: 2.5, high: 2, medium: 1.5, low: 1.5}`. **Edge curve**: quadratic bezier whose control point sits along the radial line at half-distance, perturbed perpendicular by ±8px so adjacent edges in the same sector don't overlay. Perturbation direction is **deterministic** from a stable hash of `entity.id` (per §6 Q2).
 - **Clause label** renders mid-edge in `--font-mono`, 9px, `--color-text-subtle`. Collision avoidance: if two labels in the same sector overlap, shorter label wins the midpoint; longer label shifts 12px along the edge toward the entity end.
 - **Cascade edges** render as dashed lines, `stroke-dasharray: 4 4`, `opacity: 0.4`, colour `--color-text-subtle`. They route entity-to-entity, not through the centre.
 - **Iris attribution badge** (top-left corner): pill, height 28px, width auto, `--color-iris-surface` fill, `--color-iris-accent-subtle` 1px border, lettermark disc on left at `--color-iris-accent`, label text in `--color-iris-accent-hover` at 10px medium.
@@ -149,18 +149,21 @@ ROPA      → var(--color-chart-cat-4)   // emerald-500
 Vendor    → var(--color-chart-cat-3)   // amber-500
 Training  → var(--color-chart-cat-6)   // rose-500
 
-// Edge / ring severity
-very-high → var(--color-band-very-high-bg)
-high      → var(--color-band-high-bg)
-medium    → var(--color-band-medium-bg)
-low       → var(--color-band-low-bg)
+// Edge stroke colours (v4.3 -border chain; NOT -bg — see REFINE 1.2)
+very-high → var(--color-band-very-high-border)
+high      → var(--color-band-high-border)
+medium    → var(--color-band-medium-border)
+low       → var(--color-band-low-border)
 cascade   → var(--color-text-subtle)   // dashed
 
-// Centre alert
+// Centre alert (ring uses -bg for the halo fill)
 surface     → var(--color-surface-inverse)
 text        → var(--color-text-on-inverse)
 text-meta   → var(--color-text-on-inverse-subtle)
 ring        → var(--color-band-{severity}-bg)
+
+// Loading state (v4.4 — see 00b-v4.4-token-extension.md)
+skeleton    → var(--color-skeleton-shimmer)
 
 // Iris attribution
 bg          → var(--color-iris-surface)
@@ -173,7 +176,7 @@ font        → var(--font-mono) 9px / letter-spacing 0.04em
 colour      → var(--color-text-subtle)
 ```
 
-**Zero new tokens.** Every value resolves through the v4.3 shipped palette.
+**Zero new primitive tokens.** All severity / category / Iris / surface tokens are v4.3-shipped. The loading state references `--color-skeleton-shimmer`, which is a v4.4 derived addition (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)). The MarketingImpactGraph chrome additionally references `--shadow-floating`, also v4.4-derived.
 
 ### 2.5 Storybook stories
 
@@ -311,5 +314,12 @@ A v2.1.0 PR implementing this spec is mergeable when:
 ## §6 Open questions for Elena G4 review
 
 - **Q1** — Should we ship a `cascade` clause-label slot? Demo D's one cascade edge is unlabelled, but the data model allows it. Engineering preference: include `label?: string` on `ImpactCascade` from the start (no API change later).
-- **Q2** — Edge curve perturbation direction (perpendicular ±8px): deterministic from edge index or randomised at layout time? Deterministic is testable; randomised looks more organic. **Recommend**: deterministic with a stable hash on `entity.id` for reproducibility.
+- **Q2** — **Resolved**: deterministic perturbation via stable hash on `entity.id`. Documented in §2.2 above.
 - **Q3** — Cascade edge clause-labels and CitationChip rendering: should cascade labels render *as* CitationChips (with verified/external/etc. variants) or just as text? The marketing fixture renders them as plain text. Recommend keeping cascade labels as text and reserving the CitationChip variant slot for the *primary* clause edge only.
+
+---
+
+## §7 G4 REFINEs addressed
+
+- **REFINE 1.1 (unknown category)**: in `__dev__` mode (NODE_ENV !== 'production'), throw an error from the layout function if `entity.category` does not match any `CategoryPalette.key`. In prod, render the node with `--color-text-subtle` as fill + emit `console.warn('ImpactGraph: unknown category "{key}" for entity {id}; rendering as default')`. Document this convention in the MDX doc-block.
+- **REFINE 1.2 (edge stroke token naming)**: edges use `--color-band-{severity}-border`, not `-bg`. Centre alert ring fill keeps `-bg`. Applied above in §2.2 and §2.4.

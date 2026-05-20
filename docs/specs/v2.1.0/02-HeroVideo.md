@@ -187,6 +187,7 @@ The HeroVideo component does not enforce the visual handshake — that's the vid
 embed bg              → var(--color-iris-surface)        // teal-50
 placeholder play disc → var(--color-iris-accent)         // teal-600
 placeholder ring      → rgba(255,255,255, 0.8)           // hard-coded; substrate-agnostic
+embed shadow          → var(--shadow-floating)           // v4.4 derived (see 00b-v4.4)
 
 // Captions
 cue bg                → rgba(0, 0, 0, 0.65)              // hard-coded; VTT contract
@@ -205,7 +206,7 @@ close-frame pill bg   → #FFFFFF (white)
 close-frame pill text → var(--color-action-primary)      // indigo-600
 ```
 
-**Zero new tokens.** Reuses v4.3 chain.
+**Zero new primitive tokens.** Reuses v4.3 chain + the v4.4 derived `--shadow-floating` (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)).
 
 ---
 
@@ -234,7 +235,7 @@ marketing/HeroVideo
 ├── Paused                             — captures the user-paused state
 ├── ErroredFallback                    — captures the "Tap to play" error state
 ├── ReducedMotionFallback              — captures the 2×2 storyboard grid (motion off)
-├── CaptionsOff                        — captionsDefault=false; CC indicator absent
+├── CaptionsOff                        — captionsDefault=false; CC indicator absent. NOTE: the VTT track is still loaded and parseable; only the default-on display flag flips. Document this in MDX so SR walkthroughs don't flag a perceived contradiction with the "captions required" a11y contract.
 ├── WithoutLoop                        — loop=false; ends on close frame
 ├── ShortBeats                         — 4 short beats (15s total) to test loop handshake
 └── MobileViewport                     — fixed 375px viewport; verifies caption sizing rules
@@ -260,5 +261,5 @@ The `ReducedMotionFallback` story uses Storybook's `parameters.chromatic.delay` 
 
 - **Q1 — Hosting handshake.** BRIEF-429 §1 hedges Mux vs Cloudflare Stream. The component is hosting-agnostic (accepts plain `<source>` URLs), but if Mux ships an adaptive HLS manifest, do we want an `hls?: string` prop that, when present, takes precedence over `sources` and triggers hls.js loading? **Recommend**: ship without HLS support in v2.1.0; add `hls?` in v2.2 if Mux is chosen.
 - **Q2 — Autoplay denial UX.** Current spec: show "Tap to play" after 5s of failed autoplay. Should it be immediate? 5s lets the user notice the video and tap, before the error message implies broken-ness. **Recommend**: keep 5s; expose `autoplayRetryDelayMs` prop if Sophie wants to tune it later.
-- **Q3 — Mobile caption sizing.** Spec says 16px on mobile, 14px on desktop (caption text grows on small screens, not shrinks). Confirm with Elena this matches her Demo I caption pane decision — Demo I's caption-pane uses 17.5px throughout regardless of viewport, so this is a small deviation for the in-video VTT rendering. The rationale: in-video captions sit on a dark scrim and need extra weight on smaller surfaces.
+- **Q3 — Mobile caption sizing.** Spec says 16px on mobile, 14px on desktop (caption text grows on small screens, not shrinks). **G4 REFINE 2.2**: document the rationale explicitly in the MDX doc-block so the next reader doesn't read this as a bug. The exact line for the MDX: "In-video VTT captions size for dark-scrim legibility (16px mobile / 14px desktop) — distinct from the 2×2 fallback-grid caption-pane sizing (inherits from Demo I at 17.5px). The two surfaces have different substrates: VTT cues sit on a dark scrim over moving footage; the fallback grid uses a teal-50 substrate against static frames."
 - **Q4 — `onProgress` cadence.** Fire on every `timeupdate` (250ms-ish browser-defaults) or throttle to 1s? Analytics doesn't need millisecond resolution; UI animations co-ordinated to playback might. **Recommend**: pass through every `timeupdate` event raw and let the consumer throttle.

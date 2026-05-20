@@ -7,7 +7,7 @@
 > **QA**: Sarah Mitchell (G5) — Storybook + Chromatic regression
 > **CEO**: Fiyin Adeleke — release sign-off
 > **Date**: 2026-05-20
-> **DS version**: v4.3 (no token spec changes proposed in this cycle)
+> **DS version**: v4.3 → **v4.4** (4 derived tokens proposed; see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md))
 > **Package version**: @risqbase-inc/ui-components **v2.1.0** (semver-minor — additive)
 
 This pipeline closes the four mandatory component gaps identified in the
@@ -46,19 +46,23 @@ Three new namespaces appear in v2.1.0:
 
 Existing namespaces unchanged: `core/`, `ai/`, `data-viz/`.
 
-### 2.2 Token usage — v4.3 chain only
+### 2.2 Token usage — v4.3 chain + 4 derived v4.4 additions
 
-Every component below resolves through v4.3 semantic tokens. **Zero net-new tokens proposed in this cycle.** The `data-viz/ImpactGraph` primitive is the closest call — its category palette could in principle introduce `--color-impact-graph-cat-*` aliases, but the v4.3 `--color-chart-cat-{1..8}` chain already covers it cleanly (DPIA → cat-1, ROPA → cat-4, Vendor → cat-3, Training → cat-6). Build against `chart-cat-*` directly; add a wrapper alias only if a future ImpactGraph consumer needs to rename categories per-instance and the indirection earns its keep.
+**Revised after Elena G4 review (2026-05-20).** The original draft claimed "zero new tokens proposed in this cycle." Empirical verification by Elena against `tokens/{primitive,semantic,component}/*.json` + `dist/tokens.css` showed that 4 tokens referenced across specs **do not exist** in the v2.0.0 ui-components release: `--shadow-{raised,floating,overlay}` and `--color-skeleton-shimmer`. The audit-pack demo CSS (`audit-deliverable/styles/tokens-v4.2.1.css`) defines them; the canonical token source does not. The drift was masked because demos consume the audit-pack CSS, not `dist/tokens.css`.
+
+**Resolution**: file the small v4.4 derived-token brief (see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md)) promoting the existing audit-pack values into canonical `tokens/` JSON. No new primitive colours; the shimmer composes from `--color-surface-muted` + `--color-surface-subtle` (existing v4.3). Net effect: v2.1.0 ships against v4.4, with 4 derived tokens added in `tokens/semantic/elevation.json` + `tokens/semantic/loading.json`.
+
+For the ImpactGraph category palette specifically: the v4.3 `--color-chart-cat-{1..8}` chain covers it cleanly (DPIA → cat-1, ROPA → cat-4, Vendor → cat-3, Training → cat-6). Build against `chart-cat-*` directly; do not introduce category aliases.
 
 | Component | Primary token surfaces |
 |---|---|
-| ImpactGraph | `--color-chart-cat-{1..8}`, `--color-band-{very-high,high,medium,low}-bg`, `--color-iris-{surface,accent,accent-hover}`, `--color-surface-inverse`, `--color-text-on-inverse{,-subtle}` |
-| MarketingImpactGraph | (inherits from ImpactGraph) + `--shadow-floating`, `--dimension-radius-2xl` for the screenshot frame |
-| HeroVideo | `--color-iris-surface` (placeholder), `--color-iris-accent` (play affordance), `--color-text-on-inverse-subtle` (caption), `--shadow-floating` |
-| CompliancePostureStrip | `--color-gauge-track`, `--color-gauge-arc-teal`, `--color-band-{very-high,medium}-bg`, `--color-surface-{subtle,muted}`, `--color-border-{default,subtle}` |
-| ClientGrid | `--color-chart-cat-{1..6}` (avatars), `--color-band-{very-high,medium}-bg` (alert pills), `--color-surface-default`, `--color-border-default` |
+| ImpactGraph | `--color-chart-cat-{1..8}`, `--color-band-{very-high,high,medium,low}-border` (edges — see Spec 01 REFINE 1.2), `--color-band-{very-high,high,medium,low}-bg` (centre ring fill), `--color-iris-{surface,accent,accent-hover}`, `--color-surface-inverse`, `--color-text-on-inverse{,-subtle}`, **v4.4** `--color-skeleton-shimmer` (loading state) |
+| MarketingImpactGraph | inherits from ImpactGraph + **v4.4** `--shadow-floating`, `--dimension-radius-2xl` for the screenshot frame |
+| HeroVideo | `--color-iris-surface` (placeholder), `--color-iris-accent` (play affordance), `--color-text-on-inverse-subtle` (caption), **v4.4** `--shadow-floating` |
+| CompliancePostureStrip | `--color-gauge-track`, `--color-gauge-arc-teal`, `--color-band-{very-high,medium}-bg`, `--color-surface-{subtle,muted}`, `--color-border-{default,subtle}`, **v4.4** `--color-skeleton-shimmer` |
+| ClientGrid | `--color-chart-cat-{1..6}` (avatars), `--color-band-{very-high,medium}-bg` (alert pills), `--color-band-very-low-bg` (improvement delta colour — see Spec 04 REFINE 4.1), `--color-surface-default`, `--color-border-default`, **v4.4** `--color-skeleton-shimmer` |
 | ArcDecoration | `--color-palette-teal-{300,500,600}`, `--color-palette-stone-300` (terminator) |
-| Header polish | inherits existing header tokens; aria attributes only |
+| Header polish | inherits existing header tokens; **v4.4** `--shadow-floating` (dropdown panel); aria attributes only |
 
 ### 2.3 Presentational vs client-state convention
 
@@ -119,9 +123,10 @@ The migration PR will be ~1 day; most of the cost is removing the inline artwork
 
 | Date | Milestone | Owner |
 |---|---|---|
-| **2026-05-20** | This spec pack published (Claude Design) | Claude Design |
-| **2026-05-21** | Elena G4 design review on the 8 specs; any deltas merged back | Elena |
-| **2026-05-22 → 06-03** | Implementation PRs land into `ui-components` main (one per component; CI-gated on Chromatic + contrast script + token-lint) | Claude Code on Web |
+| **2026-05-20** | Spec pack published → **Elena G4 returns CONCERNS** (3 blockers, 11 refines). Claude Design files [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md) + [`G4-response.md`](./G4-response.md) the same day. | Claude Design |
+| **2026-05-21 AM** | Token JSON entries land in `tokens/semantic/{elevation,loading}.json`; `dist/tokens.css` rebuilt | Claude Code on Web (orchestrator-dispatched) |
+| **2026-05-21 PM** | Elena re-pass on the corrected spec pack | Elena |
+| **2026-05-22 → 06-03** | Implementation PRs land into `ui-components` main (one per component; CI-gated on Chromatic + contrast script + token-lint). Specs 01, 04, 06, 07, 08 may dispatch 22 May even if v4.4 tokens land mid-day; specs 02, 03, 05 dispatch after token+spec corrections settle. | Claude Code on Web |
 | **2026-05-25** | Marketing launch (independent — runs against inline V2 demos) | Sophie G8 |
 | **2026-06-04** | Sarah G5 visual regression sweep on Storybook + Chromatic baselines | Sarah |
 | **2026-06-05** | CEO release sign-off; **v2.1.0 published** to GitHub Packages | Fiyin / orchestrator |
@@ -136,7 +141,7 @@ Quality-bar pace, not deadline pace. The 25 May launch is **independent** of thi
 
 These came up in the gap report and were considered:
 
-- **DS v4.4** — *deferred*. Nothing in this cycle warrants a token-spec patch. If implementation surfaces a new canonical pattern (most likely candidate: an `--color-impact-graph-edge-cascade` semantic if cascade edges turn out to be a recurring composition), call it out in the implementing PR and we'll patch v4.4 separately.
+- **DS v4.4** — ~~deferred~~ **PROMOTED** to in-scope after Elena G4 review (2026-05-20). 4 derived tokens added; see [`00b-v4.4-token-extension.md`](./00b-v4.4-token-extension.md). The `--color-impact-graph-edge-cascade` semantic remains deferred (cascade edges are a single visual use case in this cycle; don't generalise prematurely).
 - **Real-product ImpactGraph data binding** (live HorizonIris alerts feeding a runtime graph) — the primitive exposes the API for it, but consumer wiring lives in the RALIA app, not in ui-components. RALIA team picks up post-1-July.
 - **HeroVideo analytics** — view-progress + completion-rate telemetry hooks. The component exposes `onPlay` / `onProgress` / `onComplete` callbacks; analytics binding is consumer-side.
 - **`<PracticeCockpitSurface>` monolith** — explicitly rejected. CompliancePostureStrip and ClientGrid are independent for composition flexibility; the marketing demo's full Cockpit screenshot is reproducible by composing both.
@@ -153,8 +158,9 @@ These came up in the gap report and were considered:
 | ClientGrid | 1 day | Composes existing Card; alert-pill story |
 | ArcDecoration | 0.5 day | Static SVG with prop-driven ring count + palette |
 | Header polish | 1 day | Dropdown disclosure pattern + a11y + ESC/outside-click |
-| CitationChip verification + a11y labels | 0.5 day | Story coverage audit + SR-friendly variant labels + MDX convention update |
+| CitationChip verification + a11y labels | 0.5 day | Re-scope to actual v2.0.0 source (Spec 05 rewrite Annex A) + add 4 missing stories + combined-announcement aria-label patch + WCAG 2.5.8 min-height |
 | VideoEmbed token swap | 0.25 day | Token rename + visual-regression snapshot |
-| **Total** | **~8.75 dev-days** | Sequential within one engineer; parallelisable to ~4 calendar days with two |
+| **v4.4 token-extension brief** | 0.5 day | 4 derived tokens, 2 new JSON files, build + Chromatic re-baseline |
+| **Total** | **~9.25 dev-days** | Sequential within one engineer; parallelisable to ~4 calendar days with two. The v4.4 token PR can run in parallel with all 8 component PRs once the JSON entries land EOD 21 May. |
 
 Three calendar weeks at quality-bar pace gives slack for review cycles, Chromatic baselines, and the Storybook MDX writing pass.

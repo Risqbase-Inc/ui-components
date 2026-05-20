@@ -32,7 +32,7 @@ export type ArcPalette = 'teal' | 'teal-on-dark' | 'stone'
 export interface ArcDecorationProps {
   /** Off-canvas anchor of the implicit centre — defaults 'bottom-right' (Demo B canonical) */
   position?: ArcPosition
-  /** Number of ring fragments — defaults 4 (per v4.3 §20 + BRIEF-429 V2 M-08) */
+  /** Number of ring fragments — defaults 4 (per v4.3 §20 + BRIEF-429 V2 M-08). When 4, the terminator accent dot also renders. */
   rings?: 2 | 3 | 4
   /** Palette — 'teal' on light substrates, 'teal-on-dark' for inverse substrates (e.g. close-frame video), 'stone' for muted decorative use */
   palette?: ArcPalette
@@ -40,10 +40,12 @@ export interface ArcDecorationProps {
   size?: number
   /** Override opacity ramp for the outermost ring; the rest of the ramp scales proportionally. Default 1.0 */
   baseOpacity?: number
-  /** Optional rotation seed (in degrees) for the outermost ring; subsequent rings rotate by -15° each */
+  /** Optional rotation seed (in degrees) for the outermost ring; subsequent rings shift by Demo B's progression (-15°, -13°, -12°) */
   rotationSeed?: number
   /** When true, render in motion (slow 60s ease rotation) — reserved for IrisThinking, not used in v2.1.0 marketing */
   animated?: boolean
+  /** When true, suppress the terminator accent dot even at rings=4. Default false. */
+  hideTerminatorDot?: boolean
   className?: string
 }
 ```
@@ -56,18 +58,36 @@ All props optional. The Demo B canonical usage is `<ArcDecoration />` with no pr
 
 ### 3.1 Geometry
 
-Per `redesigns/concentric-arc-pattern-redesign.html` §1 + Demo B §1:
+Per `redesigns/concentric-arc-pattern-redesign.html` §1 + Demo B §1. **Dasharray values + rotation seeds + the terminator accent dot are grep-verified against `Marketing Demo B - Signature Surfaces.html` source** (lines 195-203 · grep-cite in Annex below). My original v1 draft had two errors here (ring 1 dasharray off; ring 1 opacity erroneously included); fixed to match Demo B verbatim per G4 REFINE 6.1:
 
-| Ring | Radius (at size=480) | Stroke | Opacity | Token (teal palette) |
-|---|---|---|---|---|
-| 4 (outermost) | 440 | 1px | 1.0 | `--color-palette-teal-600` |
-| 3 | 360 | 2px | 0.70 | `--color-palette-teal-500` |
-| 2 | 280 | 3px | 0.55 | `--color-palette-teal-300` |
-| 1 (innermost, terminator) | 200 | 4px | 0.50 | `--color-palette-stone-300` |
+| Ring | Radius (at size=480) | Stroke | Opacity | Dasharray | Rotation seed | Token (teal palette) |
+|---|---|---|---|---|---|---|
+| 4 (outermost) | 440 | 1px | 1.0 | `260 2540` | -130° | `--color-palette-teal-600` |
+| 3 | 360 | 2px | 0.70 | `220 2040` | -145° | `--color-palette-teal-500` |
+| 2 | 280 | 3px | 0.55 | `170 1590` | -158° | `--color-palette-teal-300` |
+| 1 (innermost terminator) | 200 | 4px | 1.0 | `130 1120` | -170° | `--color-neutral-stone-300` |
+| terminator accent dot | (cx=-200, cy=0) | filled r=4 | 1.0 | n/a | -170° (sits at the end of the terminator arc) | `--color-palette-teal-300` |
 
-When `rings=3`, drop ring 3 (the inner-outer one). When `rings=2`, drop rings 2 and 3.
+The accent dot is the visual flourish that terminates the innermost arc — a 4px filled disc rotated to sit at the terminator's leading end. It is **part of the canonical recipe** and must render whenever ring 1 renders (i.e. always at the default `rings=4`). When `rings=2` or `rings=3`, the accent dot is **suppressed** along with the rings it terminates.
 
-Each ring renders as a `<circle>` with `stroke-dasharray` chosen so only a 60° arc shows — the rest of the circle is invisible. The dasharray values lift verbatim from Demo B's hand-tuned values (260/2540, 220/2040, 170/1590, the innermost full-circle for the terminator).
+Note: the terminator stroke colour in Demo B is `--color-neutral-stone-300` (the v4.2.1 primitive-tier name), which v4.3 re-exports as `--color-palette-stone-300`. Either reference resolves to the same value; the v4.4 `tokens/` consolidation will pick one. Use `--color-palette-stone-300` in v2.1.0 implementation per the v4.3 alias rule (cover §2.2).
+
+Implementation: **pin all 4 values + 4 rotation seeds + the accent-dot geometry as build-time constants in `ArcDecoration/constants.ts`** rather than recomputing at render time. Marketing-site visual regressions on this artwork have been a touchy area (β P5 reviews); freezing the values in code makes Chromatic diffs unambiguous.
+
+When `rings=3`, drop ring 3 (the 360-radius one). When `rings=2`, drop rings 2 and 3 **and** the terminator accent dot.
+
+Each ring renders as a `<circle>` with `stroke-dasharray` chosen so only a ~60° arc shows — the rest of the circle is invisible.
+
+#### Annex · Demo B grep cite (verbatim)
+
+```
+// Marketing Demo B - Signature Surfaces.html  lines 195-203
+<circle r="440" stroke="teal-600" stroke-width="1" stroke-dasharray="260 2540" transform="rotate(-130)"/>
+<circle r="360" stroke="teal-500" stroke-width="2" stroke-dasharray="220 2040" opacity="0.7"  transform="rotate(-145)"/>
+<circle r="280" stroke="teal-300" stroke-width="3" stroke-dasharray="170 1590" opacity="0.55" transform="rotate(-158)"/>
+<circle r="200" stroke="stone-300" stroke-width="4" stroke-dasharray="130 1120" transform="rotate(-170)"/>
+<circle cx="-200" cy="0" r="4" fill="teal-300" transform="rotate(-170)"/>   <!-- terminator accent dot -->
+```
 
 ### 3.2 Position math
 
