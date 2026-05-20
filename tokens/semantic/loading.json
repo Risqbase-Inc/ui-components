@@ -1,0 +1,20 @@
+{
+  "color": {
+    "skeleton": {
+      "$comment": "Skeleton-shimmer composition formalised in v4.4 (00b-v4.4-token-extension brief). Composed entirely from existing v4.3 surface primitives (color.surface.muted + color.surface.subtle); zero new primitive colours. Token exists so every skeleton placeholder across the library resolves through a single gradient definition instead of each component baking its own. Standard 1.4s linear infinite shimmer keyframe lives in dist/tokens.css as a CSS utility block; @media (prefers-reduced-motion: reduce) drops the animation.",
+      "shimmer": {
+        "$value": "linear-gradient(90deg, {color.surface.muted} 0%, {color.surface.subtle} 50%, {color.surface.muted} 100%)",
+        "$type": "color",
+        "$description": "Skeleton placeholder fill — animated via the standard 1.4s shimmer keyframe.",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "light",
+            "variable": "color/skeleton/shimmer"
+          }
+        }
+      }
+    }
+  }
+}
