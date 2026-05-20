@@ -50,11 +50,17 @@ function loadTokenTree() {
   return tree
 }
 
+// Disallow prototype-polluting keys — CodeQL js/prototype-polluting-function.
+// Token JSON is authored in-tree (no user input), so risk is low, but the
+// defensive skip is trivial + closes the CodeQL alert from PR #54.
+const PROTO_KEYS = new Set(['__proto__', 'prototype', 'constructor'])
+
 function mergeDeep(target, source) {
   for (const key of Object.keys(source)) {
+    if (PROTO_KEYS.has(key)) continue
     const sv = source[key]
     if (sv && typeof sv === 'object' && !Array.isArray(sv) && !('$value' in sv)) {
-      if (!target[key] || typeof target[key] !== 'object') target[key] = {}
+      if (!Object.hasOwn(target, key) || typeof target[key] !== 'object') target[key] = {}
       mergeDeep(target[key], sv)
     } else {
       target[key] = sv
