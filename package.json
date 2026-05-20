@@ -36,6 +36,11 @@
       "import": "./dist/content/index.mjs",
       "require": "./dist/content/index.js"
     },
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.mjs",
+      "require": "./dist/primitives/index.js"
+    },
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
       "import": "./dist/tokens/index.mjs",
