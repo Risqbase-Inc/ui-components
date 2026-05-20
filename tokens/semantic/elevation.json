@@ -1,0 +1,44 @@
+{
+  "shadow": {
+    "$comment": "Elevation system formalised in v4.4 (00b-v4.4-token-extension brief). Three-stop stack lifted verbatim from the audit-pack demo CSS (audit-deliverable/styles/tokens-v4.2.1.css), which had become de-facto canon by way of the V2 demo HTMLs even though the values had never landed in tokens/. The promotion eliminates the demo-vs-source drift surface that triggered BLOCKER 1 of Elena G4's review. No new primitive colours; no behavioural change vs the values demos already render.",
+    "raised": {
+      "$value": "0 1px 2px 0 rgb(0 0 0 / 0.04), 0 1px 1px -1px rgb(0 0 0 / 0.02)",
+      "$type": "shadow",
+      "$description": "Cards at rest. Subtle separation from the surface plane.",
+      "$extensions": {
+        "com.risqbase.role": "semantic",
+        "com.risqbase.figma": {
+          "collection": "semantic",
+          "mode": "light",
+          "variable": "shadow/raised"
+        }
+      }
+    },
+    "floating": {
+      "$value": "0 4px 12px -2px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04)",
+      "$type": "shadow",
+      "$description": "Floating panels — dropdowns, popovers, composition surfaces.",
+      "$extensions": {
+        "com.risqbase.role": "semantic",
+        "com.risqbase.figma": {
+          "collection": "semantic",
+          "mode": "light",
+          "variable": "shadow/floating"
+        }
+      }
+    },
+    "overlay": {
+      "$value": "0 16px 40px -10px rgb(0 0 0 / 0.16), 0 6px 16px -6px rgb(0 0 0 / 0.08)",
+      "$type": "shadow",
+      "$description": "Overlays — modal dialogs, fullscreen lightboxes.",
+      "$extensions": {
+        "com.risqbase.role": "semantic",
+        "com.risqbase.figma": {
+          "collection": "semantic",
+          "mode": "light",
+          "variable": "shadow/overlay"
+        }
+      }
+    }
+  }
+}
