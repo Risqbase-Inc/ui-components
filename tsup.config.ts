@@ -5,7 +5,10 @@ import { defineConfig } from 'tsup'
 // (or any other domain) and tree-shake the rest.
 //
 // `src/index.ts` remains the v1.x back-compat root barrel.
-// `src/primitives/` is intentionally absent: it is internal-only.
+// `src/primitives/` is publicly exposed as of v2.1.0 (Spec 06,
+// ArcDecoration). The barrel re-exports only the public surfaces;
+// internal-only primitives live in the same directory but are not
+// re-exported (see src/primitives/index.ts header).
 
 export default defineConfig({
   entry: {
@@ -14,6 +17,7 @@ export default defineConfig({
     'ai/index': 'src/ai/index.ts',
     'data-viz/index': 'src/data-viz/index.ts',
     'content/index': 'src/content/index.ts',
+    'primitives/index': 'src/primitives/index.ts',
     'tokens/index': 'src/tokens/index.ts',
   },
   format: ['cjs', 'esm'],
