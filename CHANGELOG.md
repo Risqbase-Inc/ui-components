@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+### Design System v4.3 — package side, addendum 2 (iris.accent-on contrast contract + R11)
+
+Resolves the contrast finding surfaced by PR #51's `verify:contrast` script. Claude Design's call: accept the 3.74:1 ratio (don't darken `iris.accent`), constrain where the white glyph applies, enforce via a new scanner rule.
+
+- **New token `iris.accent-on-dark`** → `stone-900`. Computes to **4.67:1** on `iris.accent` (teal-600) — clears AA Normal. Carries a `contrastPair` annotation so the verifier picks it up. The `iris.accent-on` token (white) stays at 3.74:1 with a contract update in its `$description` constraining it to AA Large + Non-Text uses.
+- **Spec doc — `docs/design-system/v4.3/RisqBase-DS-v4.3-Comprehensive.md` §4.2 contrast contract** — table of approved / not-approved surface categories, rationale for keeping teal-600, and pointers to the enforcement mechanisms.
+- **Scanner rule R11** — new in v4.3. `docs/design-system/v4.3/scanner-rule-r11.md` is the canonical rule definition; `scripts/scanner-rules/r11-iris-accent-on.mjs` is the reference detection implementation (regex-based; emits `error` for clear violations, `warn` for ambiguous). Consumer scanners (RALIA, marketing) import or copy the function into their `scripts/lib/design-rules.mjs`. The package's `files` array now publishes `scripts/scanner-rules/` so consumers pick up rule updates through their normal version bump.
+- **Primitive docs** — `IrisThinking/accessibility.md` and `PromptChip/accessibility.md` now reference the §4.2 contract. The package's own primitives don't violate R11 (verified: `node scripts/scanner-rules/r11-iris-accent-on.mjs src → no violations`); the contract is for consumer compositions that use Iris-accent backgrounds.
+
+Out of scope (consumer-repo work):
+- Updates to the 10 RALIA redesigns (`audit-deliverable/redesigns/*.html`) — live in `Risqbase-Inc/Ralia`.
+- Updates to the 8 marketing demos — live in the marketing-site repo.
+- Wiring R11 into consumer-side `scripts/lib/design-rules.mjs` + CI — happens in each consumer scanner.
+- Baseline generation for existing showcase violations — each consumer regenerates against its own tree.
+
 ### Design System v4.3 — package side, addendum (Claude Design strategic decisions)
 
 - **`<TelemetryBeacon>` stub landed.** New no-op primitive at `core/TelemetryBeacon` — production no-op, dev `console.debug` gated on `NEXT_PUBLIC_TELEMETRY_DEBUG=1`. All 25 primitives (5 v4.2.1 + 20 v4.3) now emit a mount beacon. When the collector lands (audit U4.2 / U4.3), the dispatch wires in at the Beacon — no component-side change.

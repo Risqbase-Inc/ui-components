@@ -43,7 +43,8 @@
     "dist",
     "tailwind.preset.js",
     "tokens",
-    "tools/tokens-build"
+    "tools/tokens-build",
+    "scripts/scanner-rules"
   ],
   "scripts": {
     "build:tokens": "node tools/tokens-build/index.js",
