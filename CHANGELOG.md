@@ -130,6 +130,15 @@ Out of scope (consumer-repo work):
 - `docs/design-system/v4.2/v4.2.1-backlog.md` (a working list maintained across S1 cleanup PRs) absorbed into the patch plan and removed.
 - **BRIEF-401 — DS implementation audit + value-pass.** `docs/briefs/BRIEF-401-DS-IMPL-AUDIT.md` commissions the next slice of work: the v4.2.1 outstanding handoffs (38 TBD primitive hex values, dark + HC + print theme values, `scopes[]` patch per A7) plus a full system audit against the spec. Two-agent split: Claude Design produces artefacts, Claude Code lands them as PRs.
 
+## [2.1.2](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.1...v2.1.2) (2026-05-20)
+
+
+### Bug Fixes
+
+* **ci:** publish workflow uses --legacy-peer-deps ([c780827](https://github.com/Risqbase-Inc/ui-components/commit/c780827af95283e74a5ea9bcd8d36bc902a88a5d))
+* **ci:** publish workflow uses --legacy-peer-deps ([#72](https://github.com/Risqbase-Inc/ui-components/issues/72)) ([c780827](https://github.com/Risqbase-Inc/ui-components/commit/c780827af95283e74a5ea9bcd8d36bc902a88a5d))
+* **v2.1.1:** G4 Tier 2 sweep — 14 NIT/OBSERVATION fixes ([#70](https://github.com/Risqbase-Inc/ui-components/issues/70)) ([9689afb](https://github.com/Risqbase-Inc/ui-components/commit/9689afb0d94613663bda36d165f493ab2343f9b7))
+
 ## [2.1.1](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.0...v2.1.1) (2026-05-20)
 
 
