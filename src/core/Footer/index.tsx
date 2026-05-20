@@ -1,172 +1,211 @@
 import Link from 'next/link'
 import { TelemetryBeacon } from '../TelemetryBeacon'
-import type { FooterProps } from './types'
+import type { FooterLink, FooterProps, FooterSection } from './types'
 
-// Role tokens (spec §15.2; resolved values in dist/tokens.css). Canonical
-// neutral shifts vs v1.x light-mode pixels (flagged for S5 baseline):
-//   bg-gray-900     → surface.inverse        (stone-900)
-//   text-gray-400   → text.on-inverse-subtle (stone-400)
-//   text-gray-500   → text.on-inverse-subtle (stone-400)
-//   border-gray-800 → border.inverse         (stone-700)
-// Indigo logo and white heading values are unchanged.
-const linkClasses =
-  'text-[var(--color-footer-link-default)] hover:text-[var(--color-footer-link-hover)] transition-colors'
-const headingClasses = 'text-[var(--color-footer-heading)] font-semibold mb-4'
-const metaClasses = 'text-[var(--color-footer-meta)]'
+/**
+ * Canonical marketing footer (v2.1.1).
+ *
+ * Ported from the marketing site's `MarketingFooter` (authoritative per CEO
+ * directive 2026-05-20). Single shared surface across all RisqBase public
+ * properties. Authed-product footers stay in-product.
+ *
+ * Tokens (see `tokens.md`):
+ *   bg-stone-900 / text-gray-400 / text-indigo-400 / border-gray-800
+ *   currently inline pixel values; semantic tokens consumed where present.
+ */
 
-export function Footer({ variant = 'risqbase' }: FooterProps) {
-  const logoText = variant === 'ralia' ? 'RALIA' : 'RisqBase'
-  const tagline = variant === 'ralia' ? 'by RisqBase' : null
+// ─── Default link map (canonical) ────────────────────────────────────────────
+// Exported so downstream consumers can introspect / extend.
+
+export const DEFAULT_PLATFORM_LINKS: FooterLink[] = [
+  { label: 'Platform Overview', href: '/platform' },
+  { label: 'AI Compliance', href: '/platform/ai-compliance' },
+  { label: 'Privacy Compliance', href: '/platform/privacy-compliance' },
+  { label: 'HorizonIris', href: '/platform/horizon-iris' },
+  { label: 'Operations', href: '/platform/operations' },
+]
+
+export const DEFAULT_PRACTICE_LINKS: FooterLink[] = [
+  { label: 'Practice Overview', href: '/practice' },
+  { label: 'Practice Pricing', href: '/pricing/practice' },
+  { label: 'Get Started', href: '/practice/get-started' },
+]
+
+export const DEFAULT_SOLUTIONS_LINKS: FooterLink[] = [
+  { label: 'Solutions Overview', href: '/solutions' },
+  { label: 'For DPOs', href: '/platform/privacy-compliance' },
+  { label: 'For CISOs', href: '/platform/operations' },
+  { label: 'For Consultancies', href: '/practice' },
+  { label: 'For Legal Teams', href: '/platform/ai-compliance' },
+  { label: 'For Enterprises', href: '/platform' },
+]
+
+export const DEFAULT_COMPANY_LINKS: FooterLink[] = [
+  { label: 'About', href: '/about' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Founding Members', href: '/founding-members' },
+  { label: 'Security', href: '/security' },
+  { label: 'Contact', href: '/contact' },
+]
+
+export const DEFAULT_LEGAL_LINKS: FooterLink[] = [
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Cookie Policy', href: '/cookies' },
+  { label: 'Governance', href: '/governance' },
+  { label: 'Responsible AI', href: '/responsible-ai' },
+  { label: 'Responsible Use', href: '/responsible-use' },
+]
+
+export const DEFAULT_SECTIONS: FooterSection[] = [
+  { title: 'Platform', links: DEFAULT_PLATFORM_LINKS },
+  { title: 'Practice', links: DEFAULT_PRACTICE_LINKS },
+  { title: 'Solutions', links: DEFAULT_SOLUTIONS_LINKS },
+  { title: 'Company', links: DEFAULT_COMPANY_LINKS },
+  { title: 'Legal', links: DEFAULT_LEGAL_LINKS },
+]
+
+// Bottom-bar legal triad — always rendered (never filtered by hiddenLinks)
+// since these pages MUST exist on any production marketing deployment for
+// GDPR / consent reasons.
+const BOTTOM_BAR_LEGAL: FooterLink[] = [
+  { label: 'Terms', href: '/terms' },
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Cookies', href: '/cookies' },
+]
+
+// ─── Component ───────────────────────────────────────────────────────────────
+
+export function Footer({
+  sections,
+  hiddenLinks,
+  tagline = 'Integrated compliance intelligence for digital regulation, privacy and AI governance teams.',
+  copyrightHolder = 'RisqBase d.o.o.',
+}: FooterProps = {}) {
+  const currentYear = new Date().getFullYear()
+  const hidden = new Set(hiddenLinks ?? [])
+
+  // Apply hidden-link filtering. Empty sections collapse entirely.
+  const visibleSections = (sections ?? DEFAULT_SECTIONS)
+    .map((section) => ({
+      ...section,
+      links: section.links.filter((link) => !hidden.has(link.href)),
+    }))
+    .filter((section) => section.links.length > 0)
 
   return (
     <>
-    <TelemetryBeacon component="Footer" variant={variant} />
-    <footer className="bg-[var(--color-footer-background)]">
-      {/* Navigation Links Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {/* Product Column */}
-          <div>
-            <h3 className={headingClasses}>Product</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href={variant === 'ralia' ? '/#features' : '/features'} className={linkClasses}>
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className={linkClasses}>
-                  Pricing
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Column */}
-          <div>
-            <h3 className={headingClasses}>Company</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="https://risqbase.com/about" className={linkClasses}>
-                  About RisqBase
-                </Link>
-              </li>
-              {variant === 'risqbase' && (
-                <li>
-                  <Link href="https://ralia.io/about" className={linkClasses}>
-                    About RALIA
-                  </Link>
-                </li>
-              )}
-              {variant === 'ralia' && (
-                <li>
-                  <Link href="/about" className={linkClasses}>
-                    About RALIA
-                  </Link>
-                </li>
-              )}
-              <li>
-                <Link href="/contact" className={linkClasses}>
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h3 className={headingClasses}>Legal</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="https://risqbase.com/privacy" className={linkClasses}>
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/terms" className={linkClasses}>
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/cookies" className={linkClasses}>
-                  Cookie Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/security" className={linkClasses}>
-                  Security
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/governance" className={linkClasses}>
-                  Governance
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/responsible-ai" className={linkClasses}>
-                  Responsible AI
-                </Link>
-              </li>
-              <li>
-                <Link href="https://risqbase.com/responsible-use" className={linkClasses}>
-                  Responsible Use
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Connect Column */}
-          <div>
-            <h3 className={headingClasses}>Connect</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/contact" className={linkClasses}>
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="mailto:support@risqbase.com" className={linkClasses}>
-                  Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="border-t border-[var(--color-footer-divider)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            {/* Logo and Copyright */}
-            <div className="mb-4 md:mb-0">
-              <Link href="/" className="text-xl font-bold text-[var(--color-footer-logo)]">
-                {logoText}
+      <TelemetryBeacon component="Footer" version="2.1.1" />
+      <footer className="bg-stone-900" role="contentinfo">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+          {/* Main row: brand left, nav columns right */}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            {/* Left: Brand + tagline */}
+            <div className="lg:w-[280px] flex-shrink-0">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2.5"
+                aria-label="RisqBase home"
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 160 160"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <text
+                    x="80"
+                    y="120"
+                    textAnchor="middle"
+                    fontFamily="'Helvetica Neue', Arial, sans-serif"
+                    fontSize="120"
+                    fontWeight="700"
+                    fill="#4F46E5"
+                  >
+                    r|ↄ
+                  </text>
+                </svg>
+                <span className="text-base font-semibold text-indigo-400">RisqBase</span>
               </Link>
-              {tagline && <span className={`${metaClasses} ml-2`}>{tagline}</span>}
-              <p className={`${metaClasses} text-sm mt-1`}>
-                © 2026 RisqBase d.o.o. All rights reserved.
-              </p>
-              <address className={`${metaClasses} text-sm not-italic mt-1`}>
-                Registered office: Zaostroška 3, 10000 Zagreb, Croatia
-              </address>
+              <p className="text-xs text-gray-400 mt-4 leading-relaxed max-w-[240px]">{tagline}</p>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex items-center space-x-6">
-              <span className={`${metaClasses} text-sm flex items-center`}>
-                <span className="mr-1">🇪🇺</span> Made in the EU
+            {/* Right: Nav columns */}
+            {visibleSections.length > 0 && (
+              <nav
+                aria-label="Footer navigation"
+                className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-8"
+              >
+                {visibleSections.map((section) => (
+                  <div key={section.title}>
+                    <h3 className="text-sm font-semibold text-white mb-3">{section.title}</h3>
+                    <ul className="space-y-2.5">
+                      {section.links.map((link) => (
+                        <li key={link.href + link.label}>
+                          <Link
+                            href={link.href}
+                            className="text-sm text-gray-400 hover:text-white transition-colors"
+                            {...(link.external
+                              ? { target: '_blank', rel: 'noopener noreferrer' }
+                              : {})}
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </nav>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-800 mt-12" />
+
+          {/* Bottom bar: copyright + legal left, language selector right */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="text-xs text-gray-400">
+                &copy; {currentYear} {copyrightHolder}
               </span>
-              <span className={`${metaClasses} text-sm`}>
-                EU AI Act Ready
-              </span>
+              {BOTTOM_BAR_LEGAL.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs text-gray-400 hover:text-white transition-colors py-1"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
+
+            {/* Language indicator */}
+            <span className="inline-flex items-center gap-1.5 text-xs text-gray-400">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              English
+            </span>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     </>
   )
 }
 
-export type { FooterProps } from './types'
+export type { FooterProps, FooterLink, FooterSection } from './types'

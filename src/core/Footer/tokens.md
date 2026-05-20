@@ -1,5 +1,14 @@
 # Tokens — `Footer`
 
+> **v2.1.1 note**: The Footer was re-ported from the canonical marketing
+> `MarketingFooter` per CEO directive 2026-05-20. The current implementation
+> uses inline Tailwind classes (`bg-stone-900`, `text-gray-400`, `text-indigo-400`,
+> `border-gray-800`) rather than the role-token CSS variables documented below.
+> A follow-up sweep will re-wire the inline classes to the token variables;
+> the resolved pixel values are identical, so there is no visual diff in the
+> meantime. Tracking: post-launch tokens-rewire sweep (owner TBD).
+
+
 The following design tokens are consumed by this component. See `tokens/component/footer.json` for the JSON source of truth and `tokens/README.md` for the schema.
 
 ## Tokens consumed

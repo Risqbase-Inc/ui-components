@@ -2,6 +2,42 @@
 
 ## Unreleased
 
+### Footer — port canonical `MarketingFooter` content; add `hiddenLinks` prop (v2.1.1)
+
+CEO directive 2026-05-20 ("Footer Option C"): the marketing site's `MarketingFooter`
+is the authoritative public-marketing footer. This release re-ports its content
+into `core/Footer` and gives downstream consumers a way to suppress links
+pointing to pages that haven't yet shipped to a given deployment.
+
+- **Breaking** — drops the `variant: 'risqbase' | 'ralia'` prop. Authed-product
+  footers live in-product (RALIA owns its own `AuthenticatedFooter`); this
+  primitive is now single-purpose (public marketing). Migration: remove the
+  prop entirely. The five-column nav grid + brand block + bottom-bar legal
+  triad now ship as the canonical default.
+- **New** — `hiddenLinks?: string[]` prop. Pass exact-match hrefs of pages
+  that haven't shipped on the current deployment; matched links are filtered,
+  and sections that end up empty collapse entirely (no orphan heading). The
+  bottom-bar `Terms / Privacy / Cookies` triad is never filtered (these MUST
+  exist on any production surface for GDPR / consent reasons).
+- **New** — `sections?: FooterSection[]` (full override), `tagline?: string`,
+  `copyrightHolder?: string` props for partner / co-brand surfaces.
+- **Exports** — `FooterLink`, `FooterSection` types plus
+  `FOOTER_DEFAULT_{PLATFORM,PRACTICE,SOLUTIONS,COMPANY,LEGAL}_LINKS` +
+  `FOOTER_DEFAULT_SECTIONS` constants so consumers can extend the default
+  link map rather than redeclaring it.
+- **Accessibility** — `<footer role="contentinfo">` + `<nav aria-label="Footer navigation">`
+  preserved; tested against axe-core `wcag22aa` tag (zero violations on `Default`
+  and `WithHiddenLinks` stories). Contrast ratios documented in
+  `src/core/Footer/accessibility.md` (all pass WCAG 2.2 AAA on `bg-stone-900`).
+- **Stories** — `Default`, `WithHiddenLinks` (mirrors actual production-vs-staging
+  delta on `risqbase.com`), `Mobile`, `AllNavHidden`, `CustomSections`,
+  `PrintGallery` (Chromatic `@media print` mode).
+
+Consumer migration (marketing site): `<Footer hiddenLinks={[...]} />` lands in
+companion PR `feat/consume-ui-components-footer` on `Risqbase-Inc/RisqBase`.
+The local `src/components/layout/MarketingFooter.tsx` is retained as fallback
+until the upstream component is verified stable in production.
+
 ### Design System v4.3 — package side, addendum 2 (iris.accent-on contrast contract + R11)
 
 Resolves the contrast finding surfaced by PR #51's `verify:contrast` script. Claude Design's call: accept the 3.74:1 ratio (don't darken `iris.accent`), constrain where the white glyph applies, enforce via a new scanner rule.

@@ -30,7 +30,7 @@
     <a href="patterns.html">Patterns</a>
     <a href="changelog.html">Changelog</a>
   </nav>
-  <span class="version-pill">@risqbase-inc/ui-components · v2.0.0</span>
+  <span class="version-pill">@risqbase-inc/ui-components · v2.1.0</span>
 </header>
 
 <div class="shell">
@@ -60,7 +60,9 @@
     <h4>AI</h4>
     <ul>
       <li><a href="#citation-chip">CitationChip</a></li>
+      <li><a href="#client-grid">ClientGrid</a></li>
       <li><a href="#client-scope-banner">ClientScopeBanner</a></li>
+      <li><a href="#compliance-posture-strip">CompliancePostureStrip</a></li>
       <li><a href="#iris-thinking">IrisThinking</a></li>
       <li><a href="#prompt-chip">PromptChip</a></li>
       <li><a href="#streaming-text">StreamingText</a></li>
@@ -71,13 +73,14 @@
     <ul>
       <li><a href="#chart-container">ChartContainer</a></li>
       <li><a href="#gauge">Gauge</a></li>
+      <li><a href="#impact-graph">ImpactGraph</a></li>
       <li><a href="#risk-gauge">RiskGauge</a></li>
     </ul>
   </div>
   <div class="group">
     <h4>Marketing</h4>
     <ul>
-      <li><em>none yet</em></li>
+      <li><a href="#hero-video">HeroVideo</a></li>
     </ul>
   </div>
   <div class="group">
@@ -90,7 +93,7 @@
 
 <div class="content wide">
   <p class="eyebrow">Components</p>
-  <h1>23 shipped across four domains. The system is the menu.</h1>
+  <h1>27 shipped across four domains. The system is the menu.</h1>
   <p class="lede">Every component composes from the §7.0 anatomy noun glossary. New variants reuse existing nouns; new components require G4 approval. No component reaches past the token layer to invent a colour. List below is generated from <code>src/{core,ai,data-viz,marketing}/*/</code> at build time — no separate registry to drift.</p>
 
   <h2 id="core" style="margin-top:48px;">Core</h2>
@@ -260,6 +263,16 @@
       </div>
     </div>
 
+    <div class="card comp-card" id="client-grid">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        ClientGrid
+      </div>
+      <div class="meta">
+        <h3>ClientGrid</h3>
+        <p><code>import { ClientGrid } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
+
     <div class="card comp-card" id="client-scope-banner">
       <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
         ClientScopeBanner
@@ -267,6 +280,16 @@
       <div class="meta">
         <h3>ClientScopeBanner</h3>
         <p><code>import { ClientScopeBanner } from '@risqbase-inc/ui-components/ai'</code></p>
+      </div>
+    </div>
+
+    <div class="card comp-card" id="compliance-posture-strip">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        CompliancePostureStrip
+      </div>
+      <div class="meta">
+        <h3>CompliancePostureStrip</h3>
+        <p><code>import { CompliancePostureStrip } from '@risqbase-inc/ui-components/ai'</code></p>
       </div>
     </div>
 
@@ -324,6 +347,16 @@
       </div>
     </div>
 
+    <div class="card comp-card" id="impact-graph">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        ImpactGraph
+      </div>
+      <div class="meta">
+        <h3>ImpactGraph</h3>
+        <p><code>import { ImpactGraph } from '@risqbase-inc/ui-components/data-viz'</code></p>
+      </div>
+    </div>
+
     <div class="card comp-card" id="risk-gauge">
       <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
         RiskGauge
@@ -337,7 +370,17 @@
 
   <h2 id="marketing" style="margin-top:48px;">Marketing</h2>
   <p>Layer-2 primitives intended for the marketing-site surface only. Not used inside the authed RALIA app.</p>
-  <p style="color: var(--color-text-subtle); font-size: 14px;">No components in <code>marketing</code> yet — coming in a later release.</p>
+  <div class="card-grid cols-3" style="margin-top:24px;">
+    <div class="card comp-card" id="hero-video">
+      <div class="preview" style="font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle);">
+        HeroVideo
+      </div>
+      <div class="meta">
+        <h3>HeroVideo</h3>
+        <p><code>import { HeroVideo } from '@risqbase-inc/ui-components/marketing'</code></p>
+      </div>
+    </div>
+  </div>
 
   <h2 id="roadmap" style="margin-top:64px;">Promotion criteria</h2>
   <p>A component graduates from <em>incubator</em> to <em>shipped</em> when it (1) has co-located <code>accessibility.md</code> + <code>tokens.md</code>, (2) carries a Storybook story file, (3) passes Chromatic baselines across all themes, (4) is referenced by at least one consumer (RALIA, marketing site, or Cortex), and (5) clears G4 design review.</p>
@@ -352,7 +395,7 @@
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.0.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.0 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 
