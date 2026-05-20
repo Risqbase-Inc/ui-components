@@ -107,7 +107,7 @@ export function Header({
               </Link>
               <Link
                 href={isRalia ? '/signup' : '/get-started'}
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[var(--color-header-cta-foreground)] bg-[var(--color-header-cta-background-default)] rounded-lg hover:bg-[var(--color-header-cta-background-hover)] transition-colors"
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[var(--color-header-cta-foreground)] bg-[var(--color-header-cta-background-default)] rounded-full hover:bg-[var(--color-header-cta-background-hover)] transition-colors"
               >
                 {isRalia ? 'Sign up' : 'Get Started'}
               </Link>
