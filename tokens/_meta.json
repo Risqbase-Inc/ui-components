@@ -1,0 +1,18 @@
+{
+  "$comment": "Design System version metadata. Not consumed by style-dictionary or the token build (the build walks every *.json under primitive/semantic/component/themes; only leaves with $value are treated as tokens, and _meta is intentionally leaf-free). Exists as a single declared source of truth for the DS version. Update on every minor/major DS release.",
+  "designSystem": {
+    "version": "4.4",
+    "previousVersion": "4.3",
+    "releaseDate": "2026-05-21",
+    "changes": {
+      "added": [
+        "shadow.raised — cards at rest elevation",
+        "shadow.floating — floating panel elevation (dropdowns, popovers, composition surfaces)",
+        "shadow.overlay — overlay elevation (modal dialogs, fullscreen lightboxes)",
+        "color.skeleton.shimmer — composed gradient fill for skeleton placeholders"
+      ],
+      "rationale": "Promote elevation stack + skeleton-shimmer gradient from demo-CSS-only to canonical tokens, eliminating demo-vs-source drift surfaced by Elena G4's v2.1.0 spec-pack review (BLOCKER 1). Zero new primitive colours; shimmer composes from existing surface tokens.",
+      "brief": "docs/specs/v2.1.0/00b-v4.4-token-extension.md"
+    }
+  }
+}
