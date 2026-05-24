@@ -1,0 +1,64 @@
+name: Release Docs Regen
+
+# release-please opens its release PR bumping package.json + CHANGELOG.md but
+# does NOT regenerate the committed public/*.html (or the README autogen blocks),
+# so docs:check (in "Lint & Build") flags version drift on the release PR itself.
+#
+# This job regenerates them on the release branch so the release PR goes green
+# AND the eventual merge commit is already correct (no post-merge heal window).
+# It complements docs-publish.yml, which only fires on the post-merge push to main.
+#
+# Pushes with RELEASE_PLEASE_TOKEN (a PAT) on purpose: a commit pushed with the
+# default GITHUB_TOKEN would NOT re-trigger Lint & Build, leaving the check stale.
+# The diff-guard makes it idempotent — the re-triggered run finds no drift and exits.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: release-docs-${{ github.head_ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    name: Regenerate docs on release PR
+    # Only the release-please branch — every normal PR skips this job.
+    if: startsWith(github.head_ref, 'release-please--')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      # Generators run on bare Node (no install), counting tokens from tokens/ JSON.
+      # readme:build is --if-present so this is a no-op until the README autogen
+      # (PR #73) lands; it activates automatically once that script exists.
+      - name: Regenerate docs + README
+        run: |
+          npm run docs:build
+          npm run readme:build --if-present
+
+      - name: Commit regenerated files if changed
+        run: |
+          if git diff --quiet public/ README.md; then
+            echo "No drift — public/*.html + README.md already current for this release."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/ README.md
+          git commit -m "chore(docs): regenerate public/*.html + README for release"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
