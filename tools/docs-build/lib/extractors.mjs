@@ -84,22 +84,24 @@ export function countComponents(componentsByDomain) {
 
 /* ─────────────────────────── tokens ──────────────────────────────────── */
 
-// Counts CSS custom property *declarations* (not references) at the
-// `:root, [data-theme="light"]` block — the canonical primitive+semantic
-// token count. Each `--name:` on its own line is one token.
-//
-// Falls back to counting leaf entries in tokens/**/*.json if dist/tokens.css
-// is absent (fresh checkout pre-build).
+// Counts leaf entries in the tokens/**/*.json source of truth — deterministic
+// regardless of build state. We count JSON *first* (it is always present in the
+// repo) rather than the built dist/tokens.css: the CSS only exists after
+// `build:tokens`, so preferring it made the number depend on build state — CI
+// (which builds dist first) and a bare-node regen could disagree, producing
+// perpetual docs:check drift. CSS stays as a fallback for the unlikely case the
+// JSON source is missing. Same JSON basis as tools/readme-build, so the README
+// and the docs site report the same token count.
 
 export function countTokens({ tokensCssPath, tokensSrcDir }) {
-  if (existsSync(tokensCssPath)) {
-    return countTokensFromCss(tokensCssPath)
-  }
   if (existsSync(tokensSrcDir)) {
     return countTokensFromJson(tokensSrcDir)
   }
+  if (tokensCssPath && existsSync(tokensCssPath)) {
+    return countTokensFromCss(tokensCssPath)
+  }
   throw new Error(
-    `Cannot count tokens: neither ${tokensCssPath} nor ${tokensSrcDir} exists. Run 'npm run build:tokens' first.`,
+    `Cannot count tokens: neither ${tokensSrcDir} (JSON) nor ${tokensCssPath} (CSS) exists.`,
   )
 }
 
