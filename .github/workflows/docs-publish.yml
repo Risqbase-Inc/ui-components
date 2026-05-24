@@ -21,6 +21,7 @@ on:
       - 'dist/tokens.css'  # in case dist is committed for any reason
       - 'docs/design-system/**'
       - 'tools/docs-build/**'
+      - 'tools/readme-build/**'
       - 'public/styles.css'
 
 concurrency:
@@ -62,16 +63,22 @@ jobs:
       - name: Regenerate docs HTML
         run: npm run docs:build
 
+      # README AUTOGEN blocks (status/imports/components/changelog) share the
+      # same source-of-truth extractors as the docs site, so they drift on the
+      # same triggers (notably release-please version bumps). Regenerate here too.
+      - name: Regenerate README
+        run: npm run readme:build
+
       - name: Check for changes
         id: diff
         run: |
-          if git diff --quiet public/; then
+          if git diff --quiet public/ README.md; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No drift detected — public/*.html is current."
+            echo "No drift detected — public/*.html and README.md are current."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "Drift detected — will commit regenerated files."
-            git diff --stat public/
+            git diff --stat public/ README.md
           fi
 
       - name: Commit and push regenerated docs
@@ -81,9 +88,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/
-          git commit -m "chore(docs): regenerate public/*.html via tools/docs-build [skip ci]
+          git add public/ README.md
+          git commit -m "chore(docs): regenerate public/*.html + README.md via tools/docs-build + tools/readme-build [skip ci]
 
 Triggered by upstream change in src/, CHANGELOG.md, package.json,
-tokens/, or docs/design-system/. See BRIEF-436."
+tokens/, or docs/design-system/. See BRIEF-436 + tools/readme-build."
           git push origin "HEAD:${BRANCH}"
