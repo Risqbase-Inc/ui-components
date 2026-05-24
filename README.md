@@ -2,10 +2,21 @@
 
 Shared UI components, design tokens, and theming primitives for RisqBase products
 (`risqbase.com`, `ralia.io`, internal admin tooling). This package is the runtime expression
-of the [RisqBase Design System v4.2](docs/design-system/v4.2/) (`GOV-DS-2026-02`).
+of the RisqBase Design System (`GOV-DS-2026-02`).
 
-**Latest published:** `1.2.0`. **Next release:** `1.3.0` (staged in `package.json`, pending
-tag — ships S1 of the v4.2 implementation programme; see [CHANGELOG.md](CHANGELOG.md)).
+<!-- AUTOGEN:START status -->
+> **Latest published:** `2.1.2` · **Design system:** `GOV-DS-2026-02 v4.3`
+>
+> **28 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **363 design tokens** (primitive · semantic · component tiers).
+>
+> Live component gallery, token reference + changelog: **[design.risqbase.com](https://design.risqbase.com)**.
+<!-- AUTOGEN:END status -->
+
+> **The factual sections below (status, imports, components, releases) are generated**
+> from the package sources by [`tools/readme-build`](tools/readme-build/). Run
+> `npm run readme:build` after any change that adds a component, bumps the version, or
+> cuts a release; CI's `readme:check` fails if they drift. Don't hand-edit the
+> `<!-- AUTOGEN -->` blocks.
 
 ## Install
 
@@ -26,30 +37,26 @@ npm install @risqbase-inc/ui-components
 
 ## Imports
 
-### Root (back-compat — all v1.x consumers)
-
-Every v1.x export remains available at the root barrel. No consumer change is required to
-upgrade from a v1.2.x line to v1.3.x.
+Every export is available at the root barrel (back-compat for all consumers):
 
 ```ts
 import { Button, Header, Footer, Badge, SectionEyebrow } from '@risqbase-inc/ui-components'
 ```
 
-### Sub-path imports (v4.2, recommended for new code)
+Per-domain subpaths let new code tree-shake by domain:
 
-v4.2 ships per-domain entry points so consumers can tree-shake by domain:
-
+<!-- AUTOGEN:START imports -->
 ```ts
-import { Button } from '@risqbase-inc/ui-components/core'
+import { Badge, Button, Callout, Card, … } from '@risqbase-inc/ui-components/core'
+import { CitationChip, ClientGrid, ClientScopeBanner, CompliancePostureStrip, … } from '@risqbase-inc/ui-components/ai'
+import { ChartContainer, Gauge, ImpactGraph, RiskGauge } from '@risqbase-inc/ui-components/data-viz'
+import { HeroVideo } from '@risqbase-inc/ui-components/marketing'
+import { ArcDecoration } from '@risqbase-inc/ui-components/primitives'
 import { tokens } from '@risqbase-inc/ui-components/tokens'
-
-// Empty in S1 — reserved for later sprints, but the import path resolves cleanly today
-// import { Chart } from '@risqbase-inc/ui-components/data-viz'  // S2
-// import { CitationChip } from '@risqbase-inc/ui-components/ai' // S3
-// import strings from '@risqbase-inc/ui-components/content'    // S4
 ```
+<!-- AUTOGEN:END imports -->
 
-`primitives/` is internal-only and is not exposed in `package.json#exports`.
+`tokens/` exposes the typed token export; `content/` is reserved for i18n string bundles.
 
 ## Theme API
 
@@ -59,9 +66,6 @@ swapping themes is synchronous and requires no React re-render.
 
 ```tsx
 // app/layout.tsx
-// Bundlers (Next.js / webpack / Vite) resolve the CSS asset by path even though
-// `dist/tokens.css` is not in package.json#exports. A v4.2.1 patch will add an
-// explicit `"./styles": "./dist/tokens.css"` export to remove the indirection.
 import '@risqbase-inc/ui-components/dist/tokens.css'
 import { themeInitScript } from '@risqbase-inc/ui-components'
 
@@ -102,15 +106,11 @@ function ThemePicker() {
 | `THEME_STORAGE_KEY` | `localStorage` key (`'risqbase-ds-theme'`). |
 | `Theme` | Type alias: `'light' \| 'dark' \| 'hc'`. |
 
-> **Note:** `dist/tokens.css` ships dark and HC stub blocks today — calling
-> `setTheme('dark')` currently renders light values. G4 fills dark/HC token values in
-> S4; consumer code does not change.
-
 Full integration guide: [`docs/theming.md`](docs/theming.md).
 
 ## Tokens
 
-~150+ design tokens authored as W3C Design Tokens Format JSON across primitive, semantic,
+Design tokens are authored as W3C Design Tokens Format JSON across primitive, semantic,
 and component tiers. Style Dictionary builds them into CSS custom properties, a Tailwind
 plugin payload, a Figma Variables payload, and a typed TS export.
 
@@ -125,7 +125,8 @@ tokens.color.brand.indigo[600]   // "#4F46E5"
 .cta { background: var(--color-action-primary); }
 ```
 
-Authoring guide and schema: [`tokens/README.md`](tokens/README.md).
+Authoring guide and schema: [`tokens/README.md`](tokens/README.md). Browse the full token
+reference live at [design.risqbase.com](https://design.risqbase.com).
 
 ## Tailwind preset
 
@@ -140,26 +141,25 @@ module.exports = {
 ```
 
 The preset wires brand colours (indigo-600 as primary), Geist Sans typography, and the
-spacing/sizing scale. Layered against the v4.2 token CSS, it gives consumers role-token
+spacing/sizing scale. Layered against the token CSS, it gives consumers role-token
 utilities without further configuration.
 
 ## Components
 
-S1 ships five components in `core/`:
+Browse them rendered, with props and live examples, at
+[design.risqbase.com](https://design.risqbase.com). Current published inventory:
 
-| Component | Variants | File |
+<!-- AUTOGEN:START components -->
+| Domain | Purpose | Components |
 |---|---|---|
-| `Button` (+ `PrimaryButton`, `SecondaryButton`, `GhostButton`) | `primary` / `secondary` / `ghost` × `sm` / `md` / `lg` | `src/core/Button` |
-| `Header` | `risqbase` / `ralia` (with optional `showLaunchDate`) | `src/core/Header` |
-| `Footer` | `risqbase` / `ralia` | `src/core/Footer` |
-| `Badge` (+ `MostPopularBadge`, `NewBadge`, `ComingSoonBadge`, `StandaloneProductBadge`) | `default` / `most-popular` / `new` / `coming-soon` | `src/core/Badge` |
-| `SectionEyebrow` | — | `src/core/SectionEyebrow` |
+| `core` | Foundational UI + layout | Badge, Button, Callout, Card, EmptyState, Footer, Header, IconButton, Modal, SectionEyebrow, Skeleton, SkipLink, TelemetryBeacon, Toast, WizardProgress |
+| `ai` | AI / IRIS surfaces | CitationChip, ClientGrid, ClientScopeBanner, CompliancePostureStrip, IrisThinking, PromptChip, StreamingText |
+| `data-viz` | Charts, gauges + impact graphs | ChartContainer, Gauge, ImpactGraph, RiskGauge |
+| `marketing` | Marketing-site surfaces | HeroVideo |
+| `primitives` | Low-level building blocks | ArcDecoration |
 
-Reserved for later sprints (paths resolve as empty barrels today):
-
-- `data-viz/` — Chart, BarChart, LineChart, AreaChart, Sparkline, Heatmap, ChoroplethMap, Gauge, MetricCard (S2).
-- `ai/` — CitationChip (six states), StreamingText, PromptChip, IRIS lettermark (S3).
-- `content/` — `strings.en-GB.json`, `strings.en-US.json`, `glossary.json` (S4).
+`content/` is a reserved export for i18n string bundles (not yet populated). Subpaths above are tree-shakeable; the root barrel re-exports everything for back-compat.
+<!-- AUTOGEN:END components -->
 
 ## Build & lint
 
@@ -168,6 +168,8 @@ npm run build         # Style Dictionary → tsup; emits dist/
 npm run dev           # tsup --watch
 npm run lint          # ESLint over src/**/*.{ts,tsx}
 npm run lint:tokens   # W3C-schema lint over tokens/**/*.json
+npm run docs:build    # regenerate the design.risqbase.com static site
+npm run readme:build  # regenerate the AUTOGEN sections of this README
 ```
 
 `npm run build` is the canonical full build: `build:tokens` runs first (emitting
@@ -181,65 +183,34 @@ those stories on every PR and on every push to `main` and posts a comment with
 the diff URL. `Chromatic` is a required status check on `main` — PRs cannot merge
 until either zero visual diffs or explicit approval in the Chromatic UI.
 
-### How to review a Chromatic comment
-
-Click the link in the PR comment. Three buckets appear:
-
-- **Changed** — side-by-side, before vs after. If the change is intended, click
-  "Accept". If it's an unintended regression, fix the code and push again.
-- **New** — first time we've seen this story / mode. Approve to register the
-  baseline; deny to keep the snapshot off-baseline.
-- **Errors** — story failed to render. Fix locally and push.
-
-### When a diff looks wrong
-
-Don't approve. Revert the offending commit (or pin the regression) and
-investigate. Every approval becomes the new "before" picture for the next PR; an
-accidental approval bakes a regression into the baseline permanently.
-
-### When a diff looks right but you're not sure
-
-Get a second opinion. The Chromatic UI surfaces every snapshot URL — paste it
-into the PR thread, tag a designer or a maintainer. Approvals are durable
-(branch-scoped during PR, global once merged to `main`), so a moment's care is
-cheap.
-
-### Animations
-
-Components with continuous animation (Skeleton, IrisThinking, StreamingText) use
-`chromatic: { pauseAnimationAtEnd: true }` or `chromatic: { delay: <ms> }` in
-their stories to keep snapshots deterministic. If you add a new animated
-primitive, do the same — uncaptured animation = flaky baselines.
-
-### Operations + token rotation
-
 The full operator's guide — wiring the Chromatic project, rotating the project
 token, cost considerations, what NOT to do — lives at
 [`docs/contributing/chromatic.md`](docs/contributing/chromatic.md).
 
 ## Versioning
 
-The package follows semver. v1.3.0 is the first v4.2-implementation release; further v4.2
-sprints layer additional v1.3.x and v1.4.x releases on top.
+The package follows semver: patch = bug fixes; minor = additive features (existing
+exports unchanged); major = breaking changes (requires CEO / G7 sign-off). Releases are
+cut by `release-please`. Recent releases:
 
-| Bump | Trigger |
-|---|---|
-| Patch (`1.3.x`) | Bug fixes; no API change. |
-| Minor (`1.x.0`) | Additive features; existing exports unchanged. |
-| Major (`x.0.0`) | Breaking changes — requires CEO (G7) sign-off. |
+<!-- AUTOGEN:START changelog -->
+- `2.1.2` — 2026-05-20
+- `2.1.1` — 2026-05-20
+- `2.1.0` — 2026-05-20
+- `2.0.0` — 2026-05-20
+- `1.4.0` — 2026-05-14
+- `1.3.0`
 
-Tag-on-publish via `.github/workflows/publish.yml` (currently gated by `if: false`
-pending the `apps/docs` path and monorepo-tool decision; G1 unblocks).
+Full history: [CHANGELOG.md](CHANGELOG.md).
+<!-- AUTOGEN:END changelog -->
 
 ## Design-system reference
 
-The authoritative spec is `docs/design-system/v4.2/`:
-
-- [`spec.md`](docs/design-system/v4.2/spec.md) — `GOV-DS-2026-02` consolidated v4.2 specification.
-- [`plan.md`](docs/design-system/v4.2/plan.md) — `GOV-DS-2026-02-PLAN-4.2` execution plan and source canon.
-- [`audit.md`](docs/design-system/v4.2/audit.md) — `GOV-DS-2026-02-AUDIT-4.2` honest assessment vs implementation.
-- [`implementation-plan.md`](docs/design-system/v4.2/implementation-plan.md) — six-sprint programme.
-- [`notes/`](docs/design-system/v4.2/notes/) — reconciliation notes (audit row counts, glossary scope, GOV-ID format).
+The authoritative spec lives under [`docs/design-system/`](docs/design-system/) (the
+highest `v*` directory is current; its version is shown in the status block above). The
+rendered design site — components, tokens, charts, patterns, changelog — is published at
+[design.risqbase.com](https://design.risqbase.com) from these same sources by
+[`tools/docs-build`](tools/docs-build/).
 
 For consumer-app integration: see [`docs/theming.md`](docs/theming.md).
 

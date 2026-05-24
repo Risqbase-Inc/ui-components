@@ -61,6 +61,8 @@
     "build": "npm run build:tokens && tsup",
     "docs:build": "node tools/docs-build/index.mjs build",
     "docs:check": "node tools/docs-build/index.mjs check",
+    "readme:build": "node tools/readme-build/index.mjs build",
+    "readme:check": "node tools/readme-build/index.mjs check",
     "build:storybook": "npm run build:tokens && storybook build",
     "chromatic": "chromatic --exit-once-uploaded --only-changed",
     "dev": "npm run build:tokens && tsup --watch",

@@ -50,6 +50,14 @@ jobs:
       - name: Docs site drift check
         run: npm run docs:check
 
+      # README drift check. The <!-- AUTOGEN --> blocks in README.md (status,
+      # imports, components, releases) are generator output (tools/readme-build/),
+      # reusing the same source-of-truth extractors as the docs site. If a PR
+      # bumps the version, adds a component, or cuts a release without re-running
+      # `npm run readme:build`, this gate fails with a clear remediation message.
+      - name: README drift check
+        run: npm run readme:check
+
       # v4.3 §11.1 row 8 — contrast verification. Non-blocking informational
       # step initially; promote to blocking once any baseline failures are
       # resolved. See scripts/verify-contrast.mjs for the methodology.
