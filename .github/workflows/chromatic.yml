@@ -9,6 +9,13 @@ on:
   pull_request:
     branches: [main]
 
+# Least-privilege default (CodeQL: workflow-does-not-contain-permissions).
+# Chromatic uploads via CHROMATIC_PROJECT_TOKEN and reports status through its
+# own GitHub App, not GITHUB_TOKEN — so read-only repo contents (for checkout)
+# is all this workflow needs.
+permissions:
+  contents: read
+
 jobs:
   chromatic:
     runs-on: ubuntu-latest
