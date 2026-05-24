@@ -24,8 +24,8 @@ function renderEntry(e) {
         <h2>${escapeHtml(e.title)}</h2>
       </div>
       <div class="meta" style="text-align:right; align-self:flex-end;">
-        <span>${escapeHtml(e.date || 'Unreleased')}</span>
-        ${e.version && e.kind === 'released' ? `<span>·</span><span>v${escapeHtml(e.version)}</span>` : ''}
+        ${e.date ? `<span>${escapeHtml(e.date)}</span>` : e.kind === 'unreleased' ? '<span>Unreleased</span>' : ''}
+        ${e.version && e.kind === 'released' ? `${e.date ? '<span>·</span>' : ''}<span>v${escapeHtml(e.version)}</span>` : ''}
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@ export function renderChangelogNav(entries) {
   return entries
     .map(
       (e) =>
-        `<li><a href="#${escapeHtml(e.id)}">${escapeHtml(e.date || 'Unreleased')} · ${escapeHtml(e.title)}</a></li>`,
+        `<li><a href="#${escapeHtml(e.id)}">${escapeHtml(e.date || (e.kind === 'released' ? 'v' + e.version : 'Unreleased'))} · ${escapeHtml(e.title)}</a></li>`,
     )
     .join('\n      ')
 }
