@@ -4,6 +4,37 @@
 
 _No unreleased changes. Released work is recorded under its version below._
 
+## [2.1.3](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.2...v2.1.3) (2026-05-25)
+
+
+### Features
+
+* **readme:** auto-generate README factual sections from source of truth ([5b3d985](https://github.com/Risqbase-Inc/ui-components/commit/5b3d98580bd3393dd6a37a849d8ac98cea01e001))
+* **readme:** auto-generate README from source of truth (kill drift) ([#73](https://github.com/Risqbase-Inc/ui-components/issues/73)) ([60bada2](https://github.com/Risqbase-Inc/ui-components/commit/60bada281a83bb602d826bfcea2e0ed6e3d7a017))
+
+
+### Bug Fixes
+
+* **changelog:** stop design.risqbase.com showing shipped work as 'Unreleased' ([56e4b4b](https://github.com/Risqbase-Inc/ui-components/commit/56e4b4b478e64cbd42558a9aa73d7305f2b0a4af))
+* **changelog:** stop design.risqbase.com showing shipped work as 'Unreleased' ([#76](https://github.com/Risqbase-Inc/ui-components/issues/76)) ([2efa134](https://github.com/Risqbase-Inc/ui-components/commit/2efa13420917f6a2ddc026e7160de01b9ab70f4b))
+* **deps:** bump next 16.2.4→16.2.6 + qs 6.15.1→6.15.2 (Dependabot) ([b755ce7](https://github.com/Risqbase-Inc/ui-components/commit/b755ce747e7e298ebb37991023c4c06c9e0b7a9b))
+* **deps:** bump next 16.2.4→16.2.6 + qs 6.15.1→6.15.2 (Dependabot) ([#77](https://github.com/Risqbase-Inc/ui-components/issues/77)) ([a834648](https://github.com/Risqbase-Inc/ui-components/commit/a834648d6a039758ad9cb4cb135a24e3542fed44))
+* **docs:** count tokens from json source-of-truth + regenerate public/*.html ([081d975](https://github.com/Risqbase-Inc/ui-components/commit/081d975a7707e2969bcb41f32026e8d9f6056f1e))
+* **docs:** deterministic token count + regenerate stale public/*.html (unblocks [#73](https://github.com/Risqbase-Inc/ui-components/issues/73)–[#77](https://github.com/Risqbase-Inc/ui-components/issues/77)) ([#78](https://github.com/Risqbase-Inc/ui-components/issues/78)) ([69478d4](https://github.com/Risqbase-Inc/ui-components/commit/69478d4270962126e0e1935225cae0e45191e3f5))
+* **security:** close 2 CodeQL alerts (prototype-pollution + workflow permissions) ([#75](https://github.com/Risqbase-Inc/ui-components/issues/75)) ([69ab53a](https://github.com/Risqbase-Inc/ui-components/commit/69ab53a97b3996d1110a21fa5ac8b1996cd51ffd))
+* **security:** close 2 CodeQL alerts (prototype-pollution guard + workflow permissions) ([57347a2](https://github.com/Risqbase-Inc/ui-components/commit/57347a2409f95c50082e0cf5c1502f23381e3c07))
+
+
+### Documentation
+
+* salvage v2.2.0 core-split brief + post-merge audit (were uncommitted) ([#74](https://github.com/Risqbase-Inc/ui-components/issues/74)) ([4498261](https://github.com/Risqbase-Inc/ui-components/commit/4498261b510bc5e92dd3192e1ff2c16219c2e52a))
+* salvage v2.2.0 core-split brief + v2.1.0 post-merge audit ([9c4b8e0](https://github.com/Risqbase-Inc/ui-components/commit/9c4b8e0d9b286ffb5a29d45ff6fdad695bcdca03))
+
+
+### Miscellaneous
+
+* pin next release to 2.1.3 (readme autogen is tooling, not a feature) ([b5c476e](https://github.com/Risqbase-Inc/ui-components/commit/b5c476eda0f7a742ad7137b29bc30393724b0e43))
+
 ## [2.1.2](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.1...v2.1.2) (2026-05-20)
 
 
