@@ -5,7 +5,7 @@ Shared UI components, design tokens, and theming primitives for RisqBase product
 of the RisqBase Design System (`GOV-DS-2026-02`).
 
 <!-- AUTOGEN:START status -->
-> **Latest published:** `2.1.3` · **Design system:** `GOV-DS-2026-02 v4.3`
+> **Latest published:** `2.1.4` · **Design system:** `GOV-DS-2026-02 v4.3`
 >
 > **28 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **363 design tokens** (primitive · semantic · component tiers).
 >
@@ -194,12 +194,12 @@ exports unchanged); major = breaking changes (requires CEO / G7 sign-off). Relea
 cut by `release-please`. Recent releases:
 
 <!-- AUTOGEN:START changelog -->
+- `2.1.4` — 2026-05-31
 - `2.1.3` — 2026-05-25
 - `2.1.2` — 2026-05-20
 - `2.1.1` — 2026-05-20
 - `2.1.0` — 2026-05-20
 - `2.0.0` — 2026-05-20
-- `1.4.0` — 2026-05-14
 
 Full history: [CHANGELOG.md](CHANGELOG.md).
 <!-- AUTOGEN:END changelog -->
