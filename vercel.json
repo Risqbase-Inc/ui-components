@@ -4,6 +4,14 @@
   "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/mcp", "destination": "/api/mcp" }
-  ]
+    {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    }
+  ],
+  "functions": {
+    "api/mcp.mjs": {
+      "includeFiles": "mcp/registry.json"
+    }
+  }
 }
