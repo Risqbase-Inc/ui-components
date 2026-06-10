@@ -4,11 +4,22 @@
       "primary": {
         "$value": "{color.brand.indigo.600}",
         "$type": "color",
-        "$description": "Primary action surface — CTAs, primary buttons",
+        "$description": "Primary action surface — CTAs, primary buttons. Fill contract: ≥3:1 non-text vs the page surface (WCAG 1.4.11); the white-text-on-brand contract is carried by the text.on-action pair. For interactive TEXT on default surfaces use action.link (v4.4 B2).",
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.contrastLevel": "aa-large",
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/action/primary", "scopes": ["ALL_FILLS", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"] }
+        }
+      },
+      "link": {
+        "$value": "{color.brand.indigo.600}",
+        "$type": "color",
+        "$description": "Interactive text — links and inline text actions on default surfaces. Resolves identically to action.primary in light; themed independently in dark, where the fill contract (white-on-brand) and the text contract (brand-on-canvas, 4.5:1) cannot be satisfied by one value. Added v4.4 Workstream B.",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/action/link", "scopes": ["TEXT_FILL"] }
         }
       },
       "primary-hover": {
@@ -269,8 +280,8 @@
       "accent":          { "$value": "{color.palette.teal.600}", "$type": "color", "$description": "Iris accent — primary teal signature (lettermark, focus halo, prompt-chip)", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent", "scopes": ["ALL_FILLS", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"] } } },
       "accent-hover":    { "$value": "{color.palette.teal.700}", "$type": "color", "$description": "Iris accent hover state",                                                  "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-hover", "scopes": ["ALL_FILLS", "SHAPE_FILL", "STROKE_COLOR", "TEXT_FILL"] } } },
       "accent-subtle":   { "$value": "{color.palette.teal.100}", "$type": "color", "$description": "Iris accent subtle background — focus halo, prompt-chip hover",         "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-subtle", "scopes": ["ALL_FILLS", "SHAPE_FILL"] } } },
-      "accent-on":       { "$value": "{color.neutral.white}",     "$type": "color", "$description": "Text / icon colour on Iris accent surface — AA Large (≥18.66px bold or ≥24px regular) or Non-Text (3:1) uses only. For body text on `iris.accent`, use `iris.accent-on-dark`. v4.3 §4.2 contrast contract.", "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.contrastPair": "{color.iris.accent}", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-on", "scopes": ["TEXT_FILL"] } } },
-      "accent-on-dark":  { "$value": "{color.neutral.stone.900}", "$type": "color", "$description": "Dark-glyph text / icon on Iris accent surface — use at any body size (AA Normal). v4.3 §4.2 contrast contract.",                                                                                                  "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.contrastPair": "{color.iris.accent}", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-on-dark", "scopes": ["TEXT_FILL"] } } },
+      "accent-on":       { "$value": "{color.neutral.white}",     "$type": "color", "$description": "Text / icon colour on Iris accent surface — AA Large (≥18.66px bold or ≥24px regular) or Non-Text (3:1) uses only. For body text on `iris.accent`, use `iris.accent-on-dark`. v4.3 §4.2 contrast contract.", "$extensions": { "com.risqbase.themeInvariant": "White glyph contract is size-gated (v4.3 §4.2); the dark iris.accent value keeps ≥3:1 under white, so the glyph stays white in both themes", "com.risqbase.contrastLevel": "aa-large", "com.risqbase.role": "semantic", "com.risqbase.contrastPair": "{color.iris.accent}", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-on", "scopes": ["TEXT_FILL"] } } },
+      "accent-on-dark":  { "$value": "{color.neutral.stone.900}", "$type": "color", "$description": "Dark-glyph text / icon on Iris accent surface — use at any body size (AA Normal). v4.3 §4.2 contrast contract.",                                                                                                  "$extensions": { "com.risqbase.themeInvariant": "Stone-900 glyph clears ≥4.5:1 on both the light and dark iris.accent values", "com.risqbase.role": "semantic", "com.risqbase.contrastPair": "{color.iris.accent}", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/accent-on-dark", "scopes": ["TEXT_FILL"] } } },
       "surface":         { "$value": "{color.palette.teal.50}",   "$type": "color", "$description": "Iris surface — panel background, conversation strip",                   "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/surface", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
       "streamhead":      { "$value": "{color.palette.teal.600}",  "$type": "color", "$description": "StreamingText cursor / streamhead colour",                              "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/streamhead", "scopes": ["TEXT_FILL", "SHAPE_FILL"] } } },
       "thinking-outer":  { "$value": "{color.palette.teal.300}",  "$type": "color", "$description": "IrisThinking outer arc",                                                "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/iris/thinking-outer", "scopes": ["STROKE_COLOR"] } } },

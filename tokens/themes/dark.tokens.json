@@ -1,0 +1,1487 @@
+{
+  "$comment": "Dark-mode theme overrides. Populated in BRIEF-401 Phase 2.2 (2026-05-13). Override-only file: keys present here re-bind the corresponding semantic / component token under [data-theme=\"dark\"]. Keys absent from this file inherit the light value. Surfaces sit at OKLCH L*≈0.18..0.28 (never pure black, halation-avoidance). Body text at L*≈0.72..0.93 (pure white reserved for high-emphasis headlines on inverse and very-high band text). Brand brightens (indigo-600 → indigo-500-equivalent) so white text clears 4.5:1. Risk-band hue families preserved; lightness lifted per band; band text flips to near-black where the lifted bg can sustain it (very-low / low / medium / high) and stays white where it can't (very-high). See artefacts/dark-mode-rationale.md. Sources: WCAG 2.2 (SC 1.4.3/1.4.6/1.4.11), Apple HIG Dark Mode (2024), IBM Carbon Dark theme (v11, 2024), Shopify Polaris dark-mode (2023), Ottosson OKLCH (2020). NOTE: this file is a partial-fidelity reconstruction of the originally-staged 72-token artefact (lost mid-pipeline 2026-05-13 — see PR description); 37 tokens with documented hex values from dark-mode-rationale.md + artefacts/dark-mode-canvas.html are included; tokens with only L*/C/H prose targets fall back to inheriting light until a follow-up pass enumerates them.",
+  "color": {
+    "surface": {
+      "default": {
+        "$value": "oklch(18.086159% 0.00521 248.116168)",
+        "$type": "color",
+        "$description": "Default surface — dark canvas, never pure black (OKLCH 0.18, 0.005, 240)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/surface/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "oklch(22.843181% 0.005961 236.820811)",
+        "$type": "color",
+        "$description": "Raised cards — one step up from default for elevation",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/surface/subtle"
+          }
+        }
+      },
+      "muted": {
+        "$value": "oklch(26.165939% 0.008095 240.17488)",
+        "$type": "color",
+        "$description": "Chips, table-row hover, panel canvases — two steps up",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/surface/muted"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "oklch(96.919553% 0.003426 247.858256)",
+        "$type": "color",
+        "$description": "Inverse surface — light in dark mode so modals/scrims/tooltips stay distinct",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/surface/inverse"
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "oklch(92.54825% 0.005103 228.822146)",
+        "$type": "color",
+        "$description": "Default body text — L* 0.925, clears 15:1 on default dark surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "oklch(72.556831% 0.008129 241.708589)",
+        "$type": "color",
+        "$description": "Secondary text — L* 0.725, clears 7.7:1 on default dark surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/subtle"
+          }
+        }
+      },
+      "on-action": {
+        "$value": "oklch(99.999999% 0 0)",
+        "$type": "color",
+        "$description": "Text on action.primary — pure white, clears 4.9:1 on brightened brand",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/on-action"
+          }
+        }
+      },
+      "on-inverse": {
+        "$value": "oklch(18.086159% 0.00521 248.116168)",
+        "$type": "color",
+        "$description": "Text on inverse (light) surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/on-inverse"
+          }
+        }
+      },
+      "on-inverse-subtle": {
+        "$value": "oklch(42.905288% 0.008399 248.023716)",
+        "$type": "color",
+        "$description": "Subtle text on inverse surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/on-inverse-subtle"
+          }
+        }
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "oklch(49.398268% 0.008109 247.991705)",
+        "$type": "color",
+        "$description": "Default border — L* 0.495, clears 3.0:1 on default dark surface (WCAG 1.4.11)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/border/default"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "oklch(35.883107% 0.004392 247.949035)",
+        "$type": "color",
+        "$description": "Decorative-only border — L* 0.36, exempt from 3:1 under WCAG 1.4.11 decorative carve-out",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/border/subtle"
+          }
+        }
+      },
+      "focus": {
+        "$value": "oklch(68.01126% 0.158303 276.934902)",
+        "$type": "color",
+        "$description": "Focus ring — indigo-400, clears 6.3:1 on default dark surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/border/focus"
+          }
+        }
+      },
+      "inverse": {
+        "$value": "oklch(87.049742% 0.005181 228.82792)",
+        "$type": "color",
+        "$description": "Border on inverse surface in dark mode",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/border/inverse"
+          }
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "oklch(55.630111% 0.179714 268.028017)",
+        "$type": "color",
+        "$description": "Brightened brand for dark mode (OKLCH 0.555, 0.180, 268). 4.92:1 vs white text; 3.82:1 vs default dark surface; hue identical to light brand",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/action/primary"
+          }
+        }
+      },
+      "primary-subtle": {
+        "$value": "oklch(26.04997% 0.059922 268.550684)",
+        "$type": "color",
+        "$description": "Muted indigo wash for ghost/secondary hover on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/action/primary-subtle"
+          }
+        }
+      },
+      "primary-hover": {
+        "$value": "oklch(65.886361% 0.165121 268.144201)",
+        "$type": "color",
+        "$description": "Primary action hover — lifts a half-step",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/action/primary-hover"
+          }
+        }
+      },
+      "link": {
+        "$value": "oklch(65.886361% 0.165121 268.144201)",
+        "$type": "color",
+        "$description": "Interactive text on dark canvas — brightened indigo, clears 5.1:1 on surface.default (the dark action.primary fill sits at 3.8:1, below the 4.5:1 text floor)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/action/link"
+          }
+        }
+      }
+    },
+    "chart": {
+      "plot-area-bg": {
+        "$value": "oklch(19.440612% 0.005118 248.091417)",
+        "$type": "color",
+        "$description": "Chart plot-area fill — slightly raised from default surface so chart canvas reads",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/plot-area-bg"
+          }
+        }
+      },
+      "legend-bg": {
+        "$value": "oklch(22.843181% 0.005961 236.820811)",
+        "$type": "color",
+        "$description": "Chart legend background — matches surface.subtle for elevation parity",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/legend-bg"
+          }
+        }
+      },
+      "tooltip-text": {
+        "$value": "oklch(92.54825% 0.005103 228.822146)",
+        "$type": "color",
+        "$description": "Chart tooltip text — matches text.default for legibility on tooltip surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/tooltip-text"
+          }
+        }
+      },
+      "axis": {
+        "$value": "oklch(51.883332% 0.00488 236.57038)",
+        "$type": "color",
+        "$description": "Chart axis line on dark canvas — clears 3:1",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/axis"
+          }
+        }
+      },
+      "gridline": {
+        "$value": "oklch(31.097271% 0.005533 236.694221)",
+        "$type": "color",
+        "$description": "Chart gridline on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/gridline"
+          }
+        }
+      },
+      "tooltip-surface": {
+        "$value": "oklch(27.460213% 0.005702 236.739068)",
+        "$type": "color",
+        "$description": "Chart tooltip surface on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/tooltip-surface"
+          }
+        }
+      },
+      "tooltip-border": {
+        "$value": "oklch(42.905288% 0.008399 248.023716)",
+        "$type": "color",
+        "$description": "Chart tooltip border on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/tooltip-border"
+          }
+        }
+      },
+      "cat": {
+        "1": {
+          "$value": "oklch(72.034022% 0.139788 276.884181)",
+          "$type": "color",
+          "$description": "Chart categorical 1 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/1"
+            }
+          }
+        },
+        "2": {
+          "$value": "oklch(72.089089% 0.104085 184.734429)",
+          "$type": "color",
+          "$description": "Chart categorical 2 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/2"
+            }
+          }
+        },
+        "3": {
+          "$value": "oklch(76.791518% 0.140212 69.849292)",
+          "$type": "color",
+          "$description": "Chart categorical 3 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/3"
+            }
+          }
+        },
+        "4": {
+          "$value": "oklch(71.925274% 0.139658 162.514167)",
+          "$type": "color",
+          "$description": "Chart categorical 4 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/4"
+            }
+          }
+        },
+        "5": {
+          "$value": "oklch(71.911675% 0.140713 292.833851)",
+          "$type": "color",
+          "$description": "Chart categorical 5 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/5"
+            }
+          }
+        },
+        "6": {
+          "$value": "oklch(72.015704% 0.14008 16.265743)",
+          "$type": "color",
+          "$description": "Chart categorical 6 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/6"
+            }
+          }
+        },
+        "7": {
+          "$value": "oklch(72.014717% 0.139995 237.451138)",
+          "$type": "color",
+          "$description": "Chart categorical 7 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/7"
+            }
+          }
+        },
+        "8": {
+          "$value": "oklch(76.914084% 0.140844 130.957189)",
+          "$type": "color",
+          "$description": "Chart categorical 8 — lifted for dark canvas (L ≥ 0.72, chroma capped; hue carries identity)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/cat/8"
+            }
+          }
+        }
+      },
+      "seq": {
+        "1": {
+          "$value": "oklch(32.235917% 0.058854 179.090953)",
+          "$type": "color",
+          "$description": "Chart sequential 1 — dark ramp ascends dark→bright so emphasis still reads upward",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/seq/1"
+            }
+          }
+        },
+        "2": {
+          "$value": "oklch(44.883061% 0.079379 181.745123)",
+          "$type": "color",
+          "$description": "Chart sequential 2 — dark ramp ascends dark→bright so emphasis still reads upward",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/seq/2"
+            }
+          }
+        },
+        "3": {
+          "$value": "oklch(58.12247% 0.090433 182.361785)",
+          "$type": "color",
+          "$description": "Chart sequential 3 — dark ramp ascends dark→bright so emphasis still reads upward",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/seq/3"
+            }
+          }
+        },
+        "4": {
+          "$value": "oklch(71.046164% 0.089963 186.07356)",
+          "$type": "color",
+          "$description": "Chart sequential 4 — dark ramp ascends dark→bright so emphasis still reads upward",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/seq/4"
+            }
+          }
+        },
+        "5": {
+          "$value": "oklch(84.061571% 0.089875 188.488251)",
+          "$type": "color",
+          "$description": "Chart sequential 5 — dark ramp ascends dark→bright so emphasis still reads upward",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/seq/5"
+            }
+          }
+        }
+      },
+      "div": {
+        "0": {
+          "$value": "oklch(45.112715% 0.005051 236.59653)",
+          "$type": "color",
+          "$description": "Diverging neutral — re-anchored on the dark neutral axis",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/div/0"
+            }
+          }
+        },
+        "n2": {
+          "$value": "oklch(59.951872% 0.189236 27.723818)",
+          "$type": "color",
+          "$description": "Diverging strong negative — lifted for dark canvas",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/div/n2"
+            }
+          }
+        },
+        "n1": {
+          "$value": "oklch(70.020031% 0.149684 25.526321)",
+          "$type": "color",
+          "$description": "Diverging negative — lifted for dark canvas",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/div/n1"
+            }
+          }
+        },
+        "p1": {
+          "$value": "oklch(69.942105% 0.119637 182.882856)",
+          "$type": "color",
+          "$description": "Diverging positive — lifted for dark canvas",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/div/p1"
+            }
+          }
+        },
+        "p2": {
+          "$value": "oklch(80.088158% 0.11025 186.389108)",
+          "$type": "color",
+          "$description": "Diverging strong positive — lifted for dark canvas",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/chart/div/p2"
+            }
+          }
+        }
+      },
+      "null": {
+        "$value": "oklch(29.897287% 0.005586 236.707617)",
+        "$type": "color",
+        "$description": "Null-marker fill — reads as recess against dark plot area, below all data stops",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/chart/null"
+          }
+        }
+      }
+    },
+    "band": {
+      "very-low": {
+        "bg": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Very-low band bg — lifted emerald (L* 0.70) so dark text clears 7.8:1",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Very-low band border — matches bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "oklch(15.069951% 0.020291 164.093949)",
+          "$type": "color",
+          "$description": "Very-low band text — near-black, flipped from light-mode white (audit §3.2 light-mode contrast fix landed in dark via lift-and-flip)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(15.069951% 0.020291 164.093949)",
+          "$type": "color",
+          "$description": "Very-low band icon — matches text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-low/icon"
+            }
+          }
+        }
+      },
+      "low": {
+        "bg": {
+          "$value": "oklch(77.981826% 0.160043 129.922019)",
+          "$type": "color",
+          "$description": "Low band bg — lifted lime (L* 0.78)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/low/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(77.981826% 0.160043 129.922019)",
+          "$type": "color",
+          "$description": "Low band border — matches bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/low/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "oklch(11.90476% 0.007131 128.020884)",
+          "$type": "color",
+          "$description": "Low band text — near-black, clears 10.6:1 on lifted lime",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/low/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(11.90476% 0.007131 128.020884)",
+          "$type": "color",
+          "$description": "Low band icon — matches text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/low/icon"
+            }
+          }
+        }
+      },
+      "medium": {
+        "bg": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Medium band bg — lifted amber (L* 0.77)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/medium/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Medium band border — matches bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/medium/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "oklch(14.017312% 0.021033 76.816631)",
+          "$type": "color",
+          "$description": "Medium band text — near-black, clears 9.3:1 on lifted amber",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/medium/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(14.017312% 0.021033 76.816631)",
+          "$type": "color",
+          "$description": "Medium band icon — matches text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/medium/icon"
+            }
+          }
+        }
+      },
+      "high": {
+        "bg": {
+          "$value": "oklch(71.430255% 0.185502 40.683341)",
+          "$type": "color",
+          "$description": "High band bg — lifted orange (L* 0.72)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(71.430255% 0.185502 40.683341)",
+          "$type": "color",
+          "$description": "High band border — matches bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "oklch(12.974846% 0.020326 39.719073)",
+          "$type": "color",
+          "$description": "High band text — near-black, flipped from light-mode white (audit §3.2 fix). Clears 7.4:1 on lifted orange",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(12.974846% 0.020326 39.719073)",
+          "$type": "color",
+          "$description": "High band icon — matches text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/high/icon"
+            }
+          }
+        }
+      },
+      "very-high": {
+        "bg": {
+          "$value": "oklch(58.560043% 0.215257 22.10577)",
+          "$type": "color",
+          "$description": "Very-high band bg — saturated red (L* 0.585). Text stays white because the saturated red still wants the white contrast",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-high/bg"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(58.560043% 0.215257 22.10577)",
+          "$type": "color",
+          "$description": "Very-high band border — matches bg",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-high/border"
+            }
+          }
+        },
+        "text": {
+          "$value": "oklch(99.999999% 0 0)",
+          "$type": "color",
+          "$description": "Very-high band text — pure white (4.7:1 vs bg, the only band that doesn't flip in dark mode)",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-high/text"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(99.999999% 0 0)",
+          "$type": "color",
+          "$description": "Very-high band icon — matches text",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/band/very-high/icon"
+            }
+          }
+        }
+      }
+    },
+    "gauge": {
+      "track": {
+        "$value": "oklch(33.072165% 0.005451 236.674607)",
+        "$type": "color",
+        "$description": "Gauge track — L* 0.33 so the inactive arc reads against the dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/gauge/track"
+          }
+        }
+      },
+      "arc-teal": {
+        "$value": "oklch(74.565147% 0.130473 177.653598)",
+        "$type": "color",
+        "$description": "Gauge teal arc — brightened (OKLCH 0.745, 0.130, 178). 8.8:1 vs default dark surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/gauge/arc-teal"
+          }
+        }
+      },
+      "arc-indigo": {
+        "$value": "oklch(55.630111% 0.179714 268.028017)",
+        "$type": "color",
+        "$description": "Gauge indigo arc — matches action.primary so brand-coloured gauges + CTAs share visual coherence",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/gauge/arc-indigo"
+          }
+        }
+      },
+      "arc-stone": {
+        "$value": "oklch(62.001834% 0.010354 242.929599)",
+        "$type": "color",
+        "$description": "Gauge arc — stone outer ring (dual-ring delta)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/gauge/arc-stone"
+          }
+        }
+      }
+    },
+    "risk": {
+      "low": {
+        "$value": "oklch(69.890503% 0.149611 162.05046)",
+        "$type": "color",
+        "$description": "Risk band — low; matches the dark band.very-low treatment (lifted, hue preserved)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/low"
+          }
+        }
+      },
+      "medium": {
+        "$value": "oklch(77.025243% 0.168024 68.899283)",
+        "$type": "color",
+        "$description": "Risk band — medium; matches the dark band.medium treatment (lifted, hue preserved)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/medium"
+          }
+        }
+      },
+      "high": {
+        "$value": "oklch(71.430255% 0.185502 40.683341)",
+        "$type": "color",
+        "$description": "Risk band — high; matches the dark band.high treatment (lifted, hue preserved)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/high"
+          }
+        }
+      },
+      "critical": {
+        "$value": "oklch(58.560043% 0.215257 22.10577)",
+        "$type": "color",
+        "$description": "Risk band — critical; matches the dark band.very-high treatment (lifted, hue preserved)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/critical"
+          }
+        }
+      }
+    },
+    "citation": {
+      "surface-default": {
+        "$value": "oklch(22.843181% 0.005961 236.820811)",
+        "$type": "color",
+        "$description": "Citation chip surface — default; matches surface.subtle on dark",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/surface-default"
+          }
+        }
+      },
+      "surface-low-conf": {
+        "$value": "oklch(26.165939% 0.008095 240.17488)",
+        "$type": "color",
+        "$description": "Citation chip surface — low-confidence; one step up for differentiation",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/surface-low-conf"
+          }
+        }
+      },
+      "border-default": {
+        "$value": "oklch(35.883107% 0.004392 247.949035)",
+        "$type": "color",
+        "$description": "Citation chip border — default; decorative rule on dark",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/border-default"
+          }
+        }
+      },
+      "border-retracted": {
+        "$value": "oklch(42.905288% 0.008399 248.023716)",
+        "$type": "color",
+        "$description": "Citation chip border — retracted; raised a step so the strikethrough state reads",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/border-retracted"
+          }
+        }
+      },
+      "text-default": {
+        "$value": "oklch(72.556831% 0.008129 241.708589)",
+        "$type": "color",
+        "$description": "Citation chip text — default; matches text.subtle scale, clears 4.5:1 on chip surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/text-default"
+          }
+        }
+      },
+      "text-retracted": {
+        "$value": "oklch(54.910598% 0.008709 241.771445)",
+        "$type": "color",
+        "$description": "Citation chip text — retracted; dimmed one step (de-emphasised state)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/text-retracted"
+          }
+        }
+      },
+      "icon-default": {
+        "$value": "oklch(65.047661% 0.008352 241.73064)",
+        "$type": "color",
+        "$description": "Citation chip source-type glyph — clears 3:1 non-text on chip surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/icon-default"
+          }
+        }
+      },
+      "hover": {
+        "$value": "oklch(29.841856% 0.007843 240.106595)",
+        "$type": "color",
+        "$description": "Citation chip hover overlay — one step above the chip surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/hover"
+          }
+        }
+      },
+      "active": {
+        "$value": "oklch(33.408496% 0.007631 240.05677)",
+        "$type": "color",
+        "$description": "Citation chip active/pressed overlay — one step above hover",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/citation/active"
+          }
+        }
+      }
+    },
+    "telemetry": {
+      "collector": {
+        "healthy": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Telemetry collector healthy — matches dark band.very-low emerald lift",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/collector/healthy"
+            }
+          }
+        },
+        "degraded": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Telemetry collector degraded — matches dark band.medium amber lift",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/collector/degraded"
+            }
+          }
+        },
+        "failed": {
+          "$value": "oklch(65.91947% 0.190384 25.308162)",
+          "$type": "color",
+          "$description": "Telemetry collector failed — lifted red, hue preserved",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/collector/failed"
+            }
+          }
+        },
+        "disabled": {
+          "$value": "oklch(54.932815% 0.009684 56.190275)",
+          "$type": "color",
+          "$description": "Telemetry collector disabled — neutral, deliberately low-emphasis",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/collector/disabled"
+            }
+          }
+        }
+      },
+      "opt-out-marker": {
+        "$value": "oklch(72.130613% 0.130048 237.273836)",
+        "$type": "color",
+        "$description": "Telemetry opt-out marker — lifted sky",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/telemetry/opt-out-marker"
+          }
+        }
+      },
+      "sampled-marker": {
+        "$value": "oklch(71.911675% 0.140713 292.833851)",
+        "$type": "color",
+        "$description": "Telemetry sampled-event marker — lifted violet",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/telemetry/sampled-marker"
+          }
+        }
+      },
+      "event-class": {
+        "adoption": {
+          "$value": "oklch(74.565147% 0.130473 177.653598)",
+          "$type": "color",
+          "$description": "Telemetry event class adoption — matches dark gauge teal",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/event-class/adoption"
+            }
+          }
+        },
+        "error": {
+          "$value": "oklch(65.95955% 0.190145 27.264882)",
+          "$type": "color",
+          "$description": "Telemetry event class error — lifted red-600 hue",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/event-class/error"
+            }
+          }
+        },
+        "usage": {
+          "$value": "oklch(55.630111% 0.179714 268.028017)",
+          "$type": "color",
+          "$description": "Telemetry event class usage — matches dark action.primary indigo",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/event-class/usage"
+            }
+          }
+        },
+        "performance": {
+          "$value": "oklch(71.430255% 0.185502 40.683341)",
+          "$type": "color",
+          "$description": "Telemetry event class performance — matches dark band.high orange lift",
+          "$extensions": {
+            "com.risqbase.role": "semantic",
+            "com.risqbase.figma": {
+              "collection": "semantic",
+              "mode": "dark",
+              "variable": "color/telemetry/event-class/performance"
+            }
+          }
+        }
+      }
+    },
+    "iris": {
+      "accent": {
+        "$value": "oklch(62.29797% 0.103615 184.856967)",
+        "$type": "color",
+        "$description": "Iris accent — lifted teal; clears 4.5:1 as text on dark canvas and keeps ≥3:1 under white glyphs (v4.3 §4.2)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/accent"
+          }
+        }
+      },
+      "accent-hover": {
+        "$value": "oklch(68.331526% 0.103868 184.475895)",
+        "$type": "color",
+        "$description": "Iris accent hover — lifts a half-step on dark (light darkens; dark brightens)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/accent-hover"
+          }
+        }
+      },
+      "accent-subtle": {
+        "$value": "oklch(26.842095% 0.044867 185.344029)",
+        "$type": "color",
+        "$description": "Iris accent subtle — muted teal wash for halos/hover on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/accent-subtle"
+          }
+        }
+      },
+      "surface": {
+        "$value": "oklch(20.937788% 0.011983 186.887439)",
+        "$type": "color",
+        "$description": "Iris surface — dark teal-tinted stone (§B1), one step above the canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/surface"
+          }
+        }
+      },
+      "streamhead": {
+        "$value": "oklch(62.29797% 0.103615 184.856967)",
+        "$type": "color",
+        "$description": "StreamingText cursor — matches dark iris.accent",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/streamhead"
+          }
+        }
+      },
+      "thinking-outer": {
+        "$value": "oklch(81.882801% 0.114595 181.10908)",
+        "$type": "color",
+        "$description": "IrisThinking outer arc — brightest of the depth gradient on dark",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/thinking-outer"
+          }
+        }
+      },
+      "thinking-mid": {
+        "$value": "oklch(72.053337% 0.115204 182.652039)",
+        "$type": "color",
+        "$description": "IrisThinking middle arc",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/thinking-mid"
+          }
+        }
+      },
+      "thinking-inner": {
+        "$value": "oklch(59.905033% 0.094766 186.671111)",
+        "$type": "color",
+        "$description": "IrisThinking inner arc — dimmest, still clears the 3:1 non-text floor",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/iris/thinking-inner"
+          }
+        }
+      }
+    },
+    "callout": {
+      "info": {
+        "background": {
+          "$value": "oklch(72.130613% 0.130048 237.273836)",
+          "$type": "color",
+          "$description": "Info callout background — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/info/background"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(72.130613% 0.130048 237.273836)",
+          "$type": "color",
+          "$description": "Info callout border — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/info/border"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(72.130613% 0.130048 237.273836)",
+          "$type": "color",
+          "$description": "Info callout icon — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/info/icon"
+            }
+          }
+        }
+      },
+      "warning": {
+        "background": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Warning callout background — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/warning/background"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Warning callout border — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/warning/border"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(77.025243% 0.168024 68.899283)",
+          "$type": "color",
+          "$description": "Warning callout icon — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/warning/icon"
+            }
+          }
+        }
+      },
+      "danger": {
+        "background": {
+          "$value": "oklch(65.95955% 0.190145 27.264882)",
+          "$type": "color",
+          "$description": "Danger callout background — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/danger/background"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(65.95955% 0.190145 27.264882)",
+          "$type": "color",
+          "$description": "Danger callout border — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/danger/border"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(65.95955% 0.190145 27.264882)",
+          "$type": "color",
+          "$description": "Danger callout icon — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/danger/icon"
+            }
+          }
+        }
+      },
+      "success": {
+        "background": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Success callout background — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/success/background"
+            }
+          }
+        },
+        "border": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Success callout border — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/success/border"
+            }
+          }
+        },
+        "icon": {
+          "$value": "oklch(69.890503% 0.149611 162.05046)",
+          "$type": "color",
+          "$description": "Success callout icon — lifted intent hue for dark (bg is 10%-alpha-blended in-component)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": {
+              "collection": "component",
+              "mode": "dark",
+              "variable": "color/callout/success/icon"
+            }
+          }
+        }
+      }
+    }
+  }
+}

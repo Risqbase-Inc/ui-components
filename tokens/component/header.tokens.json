@@ -48,7 +48,7 @@
           }
         },
         "hover": {
-          "$value": "{color.action.primary}",
+          "$value": "{color.action.link}",
           "$type": "color",
           "$description": "Header nav link — hover state",
           "$extensions": {
@@ -82,7 +82,7 @@
           "$value": "{color.text.on-action}",
           "$type": "color",
           "$description": "Header CTA button text colour",
-          "$extensions": {
+          "$extensions": { "com.risqbase.themeInvariant": "Pure white on the header CTA background, which is contrast-managed per theme",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/cta/foreground", "scopes": ["TEXT_FILL"] }
           }

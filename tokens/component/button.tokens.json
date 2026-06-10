@@ -27,7 +27,7 @@
             "$value": "{color.text.on-action}",
             "$type": "color",
             "$description": "Primary button text colour",
-            "$extensions": {
+            "$extensions": { "com.risqbase.themeInvariant": "Pure white on action.primary in both themes — action.primary is contrast-managed per theme",
               "com.risqbase.role": "component",
               "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/primary/foreground/default", "scopes": ["TEXT_FILL"] }
             }
@@ -57,7 +57,7 @@
         },
         "foreground": {
           "default": {
-            "$value": "{color.action.primary}",
+            "$value": "{color.action.link}",
             "$type": "color",
             "$description": "Secondary button text colour",
             "$extensions": {
@@ -84,7 +84,7 @@
             "$value": "transparent",
             "$type": "color",
             "$description": "Ghost button background — default state",
-            "$extensions": {
+            "$extensions": { "com.risqbase.themeInvariant": "Transparent in all themes by definition",
               "com.risqbase.role": "component",
               "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/button/ghost/background/default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
             }
@@ -101,7 +101,7 @@
         },
         "foreground": {
           "default": {
-            "$value": "{color.action.primary}",
+            "$value": "{color.action.link}",
             "$type": "color",
             "$description": "Ghost button text colour",
             "$extensions": {

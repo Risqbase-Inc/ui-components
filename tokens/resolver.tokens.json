@@ -1,0 +1,47 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/resolver/2025-10.json",
+  "name": "risqbase",
+  "description": "DTCG 2025.10 resolver — declares the base token sets and the theme contexts. Replaces the v4.2-era ad-hoc themes/*.json mechanism (v4.4 §A4). The build (tools/tokens-build) reads this document to discover themes; consumers keep the <html data-theme> contract: light is the default (:root), every other context emits a [data-theme=\"<name>\"] block in dist/tokens.css.",
+  "sets": [
+    {
+      "name": "base",
+      "description": "Three-tier token graph — primitives, semantic aliases, component roles. Light values; light is the default context.",
+      "values": [
+        "primitive/color-chart.tokens.json",
+        "primitive/color.tokens.json",
+        "primitive/dimension.tokens.json",
+        "primitive/duration.tokens.json",
+        "primitive/easing.tokens.json",
+        "semantic/color.tokens.json",
+        "semantic/density.tokens.json",
+        "semantic/elevation.tokens.json",
+        "semantic/loading.tokens.json",
+        "component/badge.tokens.json",
+        "component/button.tokens.json",
+        "component/callout.tokens.json",
+        "component/card.tokens.json",
+        "component/citation-chip.tokens.json",
+        "component/footer.tokens.json",
+        "component/gauge.tokens.json",
+        "component/header.tokens.json",
+        "component/iris-thinking.tokens.json",
+        "component/section-eyebrow.tokens.json"
+      ]
+    }
+  ],
+  "modifiers": [
+    {
+      "name": "theme",
+      "type": "enumerated",
+      "default": "light",
+      "description": "Theme contexts. light = base set as-is. dark extends base with the override set ($extends semantics: a context may only re-bind tokens the base defines — lint-enforced). High contrast is intentionally NOT a token theme (D-107): it is a forced-colors / prefers-contrast compliance contract, documented at docs/theming.md.",
+      "values": [
+        { "name": "light", "values": [] },
+        { "name": "dark", "values": ["themes/dark.tokens.json"] }
+      ],
+      "$extensions": {
+        "com.risqbase.css": { "attribute": "data-theme", "defaultSelector": ":root, [data-theme=\"light\"]" }
+      }
+    }
+  ]
+}

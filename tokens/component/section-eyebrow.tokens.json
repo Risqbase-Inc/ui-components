@@ -2,7 +2,7 @@
   "color": {
     "section-eyebrow": {
       "foreground": {
-        "$value": "{color.action.primary}",
+        "$value": "{color.action.link}",
         "$type": "color",
         "$description": "Section eyebrow text colour — uppercase tracking label",
         "$extensions": {

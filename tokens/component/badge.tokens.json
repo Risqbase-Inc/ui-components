@@ -15,7 +15,7 @@
           "$value": "{color.text.on-action}",
           "$type": "color",
           "$description": "Badge default text colour",
-          "$extensions": {
+          "$extensions": { "com.risqbase.themeInvariant": "Pure white on action.primary in both themes — action.primary is contrast-managed per theme (clears 4.9:1 on the dark brand)",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/foreground", "scopes": ["TEXT_FILL"] }
           }
@@ -32,7 +32,7 @@
           }
         },
         "foreground": {
-          "$value": "{color.action.primary}",
+          "$value": "{color.action.link}",
           "$type": "color",
           "$description": "Badge highlight text colour",
           "$extensions": {
@@ -85,7 +85,7 @@
         },
         "very-high": {
           "background": { "$value": "{color.band.very-high.bg}",     "$type": "color", "$description": "Band-very-high badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
-          "foreground": { "$value": "{color.band.very-high.text}",   "$type": "color", "$description": "Band-very-high badge text",        "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/foreground", "scopes": ["TEXT_FILL"] } } },
+          "foreground": { "$value": "{color.band.very-high.text}",   "$type": "color", "$description": "Band-very-high badge text",        "$extensions": { "com.risqbase.themeInvariant": "Matches band.very-high.text: white is the only band glyph that stays white in dark (4.7:1 on the dark band bg)", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/foreground", "scopes": ["TEXT_FILL"] } } },
           "border":     { "$value": "{color.band.very-high.border}", "$type": "color", "$description": "Band-very-high badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/border", "scopes": ["STROKE_COLOR"] } } }
         }
       }

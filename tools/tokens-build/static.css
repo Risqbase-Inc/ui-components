@@ -1,0 +1,128 @@
+/* ── static utility CSS — shipped with tokens.css (v4.4) ─────────────────
+ *
+ * Not tokens: keyframes, motion gating and forced-colors rules that the
+ * package's primitives rely on. Three contracts live here:
+ *
+ * 1. Motion (Workstream E / D-110). Animations are declared base-on, then
+ *    gated three ways, in priority order:
+ *      a. `[data-motion="reduced"]`  — explicit user choice via
+ *         <MotionProvider> / setMotionPreference(); strongest signal.
+ *      b. `[data-motion="full"]`     — explicit user choice FOR motion;
+ *         re-enables animation even when the OS asks for reduced.
+ *      c. `@media (prefers-reduced-motion: reduce)` — OS signal; the
+ *         default when no provider is mounted (media-query fallback).
+ *    Scanner rule R13 (motion gating) checks that component-tier animated
+ *    CSS stays gated on one of these.
+ *
+ * 2. Skeleton shimmer (v4.4 token-extension §1.2) — the canonical shimmer
+ *    keyframe + utility class, so non-Tailwind consumers get the same
+ *    skeleton treatment as the Tailwind preset's `animate-skeleton-shimmer`.
+ *
+ * 3. Forced colors (Workstream B3 / D-107). High contrast is a compliance
+ *    contract, not a token theme. Components mark meaning-bearing
+ *    SVG geometry with `data-fc` so Windows HC keeps the figure readable:
+ *      data-fc="track"          inactive gauge track       → GrayText
+ *      data-fc="arc"            primary value arc          → Highlight
+ *      data-fc="arc-secondary"  secondary arc (dual ring)  → CanvasText
+ *      data-fc="mark"           chart mark (bar/line/dot)  → CanvasText
+ *      data-fc="cell"           heatmap/choropleth cell    → CanvasText edge
+ *    Chart series identity is not colour-recoverable under forced colors;
+ *    the data path is the per-chart visually-hidden table fallback
+ *    (v4.4 §F3). Band chips keep their meaning through their text label.
+ */
+
+@keyframes risqbase-skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes risqbase-toast-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes risqbase-iris-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes risqbase-iris-rotate-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes risqbase-iris-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+@keyframes risqbase-streamhead-blink {
+  0%, 50%     { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.risqbase-skeleton {
+  background: var(--color-skeleton-shimmer);
+  background-size: 200% 100%;
+  animation: risqbase-skeleton-shimmer 1.4s linear infinite;
+}
+
+.iris-thinking-arc {
+  transform-box: view-box;
+  transform-origin: center;
+}
+.iris-thinking-arc-outer { animation: risqbase-iris-rotate 2.4s linear infinite; }
+.iris-thinking-arc-mid   { animation: risqbase-iris-rotate-reverse 1.8s linear infinite; }
+.iris-thinking-arc-inner { animation: risqbase-iris-rotate 1.4s linear infinite; }
+
+.streamhead-cursor { animation: risqbase-streamhead-blink 1s steps(2) infinite; }
+
+/* c. OS signal — media-query fallback (no provider mounted). */
+@media (prefers-reduced-motion: reduce) {
+  .iris-thinking-arc {
+    animation: risqbase-iris-pulse 2s ease-in-out infinite;
+  }
+  .streamhead-cursor,
+  .risqbase-skeleton,
+  .animate-skeleton-shimmer,
+  .animate-toast-enter {
+    animation: none;
+  }
+  .risqbase-skeleton,
+  .animate-skeleton-shimmer {
+    background: var(--color-surface-muted);
+  }
+}
+
+/* b. Explicit user choice FOR motion — beats the OS signal (D-110).
+ * Higher specificity than the media-query rules above. */
+[data-motion="full"] .iris-thinking-arc-outer { animation: risqbase-iris-rotate 2.4s linear infinite; }
+[data-motion="full"] .iris-thinking-arc-mid   { animation: risqbase-iris-rotate-reverse 1.8s linear infinite; }
+[data-motion="full"] .iris-thinking-arc-inner { animation: risqbase-iris-rotate 1.4s linear infinite; }
+[data-motion="full"] .streamhead-cursor       { animation: risqbase-streamhead-blink 1s steps(2) infinite; }
+[data-motion="full"] .risqbase-skeleton       { animation: risqbase-skeleton-shimmer 1.4s linear infinite; background: var(--color-skeleton-shimmer); background-size: 200% 100%; }
+
+/* a. Explicit user choice AGAINST motion — strongest signal. Placed after
+ * the data-motion="full" rules so equal specificity resolves reduced-wins
+ * (the provider only ever sets one value, but belt + braces). */
+[data-motion="reduced"] .iris-thinking-arc,
+.iris-thinking-reduced .iris-thinking-arc {
+  animation: risqbase-iris-pulse 2s ease-in-out infinite;
+}
+[data-motion="reduced"] .streamhead-cursor,
+[data-motion="reduced"] .risqbase-skeleton,
+[data-motion="reduced"] .animate-skeleton-shimmer,
+[data-motion="reduced"] .animate-toast-enter {
+  animation: none;
+}
+[data-motion="reduced"] .risqbase-skeleton,
+[data-motion="reduced"] .animate-skeleton-shimmer {
+  background: var(--color-surface-muted);
+}
+
+/* 3. Forced colors (B3). */
+@media (forced-colors: active) {
+  [data-fc="track"]         { stroke: GrayText !important; }
+  [data-fc="arc"]           { stroke: Highlight !important; }
+  [data-fc="arc-secondary"] { stroke: CanvasText !important; }
+  [data-fc="mark"]          { fill: CanvasText !important; stroke: CanvasText !important; }
+  [data-fc="cell"]          { stroke: CanvasText !important; stroke-width: 1px; }
+}

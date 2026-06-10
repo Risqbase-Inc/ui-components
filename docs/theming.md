@@ -1,10 +1,17 @@
-# Theming — RisqBase Design System v4.2
+# Theming — RisqBase Design System v4.4
 
-The `@risqbase-inc/ui-components` package ships three modes — `light`,
-`dark`, and `hc` — driven by a single `data-theme` attribute on
-`<html>`. Components consume CSS custom properties; the variable
-values switch synchronously when the attribute changes, so swapping
-themes is as cheap as setting an attribute.
+The `@risqbase-inc/ui-components` package ships two token themes —
+`light` (default) and `dark` (full coverage since v4.4) — driven by a
+single `data-theme` attribute on `<html>`. Components consume CSS custom
+properties; the variable values switch synchronously when the attribute
+changes, so swapping themes is as cheap as setting an attribute.
+
+High contrast is **not a token theme** (v4.4 D-107): the package meets
+Windows High Contrast / `forced-colors: active` and `prefers-contrast`
+as a compliance contract instead — see "High contrast" below. The
+`'hc'` member of the `Theme` type remains accepted for backward
+compatibility but maps to no CSS overrides; it is deprecated and slated
+for removal in v5.0.
 
 This document is for **consumer apps**. The design-token authoring
 workflow lives in `tokens/README.md`.
@@ -17,17 +24,20 @@ workflow lives in `tokens/README.md`.
 
 ```css
 :root, [data-theme="light"] {
-  --color-action-primary: #4f46e5;
+  --color-action-primary: #4f46e5;   /* sRGB fallback */
   --color-text-default: #292524;
-  /* …124 tokens */
+  /* …317 tokens */
+}
+@supports (color: oklch(0% 0 0)) {
+  :root, [data-theme="light"] {
+    --color-action-primary: oklch(48.7282% 0.225072 273.0935);
+    /* …OKLCH source values (v4.4 §A3) */
+  }
 }
 
 [data-theme="dark"] {
-  /* S4 — G4 fills */
-}
-
-[data-theme="hc"] {
-  /* S4 — G4 fills */
+  /* full dark set — every semantic + component color token resolves
+     to a derived dark value (v4.4 §B1; lint-enforced completeness) */
 }
 ```
 
@@ -84,7 +94,6 @@ function ThemePicker() {
     <select defaultValue={getTheme()} onChange={(e) => setTheme(e.target.value as Theme)}>
       <option value="light">Light</option>
       <option value="dark">Dark</option>
-      <option value="hc">High contrast</option>
     </select>
   )
 }
@@ -145,18 +154,33 @@ brief sets the 14-day window from npm publish (per implementation-plan
 
 ---
 
-## Status of dark / HC values
+## Status of dark values
 
-S1 ships the **mechanism**. The dark and HC layers in
-`dist/tokens.css` are placeholder comments today — switching to
-`data-theme="dark"` will currently render light values because no
-overrides exist yet.
+Complete since v4.4 (GOV-DS-2026-03 Workstream B). Every semantic and
+component color token carries a derived dark value — hue preserved,
+lightness lifted per the §B1 group rules, every value
+contrast-verified per theme (`npm run verify:contrast`). The
+completeness is lint-enforced: a PR adding a semantic/component color
+without a dark value (or an explicit `themeInvariant` reason) fails
+`lint:tokens`.
 
-G4 designs the dark + HC values across all ~30 role tokens in S4
-(implementation-plan §3, §6 R3). Once those values land, every
-existing consumer that has called `setTheme('dark')` will see the
-swap take effect immediately on the next page load — no consumer
-code change required.
+## High contrast (forced-colors compliance — v4.4 B3)
+
+Instead of an `hc` token theme, the package audits every Layer 1 / 2
+component under `forced-colors: active` and `prefers-contrast: more`:
+
+- System colour overrides are accepted by default — backgrounds strip
+  to `Canvas`, text to `CanvasText`, and no component encodes meaning
+  in colour alone (band chips carry their label text; charts carry a
+  visually-hidden data-table fallback, v4.4 §F3).
+- Where stripped colours WOULD break meaning, components mark SVG
+  geometry with `data-fc` roles and `dist/tokens.css` maps them to
+  system colours under `@media (forced-colors: active)`: gauge tracks
+  → `GrayText`, value arcs → `Highlight`, secondary arcs and chart
+  marks → `CanvasText`, heatmap cells → `CanvasText` edges. See
+  `tools/tokens-build/static.css` §3.
+- Focus indicators rely on `outline` / `ring` styles, which
+  forced-colors maps to `Highlight` natively — they survive.
 
 ---
 
