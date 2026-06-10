@@ -1,0 +1,95 @@
+{
+  "note": "DoD-4 generalisation probes — prompts NOT pinned in CI. The first run (10 Jun) surfaced a real ranking gap: a primitive risk-palette token and RiskGauge outranked ChartContainer for a map query. Fixed in the scorer: type-literal values become WEAK aliases (+4, below name-grade matches) and primitive-tier tokens carry an R9-aligned rank penalty (×0.6). Repeat with a fresh prompt at deploy review.",
+  "probes": [
+    {
+      "query": "map of risk levels EU countries choropleth",
+      "top": [
+        {
+          "kind": "component",
+          "id": "ChartContainer",
+          "score": 17
+        },
+        {
+          "kind": "component",
+          "id": "RiskGauge",
+          "score": 7
+        },
+        {
+          "kind": "token",
+          "id": "color.risk.critical",
+          "score": 6
+        },
+        {
+          "kind": "token",
+          "id": "color.risk.high",
+          "score": 6
+        },
+        {
+          "kind": "token",
+          "id": "color.risk.low",
+          "score": 6
+        }
+      ]
+    },
+    {
+      "query": "show a map of jurisdictions",
+      "top": [
+        {
+          "kind": "component",
+          "id": "ChartContainer",
+          "score": 13
+        },
+        {
+          "kind": "component",
+          "id": "Footer",
+          "score": 9
+        },
+        {
+          "kind": "component",
+          "id": "Badge",
+          "score": 8
+        },
+        {
+          "kind": "component",
+          "id": "Gauge",
+          "score": 8
+        },
+        {
+          "kind": "component",
+          "id": "Header",
+          "score": 8
+        }
+      ]
+    },
+    {
+      "query": "spinner while the AI is thinking",
+      "top": [
+        {
+          "kind": "component",
+          "id": "IrisThinking",
+          "score": 14
+        },
+        {
+          "kind": "token",
+          "id": "shadow.raised",
+          "score": 13
+        },
+        {
+          "kind": "token",
+          "id": "color.iris-thinking.inner",
+          "score": 12
+        },
+        {
+          "kind": "token",
+          "id": "color.iris-thinking.mid",
+          "score": 12
+        },
+        {
+          "kind": "token",
+          "id": "color.iris-thinking.outer",
+          "score": 12
+        }
+      ]
+    }
+  ]
+}

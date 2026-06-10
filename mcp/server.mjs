@@ -117,18 +117,28 @@ function componentSummary(c) {
 function searchCorpus(registry) {
   const docs = []
   for (const c of registry.components) {
+    // Secondary exports (e.g. BandBadge inside Badge/) and the string-literal
+    // members of the component's exported type unions (e.g. ChartType's
+    // 'choropleth' | 'heatmap' …) rank like ids — "map risk levels across EU
+    // countries" must surface ChartContainer, not a near-miss (the unpinned
+    // probe in dod4-smoke-tests caught exactly this gap).
+    const literalAliases = (c.api || [])
+      .filter((t) => t.kind === 'type' && typeof t.definition === 'string')
+      .flatMap((t) => [...t.definition.matchAll(/'([a-z][\w-]{2,})'/g)].map((m) => m[1]))
     docs.push({
       kind: 'component',
       id: c.name,
-      // Secondary exports (e.g. BandBadge inside Badge/) rank like ids so
-      // "build a risk band chip" surfaces Badge/BandBadge, not a near-miss.
       aliases: (c.exports || []).filter((e) => e !== c.name),
+      // Weak aliases: variant/mode literals are discovery signals, not
+      // names — they must not let a generic word like 'band' outrank the
+      // component that owns the concept.
+      weakAliases: [...new Set(literalAliases)],
       ref: componentSummary(c),
       text: [c.name, c.domain, c.description, c.tokensDoc, c.accessibilityDoc, JSON.stringify(c.api)].join(' '),
     })
   }
   for (const t of registry.tokens) {
-    docs.push({ kind: 'token', id: t.path, ref: { path: t.path, tier: t.tier, type: t.type, description: t.description }, text: [t.path, t.cssVariable, t.description, t.tier].join(' ') })
+    docs.push({ kind: 'token', id: t.path, tier: t.tier, ref: { path: t.path, tier: t.tier, type: t.type, description: t.description }, text: [t.path, t.cssVariable, t.description, t.tier].join(' ') })
   }
   for (const r of registry.recipes) docs.push({ kind: 'recipe', id: r.id, ref: { id: r.id, use_case: r.use_case }, text: JSON.stringify(r) })
   for (const s of registry.showcase) {
@@ -217,16 +227,22 @@ export function createServer(registry = loadRegistry()) {
         .map((d) => {
           const text = d.text.toLowerCase()
           const ids = [d.id, ...(d.aliases || [])].map((x) => x.toLowerCase())
+          const weak = (d.weakAliases || []).map((x) => x.toLowerCase())
           let score = 0
           for (const term of terms) {
-            const best = Math.max(...ids.map((idLower) => (idLower === term ? 10 : idLower.includes(term) ? 5 : 0)))
+            const best = Math.max(0, ...ids.map((idLower) => (idLower === term ? 10 : idLower.includes(term) ? 5 : 0)))
             score += best
+            if (best === 0 && weak.some((w) => w === term || w.includes(term))) score += 4
             if (text.includes(term)) score += 1
           }
           // Layer-3 showcase entries are documented-not-consumable (D-104):
           // for "what do I build with" queries the consumable primitives
           // must outrank them, so they carry a rank penalty (still listed).
           if (d.kind === 'showcase') score *= 0.5
+          // Primitive-tier tokens are the wrong answer for agents by rule
+          // (R9: consume the semantic chain) — rank them below semantic
+          // tokens and components.
+          if (d.kind === 'token' && d.tier === 'primitive') score *= 0.6
           return { ...d, score }
         })
         .filter((d) => d.score > 0)
