@@ -95,6 +95,13 @@ Verification performed 2026-06-10 from a fresh checkout of commit `39f69ff`+ (Do
 | DoD-5 negative checks | PASS | `scripts/test-scanner-rules.mjs` + `scripts/__fixtures__/` — R12/R13/R14 each FAIL on violating fixtures, PASS on clean source; wired into CI |
 | DoD-6 descope integrity | PASS | One cut (rung 1, choropleth), in order, no skips; `RisqBase-DS-v4.4.1-Patch.md` lists exactly it; every BLOCKED row maps to an external dependency, not a scope cut |
 
+## PR #84 merge path (required checks per docs/devops/branch-protection.md)
+
+- **Lint & Build** (required): **green** — carries every v4.4 gate (R12 token lint, R13 motion scan, R14 agent-surface drift, MCP tests, DoD-5 negatives, docs/readme drift, tsc, eslint).
+- **chromatic** (required): red until the 90 dark/hc re-baseline changes are accepted in the Chromatic UI (build 101) — owner action, same as ledger rows A5.6/B5.3/F.4.
+- **Vercel** (required): instant project-level rejection (see C5.3) — owner action.
+- **CodeQL** (not in the documented required set): the gate reports new alerts whose list is only visible in the repo Security tab (no code-scanning API access from this session). Proactive hardening applied: explicit `__proto__`/`constructor`/`prototype` guards on every merge/computed-write the PR adds (the repo's historical alert pattern, cf. verify-contrast.mjs alert #4). If alerts remain after the Security-tab review, they are most likely fingerprint-relocations of pre-existing patterns in the rewritten files.
+
 ## Unblock summary (what turns BLOCKED → PASS)
 
 1. **Chromatic** (A5.6, B5.3, F.4, P.7, DoD-3c): review build 101 (90 changes) — confirm light is diff-free, accept the dark/hc baselines.
