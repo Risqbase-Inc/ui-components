@@ -111,8 +111,12 @@ async function main() {
 
   const rows = []
   for (const { entry, mode } of targets) {
-    const url = `http://localhost:${port}/iframe.html?id=${entry.id}&globals=theme:${mode}`
+    // `print` parity with the per-story Chromatic mode `{ media: 'print' }`:
+    // light theme globals + print media emulation at audit time.
+    const theme = mode === 'print' ? 'light' : mode
+    const url = `http://localhost:${port}/iframe.html?id=${entry.id}&globals=theme:${theme}`
     try {
+      await page.emulateMedia({ media: mode === 'print' ? 'print' : 'screen' })
       await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 })
       await page.waitForTimeout(350) // settle animations/effects
       await page.evaluate(axeSource)
