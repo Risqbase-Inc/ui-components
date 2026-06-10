@@ -17,8 +17,14 @@ const meta: Meta<typeof Modal> = {
 export default meta
 type Story = StoryObj<typeof Modal>
 
-function Trigger({ render }: { render: (open: boolean, set: (b: boolean) => void) => React.ReactNode }) {
-  const [open, setOpen] = useState(false)
+function Trigger({
+  render,
+  initialOpen = false,
+}: {
+  render: (open: boolean, set: (b: boolean) => void) => React.ReactNode
+  initialOpen?: boolean
+}) {
+  const [open, setOpen] = useState(initialOpen)
   return (
     <>
       <Button variant="secondary" onClick={() => setOpen(true)}>Open</Button>
@@ -79,9 +85,12 @@ export const SheetDefault: Story = {
 }
 
 export const Interactive: Story = {
-  parameters: { chromatic: { disableSnapshot: true } },
+  // A11Y-FIX C6: `disableSnapshot` made Chromatic's a11y pass report this
+  // story as not-run (≠ pass). The dialog now mounts open at snapshot time
+  // so axe audits the real overlay; interactivity is preserved.
   render: () => (
     <Trigger
+      initialOpen
       render={(open, set) => (
         <Modal open={open} onClose={() => set(false)} title="Interactive demo">
           <p>Open/close via the button. Press Esc or click outside to dismiss.</p>

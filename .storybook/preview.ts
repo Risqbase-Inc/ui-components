@@ -1,13 +1,22 @@
 import type { Preview } from '@storybook/react';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 
-// Pulls in the Style-Dictionary-generated tokens so every story renders
-// with the real values, not Tailwind defaults. Path is the package's
-// own dist output; the package is its own consumer here.
+// Tailwind utilities first (consumer parity — v4.4 A11Y-FIX; without
+// them every `text-[var(--…)]` class is unstyled and axe audits
+// browser-default colors), then the Style-Dictionary-generated tokens so
+// the central motion/forced-colors rules win order ties.
+import './tailwind.css';
 import '../dist/tokens.css';
 
 const preview: Preview = {
   parameters: {
+    // A11Y-FIX: axe's `region` rule ("all content contained by landmarks")
+    // is a PAGE-level requirement — component stories are fragments, not
+    // pages, so it fires on every story canvas regardless of component
+    // quality (475 of the 668 post-fix nodes in the local sweep). Landmark
+    // completeness is audited at product-page level (RALIA/marketing
+    // scanners); the landmark-duplication rules stay enabled.
+    a11y: { config: { rules: [{ id: 'region', enabled: false }] } },
     backgrounds: {
       default: 'surface',
       values: [

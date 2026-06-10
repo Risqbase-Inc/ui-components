@@ -1,0 +1,35 @@
+{
+  "$comment": "D-124 negative fixture (DoD-5): the expanded verify-contrast gate must FAIL on (a) a text-role token with a failing pair, (b) a text-role token with no pair and no exemption.",
+  "color": {
+    "fixture": {
+      "bad-pair-text": {
+        "$value": "oklch(95.265067% 0.049796 180.801231)",
+        "$type": "color",
+        "$description": "Near-white text paired against white — must fail the 4.5:1 floor",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.contrastPair": "{color.fixture.surface}",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/fixture/bad-pair-text", "scopes": ["TEXT_FILL"] }
+        }
+      },
+      "unannotated-text": {
+        "$value": "oklch(21.61154% 0.006126 56.043375)",
+        "$type": "color",
+        "$description": "Text-role token with neither contrastPair nor contrastExempt — must fail the completeness gate",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/fixture/unannotated-text", "scopes": ["TEXT_FILL"] }
+        }
+      },
+      "surface": {
+        "$value": "oklch(99.999999% 0 0)",
+        "$type": "color",
+        "$description": "White fixture surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/fixture/surface", "scopes": ["FRAME_FILL"] }
+        }
+      }
+    }
+  }
+}

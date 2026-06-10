@@ -201,13 +201,15 @@ export const ResponsiveBreakpoints: Story = {
         </p>
         <ClientGrid {...args} />
       </div>
-      <div style={{ border: '1px dashed var(--color-border-subtle)', padding: 12 }}>
+      {/* A11Y-FIX C5: the 2nd/3rd copies are presentational width demos —
+          duplicate section landmarks are hidden from the a11y tree. */}
+      <div inert aria-hidden="true" style={{ border: '1px dashed var(--color-border-subtle)', padding: 12 }}>
         <p style={{ fontSize: 11, color: 'var(--color-text-subtle)', margin: '0 0 6px' }}>
           640–1023px — 2 columns (resize the Storybook viewport to verify)
         </p>
         <ClientGrid {...args} />
       </div>
-      <div style={{ border: '1px dashed var(--color-border-subtle)', padding: 12 }}>
+      <div inert aria-hidden="true" style={{ border: '1px dashed var(--color-border-subtle)', padding: 12 }}>
         <p style={{ fontSize: 11, color: 'var(--color-text-subtle)', margin: '0 0 6px' }}>
           &lt; 640px — single column (resize the Storybook viewport to verify)
         </p>

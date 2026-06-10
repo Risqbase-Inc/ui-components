@@ -23,7 +23,7 @@
         "$value": "{color.action.primary}",
         "$type": "color",
         "$description": "Header logo wordmark colour",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aa-large",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/logo", "scopes": ["TEXT_FILL"] }
         }
@@ -32,7 +32,7 @@
         "$value": "{color.text.subtle}",
         "$type": "color",
         "$description": "Header tagline text (e.g. \"by RisqBase\")",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/tagline", "scopes": ["TEXT_FILL"] }
         }
@@ -42,7 +42,7 @@
           "$value": "{color.text.subtle}",
           "$type": "color",
           "$description": "Header nav link — default state",
-          "$extensions": {
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/nav-link/default", "scopes": ["TEXT_FILL"] }
           }
@@ -51,7 +51,7 @@
           "$value": "{color.action.link}",
           "$type": "color",
           "$description": "Header nav link — hover state",
-          "$extensions": {
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/nav-link/hover", "scopes": ["TEXT_FILL"] }
           }
@@ -82,7 +82,7 @@
           "$value": "{color.text.on-action}",
           "$type": "color",
           "$description": "Header CTA button text colour",
-          "$extensions": { "com.risqbase.themeInvariant": "Pure white on the header CTA background, which is contrast-managed per theme",
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.cta.background.default}", "com.risqbase.themeInvariant": "Pure white on the header CTA background, which is contrast-managed per theme",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/cta/foreground", "scopes": ["TEXT_FILL"] }
           }
@@ -92,7 +92,7 @@
         "$value": "{color.text.subtle}",
         "$type": "color",
         "$description": "Header launch-date label colour",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/launch-date", "scopes": ["TEXT_FILL"] }
         }

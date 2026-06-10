@@ -3419,7 +3419,7 @@ count: 9
 | `color.citation.border-default` (`--color-citation-border-default`) | semantic | color | `#e7e5e4` | `#3b3d3f` | Citation chip border — default |
 | `color.citation.border-retracted` (`--color-citation-border-retracted`) | semantic | color | `#d6d3d1` | `#4c5054` | Citation chip border — retracted |
 | `color.citation.text-default` (`--color-citation-text-default`) | semantic | color | `#57534e` | `#a2a7ab` | Citation chip text — default |
-| `color.citation.text-retracted` (`--color-citation-text-retracted`) | semantic | color | `#a8a29e` | `#6d7276` | Citation chip text — retracted |
+| `color.citation.text-retracted` (`--color-citation-text-retracted`) | semantic | color | `#a8a29e` | `#979ca0` | Citation chip text — retracted |
 | `color.citation.icon-default` (`--color-citation-icon-default`) | semantic | color | `#78716c` | `#8b9094` | Citation chip source-type glyph fill |
 | `color.citation.hover` (`--color-citation-hover`) | semantic | color | `#f5f5f4` | `#2a2e31` | Citation chip hover state overlay |
 | `color.citation.active` (`--color-citation-active`) | semantic | color | `#e7e5e4` | `#33373a` | Citation chip active/pressed overlay |
@@ -3442,7 +3442,7 @@ count: 9
 | `color.citation-chip.border` (`--color-citation-chip-border`) | component | color | `#e7e5e4` | `#3b3d3f` | Citation chip border |
 | `color.citation-chip.border-retracted` (`--color-citation-chip-border-retracted`) | component | color | `#d6d3d1` | `#4c5054` | Citation chip border — retracted |
 | `color.citation-chip.text` (`--color-citation-chip-text`) | component | color | `#57534e` | `#a2a7ab` | Citation chip text |
-| `color.citation-chip.text-retracted` (`--color-citation-chip-text-retracted`) | component | color | `#a8a29e` | `#6d7276` | Citation chip text — retracted |
+| `color.citation-chip.text-retracted` (`--color-citation-chip-text-retracted`) | component | color | `#a8a29e` | `#979ca0` | Citation chip text — retracted |
 | `color.citation-chip.icon` (`--color-citation-chip-icon`) | component | color | `#78716c` | `#8b9094` | Citation chip icon |
 | `color.citation-chip.hover` (`--color-citation-chip-hover`) | component | color | `#f5f5f4` | `#2a2e31` | Citation chip hover overlay |
 | `color.citation-chip.active` (`--color-citation-chip-active`) | component | color | `#e7e5e4` | `#33373a` | Citation chip active overlay |
@@ -3602,7 +3602,7 @@ count: 11
 
 ---
 group: color-palette
-count: 58
+count: 59
 ---
 
 # Tokens — `color-palette.*`
@@ -3663,6 +3663,7 @@ count: 58
 | `color.palette.red.600` (`--color-palette-red-600`) | primitive | color | `#dc2626` | `#dc2626` | Red 600 — risk critical |
 | `color.palette.red.700` (`--color-palette-red-700`) | primitive | color | `#b91c1c` | `#b91c1c` | Red 700 — diverging strong neg |
 | `color.palette.emerald.500` (`--color-palette-emerald-500`) | primitive | color | `#10b981` | `#10b981` | Emerald — risk low / chart cat 4 |
+| `color.palette.emerald.700` (`--color-palette-emerald-700`) | primitive | color | `#047857` | `#047857` | Emerald 700 — text-safe positive valence (added v4.4 A11Y-FIX: emerald-500 is a 3:1 fill, not 4.5:1 text) |
 | `color.palette.violet.500` (`--color-palette-violet-500`) | primitive | color | `#8b5cf6` | `#8b5cf6` | Violet — chart cat 5 |
 | `color.palette.rose.500` (`--color-palette-rose-500`) | primitive | color | `#f43f5e` | `#f43f5e` | Rose — chart cat 6 |
 | `color.palette.sky.500` (`--color-palette-sky-500`) | primitive | color | `#0ea5e9` | `#0ea5e9` | Sky — chart cat 7 |
@@ -3674,7 +3675,7 @@ count: 58
 
 ---
 group: color-risk
-count: 4
+count: 6
 ---
 
 # Tokens — `color-risk.*`
@@ -3685,6 +3686,8 @@ count: 4
 | `color.risk.medium` (`--color-risk-medium`) | semantic | color | `#f59e0b` | `#f89d00` | Risk band — medium |
 | `color.risk.high` (`--color-risk-high`) | semantic | color | `#f97316` | `#ff723a` | Risk band — high |
 | `color.risk.critical` (`--color-risk-critical`) | semantic | color | `#dc2626` | `#df273c` | Risk band — critical |
+| `color.risk.low-text` (`--color-risk-low-text`) | semantic | color | `#047857` | `#55d2a4` | Positive-valence TEXT (delta arrows, trend copy) — the risk.low fill is a 3:1 marker, not 4.5:1 text. Added v4.4 A11Y-FIX (probe: emerald-500 text on white = 2.53:1). |
+| `color.risk.critical-text` (`--color-risk-critical-text`) | semantic | color | `#b91c1c` | `#f68579` | Negative-valence TEXT (delta arrows, trend copy) — the risk.critical fill is a 3:1 marker, not 4.5:1 text. Added v4.4 A11Y-FIX. |
 
 ---
 

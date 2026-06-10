@@ -30,7 +30,12 @@ const { oklchToHex } = require('../tools/tokens-build/lib/oklch.js')
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
-const TOKENS_DIR = join(ROOT, 'tokens')
+// RISQBASE_TOKENS_DIR override exists for the D-124 negative-check fixture
+// (scripts/test-scanner-rules.mjs): the expanded gate must demonstrably
+// fail on a seeded bad text-role token before it counts as implemented.
+const TOKENS_DIR = process.env.RISQBASE_TOKENS_DIR
+  ? resolve(process.env.RISQBASE_TOKENS_DIR)
+  : join(ROOT, 'tokens')
 
 const args = new Set(process.argv.slice(2))
 const STRICT = args.has('--strict')
@@ -170,6 +175,29 @@ const themes = readThemes()
 let failures = 0
 const sections = []
 
+// ── D-124 gate: TEXT-role completeness ────────────────────────────────
+// Every semantic/component color token whose Figma binding carries the
+// TEXT_FILL scope must declare a contrastPair (verified per theme below)
+// or an explicit com.risqbase.contrastExempt reason. This is the net the
+// build-6a1c1e6f a11y report slipped through: verify-contrast used to
+// check 8 curated pairs while axe checks every element.
+const unannotated = []
+const exemptions = []
+walkLeaves(base, (path, leaf) => {
+  const ext = leaf.$extensions ?? {}
+  const role = ext['com.risqbase.role']
+  if (role !== 'semantic' && role !== 'component') return
+  if (leaf.$type !== 'color') return
+  const scopes = ext['com.risqbase.figma']?.scopes ?? []
+  if (!scopes.includes('TEXT_FILL')) return
+  if (ext['com.risqbase.contrastExempt']) {
+    exemptions.push({ token: path.join('.'), reason: ext['com.risqbase.contrastExempt'] })
+    return
+  }
+  if (!ext['com.risqbase.contrastPair']) unannotated.push(path.join('.'))
+})
+failures += unannotated.length
+
 for (const theme of themes) {
   const tree = JSON.parse(JSON.stringify(base))
   for (const f of theme.files) {
@@ -180,6 +208,7 @@ for (const theme of themes) {
   walkLeaves(tree, (path, leaf) => {
     const pair = leaf.$extensions?.['com.risqbase.contrastPair']
     if (!pair) return
+    if (leaf.$extensions?.['com.risqbase.contrastExempt']) return // documented exemption (reported above)
     const floor = leaf.$extensions?.['com.risqbase.contrastLevel'] === 'aa-large' ? AA_LARGE : AA_BODY
     const valueHex = toHex(resolveValue(tree, leaf.$value))
     const pairHex = toHex(resolveValue(tree, pair))
@@ -205,6 +234,16 @@ for (const theme of themes) {
 if (!QUIET) {
   console.log('# Contrast verification')
   console.log('')
+  if (unannotated.length) {
+    console.log(`## ✗ ${unannotated.length} TEXT-role token(s) missing contrastPair/contrastExempt (D-124 gate)`)
+    for (const t of unannotated) console.log(`  - ${t}`)
+    console.log('')
+  }
+  if (exemptions.length) {
+    console.log(`## Documented exemptions (${exemptions.length})`)
+    for (const e of exemptions) console.log(`  - \`${e.token}\`: ${e.reason}`)
+    console.log('')
+  }
   for (const s of sections) {
     console.log(`## Theme: ${s.theme}`)
     console.log('')
@@ -222,6 +261,9 @@ if (!QUIET) {
 }
 
 if (failures > 0 && STRICT) {
+  if (QUIET && unannotated.length) {
+    console.error(`verify-contrast: ${unannotated.length} TEXT-role token(s) missing contrastPair/contrastExempt (D-124)`)
+  }
   process.exit(1)
 }
 process.exit(0)

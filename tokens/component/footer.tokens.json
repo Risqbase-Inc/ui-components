@@ -14,7 +14,7 @@
         "$value": "{color.text.on-inverse}",
         "$type": "color",
         "$description": "Footer column heading text colour",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/heading", "scopes": ["TEXT_FILL"] }
         }
@@ -24,7 +24,7 @@
           "$value": "{color.text.on-inverse-subtle}",
           "$type": "color",
           "$description": "Footer link — default state",
-          "$extensions": {
+          "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/link/default", "scopes": ["TEXT_FILL"] }
           }
@@ -33,7 +33,7 @@
           "$value": "{color.text.on-inverse}",
           "$type": "color",
           "$description": "Footer link — hover state",
-          "$extensions": {
+          "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/link/hover", "scopes": ["TEXT_FILL"] }
           }
@@ -43,7 +43,7 @@
         "$value": "{color.action.primary}",
         "$type": "color",
         "$description": "Footer logo wordmark colour",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastExempt": "token currently unrendered: the shipped Footer uses raw indigo-400 on stone-900 (6.3:1); chain reconciliation is tracked with the Footer raw-class R9 migration",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/logo", "scopes": ["TEXT_FILL"] }
         }
@@ -52,7 +52,7 @@
         "$value": "{color.text.on-inverse-subtle}",
         "$type": "color",
         "$description": "Footer secondary text — copyright, tagline, trust badges",
-        "$extensions": {
+        "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/meta", "scopes": ["TEXT_FILL"] }
         }

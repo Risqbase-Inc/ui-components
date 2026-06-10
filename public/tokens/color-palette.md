@@ -1,6 +1,6 @@
 ---
 group: color-palette
-count: 58
+count: 59
 ---
 
 # Tokens — `color-palette.*`
@@ -61,6 +61,7 @@ count: 58
 | `color.palette.red.600` (`--color-palette-red-600`) | primitive | color | `#dc2626` | `#dc2626` | Red 600 — risk critical |
 | `color.palette.red.700` (`--color-palette-red-700`) | primitive | color | `#b91c1c` | `#b91c1c` | Red 700 — diverging strong neg |
 | `color.palette.emerald.500` (`--color-palette-emerald-500`) | primitive | color | `#10b981` | `#10b981` | Emerald — risk low / chart cat 4 |
+| `color.palette.emerald.700` (`--color-palette-emerald-700`) | primitive | color | `#047857` | `#047857` | Emerald 700 — text-safe positive valence (added v4.4 A11Y-FIX: emerald-500 is a 3:1 fill, not 4.5:1 text) |
 | `color.palette.violet.500` (`--color-palette-violet-500`) | primitive | color | `#8b5cf6` | `#8b5cf6` | Violet — chart cat 5 |
 | `color.palette.rose.500` (`--color-palette-rose-500`) | primitive | color | `#f43f5e` | `#f43f5e` | Rose — chart cat 6 |
 | `color.palette.sky.500` (`--color-palette-sky-500`) | primitive | color | `#0ea5e9` | `#0ea5e9` | Sky — chart cat 7 |

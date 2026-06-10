@@ -3625,6 +3625,25 @@
       "cssVariable": "--color-palette-emerald-500"
     },
     {
+      "path": "color.palette.emerald.700",
+      "type": "color",
+      "description": "Emerald 700 — text-safe positive valence (added v4.4 A11Y-FIX: emerald-500 is a 3:1 fill, not 4.5:1 text)",
+      "tier": "primitive",
+      "value": "oklch(50.812713% 0.104939 165.612081)",
+      "resolutionChain": [],
+      "resolved": {
+        "light": {
+          "value": "oklch(50.812713% 0.104939 165.612081)",
+          "hex": "#047857"
+        },
+        "dark": {
+          "value": "oklch(50.812713% 0.104939 165.612081)",
+          "hex": "#047857"
+        }
+      },
+      "cssVariable": "--color-palette-emerald-700"
+    },
+    {
       "path": "color.palette.violet.500",
       "type": "color",
       "description": "Violet — chart cat 5",
@@ -4182,7 +4201,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-action-primary-hover"
+      "cssVariable": "--color-action-primary-hover",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.action.primary-subtle",
@@ -4330,7 +4350,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-text-subtle"
+      "cssVariable": "--color-text-subtle",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.text.on-action",
@@ -4565,6 +4586,50 @@
         }
       },
       "cssVariable": "--color-risk-critical"
+    },
+    {
+      "path": "color.risk.low-text",
+      "type": "color",
+      "description": "Positive-valence TEXT (delta arrows, trend copy) — the risk.low fill is a 3:1 marker, not 4.5:1 text. Added v4.4 A11Y-FIX (probe: emerald-500 text on white = 2.53:1).",
+      "tier": "semantic",
+      "value": "{color.palette.emerald.700}",
+      "resolutionChain": [
+        "color.palette.emerald.700"
+      ],
+      "resolved": {
+        "light": {
+          "value": "oklch(50.812713% 0.104939 165.612081)",
+          "hex": "#047857"
+        },
+        "dark": {
+          "value": "oklch(78.126667% 0.130377 165.683833)",
+          "hex": "#55d2a4"
+        }
+      },
+      "cssVariable": "--color-risk-low-text",
+      "contrastPair": "color.surface.default"
+    },
+    {
+      "path": "color.risk.critical-text",
+      "type": "color",
+      "description": "Negative-valence TEXT (delta arrows, trend copy) — the risk.critical fill is a 3:1 marker, not 4.5:1 text. Added v4.4 A11Y-FIX.",
+      "tier": "semantic",
+      "value": "{color.palette.red.700}",
+      "resolutionChain": [
+        "color.palette.red.700"
+      ],
+      "resolved": {
+        "light": {
+          "value": "oklch(50.541985% 0.190493 27.518103)",
+          "hex": "#b91c1c"
+        },
+        "dark": {
+          "value": "oklch(73.866553% 0.140011 27.278185)",
+          "hex": "#f68579"
+        }
+      },
+      "cssVariable": "--color-risk-critical-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.chart.cat.1",
@@ -5319,11 +5384,12 @@
           "hex": "#a8a29e"
         },
         "dark": {
-          "value": "oklch(54.910598% 0.008709 241.771445)",
-          "hex": "#6d7276"
+          "value": "oklch(68.990986% 0.008231 241.718385)",
+          "hex": "#979ca0"
         }
       },
-      "cssVariable": "--color-citation-text-retracted"
+      "cssVariable": "--color-citation-text-retracted",
+      "contrastPair": "color.citation.surface-low-conf"
     },
     {
       "path": "color.citation.icon-default",
@@ -5344,7 +5410,9 @@
           "hex": "#8b9094"
         }
       },
-      "cssVariable": "--color-citation-icon-default"
+      "cssVariable": "--color-citation-icon-default",
+      "contrastPair": "color.citation.surface-default",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.citation.hover",
@@ -5449,7 +5517,8 @@
           "hex": "#040e09"
         }
       },
-      "cssVariable": "--color-band-very-low-text"
+      "cssVariable": "--color-band-very-low-text",
+      "contrastPair": "color.band.very-low.bg"
     },
     {
       "path": "color.band.very-low.icon",
@@ -5470,7 +5539,9 @@
           "hex": "#040e09"
         }
       },
-      "cssVariable": "--color-band-very-low-icon"
+      "cssVariable": "--color-band-very-low-icon",
+      "contrastPair": "color.band.very-low.bg",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.band.low.bg",
@@ -5533,7 +5604,8 @@
           "hex": "#050604"
         }
       },
-      "cssVariable": "--color-band-low-text"
+      "cssVariable": "--color-band-low-text",
+      "contrastPair": "color.band.low.bg"
     },
     {
       "path": "color.band.low.icon",
@@ -5554,7 +5626,9 @@
           "hex": "#050604"
         }
       },
-      "cssVariable": "--color-band-low-icon"
+      "cssVariable": "--color-band-low-icon",
+      "contrastPair": "color.band.low.bg",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.band.medium.bg",
@@ -5617,7 +5691,8 @@
           "hex": "#0e0802"
         }
       },
-      "cssVariable": "--color-band-medium-text"
+      "cssVariable": "--color-band-medium-text",
+      "contrastPair": "color.band.medium.bg"
     },
     {
       "path": "color.band.medium.icon",
@@ -5638,7 +5713,9 @@
           "hex": "#0e0802"
         }
       },
-      "cssVariable": "--color-band-medium-icon"
+      "cssVariable": "--color-band-medium-icon",
+      "contrastPair": "color.band.medium.bg",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.band.high.bg",
@@ -5701,7 +5778,8 @@
           "hex": "#0e0503"
         }
       },
-      "cssVariable": "--color-band-high-text"
+      "cssVariable": "--color-band-high-text",
+      "contrastPair": "color.band.high.bg"
     },
     {
       "path": "color.band.high.icon",
@@ -5722,7 +5800,9 @@
           "hex": "#0e0503"
         }
       },
-      "cssVariable": "--color-band-high-icon"
+      "cssVariable": "--color-band-high-icon",
+      "contrastPair": "color.band.high.bg",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.band.very-high.bg",
@@ -5785,7 +5865,8 @@
           "hex": "#ffffff"
         }
       },
-      "cssVariable": "--color-band-very-high-text"
+      "cssVariable": "--color-band-very-high-text",
+      "contrastPair": "color.band.very-high.bg"
     },
     {
       "path": "color.band.very-high.icon",
@@ -5806,7 +5887,9 @@
           "hex": "#ffffff"
         }
       },
-      "cssVariable": "--color-band-very-high-icon"
+      "cssVariable": "--color-band-very-high-icon",
+      "contrastPair": "color.band.very-high.bg",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.telemetry.collector.healthy",
@@ -6037,7 +6120,9 @@
           "hex": "#1e9b8f"
         }
       },
-      "cssVariable": "--color-iris-accent"
+      "cssVariable": "--color-iris-accent",
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.iris.accent-hover",
@@ -6058,7 +6143,9 @@
           "hex": "#3aaea1"
         }
       },
-      "cssVariable": "--color-iris-accent-hover"
+      "cssVariable": "--color-iris-accent-hover",
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.iris.accent-subtle",
@@ -6168,7 +6255,9 @@
           "hex": "#1e9b8f"
         }
       },
-      "cssVariable": "--color-iris-streamhead"
+      "cssVariable": "--color-iris-streamhead",
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.iris.thinking-outer",
@@ -6293,6 +6382,7 @@
         }
       },
       "cssVariable": "--color-badge-default-foreground",
+      "contrastPair": "color.badge.default.background",
       "themeInvariant": "Pure white on action.primary in both themes — action.primary is contrast-managed per theme (clears 4.9:1 on the dark brand)"
     },
     {
@@ -6337,7 +6427,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-badge-highlight-foreground"
+      "cssVariable": "--color-badge-highlight-foreground",
+      "contrastPair": "color.badge.highlight.background"
     },
     {
       "path": "color.badge.subtle.background",
@@ -6381,7 +6472,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-badge-subtle-foreground"
+      "cssVariable": "--color-badge-subtle-foreground",
+      "contrastPair": "color.badge.subtle.background"
     },
     {
       "path": "color.badge.band.very-low.background",
@@ -6425,7 +6517,8 @@
           "hex": "#040e09"
         }
       },
-      "cssVariable": "--color-badge-band-very-low-foreground"
+      "cssVariable": "--color-badge-band-very-low-foreground",
+      "contrastPair": "color.badge.band.very-low.background"
     },
     {
       "path": "color.badge.band.very-low.border",
@@ -6491,7 +6584,8 @@
           "hex": "#050604"
         }
       },
-      "cssVariable": "--color-badge-band-low-foreground"
+      "cssVariable": "--color-badge-band-low-foreground",
+      "contrastPair": "color.badge.band.low.background"
     },
     {
       "path": "color.badge.band.low.border",
@@ -6557,7 +6651,8 @@
           "hex": "#0e0802"
         }
       },
-      "cssVariable": "--color-badge-band-medium-foreground"
+      "cssVariable": "--color-badge-band-medium-foreground",
+      "contrastPair": "color.badge.band.medium.background"
     },
     {
       "path": "color.badge.band.medium.border",
@@ -6623,7 +6718,8 @@
           "hex": "#0e0503"
         }
       },
-      "cssVariable": "--color-badge-band-high-foreground"
+      "cssVariable": "--color-badge-band-high-foreground",
+      "contrastPair": "color.badge.band.high.background"
     },
     {
       "path": "color.badge.band.high.border",
@@ -6690,6 +6786,7 @@
         }
       },
       "cssVariable": "--color-badge-band-very-high-foreground",
+      "contrastPair": "color.badge.band.very-high.background",
       "themeInvariant": "Matches band.very-high.text: white is the only band glyph that stays white in dark (4.7:1 on the dark band bg)"
     },
     {
@@ -6779,6 +6876,7 @@
         }
       },
       "cssVariable": "--color-button-primary-foreground-default",
+      "contrastPair": "color.button.primary.background.default",
       "themeInvariant": "Pure white on action.primary in both themes — action.primary is contrast-managed per theme"
     },
     {
@@ -6845,7 +6943,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-button-secondary-foreground-default"
+      "cssVariable": "--color-button-secondary-foreground-default",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.button.secondary.border.default",
@@ -6929,7 +7028,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-button-ghost-foreground-default"
+      "cssVariable": "--color-button-ghost-foreground-default",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.button.focus-ring",
@@ -7036,7 +7136,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-callout-info-text"
+      "cssVariable": "--color-callout-info-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.callout.warning.background",
@@ -7121,7 +7222,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-callout-warning-text"
+      "cssVariable": "--color-callout-warning-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.callout.danger.background",
@@ -7206,7 +7308,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-callout-danger-text"
+      "cssVariable": "--color-callout-danger-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.callout.success.background",
@@ -7291,7 +7394,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-callout-success-text"
+      "cssVariable": "--color-callout-success-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.callout.tip.background",
@@ -7379,7 +7483,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-callout-tip-text"
+      "cssVariable": "--color-callout-tip-text",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.card.background-default",
@@ -7577,7 +7682,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-citation-chip-text"
+      "cssVariable": "--color-citation-chip-text",
+      "contrastPair": "color.citation-chip.surface"
     },
     {
       "path": "color.citation-chip.text-retracted",
@@ -7595,11 +7701,12 @@
           "hex": "#a8a29e"
         },
         "dark": {
-          "value": "oklch(54.910598% 0.008709 241.771445)",
-          "hex": "#6d7276"
+          "value": "oklch(68.990986% 0.008231 241.718385)",
+          "hex": "#979ca0"
         }
       },
-      "cssVariable": "--color-citation-chip-text-retracted"
+      "cssVariable": "--color-citation-chip-text-retracted",
+      "contrastPair": "color.citation-chip.surface-low-conf"
     },
     {
       "path": "color.citation-chip.icon",
@@ -7621,7 +7728,9 @@
           "hex": "#8b9094"
         }
       },
-      "cssVariable": "--color-citation-chip-icon"
+      "cssVariable": "--color-citation-chip-icon",
+      "contrastPair": "color.citation-chip.surface",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.citation-chip.hover",
@@ -7709,7 +7818,8 @@
           "hex": "#101214"
         }
       },
-      "cssVariable": "--color-footer-heading"
+      "cssVariable": "--color-footer-heading",
+      "contrastPair": "color.footer.background"
     },
     {
       "path": "color.footer.link.default",
@@ -7731,7 +7841,8 @@
           "hex": "#4c5054"
         }
       },
-      "cssVariable": "--color-footer-link-default"
+      "cssVariable": "--color-footer-link-default",
+      "contrastPair": "color.footer.background"
     },
     {
       "path": "color.footer.link.hover",
@@ -7753,7 +7864,8 @@
           "hex": "#101214"
         }
       },
-      "cssVariable": "--color-footer-link-hover"
+      "cssVariable": "--color-footer-link-hover",
+      "contrastPair": "color.footer.background"
     },
     {
       "path": "color.footer.logo",
@@ -7797,7 +7909,8 @@
           "hex": "#4c5054"
         }
       },
-      "cssVariable": "--color-footer-meta"
+      "cssVariable": "--color-footer-meta",
+      "contrastPair": "color.footer.background"
     },
     {
       "path": "color.footer.divider",
@@ -7929,7 +8042,8 @@
           "hex": "#e3e7e9"
         }
       },
-      "cssVariable": "--color-gauge-component-label"
+      "cssVariable": "--color-gauge-component-label",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.gauge-component.caption",
@@ -7951,7 +8065,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-gauge-component-caption"
+      "cssVariable": "--color-gauge-component-caption",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "color.header.background",
@@ -8017,7 +8132,9 @@
           "hex": "#4768db"
         }
       },
-      "cssVariable": "--color-header-logo"
+      "cssVariable": "--color-header-logo",
+      "contrastPair": "color.header.background",
+      "contrastLevel": "aa-large"
     },
     {
       "path": "color.header.tagline",
@@ -8039,7 +8156,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-header-tagline"
+      "cssVariable": "--color-header-tagline",
+      "contrastPair": "color.header.background"
     },
     {
       "path": "color.header.nav-link.default",
@@ -8061,7 +8179,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-header-nav-link-default"
+      "cssVariable": "--color-header-nav-link-default",
+      "contrastPair": "color.header.background"
     },
     {
       "path": "color.header.nav-link.hover",
@@ -8083,7 +8202,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-header-nav-link-hover"
+      "cssVariable": "--color-header-nav-link-hover",
+      "contrastPair": "color.header.background"
     },
     {
       "path": "color.header.cta.background.default",
@@ -8150,6 +8270,7 @@
         }
       },
       "cssVariable": "--color-header-cta-foreground",
+      "contrastPair": "color.header.cta.background.default",
       "themeInvariant": "Pure white on the header CTA background, which is contrast-managed per theme"
     },
     {
@@ -8172,7 +8293,8 @@
           "hex": "#a2a7ab"
         }
       },
-      "cssVariable": "--color-header-launch-date"
+      "cssVariable": "--color-header-launch-date",
+      "contrastPair": "color.header.background"
     },
     {
       "path": "color.iris-thinking.outer",
@@ -8260,7 +8382,8 @@
           "hex": "#678af6"
         }
       },
-      "cssVariable": "--color-section-eyebrow-foreground"
+      "cssVariable": "--color-section-eyebrow-foreground",
+      "contrastPair": "color.surface.default"
     },
     {
       "path": "dimension.spacing.0",
@@ -9441,5 +9564,5 @@
       }
     ]
   },
-  "sourceHash": "85e39302b438e460"
+  "sourceHash": "86a0ef926aca14c5"
 }

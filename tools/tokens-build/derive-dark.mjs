@@ -227,7 +227,11 @@ const citText = inGamut({ L: 0.726, C: 0.008, H: 241.7 })
 add('color.citation.text-default', citText, 'Citation chip text — default; matches text.subtle scale, clears 4.5:1 on chip surface', [
   [citText, darkVal('color.surface.subtle'), 4.5, 'chip text vs chip surface'],
 ])
-add('color.citation.text-retracted', inGamut({ L: 0.55, C: 0.009, H: 241.7 }), 'Citation chip text — retracted; dimmed one step (de-emphasised state)')
+const citRetracted = inGamut({ L: 0.69, C: 0.008, H: 241.7 })
+add('color.citation.text-retracted', citRetracted, 'Citation chip text — retracted; dimmed below text.subtle but still ≥4.5:1 on the chip surfaces (A11Y-FIX: the first derivation sat at L 0.55 ≈ 3.5:1, axe-confirmed failure)', [
+  [citRetracted, darkVal('color.surface.muted'), 4.5, 'retracted text vs low-conf chip surface'],
+  [citRetracted, darkVal('color.surface.subtle'), 4.5, 'retracted text vs default chip surface'],
+])
 const citIcon = inGamut({ L: 0.65, C: 0.009, H: 241.7 })
 add('color.citation.icon-default', citIcon, 'Citation chip source-type glyph — clears 3:1 non-text on chip surface', [
   [citIcon, darkVal('color.surface.subtle'), 3, 'glyph vs chip surface'],
@@ -247,6 +251,18 @@ add('color.telemetry.event-class.adoption', darkVal('color.gauge.arc-teal'), 'Te
 add('color.telemetry.event-class.error', inGamut({ L: 0.66, C: 0.19, H: hueOf('color.palette.red.600') }), 'Telemetry event class error — lifted red-600 hue', [[null, SURFACE, 3, 'mark vs dark surface']])
 add('color.telemetry.event-class.usage', darkVal('color.action.primary'), 'Telemetry event class usage — matches dark action.primary indigo', [[null, SURFACE, 3, 'mark vs dark surface']])
 add('color.telemetry.event-class.performance', darkVal('color.band.high.bg'), 'Telemetry event class performance — matches dark band.high orange lift', [[null, SURFACE, 3, 'mark vs dark surface']])
+
+// risk valence TEXT tokens (v4.4 A11Y-FIX): hue-preserving lifts that
+// clear the 4.5:1 TEXT floor on the dark canvas — the band/risk fills
+// stay marker-grade (3:1) and must not be used as text.
+const lowText = inGamut({ L: 0.78, C: 0.13, H: hueOf('color.palette.emerald.700') })
+add('color.risk.low-text', lowText, 'Positive-valence text — lifted emerald, ≥4.5:1 on dark canvas', [
+  [lowText, SURFACE, 4.5, 'valence text vs dark surface'],
+])
+const criticalText = inGamut({ L: 0.74, C: 0.14, H: hueOf('color.palette.red.700') })
+add('color.risk.critical-text', criticalText, 'Negative-valence text — lifted red, ≥4.5:1 on dark canvas', [
+  [criticalText, SURFACE, 4.5, 'valence text vs dark surface'],
+])
 
 // iris.* — teal hue unchanged; accent re-targeted for the dual contract.
 const irisHue = hueOf('color.iris.accent')

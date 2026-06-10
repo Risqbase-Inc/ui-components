@@ -26,9 +26,13 @@ export const Stack: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <ClientScopeBanner state="workspace" isolationVerifiedAt="2026-05-18T09:12:00Z" />
-      <ClientScopeBanner state="client" client="Acme Bank" isolationVerifiedAt="2026-05-18T09:12:00Z" onSwitch={() => {}} />
-      <ClientScopeBanner state="white-label" client="NorthBridge Advisors" isolationVerifiedAt="2026-05-18T09:12:00Z" />
-      <ClientScopeBanner state="switching" />
+      {/* A11Y-FIX C5: the stacked copies are state showcase — identical
+          region landmarks below the first are hidden from the a11y tree. */}
+      <div inert aria-hidden="true">
+        <ClientScopeBanner state="client" client="Acme Bank" isolationVerifiedAt="2026-05-18T09:12:00Z" onSwitch={() => {}} />
+        <ClientScopeBanner state="white-label" client="NorthBridge Advisors" isolationVerifiedAt="2026-05-18T09:12:00Z" />
+        <ClientScopeBanner state="switching" />
+      </div>
     </div>
   ),
 }

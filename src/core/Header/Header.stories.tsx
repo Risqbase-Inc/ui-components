@@ -76,7 +76,10 @@ export const Variants: Story = {
         >
           variant: ralia
         </p>
-        <Header variant="ralia" />
+        {/* A11Y-FIX C5: presentational duplicate — first instance stays live. */}
+        <div inert aria-hidden="true">
+          <Header variant="ralia" />
+        </div>
       </div>
     </div>
   ),
@@ -94,7 +97,11 @@ export const Gallery: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 24 }}>
       <Header variant="risqbase" />
-      <Header variant="ralia" />
+      {/* A11Y-FIX C5: duplicate banner/nav landmarks in gallery stories are
+          presentational showcase copies — first instance stays live. */}
+      <div inert aria-hidden="true">
+        <Header variant="ralia" />
+      </div>
     </div>
   ),
 }

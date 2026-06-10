@@ -954,6 +954,32 @@
             "variable": "color/risk/critical"
           }
         }
+      },
+      "low-text": {
+        "$value": "oklch(78.126667% 0.130377 165.683833)",
+        "$type": "color",
+        "$description": "Positive-valence text — lifted emerald, ≥4.5:1 on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/low-text"
+          }
+        }
+      },
+      "critical-text": {
+        "$value": "oklch(73.866553% 0.140011 27.278185)",
+        "$type": "color",
+        "$description": "Negative-valence text — lifted red, ≥4.5:1 on dark canvas",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/risk/critical-text"
+          }
+        }
       }
     },
     "citation": {
@@ -1023,9 +1049,9 @@
         }
       },
       "text-retracted": {
-        "$value": "oklch(54.910598% 0.008709 241.771445)",
+        "$value": "oklch(68.990986% 0.008231 241.718385)",
         "$type": "color",
-        "$description": "Citation chip text — retracted; dimmed one step (de-emphasised state)",
+        "$description": "Citation chip text — retracted; dimmed below text.subtle but still ≥4.5:1 on the chip surfaces (A11Y-FIX: the first derivation sat at L 0.55 ≈ 3.5:1, axe-confirmed failure)",
         "$extensions": {
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": {

@@ -157,7 +157,10 @@ export function ImpactGraph(props: ImpactGraphProps) {
       />
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        role="img"
+        // role="group", not "img" (v4.4 A11Y-FIX): interactive mode wires
+        // focusable role="button" nodes inside — descendants of role="img"
+        // are presentational and axe flags nested-interactive.
+        role="group"
         aria-labelledby={`${figureId}-title`}
         aria-describedby={`${figureId}-desc`}
         focusable="false"

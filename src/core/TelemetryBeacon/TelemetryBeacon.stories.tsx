@@ -8,7 +8,10 @@ const meta: Meta<typeof TelemetryBeacon> = {
   component: TelemetryBeacon,
   tags: ['autodocs'],
   args: { component: 'ExampleComponent', version: '2.0.0', variant: 'primary' },
-  parameters: { chromatic: { disableSnapshot: true } },
+  // Intentionally excluded from the a11y pass (A11Y-FIX C6): the Beacon
+  // renders null — Chromatic's "not run" rows for it are by design, not a
+  // gap. The docs prose around it is not part of the component contract.
+  parameters: { chromatic: { disableSnapshot: true }, a11y: { disable: true } },
 }
 export default meta
 type Story = StoryObj<typeof TelemetryBeacon>

@@ -61,6 +61,24 @@ function run(cmd, args, env = {}) {
   expect('R13 PASSES on real src/ (exit 0)', good.status === 0, (good.stderr + good.stdout).slice(0, 300))
 }
 
+/* D-124 — expanded verify-contrast gate (text-role completeness + per-theme pairs) */
+{
+  const bad = run('scripts/verify-contrast.mjs', ['--strict', '--quiet'], {
+    RISQBASE_TOKENS_DIR: path.join(ROOT, 'scripts', '__fixtures__', 'd124-bad-contrast'),
+  })
+  const out = bad.stderr + bad.stdout
+  expect('D-124 FAILS on violating fixture (exit 1)', bad.status === 1, `exit ${bad.status}`)
+  const verbose = run('scripts/verify-contrast.mjs', [], {
+    RISQBASE_TOKENS_DIR: path.join(ROOT, 'scripts', '__fixtures__', 'd124-bad-contrast'),
+  })
+  const vout = verbose.stderr + verbose.stdout
+  expect('D-124 fixture: failing pair flagged', /bad-pair-text/.test(vout))
+  expect('D-124 fixture: unannotated text-role token flagged', /unannotated-text/.test(vout))
+
+  const good = run('scripts/verify-contrast.mjs', ['--strict', '--quiet'])
+  expect('D-124 PASSES on real tokens/ (exit 0)', good.status === 0, (good.stderr + good.stdout).slice(0, 300))
+}
+
 /* R14 — agent-surface freshness (tools/agent-surface/build.mjs check) */
 {
   // Stale copy of public/: tamper one mirror, expect drift detection.

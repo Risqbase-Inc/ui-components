@@ -125,6 +125,10 @@ export interface ChoroplethViewProps {
   thresholds?: number[]
   selectedId?: string | null
   onSelect?: (id: string | null) => void
+  /** Accessible name for the map group (from ChartContainer's aria-label). */
+  ariaLabel?: string
+  /** id of the table fallback (aria-describedby target). */
+  describedBy?: string
 }
 
 export function ChoroplethView({
@@ -135,6 +139,8 @@ export function ChoroplethView({
   thresholds: thresholdsProp,
   selectedId,
   onSelect,
+  ariaLabel,
+  describedBy,
 }: ChoroplethViewProps) {
   const reduced = useReducedMotion()
   const [viewW, viewH] = TOPOLOGIES[geo].viewBox
@@ -264,7 +270,17 @@ export function ChoroplethView({
 
   return (
     <div ref={containerRef} className="relative">
-      <svg viewBox={`0 0 ${viewW} ${viewH}`} width="100%" height="auto" className="block">
+      {/* role="group", not "img": the map contains focusable regions and
+          chip buttons (spec §5 reconciliation — axe nested-interactive). */}
+      <svg
+        viewBox={`0 0 ${viewW} ${viewH}`}
+        width="100%"
+        height="auto"
+        className="block"
+        role="group"
+        aria-label={ariaLabel}
+        aria-describedby={describedBy}
+      >
         {/* context wash: non-jurisdiction neighbours + jurisdictions absent
             from data — not interactive, not in the table (spec §2/§6) */}
         {regions
