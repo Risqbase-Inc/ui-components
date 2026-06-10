@@ -74,6 +74,9 @@ function loadAllTokens(layer, errors) {
 
 function deepMerge(target, source) {
   for (const [key, value] of Object.entries(source)) {
+    // Explicit literal comparisons — the form CodeQL's dataflow recognises
+    // as a sanitiser for the target[key] assignment (cf. verify-contrast.mjs).
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
     if (key.startsWith('$')) continue
     if (value && typeof value === 'object' && !Array.isArray(value) && !value.$value) {
       target[key] = target[key] || {}

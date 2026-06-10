@@ -50,6 +50,7 @@ const DARK_FILE = join(TOKENS, 'themes', 'dark.tokens.json')
 
 function deepMerge(target, source) {
   for (const [key, value] of Object.entries(source)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
     if (value && typeof value === 'object' && !Array.isArray(value) && !('$value' in value)) {
       target[key] = target[key] || {}
       deepMerge(target[key], value)

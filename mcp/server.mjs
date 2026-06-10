@@ -20,18 +20,20 @@
  */
 
 import { readFileSync, existsSync } from 'node:fs'
-import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url))
+// `new URL(…, import.meta.url)` keeps both candidates statically traceable
+// by bundlers' file tracing (Vercel NFT), so the serverless wrapper ships
+// the registry without extra config.
+const CANDIDATES = [
+  new URL('../public/agent/registry.json', import.meta.url), // monorepo dev
+  new URL('./registry.json', import.meta.url), // published bundle
+]
 
 export function loadRegistry() {
-  const candidates = [
-    path.join(HERE, '..', 'public', 'agent', 'registry.json'), // monorepo dev
-    path.join(HERE, 'registry.json'), // published bundle
-  ]
-  for (const c of candidates) {
-    if (existsSync(c)) return JSON.parse(readFileSync(c, 'utf8'))
+  for (const url of CANDIDATES) {
+    const file = fileURLToPath(url)
+    if (existsSync(file)) return JSON.parse(readFileSync(file, 'utf8'))
   }
   throw new Error('ui-components-mcp: no registry.json found (run `npm run build:agent-surface`)')
 }

@@ -179,6 +179,8 @@ function scanComponents(lifecycle) {
 
 function deepMerge(target, source, overrideLeaves = false) {
   for (const [key, value] of Object.entries(source)) {
+    // CodeQL js/prototype-polluting-function guard (cf. verify-contrast.mjs).
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
     if (key.startsWith('$')) continue
     if (value && typeof value === 'object' && !Array.isArray(value) && !('$value' in value)) {
       target[key] = target[key] || {}
