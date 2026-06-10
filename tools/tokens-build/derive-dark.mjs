@@ -308,6 +308,11 @@ for (const t of out) {
   const segs = t.path.split('.')
   let node = dark
   for (const seg of segs.slice(0, -1)) {
+    // Token paths are in-repo constants, but guard the computed write anyway
+    // (CodeQL js/prototype-polluting-assignment hygiene).
+    if (seg === '__proto__' || seg === 'constructor' || seg === 'prototype') {
+      throw new Error(`Refusing to write reserved key in token path: ${t.path}`)
+    }
     node[seg] = node[seg] || {}
     node = node[seg]
   }
