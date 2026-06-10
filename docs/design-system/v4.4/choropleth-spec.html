@@ -337,6 +337,10 @@
   var features = null;
 
   function persist(){ try { localStorage.setItem('rb-choro-spec', JSON.stringify({geo:state.geo, mode:state.mode, theme:state.theme})); } catch(e) {} }
+  // CodeQL js/xss-through-dom (code-scanning alerts 8/9): everything that
+  // reaches an innerHTML sink is escaped — region names arrive from the
+  // runtime Natural Earth fetch and DOM text must never round-trip as HTML.
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
   function seqStep(v){ if (v == null) return 0; for (var i=0;i<THRESH.length;i++) if (v < THRESH[i]) return i+1; return 5; }
   function fillFor(d){ // d: {band, value} or null/undefined
@@ -360,10 +364,10 @@
   function hideTip(){ tooltip.style.display = 'none'; }
   function tipHtml(name, d){
     var unit = state.geo === 'europe' ? 'open alerts' : 'open alerts';
-    if (!d || (d.value == null && !d.band)) return '<b>' + name + '</b><span>No data — onboarding</span>';
+    if (!d || (d.value == null && !d.band)) return '<b>' + esc(name) + '</b><span>No data — onboarding</span>';
     var band = d.band ? BAND_LABEL[d.band] + ' band' : '';
-    var val = d.value != null ? d.value + ' ' + unit : '';
-    return '<b>' + name + '</b><span>' + [val, band].filter(Boolean).join(' · ') + '</span>';
+    var val = d.value != null ? esc(d.value) + ' ' + esc(unit) : '';
+    return '<b>' + esc(name) + '</b><span>' + [val, band].filter(Boolean).join(' · ') + '</span>';
   }
 
   function render(){
@@ -498,8 +502,8 @@
     small.forEach(function(e){
       var c = document.createElement('button');
       c.type = 'button'; c.className = 'chip'; c.setAttribute('data-id', e.id);
-      c.innerHTML = '<i style="background:' + fillFor(e.data) + '"></i>' + e.name +
-        (e.data && e.data.value != null ? ' <span class="mono" style="color:var(--rb-text-faint)">' + e.data.value + '</span>' : '');
+      c.innerHTML = '<i style="background:' + fillFor(e.data) + '"></i>' + esc(e.name) +
+        (e.data && e.data.value != null ? ' <span class="mono" style="color:var(--rb-text-faint)">' + esc(e.data.value) + '</span>' : '');
       c.addEventListener('pointerenter', function(ev){ hl(e, true); showTip(tipHtml(e.name, e.data), ev.clientX, ev.clientY); });
       c.addEventListener('pointerleave', function(){ hl(e, false); hideTip(); });
       c.addEventListener('click', function(){ select(e); });
@@ -513,12 +517,16 @@
       .map(function(e){
         var v = e.data && e.data.value != null ? e.data.value : 'No data';
         var b = state.mode === 'band' ? '<td>' + (e.data && e.data.band ? BAND_LABEL[e.data.band] : '—') + '</td>' : '';
-        return '<tr><th scope="row">' + e.name + '</th><td>' + v + '</td>' + b + '</tr>';
+        return '<tr><th scope="row">' + esc(e.name) + '</th><td>' + esc(v) + '</td>' + b + '</tr>';
       }).join('');
-    tbl.innerHTML = '<caption>' + document.getElementById('map-title').childNodes[0].textContent + ' — data table</caption>' +
-      '<thead><tr><th scope="col">Jurisdiction</th><th scope="col">' + unitH + '</th>' +
+    tbl.innerHTML = '<caption>' + esc(document.getElementById('map-title').childNodes[0].textContent) + ' — data table</caption>' +
+      '<thead><tr><th scope="col">Jurisdiction</th><th scope="col">' + esc(unitH) + '</th>' +
       (state.mode === 'band' ? '<th scope="col">Band</th>' : '') + '</tr></thead><tbody>' + rows + '</tbody>';
-    document.getElementById('a11y-table-mirror').innerHTML = '<table class="spec">' + tbl.innerHTML + '</table>';
+    // Mirror via cloneNode — never re-serialise DOM content through innerHTML.
+    var mirror = document.getElementById('a11y-table-mirror');
+    var clone = tbl.cloneNode(true);
+    clone.className = 'spec';
+    mirror.replaceChildren(clone);
   }
 
   // controls
