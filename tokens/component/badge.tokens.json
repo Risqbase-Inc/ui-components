@@ -52,11 +52,10 @@
           }
         },
         "foreground": {
-          "$value": "{color.text.subtle}",
+          "$value": "{color.text.subtle-on-muted}",
           "$type": "color",
           "$description": "Badge subtle text colour",
-          "$extensions": { "com.risqbase.contrastPair": "{color.badge.subtle.background}", "com.risqbase.contrastExempt": "PENDING DECISION (A11Y-FIX §4 escalation, 2026-06-10): text.subtle on surface.muted = 4.39:1 — fixing it visibly changes the approved light theme (D-121); options proposed in the DoD ledger, awaiting design/CEO",
-            "com.risqbase.role": "component",
+          "$extensions": { "com.risqbase.contrastPair": "{color.badge.subtle.background}", "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/foreground", "scopes": ["TEXT_FILL"] }
           }
         }
@@ -65,7 +64,7 @@
         "$comment": "v4.3 — five band variants × three properties = 15 tokens. Wraps the semantic `color.band.*` chain for component-tier access. Closes RALIA F-018.",
         "very-low": {
           "background": { "$value": "{color.band.very-low.bg}",     "$type": "color", "$description": "Band-very-low badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
-          "foreground": { "$value": "{color.band.very-low.text}",   "$type": "color", "$description": "Band-very-low badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.very-low.background}", "com.risqbase.contrastExempt": "PENDING DECISION (A11Y-FIX §4 escalation, 2026-06-10): white on emerald-500 = 2.53:1 — fixing it visibly changes the approved light theme (D-121); options proposed in the DoD ledger, awaiting design/CEO", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/foreground", "scopes": ["TEXT_FILL"] } } },
+          "foreground": { "$value": "{color.band.very-low.text}",   "$type": "color", "$description": "Band-very-low badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.very-low.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/foreground", "scopes": ["TEXT_FILL"] } } },
           "border":     { "$value": "{color.band.very-low.border}", "$type": "color", "$description": "Band-very-low badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/border", "scopes": ["STROKE_COLOR"] } } }
         },
         "low": {
@@ -80,7 +79,7 @@
         },
         "high": {
           "background": { "$value": "{color.band.high.bg}",     "$type": "color", "$description": "Band-high badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
-          "foreground": { "$value": "{color.band.high.text}",   "$type": "color", "$description": "Band-high badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.high.background}", "com.risqbase.contrastExempt": "PENDING DECISION (A11Y-FIX §4 escalation, 2026-06-10): white on orange-500 = 2.80:1 — fixing it visibly changes the approved light theme (D-121); options proposed in the DoD ledger, awaiting design/CEO", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/foreground", "scopes": ["TEXT_FILL"] } } },
+          "foreground": { "$value": "{color.band.high.text}",   "$type": "color", "$description": "Band-high badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.high.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/foreground", "scopes": ["TEXT_FILL"] } } },
           "border":     { "$value": "{color.band.high.border}", "$type": "color", "$description": "Band-high badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/border", "scopes": ["STROKE_COLOR"] } } }
         },
         "very-high": {

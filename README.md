@@ -7,7 +7,7 @@ of the RisqBase Design System (`GOV-DS-2026-02`).
 <!-- AUTOGEN:START status -->
 > **Latest published:** `2.1.3` · **Design system:** `GOV-DS-2026-02 v4.4`
 >
-> **29 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **320 design tokens** (primitive · semantic · component tiers).
+> **29 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **321 design tokens** (primitive · semantic · component tiers).
 >
 > Live component gallery, token reference + changelog: **[design.risqbase.com](https://design.risqbase.com)**.
 <!-- AUTOGEN:END status -->

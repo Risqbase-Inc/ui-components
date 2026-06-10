@@ -121,7 +121,8 @@ export function MarketingImpactGraph({
             <span
               style={{
                 fontSize: 11,
-                color: 'var(--color-text-subtle)',
+                // D-125b: this caption sits on the muted chrome bar.
+                color: 'var(--color-text-subtle-on-muted)',
                 fontWeight: 500,
               }}
             >

@@ -472,6 +472,8 @@ Empty at handover — that is the goal.*
 | 2026-06-10 | **D-124 gate shape** | "Every token whose name matches a text role" implemented as: every semantic/component color token with the `TEXT_FILL` Figma scope requires `contrastPair` (verified per theme, CI-blocking) or a documented `contrastExempt` reason. 50 pairs now verified per theme (was 8); 14 documented exemptions, of which 7 are PENDING-DECISION escalations per A11Y-FIX §4. | D-124(a); scope metadata as the principled selector |
 | 2026-06-10 | **A11Y-FIX §4 escalation filed (AWAITING DECISION)** | Three pre-v4.4-approved LIGHT pairs fail axe and cannot be fixed without visibly changing the approved light theme: ① `band.very-low/high` white-on-fill chips (2.53/2.80), ② `text.subtle`-on-`surface.muted` contexts (4.39), ③ `citation.*text-retracted` stone-400 (2.4–2.5). Options + recommendation in the DoD ledger; tokens carry PENDING-DECISION `contrastExempt` so the new gate stays green and grep-able meanwhile. | A11Y-FIX §4.1 (stop-and-ask boundary) |
 
+| 2026-06-10 | **D-125a/b/c — §4 escalation resolved (CEO)** | a) band very-low/high glyphs → stone-900 (fills untouched); b) new `text.subtle-on-muted` = stone-600, four contexts re-pointed; c) retracted citation light text → stone-500, strikethrough stays the primary signal. PENDING exemptions removed; pairs joined the D-124 gate (60/60 clear per theme); local parity sweep **1,344 → 0** across 600 story×modes. | A11Y-FIX §4; D-121 satisfied via explicit decision |
+
 *Mirrored from the repo-side ledger (`RisqBase-DS-v4.4-DoD-Ledger.md`, PR #84) on 10 June 2026 — verified by design.*
 
 ---

@@ -3,8 +3,8 @@ Component,Story,Mode,Violation count,Rules
  CitationChip,Default,light,0,
  CitationChip,Default,hc,0,
  CitationChip,All Variants,dark,0,
- CitationChip,All Variants,light,2,color-contrast×2
- CitationChip,All Variants,hc,2,color-contrast×2
+ CitationChip,All Variants,light,0,
+ CitationChip,All Variants,hc,0,
  CitationChip,Interactive,dark,0,
  CitationChip,Interactive,light,0,
  CitationChip,Interactive,hc,0,
@@ -12,17 +12,17 @@ Component,Story,Mode,Violation count,Rules
  CitationChip,In Prose,light,0,
  CitationChip,In Prose,hc,0,
  CitationChip,Gallery,dark,0,
- CitationChip,Gallery,light,2,color-contrast×2
- CitationChip,Gallery,hc,2,color-contrast×2
+ CitationChip,Gallery,light,0,
+ CitationChip,Gallery,hc,0,
  CitationChip,All Variants Row,dark,0,
- CitationChip,All Variants Row,light,2,color-contrast×2
- CitationChip,All Variants Row,hc,2,color-contrast×2
+ CitationChip,All Variants Row,light,0,
+ CitationChip,All Variants Row,hc,0,
  CitationChip,All Variants Row Mobile,dark,0,
- CitationChip,All Variants Row Mobile,light,2,color-contrast×2
- CitationChip,All Variants Row Mobile,hc,2,color-contrast×2
+ CitationChip,All Variants Row Mobile,light,0,
+ CitationChip,All Variants Row Mobile,hc,0,
  CitationChip,Retrieval Failed,dark,0,
- CitationChip,Retrieval Failed,light,1,color-contrast×1
- CitationChip,Retrieval Failed,hc,1,color-contrast×1
+ CitationChip,Retrieval Failed,light,0,
+ CitationChip,Retrieval Failed,hc,0,
  CitationChip,User Pinned,dark,0,
  CitationChip,User Pinned,light,0,
  CitationChip,User Pinned,hc,0,
@@ -81,8 +81,8 @@ Component,Story,Mode,Violation count,Rules
  ClientScopeBanner,White Label,light,0,
  ClientScopeBanner,White Label,hc,0,
  ClientScopeBanner,Switching,dark,0,
- ClientScopeBanner,Switching,light,2,color-contrast×2
- ClientScopeBanner,Switching,hc,2,color-contrast×2
+ ClientScopeBanner,Switching,light,0,
+ ClientScopeBanner,Switching,hc,0,
  ClientScopeBanner,Stack,dark,0,
  ClientScopeBanner,Stack,light,0,
  ClientScopeBanner,Stack,hc,0,
@@ -153,20 +153,20 @@ Component,Story,Mode,Violation count,Rules
  Badge,Default,light,0,
  Badge,Default,hc,0,
  Badge,Variants,dark,0,
- Badge,Variants,light,1,color-contrast×1
- Badge,Variants,hc,1,color-contrast×1
+ Badge,Variants,light,0,
+ Badge,Variants,hc,0,
  Badge,Bands,dark,0,
- Badge,Bands,light,2,color-contrast×2
- Badge,Bands,hc,2,color-contrast×2
+ Badge,Bands,light,0,
+ Badge,Bands,hc,0,
  Badge,Band Wrapper,dark,0,
- Badge,Band Wrapper,light,2,color-contrast×2
- Badge,Band Wrapper,hc,2,color-contrast×2
+ Badge,Band Wrapper,light,0,
+ Badge,Band Wrapper,hc,0,
  Badge,Composed,dark,0,
- Badge,Composed,light,1,color-contrast×1
- Badge,Composed,hc,1,color-contrast×1
+ Badge,Composed,light,0,
+ Badge,Composed,hc,0,
  Badge,Gallery,dark,0,
- Badge,Gallery,light,3,color-contrast×3
- Badge,Gallery,hc,3,color-contrast×3
+ Badge,Gallery,light,0,
+ Badge,Gallery,hc,0,
  Button,Default,dark,0,
  Button,Default,light,0,
  Button,Default,hc,0,
@@ -390,14 +390,14 @@ Component,Story,Mode,Violation count,Rules
  WizardProgress,Numbered,light,0,
  WizardProgress,Numbered,hc,0,
  WizardProgress,Vertical,dark,0,
- WizardProgress,Vertical,light,1,color-contrast×1
- WizardProgress,Vertical,hc,1,color-contrast×1
+ WizardProgress,Vertical,light,0,
+ WizardProgress,Vertical,hc,0,
  WizardProgress,Percentage,dark,0,
  WizardProgress,Percentage,light,0,
  WizardProgress,Percentage,hc,0,
  WizardProgress,Auto Picker,dark,0,
- WizardProgress,Auto Picker,light,1,color-contrast×1
- WizardProgress,Auto Picker,hc,1,color-contrast×1
+ WizardProgress,Auto Picker,light,0,
+ WizardProgress,Auto Picker,hc,0,
  ChartContainer,Line,dark,0,
  ChartContainer,Line,light,0,
  ChartContainer,Line,hc,0,
@@ -498,20 +498,20 @@ Component,Story,Mode,Violation count,Rules
  ImpactGraph,Empty State,light,0,
  ImpactGraph,Empty State,hc,0,
  MarketingImpactGraph,Default,dark,0,
- MarketingImpactGraph,Default,light,1,color-contrast×1
- MarketingImpactGraph,Default,hc,1,color-contrast×1
+ MarketingImpactGraph,Default,light,0,
+ MarketingImpactGraph,Default,hc,0,
  MarketingImpactGraph,Without Chrome,dark,0,
  MarketingImpactGraph,Without Chrome,light,0,
  MarketingImpactGraph,Without Chrome,hc,0,
  MarketingImpactGraph,Without Legend,dark,0,
- MarketingImpactGraph,Without Legend,light,1,color-contrast×1
- MarketingImpactGraph,Without Legend,hc,1,color-contrast×1
+ MarketingImpactGraph,Without Legend,light,0,
+ MarketingImpactGraph,Without Legend,hc,0,
  MarketingImpactGraph,Bare Embed,dark,0,
  MarketingImpactGraph,Bare Embed,light,0,
  MarketingImpactGraph,Bare Embed,hc,0,
  MarketingImpactGraph,Demo D Fidelity Snapshot,dark,0,
- MarketingImpactGraph,Demo D Fidelity Snapshot,light,1,color-contrast×1
- MarketingImpactGraph,Demo D Fidelity Snapshot,hc,1,color-contrast×1
+ MarketingImpactGraph,Demo D Fidelity Snapshot,light,0,
+ MarketingImpactGraph,Demo D Fidelity Snapshot,hc,0,
  RiskGauge,Default,dark,0,
  RiskGauge,Default,light,0,
  RiskGauge,Default,hc,0,
@@ -525,11 +525,11 @@ Component,Story,Mode,Violation count,Rules
  RiskGauge,List,light,0,
  RiskGauge,List,hc,0,
  RiskGauge,Band Range,dark,0,
- RiskGauge,Band Range,light,2,color-contrast×2
- RiskGauge,Band Range,hc,2,color-contrast×2
+ RiskGauge,Band Range,light,0,
+ RiskGauge,Band Range,hc,0,
  RiskGauge,Gallery,dark,0,
- RiskGauge,Gallery,light,1,color-contrast×1
- RiskGauge,Gallery,hc,1,color-contrast×1
+ RiskGauge,Gallery,light,0,
+ RiskGauge,Gallery,hc,0,
  HeroVideo,Default,dark,0,
  HeroVideo,Default,light,0,
  HeroVideo,Default,hc,0,

@@ -120,6 +120,19 @@
             "variable": "color/text/on-inverse-subtle"
           }
         }
+      },
+      "subtle-on-muted": {
+        "$value": "oklch(72.556831% 0.008129 241.708589)",
+        "$type": "color",
+        "$description": "Subtle text on muted surfaces — matches dark text.subtle (clears ≥4.5:1 on the dark muted surface; D-125b)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": {
+            "collection": "semantic",
+            "mode": "dark",
+            "variable": "color/text/subtle-on-muted"
+          }
+        }
       }
     },
     "border": {

@@ -252,6 +252,13 @@ add('color.telemetry.event-class.error', inGamut({ L: 0.66, C: 0.19, H: hueOf('c
 add('color.telemetry.event-class.usage', darkVal('color.action.primary'), 'Telemetry event class usage — matches dark action.primary indigo', [[null, SURFACE, 3, 'mark vs dark surface']])
 add('color.telemetry.event-class.performance', darkVal('color.band.high.bg'), 'Telemetry event class performance — matches dark band.high orange lift', [[null, SURFACE, 3, 'mark vs dark surface']])
 
+// text.subtle-on-muted (D-125b): the dark text.subtle already clears the
+// floor on the dark muted surface — reuse it so the two stay in step.
+const subtleOnMuted = darkVal('color.text.subtle')
+add('color.text.subtle-on-muted', subtleOnMuted, 'Subtle text on muted surfaces — matches dark text.subtle (clears ≥4.5:1 on the dark muted surface; D-125b)', [
+  [subtleOnMuted, darkVal('color.surface.muted'), 4.5, 'subtle-on-muted text vs dark muted surface'],
+])
+
 // risk valence TEXT tokens (v4.4 A11Y-FIX): hue-preserving lifts that
 // clear the 4.5:1 TEXT floor on the dark canvas — the band/risk fills
 // stay marker-grade (3:1) and must not be used as text.

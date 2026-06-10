@@ -23,7 +23,7 @@ const toneStyles: Record<ClientScopeState, string> = {
   'white-label':
     'bg-[var(--color-surface-subtle)] border-[var(--color-iris-accent)] text-[var(--color-text-default)]',
   switching:
-    'bg-[var(--color-surface-muted)] border-[var(--color-border-default)] text-[var(--color-text-subtle)]',
+    'bg-[var(--color-surface-muted)] border-[var(--color-border-default)] text-[var(--color-text-subtle-on-muted)]',
 }
 
 function formatVerified(iso: string | undefined): string | null {
@@ -64,7 +64,15 @@ export function ClientScopeBanner({
         </span>
       )}
       {verified && (
-        <span className="text-xs text-[var(--color-text-subtle)] ml-auto">
+        <span
+          className={`text-xs ml-auto ${
+            // D-125b: the switching variant rides surface.muted, where
+            // text.subtle computes to 4.39:1 — use the on-muted tier there.
+            state === 'switching'
+              ? 'text-[var(--color-text-subtle-on-muted)]'
+              : 'text-[var(--color-text-subtle)]'
+          }`}
+        >
           Tenant isolation verified {verified}
         </span>
       )}

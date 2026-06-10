@@ -3190,9 +3190,9 @@ count: 21
 | `color.badge.highlight.background` (`--color-badge-highlight-background`) | component | color | `#e0e7ff` | `#182241` | Badge highlight background — "Standalone Product" |
 | `color.badge.highlight.foreground` (`--color-badge-highlight-foreground`) | component | color | `#4f46e5` | `#678af6` | Badge highlight text colour |
 | `color.badge.subtle.background` (`--color-badge-subtle-background`) | component | color | `#f5f5f4` | `#212528` | Badge subtle background — "Coming Soon" |
-| `color.badge.subtle.foreground` (`--color-badge-subtle-foreground`) | component | color | `#78716c` | `#a2a7ab` | Badge subtle text colour |
+| `color.badge.subtle.foreground` (`--color-badge-subtle-foreground`) | component | color | `#57534e` | `#a2a7ab` | Badge subtle text colour |
 | `color.badge.band.very-low.background` (`--color-badge-band-very-low-background`) | component | color | `#10b981` | `#15ba81` | Band-very-low badge background |
-| `color.badge.band.very-low.foreground` (`--color-badge-band-very-low-foreground`) | component | color | `#ffffff` | `#040e09` | Band-very-low badge text |
+| `color.badge.band.very-low.foreground` (`--color-badge-band-very-low-foreground`) | component | color | `#1c1917` | `#040e09` | Band-very-low badge text |
 | `color.badge.band.very-low.border` (`--color-badge-band-very-low-border`) | component | color | `#10b981` | `#15ba81` | Band-very-low badge border |
 | `color.badge.band.low.background` (`--color-badge-band-low-background`) | component | color | `#84cc16` | `#95cb54` | Band-low badge background |
 | `color.badge.band.low.foreground` (`--color-badge-band-low-foreground`) | component | color | `#1c1917` | `#050604` | Band-low badge text |
@@ -3201,7 +3201,7 @@ count: 21
 | `color.badge.band.medium.foreground` (`--color-badge-band-medium-foreground`) | component | color | `#1c1917` | `#0e0802` | Band-medium badge text |
 | `color.badge.band.medium.border` (`--color-badge-band-medium-border`) | component | color | `#f59e0b` | `#f89d00` | Band-medium badge border |
 | `color.badge.band.high.background` (`--color-badge-band-high-background`) | component | color | `#f97316` | `#ff723a` | Band-high badge background |
-| `color.badge.band.high.foreground` (`--color-badge-band-high-foreground`) | component | color | `#ffffff` | `#0e0503` | Band-high badge text |
+| `color.badge.band.high.foreground` (`--color-badge-band-high-foreground`) | component | color | `#1c1917` | `#0e0503` | Band-high badge text |
 | `color.badge.band.high.border` (`--color-badge-band-high-border`) | component | color | `#f97316` | `#ff723a` | Band-high badge border |
 | `color.badge.band.very-high.background` (`--color-badge-band-very-high-background`) | component | color | `#dc2626` | `#df273c` | Band-very-high badge background |
 | `color.badge.band.very-high.foreground` (`--color-badge-band-very-high-foreground`) | component | color | `#ffffff` | `#ffffff` | Band-very-high badge text |
@@ -3222,8 +3222,8 @@ count: 20
 |---|---|---|---|---|---|
 | `color.band.very-low.bg` (`--color-band-very-low-bg`) | semantic | color | `#10b981` | `#15ba81` | Very-low band background |
 | `color.band.very-low.border` (`--color-band-very-low-border`) | semantic | color | `#10b981` | `#15ba81` | Very-low band border |
-| `color.band.very-low.text` (`--color-band-very-low-text`) | semantic | color | `#ffffff` | `#040e09` | Very-low band text on-band |
-| `color.band.very-low.icon` (`--color-band-very-low-icon`) | semantic | color | `#ffffff` | `#040e09` | Very-low band icon on-band |
+| `color.band.very-low.text` (`--color-band-very-low-text`) | semantic | color | `#1c1917` | `#040e09` | Very-low band text on-band — stone-900 per D-125a (white on emerald-500 was 2.53:1) |
+| `color.band.very-low.icon` (`--color-band-very-low-icon`) | semantic | color | `#1c1917` | `#040e09` | Very-low band icon on-band — stone-900 per D-125a |
 | `color.band.low.bg` (`--color-band-low-bg`) | semantic | color | `#84cc16` | `#95cb54` | Low band background |
 | `color.band.low.border` (`--color-band-low-border`) | semantic | color | `#84cc16` | `#95cb54` | Low band border |
 | `color.band.low.text` (`--color-band-low-text`) | semantic | color | `#1c1917` | `#050604` | Low band text on-band |
@@ -3234,8 +3234,8 @@ count: 20
 | `color.band.medium.icon` (`--color-band-medium-icon`) | semantic | color | `#1c1917` | `#0e0802` | Medium band icon on-band |
 | `color.band.high.bg` (`--color-band-high-bg`) | semantic | color | `#f97316` | `#ff723a` | High band background |
 | `color.band.high.border` (`--color-band-high-border`) | semantic | color | `#f97316` | `#ff723a` | High band border |
-| `color.band.high.text` (`--color-band-high-text`) | semantic | color | `#ffffff` | `#0e0503` | High band text on-band |
-| `color.band.high.icon` (`--color-band-high-icon`) | semantic | color | `#ffffff` | `#0e0503` | High band icon on-band |
+| `color.band.high.text` (`--color-band-high-text`) | semantic | color | `#1c1917` | `#0e0503` | High band text on-band — stone-900 per D-125a (white on orange-500 was 2.80:1) |
+| `color.band.high.icon` (`--color-band-high-icon`) | semantic | color | `#1c1917` | `#0e0503` | High band icon on-band — stone-900 per D-125a |
 | `color.band.very-high.bg` (`--color-band-very-high-bg`) | semantic | color | `#dc2626` | `#df273c` | Very-high band background |
 | `color.band.very-high.border` (`--color-band-very-high-border`) | semantic | color | `#b91c1c` | `#df273c` | Very-high band border |
 | `color.band.very-high.text` (`--color-band-very-high-text`) | semantic | color | `#ffffff` | `#ffffff` | Very-high band text on-band |
@@ -3419,7 +3419,7 @@ count: 9
 | `color.citation.border-default` (`--color-citation-border-default`) | semantic | color | `#e7e5e4` | `#3b3d3f` | Citation chip border — default |
 | `color.citation.border-retracted` (`--color-citation-border-retracted`) | semantic | color | `#d6d3d1` | `#4c5054` | Citation chip border — retracted |
 | `color.citation.text-default` (`--color-citation-text-default`) | semantic | color | `#57534e` | `#a2a7ab` | Citation chip text — default |
-| `color.citation.text-retracted` (`--color-citation-text-retracted`) | semantic | color | `#a8a29e` | `#979ca0` | Citation chip text — retracted |
+| `color.citation.text-retracted` (`--color-citation-text-retracted`) | semantic | color | `#78716c` | `#979ca0` | Citation chip text — retracted; stone-500 per D-125c (stone-400 was 2.4–2.5:1), strikethrough remains the primary retraction signal |
 | `color.citation.icon-default` (`--color-citation-icon-default`) | semantic | color | `#78716c` | `#8b9094` | Citation chip source-type glyph fill |
 | `color.citation.hover` (`--color-citation-hover`) | semantic | color | `#f5f5f4` | `#2a2e31` | Citation chip hover state overlay |
 | `color.citation.active` (`--color-citation-active`) | semantic | color | `#e7e5e4` | `#33373a` | Citation chip active/pressed overlay |
@@ -3442,7 +3442,7 @@ count: 9
 | `color.citation-chip.border` (`--color-citation-chip-border`) | component | color | `#e7e5e4` | `#3b3d3f` | Citation chip border |
 | `color.citation-chip.border-retracted` (`--color-citation-chip-border-retracted`) | component | color | `#d6d3d1` | `#4c5054` | Citation chip border — retracted |
 | `color.citation-chip.text` (`--color-citation-chip-text`) | component | color | `#57534e` | `#a2a7ab` | Citation chip text |
-| `color.citation-chip.text-retracted` (`--color-citation-chip-text-retracted`) | component | color | `#a8a29e` | `#979ca0` | Citation chip text — retracted |
+| `color.citation-chip.text-retracted` (`--color-citation-chip-text-retracted`) | component | color | `#78716c` | `#979ca0` | Citation chip text — retracted |
 | `color.citation-chip.icon` (`--color-citation-chip-icon`) | component | color | `#78716c` | `#8b9094` | Citation chip icon |
 | `color.citation-chip.hover` (`--color-citation-chip-hover`) | component | color | `#f5f5f4` | `#2a2e31` | Citation chip hover overlay |
 | `color.citation-chip.active` (`--color-citation-chip-active`) | component | color | `#e7e5e4` | `#33373a` | Citation chip active overlay |
@@ -3767,7 +3767,7 @@ count: 10
 
 ---
 group: color-text
-count: 5
+count: 6
 ---
 
 # Tokens — `color-text.*`
@@ -3776,6 +3776,7 @@ count: 5
 |---|---|---|---|---|---|
 | `color.text.default` (`--color-text-default`) | semantic | color | `#292524` | `#e3e7e9` | Default body text |
 | `color.text.subtle` (`--color-text-subtle`) | semantic | color | `#78716c` | `#a2a7ab` | Subtle / secondary text |
+| `color.text.subtle-on-muted` (`--color-text-subtle-on-muted`) | semantic | color | `#57534e` | `#a2a7ab` | Subtle text on muted surfaces — stone-500 on stone-100 computes to 4.39:1, just under the 4.5:1 floor (A11Y-FIX probe). Added per D-125b; use whenever subtle text sits on surface.muted. |
 | `color.text.on-action` (`--color-text-on-action`) | semantic | color | `#ffffff` | `#ffffff` | Text on primary action surface |
 | `color.text.on-inverse` (`--color-text-on-inverse`) | semantic | color | `#ffffff` | `#101214` | Text on inverse surface — footer headings, primary on dark |
 | `color.text.on-inverse-subtle` (`--color-text-on-inverse-subtle`) | semantic | color | `#a8a29e` | `#4c5054` | Subtle text on inverse surface — footer body, copyright |

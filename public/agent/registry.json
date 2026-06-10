@@ -4354,6 +4354,28 @@
       "contrastPair": "color.surface.default"
     },
     {
+      "path": "color.text.subtle-on-muted",
+      "type": "color",
+      "description": "Subtle text on muted surfaces — stone-500 on stone-100 computes to 4.39:1, just under the 4.5:1 floor (A11Y-FIX probe). Added per D-125b; use whenever subtle text sits on surface.muted.",
+      "tier": "semantic",
+      "value": "{color.neutral.stone.600}",
+      "resolutionChain": [
+        "color.neutral.stone.600"
+      ],
+      "resolved": {
+        "light": {
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
+        },
+        "dark": {
+          "value": "oklch(72.556831% 0.008129 241.708589)",
+          "hex": "#a2a7ab"
+        }
+      },
+      "cssVariable": "--color-text-subtle-on-muted",
+      "contrastPair": "color.surface.muted"
+    },
+    {
       "path": "color.text.on-action",
       "type": "color",
       "description": "Text on primary action surface",
@@ -5372,16 +5394,16 @@
     {
       "path": "color.citation.text-retracted",
       "type": "color",
-      "description": "Citation chip text — retracted",
+      "description": "Citation chip text — retracted; stone-500 per D-125c (stone-400 was 2.4–2.5:1), strikethrough remains the primary retraction signal",
       "tier": "semantic",
-      "value": "{color.neutral.stone.400}",
+      "value": "{color.neutral.stone.500}",
       "resolutionChain": [
-        "color.neutral.stone.400"
+        "color.neutral.stone.500"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(71.60844% 0.009054 56.259003)",
-          "hex": "#a8a29e"
+          "value": "oklch(55.340165% 0.011607 58.07083)",
+          "hex": "#78716c"
         },
         "dark": {
           "value": "oklch(68.990986% 0.008231 241.718385)",
@@ -5501,16 +5523,16 @@
     {
       "path": "color.band.very-low.text",
       "type": "color",
-      "description": "Very-low band text on-band",
+      "description": "Very-low band text on-band — stone-900 per D-125a (white on emerald-500 was 2.53:1)",
       "tier": "semantic",
-      "value": "{color.neutral.white}",
+      "value": "{color.neutral.stone.900}",
       "resolutionChain": [
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(15.069951% 0.020291 164.093949)",
@@ -5523,16 +5545,16 @@
     {
       "path": "color.band.very-low.icon",
       "type": "color",
-      "description": "Very-low band icon on-band",
+      "description": "Very-low band icon on-band — stone-900 per D-125a",
       "tier": "semantic",
-      "value": "{color.neutral.white}",
+      "value": "{color.neutral.stone.900}",
       "resolutionChain": [
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(15.069951% 0.020291 164.093949)",
@@ -5762,16 +5784,16 @@
     {
       "path": "color.band.high.text",
       "type": "color",
-      "description": "High band text on-band",
+      "description": "High band text on-band — stone-900 per D-125a (white on orange-500 was 2.80:1)",
       "tier": "semantic",
-      "value": "{color.neutral.white}",
+      "value": "{color.neutral.stone.900}",
       "resolutionChain": [
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(12.974846% 0.020326 39.719073)",
@@ -5784,16 +5806,16 @@
     {
       "path": "color.band.high.icon",
       "type": "color",
-      "description": "High band icon on-band",
+      "description": "High band icon on-band — stone-900 per D-125a",
       "tier": "semantic",
-      "value": "{color.neutral.white}",
+      "value": "{color.neutral.stone.900}",
       "resolutionChain": [
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(12.974846% 0.020326 39.719073)",
@@ -6457,15 +6479,15 @@
       "type": "color",
       "description": "Badge subtle text colour",
       "tier": "component",
-      "value": "{color.text.subtle}",
+      "value": "{color.text.subtle-on-muted}",
       "resolutionChain": [
-        "color.text.subtle",
-        "color.neutral.stone.500"
+        "color.text.subtle-on-muted",
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -6505,12 +6527,12 @@
       "value": "{color.band.very-low.text}",
       "resolutionChain": [
         "color.band.very-low.text",
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(15.069951% 0.020291 164.093949)",
@@ -6706,12 +6728,12 @@
       "value": "{color.band.high.text}",
       "resolutionChain": [
         "color.band.high.text",
-        "color.neutral.white"
+        "color.neutral.stone.900"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(99.999999% 0 0)",
-          "hex": "#ffffff"
+          "value": "oklch(21.61154% 0.006126 56.043375)",
+          "hex": "#1c1917"
         },
         "dark": {
           "value": "oklch(12.974846% 0.020326 39.719073)",
@@ -7693,12 +7715,12 @@
       "value": "{color.citation.text-retracted}",
       "resolutionChain": [
         "color.citation.text-retracted",
-        "color.neutral.stone.400"
+        "color.neutral.stone.500"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(71.60844% 0.009054 56.259003)",
-          "hex": "#a8a29e"
+          "value": "oklch(55.340165% 0.011607 58.07083)",
+          "hex": "#78716c"
         },
         "dark": {
           "value": "oklch(68.990986% 0.008231 241.718385)",
@@ -9564,5 +9586,5 @@
       }
     ]
   },
-  "sourceHash": "86a0ef926aca14c5"
+  "sourceHash": "623d0e07bedb4d83"
 }
