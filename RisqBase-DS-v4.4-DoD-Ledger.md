@@ -89,7 +89,7 @@
 
 | Row | Status | Evidence |
 |---|---|---|
-| DoD-2 clean-state re-verification | PASS | Fresh clone → `npm ci` → 13-step gauntlet, all green (lint:tokens · build:tokens · build+agent-surface · tsc --strict · eslint · docs:check · readme:check · verify-contrast --strict · scan:motion · agent:check · test:mcp 12/0 · readme-build tests 4/0 · DoD-5), 2026-06-10 |
+| DoD-2 clean-state re-verification | PASS | Fresh clone of final code HEAD **`ebcef4d`** → `npm ci` → **15-step gauntlet**, all green (lint:tokens · build:tokens · tsup+agent-surface · tsc --strict · eslint · docs:check · readme:check · verify-contrast --strict both themes · scan:motion R13 · agent:check R14 · geo:check D-119 · test:mcp 12/0 · test:agent-surface 1/0 · readme-build tests 4/0 · DoD-5 negatives) + Storybook build, 2026-06-10 — details in the header note above |
 | DoD-3 output-diff proofs | BLOCKED (c only) | (a) tokens.css diff report ✓ (`reports/tokens-css-diff.md`); (b) OKLCH round-trip report ✓ 127/127 exact (`reports/oklch-roundtrip.md`); (c) Chromatic build 101 exists (194 stories) — light zero-diff confirmation + dark acceptance pending review per A5.6 |
 | DoD-4 functional smoke tests | BLOCKED (d; e/f browser leg) | Execution record `reports/dod4-smoke-tests.md`: (a) ✓ packed-tarball stdio session, both pinned prompts, transcript saved; (a+) ✓ **three unpinned generalisation probes** (`reports/mcp-probe-unpinned.json`) — the first probe exposed a real ranking gap, fixed in `ebcef4d` (weak literal aliases + R9 primitive-tier penalty); repeat with a fresh prompt at deploy review; (b) ✓ locally over real HTTP — live leg pending deploy; (c) ✓ generated + CI-gated, spot-checked; (d) gated per amended D-109; (e)/(f) implemented + statically verified, browser confirmation pending deploy review |
 | DoD-5 negative checks | PASS | `scripts/test-scanner-rules.mjs` + `scripts/__fixtures__/` — R12/R13/R14 each FAIL on violating fixtures, PASS on clean source; wired into CI |
@@ -100,7 +100,7 @@
 - **Lint & Build** (required): **green** — carries every v4.4 gate (R12 token lint, R13 motion scan, R14 agent-surface drift, MCP tests, DoD-5 negatives, docs/readme drift, tsc, eslint).
 - **chromatic** (required): red until the 90 dark/hc re-baseline changes are accepted in the Chromatic UI (build 101) — owner action, same as ledger rows A5.6/B5.3/F.4.
 - **Vercel** (required): instant project-level rejection (see C5.3) — owner action.
-- **CodeQL** (not in the documented required set): the gate reports new alerts whose list is only visible in the repo Security tab (no code-scanning API access from this session). Proactive hardening applied: explicit `__proto__`/`constructor`/`prototype` guards on every merge/computed-write the PR adds (the repo's historical alert pattern, cf. verify-contrast.mjs alert #4). If alerts remain after the Security-tab review, they are most likely fingerprint-relocations of pre-existing patterns in the rewritten files.
+- **CodeQL** (not in the documented required set): the gate's alerts turned out to be the two `js/incomplete-string-escaping` findings GHAS also raised as PR #84 review threads (code-scanning alerts 6/7). Fix landed at `ebcef4d` (`escapeMdCell()` — backslashes before pipes, CI-tested); both threads replied to and resolved. The gate is expected to clear on the next analysis run — if it stays red, the residue list needs Security-tab eyes.
 
 ## Unblock summary (what turns BLOCKED → PASS)
 
@@ -108,4 +108,3 @@
 2. **Release** (C5.1, P.1, P.2): merge → release-please PR → tag → `publish.yml` publishes both packages in lockstep.
 3. **Docs-site deploy** (C5.3, DS.2, DoD-4 e/f browser legs): project owner to inspect the instant Vercel deployment rejections on PR #84 (`npx vercel inspect <dpl> --logs`); then verify `design.risqbase.com/mcp`, llms.txt, switcher, reduced-motion in a browser post-merge.
 4. **Figma org access** (D.1–D.3, DoD-4d): checklist in `figma/README.md`.
-5. **Approvals** (G.1) and **PLATFORM-STANDARDS transplant** (G.3): Elena/Priya/Alex; delta doc ready.
