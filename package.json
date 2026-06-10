@@ -58,7 +58,11 @@
   ],
   "scripts": {
     "build:tokens": "node tools/tokens-build/index.js",
-    "build": "npm run build:tokens && tsup",
+    "build:agent-surface": "node tools/agent-surface/build.mjs build",
+    "agent:check": "node tools/agent-surface/build.mjs check",
+    "test:mcp": "node --test mcp/test/server.test.mjs",
+    "scan:motion": "node scripts/scanner-rules/r13-motion-gating.mjs",
+    "build": "npm run build:tokens && tsup && npm run build:agent-surface",
     "docs:build": "node tools/docs-build/index.mjs build",
     "docs:check": "node tools/docs-build/index.mjs check",
     "readme:build": "node tools/readme-build/index.mjs build",

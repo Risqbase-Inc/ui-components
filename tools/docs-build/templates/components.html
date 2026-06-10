@@ -17,6 +17,7 @@
 .comp-card:hover { border-color: var(--color-action-primary); }
 .comp-card:hover h3 { color: var(--color-action-primary); }
 </style>
+<script>(function(){try{var s=localStorage.getItem("risqbase-design-site-theme");var t=s||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){}})();</script>
 </head>
 <body>
 
@@ -31,6 +32,7 @@
     <a href="changelog.html">Changelog</a>
   </nav>
   <span class="version-pill">@risqbase-inc/ui-components · v{{PKG_VERSION}}</span>
+  <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark theme"><span class="icon-moon" aria-hidden="true">◑</span><span class="icon-sun" aria-hidden="true">◐</span></button>
 </header>
 
 <div class="shell">

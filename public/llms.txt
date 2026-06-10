@@ -1,0 +1,84 @@
+# RisqBase Design System
+
+> Three-layer design system for RisqBase products (spec v4.4, package @risqbase-inc/ui-components@2.1.3). Layer 1 (core/) universal primitives, Layer 2 (ai/, data-viz/) domain primitives, Layer 3 RALIA-private product showcases (documented, NOT consumable). Three-tier DTCG token graph (primitive → semantic → component), light + dark themes, WCAG 2.2 AA contracts. An MCP server is available: `npx @risqbase-inc/ui-components-mcp` (stdio) or https://design.risqbase.com/mcp (Streamable HTTP).
+
+## Components
+
+- [ArcDecoration](/components/arc-decoration.md): primitives · Layer 1 · stable — Pure-decoration SVG primitive. 2–4 concentric arc fragments sharing an off-canvas centre. Visual signature that ties the
+- [Badge](/components/badge.md): core · Layer 1 · stable — Role tokens (spec §15.2; resolved values in dist/tokens.css). The five `band-*` variants land in v4.3 (§5.1, closes RALI
+- [Button](/components/button.md): core · Layer 1 · stable — Role tokens (spec §15.2; resolved values in dist/tokens.css). Each `bg-[var(...)]` resolves to the same hex the v1.x cla
+- [Callout](/components/callout.md): core · Layer 1 · stable — Replaces the AI-slop left-border-accent pattern. v4.3 §5.1, closes RALIA F-002 + marketing C-05. Each intent gets a 1px 
+- [Card](/components/card.md): core · Layer 1 · stable — Default radius is 16px (= `--dimension-radius-card-default`, = `dimension.radius.xl`), per v4.3 §4.4. Replaces ad-hoc `r
+- [ChartContainer](/components/chart-container.md): data-viz · Layer 2 · beta — v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-03 §F / D-112) co
+- [CitationChip](/components/citation-chip.md): ai · Layer 2 · stable — Nine variants resolve through the `citation.*` token chain (v4.3 §4.2). The variant changes the surface tint, the border
+- [ClientGrid](/components/client-grid.md): ai · Layer 2 · stable — ClientGrid — Practice Cockpit "Requires your attention · N clients" 3-up grid that sits below CompliancePostureStrip. Sp
+- [ClientScopeBanner](/components/client-scope-banner.md): ai · Layer 2 · stable — Persistent below-header strip on every Practice route — surfaces the tenant-isolation artefact as a permanent UI element
+- [CompliancePostureStrip](/components/compliance-posture-strip.md): ai · Layer 2 · stable — CompliancePostureStrip — Practice Cockpit "12-clients-at-a-glance" strip. Spec: docs/specs/v2.1.0/03-CompliancePostureSt
+- [EmptyState](/components/empty-state.md): core · Layer 1 · stable — Eight variants, all share the same layout. Variant is currently a hint for the consumer (and a telemetry tag once instru
+- [Footer](/components/footer.md): core · Layer 1 · stable — ─── Default link map (canonical) ──────────────────────────────────────────── Exported so downstream consumers can intro
+- [Gauge](/components/gauge.md): data-viz · Layer 2 · stable — Generic stroked-arc primitive — the *configuration* that makes a RiskGauge (dual ring · teal · band-derived chip · delta
+- [Header](/components/header.md): core · Layer 1 · stable — Header is purely presentational: no useState, no useEffect, no useRef, no browser APIs in this file. The v2.1.0 dropdown
+- [HeroVideo](/components/hero-video.md): marketing · Layer 2 · stable — HeroVideo — marketing-tier wrapper over a native <video>. Subsumes the homepage hero use case from BRIEF-429 V2 (Demo I)
+- [IconButton](/components/icon-button.md): core · Layer 1 · stable — Hit target is always ≥ 24×24 regardless of the visual icon size — the `sm` variant pads a 16px glyph out to a 24×24 butt
+- [ImpactGraph](/components/impact-graph.md): data-viz · Layer 2 · stable
+- [IrisThinking](/components/iris-thinking.md): ai · Layer 2 · stable — Concentric-arc rotation: outer 2.4s · middle 1.8s reversed · inner 1.4s. Under reduced motion (resolved via `useReducedM
+- [Modal](/components/modal.md): core · Layer 1 · stable — v4.3 §5.1, closes RALIA F-046. Backed by `@radix-ui/react-dialog` — Radix handles focus trap, focus restoration, scroll-
+- [MotionProvider](/components/motion-provider.md): core · Layer 1 · beta — `storage` events only fire in *other* tabs, so `setMotionPreference` dispatches this on the current window after every w
+- [PromptChip](/components/prompt-chip.md): ai · Layer 2 · stable — Empty-state Iris prompt suggestion — clickable to seed the input. Iris accent halo on hover via `iris.accent-subtle`. v4
+- [RiskGauge](/components/risk-gauge.md): data-viz · Layer 2 · stable — RiskGauge composes the generic `Gauge` primitive with compliance semantics: dual-ring (inherent → residual), band deriva
+- [SectionEyebrow](/components/section-eyebrow.md): core · Layer 1 · stable — Role token (spec §15.2). Resolves identically to v1.x `text-indigo-600` in light mode; theme overrides will swap the var
+- [Skeleton](/components/skeleton.md): core · Layer 1 · stable — Shimmer at 1.4s linear infinite; respects the resolved motion preference via `useReducedMotion()` (DS v4.4 workstream E)
+- [SkipLink](/components/skip-link.md): core · Layer 1 · stable — Visually hidden until focused. First focusable element in the App shell — keyboard / screen-reader users tab once to rev
+- [StreamingText](/components/streaming-text.md): ai · Layer 2 · stable — Constant cadence (default 35 tok/s). Renders tokens incrementally so the final text stays addressable by tests / screen 
+- [TelemetryBeacon](/components/telemetry-beacon.md): core · Layer 1 · stable — No-op stub for the adoption-telemetry contract (DS v4.3 §7.3, audit rows U4.2 / U4.3). Components emit mount events rega
+- [Toast](/components/toast.md): core · Layer 1 · stable — Focus-aware positioner — the viewport places toasts in the quadrant *opposite* the currently focused element, avoiding c
+- [WizardProgress](/components/wizard-progress.md): core · Layer 1 · stable — Auto-selects style by step count, per v4.3 §5.1: dots (≤ 4) — quick visual numbered (5–8) — explicit step number vertica
+
+## Tokens
+
+- [color-action](/tokens/color-action.md)
+- [color-badge](/tokens/color-badge.md)
+- [color-band](/tokens/color-band.md)
+- [color-border](/tokens/color-border.md)
+- [color-brand](/tokens/color-brand.md)
+- [color-button](/tokens/color-button.md)
+- [color-callout](/tokens/color-callout.md)
+- [color-card](/tokens/color-card.md)
+- [color-chart](/tokens/color-chart.md)
+- [color-citation](/tokens/color-citation.md)
+- [color-citation-chip](/tokens/color-citation-chip.md)
+- [color-footer](/tokens/color-footer.md)
+- [color-gauge](/tokens/color-gauge.md)
+- [color-gauge-component](/tokens/color-gauge-component.md)
+- [color-header](/tokens/color-header.md)
+- [color-iris](/tokens/color-iris.md)
+- [color-iris-thinking](/tokens/color-iris-thinking.md)
+- [color-neutral](/tokens/color-neutral.md)
+- [color-palette](/tokens/color-palette.md)
+- [color-risk](/tokens/color-risk.md)
+- [color-section-eyebrow](/tokens/color-section-eyebrow.md)
+- [color-skeleton](/tokens/color-skeleton.md)
+- [color-surface](/tokens/color-surface.md)
+- [color-telemetry](/tokens/color-telemetry.md)
+- [color-text](/tokens/color-text.md)
+- [dimension](/tokens/dimension.md)
+- [duration](/tokens/duration.md)
+- [easing](/tokens/easing.md)
+- [shadow](/tokens/shadow.md)
+- [theming](/tokens/theming.md): light + dark themes, forced-colors high-contrast contract
+
+## Patterns
+
+- [motion-preference](/patterns/motion-preference.md): Let a user explicitly choose reduced or full motion, persisted across sessions, layered on top of the OS prefers-reduced-motion signal
+
+## Products (Layer 3 — NOT consumable, RALIA-private)
+
+- [HorizonIris Impact Graph — RALIA configuration](/products/ralia/horizoniris-impact-graph.md): consumable: false · license: RALIA-private
+- [Iris — RALIA AI character](/products/ralia/iris-character.md): consumable: false · license: RALIA-private
+- [Practice Cockpit — RALIA dashboard composition](/products/ralia/practice-cockpit.md): consumable: false · license: RALIA-private
+- [Risk Gauge — RALIA configuration](/products/ralia/risk-gauge-configuration.md): consumable: false · license: RALIA-private
+
+## Governance
+
+- [Usage rules](/agent/registry.json): scanner rules R1–R14 (machine-readable in registry.usageRules)
+- [Promotion lifecycle](/agent/registry.json): registry.lifecycle

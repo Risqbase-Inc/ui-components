@@ -1,0 +1,19 @@
+{
+  "$comment": "R12 negative fixture (DoD-5): raw hex $value must FAIL the OKLCH-only rule.",
+  "color": {
+    "fixture": {
+      "bad-hex": {
+        "$value": "#FF0000",
+        "$type": "color",
+        "$description": "Raw hex — must be flagged by R12",
+        "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/fixture/bad-hex" } }
+      },
+      "good": {
+        "$value": "oklch(62.795536% 0.257683 29.233885)",
+        "$type": "color",
+        "$description": "Valid OKLCH primitive",
+        "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/fixture/good" } }
+      }
+    }
+  }
+}

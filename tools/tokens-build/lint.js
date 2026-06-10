@@ -33,7 +33,12 @@ const path = require('path')
 const fs = require('fs')
 
 const ROOT = path.resolve(__dirname, '..', '..')
-const TOKENS_DIR = path.join(ROOT, 'tokens')
+// RISQBASE_TOKENS_DIR override exists for the R12 negative-check fixtures
+// (scripts/test-scanner-rules.mjs, DoD-5): the rule must demonstrably fail
+// on a violating token tree before it counts as implemented.
+const TOKENS_DIR = process.env.RISQBASE_TOKENS_DIR
+  ? path.resolve(process.env.RISQBASE_TOKENS_DIR)
+  : path.join(ROOT, 'tokens')
 
 const VALID_ROLES = new Set(['primitive', 'semantic', 'component'])
 const HEX_RE = /^#[0-9a-fA-F]{3,8}$/

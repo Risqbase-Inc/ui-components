@@ -2,7 +2,17 @@
 
 ## Unreleased
 
-_No unreleased changes. Released work is recorded under its version below._
+### Design System v4.4 — agent surface, DTCG 2025.10, full dark theme
+
+The GOV-DS-2026-03 programme (ships with the next minor release):
+
+- **Agent surface**: `@risqbase-inc/ui-components-mcp` MCP server (11 read-only tools over components, tokens, recipes, lifecycle, scanner rules and Layer-3 showcase entries), Streamable HTTP endpoint at `/mcp`, `llms.txt` + `llms-full.txt` + per-page `.md` mirrors — all generated from one registry (`build:agent-surface`), freshness CI-gated (scanner rule R14).
+- **Tokens**: DTCG 2025.10 source (`*.tokens.json`, OKLCH colors with round-trip-exact hex fallbacks, `$deprecated`, resolver-driven theming). Consumer-visible CSS is value-identical; `oklch()` lands as a progressive enhancement under `@supports`.
+- **Dark theme**: complete coverage of every semantic + component color token (62 newly derived values, contrast-verified per theme); lint-enforced completeness; docs-site theme switcher. New `color.action.link` token for interactive text (resolves identically to `action.primary` in light).
+- **High contrast**: forced-colors compliance pass — `data-fc` roles on meaning-bearing SVG geometry, system-color mappings in `tokens.css` (replaces the never-populated `hc` token theme; `'hc'` stays accepted but deprecated).
+- **Motion**: `MotionProvider` + `useReducedMotion` (beta) — localStorage preference over the OS signal, `data-motion` CSS contract, all four animated primitives migrated; `motion-preference` settings-toggle recipe.
+- **Charts**: `area`, `heatmap`, `metric-card` complete 6/7 of the ChartContainer taxonomy (`choropleth` → v4.4.1 per the pre-agreed descope ladder); visually-hidden data-table fallback on every chart type.
+- **Scanner rules**: R12 token hygiene, R13 motion gating, R14 agent-surface freshness — each proven to fail on committed fixtures before passing on clean source.
 
 ## [2.1.3](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.2...v2.1.3) (2026-05-25)
 

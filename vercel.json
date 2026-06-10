@@ -2,5 +2,8 @@
   "framework": null,
   "buildCommand": null,
   "installCommand": "npm install --legacy-peer-deps",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/mcp", "destination": "/api/mcp" }
+  ]
 }

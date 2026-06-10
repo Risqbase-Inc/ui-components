@@ -1,0 +1,16 @@
+{
+  "id": "horizoniris-impact-graph",
+  "title": "HorizonIris Impact Graph — RALIA configuration",
+  "consumable": false,
+  "license": "RALIA-private",
+  "layer": 3,
+  "summary": "The regulatory-impact propagation graph as configured in RALIA's HorizonIris surface: the ImpactGraph primitive bound to RALIA's regulation→practice-area→client data shape, with RALIA-specific category weighting and Iris-narrated annotations.",
+  "composedOf": [
+    { "component": "ImpactGraph", "config": { "role": "graph rendering primitive (data-viz domain)" } },
+    { "component": "CitationChip", "config": { "role": "per-edge source grounding" } },
+    { "component": "IrisThinking", "config": { "role": "recompute indicator" } }
+  ],
+  "tokens": ["color.chart.*", "color.iris.*", "color.band.*"],
+  "showcaseUrl": "https://design.risqbase.com/products/ralia/impact-graph",
+  "buildInstead": "Use the data-viz ImpactGraph primitive with your own data shape; the HorizonIris weighting model and narration are RALIA-private."
+}

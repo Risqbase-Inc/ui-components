@@ -1,0 +1,12 @@
+{
+  "$comment": "R12 negative fixture: semantic color with NO dark override and NO themeInvariant — must FAIL dark completeness. Also carries an invalid $deprecated.",
+  "color": {
+    "fixture-role": {
+      "$value": "{color.fixture.good}",
+      "$type": "color",
+      "$deprecated": 42,
+      "$description": "Semantic alias missing its dark value",
+      "$extensions": { "com.risqbase.role": "semantic", "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/fixture-role" } }
+    }
+  }
+}

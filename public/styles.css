@@ -47,6 +47,48 @@
   --container-max: 1280px;
 }
 
+/* ── Dark theme (v4.4 B4 — values mirror the dark token set) ── */
+[data-theme="dark"] {
+  --color-surface-default: #101214;
+  --color-surface-subtle: #1A1D1F;
+  --color-surface-muted: #212528;
+  --color-surface-inverse: #F3F5F7;
+
+  --color-text-default: #E3E7E9;
+  --color-text-subtle: #A2A7AB;
+  --color-text-on-action: #FFFFFF;
+  --color-text-on-inverse: #101214;
+  --color-text-on-inverse-subtle: #4C5054;
+
+  --color-border-default: #5E6266;
+  --color-border-subtle: #3B3D3F;
+  --color-border-inverse: #D1D5D7;
+  --color-border-focus: #818CF8;
+
+  --color-action-primary: #4768DB;
+  --color-action-primary-hover: #678AF6;
+  --color-action-primary-subtle: #182241;
+
+  --color-iris: #1E9B8F;
+  --color-iris-subtle: #16302E;
+}
+
+.theme-toggle {
+  margin-left: var(--space-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  font-size: 14px; line-height: 1;
+}
+.theme-toggle:hover { color: var(--color-text-default); border-color: var(--color-text-subtle); }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {

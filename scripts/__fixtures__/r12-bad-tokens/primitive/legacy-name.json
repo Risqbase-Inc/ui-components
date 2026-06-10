@@ -1,0 +1,4 @@
+{
+  "$comment": "Bare .json extension — must FAIL the §A1 rename rule.",
+  "color": { "fixture2": { "stray": { "$value": "oklch(50% 0.1 200)", "$type": "color", "$description": "x", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/fixture2/stray" } } } } }
+}

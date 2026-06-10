@@ -21,6 +21,7 @@
 .entry .body li { margin-bottom: 4px; }
 .entry .body pre { background: var(--color-surface-subtle); padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
 </style>
+<script>(function(){try{var s=localStorage.getItem("risqbase-design-site-theme");var t=s||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){}})();</script>
 </head>
 <body>
 
@@ -35,6 +36,7 @@
     <a href="changelog.html" class="is-active">Changelog</a>
   </nav>
   <span class="version-pill">@risqbase-inc/ui-components · v2.1.3</span>
+  <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark theme"><span class="icon-moon" aria-hidden="true">◑</span><span class="icon-sun" aria-hidden="true">◐</span></button>
 </header>
 
 <div class="shell">
@@ -43,6 +45,7 @@
   <div class="group">
     <h4>Releases</h4>
     <ul>
+      <li><a href="#design-system-v4-4-agent-surface-dtcg-2025-10-full-dark-theme">Unreleased · Design System v4.4 — agent surface, DTCG 2025.10, full dark theme</a></li>
       <li><a href="#v2-1-3">2026-05-25 · v2.1.3 — 2026-05-25</a></li>
       <li><a href="#v2-1-2">2026-05-20 · v2.1.2 — 2026-05-20</a></li>
       <li><a href="#v2-1-1">2026-05-20 · v2.1.1 — 2026-05-20</a></li>
@@ -69,7 +72,34 @@
   <h1>What shipped, when, why.</h1>
   <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.1.3</b>, against spec <b>v4.4</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
 
-  <article id="v2-1-3" class="card entry" style="margin-bottom: 32px;">
+  <article id="design-system-v4-4-agent-surface-dtcg-2025-10-full-dark-theme" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Design System v4.4 — agent surface, DTCG 2025.10, full dark theme</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <p>The GOV-DS-2026-03 programme (ships with the next minor release):</p>
+<ul>
+<li><strong>Agent surface</strong>: <code>@risqbase-inc/ui-components-mcp</code> MCP server (11 read-only tools over components, tokens, recipes, lifecycle, scanner rules and Layer-3 showcase entries), Streamable HTTP endpoint at <code>/mcp</code>, <code>llms.txt</code> + <code>llms-full.txt</code> + per-page <code>.md</code> mirrors — all generated from one registry (<code>build:agent-surface</code>), freshness CI-gated (scanner rule R14).</li>
+<li><strong>Tokens</strong>: DTCG 2025.10 source (<code>*.tokens.json</code>, OKLCH colors with round-trip-exact hex fallbacks, <code>$deprecated</code>, resolver-driven theming). Consumer-visible CSS is value-identical; <code>oklch()</code> lands as a progressive enhancement under <code>@supports</code>.</li>
+<li><strong>Dark theme</strong>: complete coverage of every semantic + component color token (62 newly derived values, contrast-verified per theme); lint-enforced completeness; docs-site theme switcher. New <code>color.action.link</code> token for interactive text (resolves identically to <code>action.primary</code> in light).</li>
+<li><strong>High contrast</strong>: forced-colors compliance pass — <code>data-fc</code> roles on meaning-bearing SVG geometry, system-color mappings in <code>tokens.css</code> (replaces the never-populated <code>hc</code> token theme; <code>'hc'</code> stays accepted but deprecated).</li>
+<li><strong>Motion</strong>: <code>MotionProvider</code> + <code>useReducedMotion</code> (beta) — localStorage preference over the OS signal, <code>data-motion</code> CSS contract, all four animated primitives migrated; <code>motion-preference</code> settings-toggle recipe.</li>
+<li><strong>Charts</strong>: <code>area</code>, <code>heatmap</code>, <code>metric-card</code> complete 6/7 of the ChartContainer taxonomy (<code>choropleth</code> → v4.4.1 per the pre-agreed descope ladder); visually-hidden data-table fallback on every chart type.</li>
+<li><strong>Scanner rules</strong>: R12 token hygiene, R13 motion gating, R14 agent-surface freshness — each proven to fail on committed fixtures before passing on clean source.</li>
+</ul>
+  </div>
+</article>
+
+<article id="v2-1-3" class="card entry" style="margin-bottom: 32px;">
   <div class="head">
     <div class="row">
       <div>

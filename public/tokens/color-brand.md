@@ -1,0 +1,20 @@
+---
+group: color-brand
+count: 11
+---
+
+# Tokens — `color-brand.*`
+
+| Token | Tier | Type | Light | Dark | Description |
+|---|---|---|---|---|---|
+| `color.brand.indigo.50` (`--color-brand-indigo-50`) | primitive | color | `#eef2ff` | `#eef2ff` | Brand indigo, lightest tint |
+| `color.brand.indigo.100` (`--color-brand-indigo-100`) | primitive | color | `#e0e7ff` | `#e0e7ff` | Brand indigo, very light |
+| `color.brand.indigo.200` (`--color-brand-indigo-200`) | primitive | color | `#c7d2fe` | `#c7d2fe` | Brand indigo, light |
+| `color.brand.indigo.300` (`--color-brand-indigo-300`) | primitive | color | `#a5b4fc` | `#a5b4fc` | Brand indigo, soft |
+| `color.brand.indigo.400` (`--color-brand-indigo-400`) | primitive | color | `#818cf8` | `#818cf8` | Brand indigo, mid-light |
+| `color.brand.indigo.500` (`--color-brand-indigo-500`) | primitive | color | `#6366f1` | `#6366f1` | Brand indigo, mid |
+| `color.brand.indigo.600` (`--color-brand-indigo-600`) | primitive | color | `#4f46e5` | `#4f46e5` | Primary brand indigo — CTAs, logo, links |
+| `color.brand.indigo.700` (`--color-brand-indigo-700`) | primitive | color | `#4338ca` | `#4338ca` | Brand indigo, hover/pressed |
+| `color.brand.indigo.800` (`--color-brand-indigo-800`) | primitive | color | `#3730a3` | `#3730a3` | Brand indigo, dark |
+| `color.brand.indigo.900` (`--color-brand-indigo-900`) | primitive | color | `#312e81` | `#312e81` | Brand indigo, very dark |
+| `color.brand.indigo.950` (`--color-brand-indigo-950`) | primitive | color | `#1e1b4b` | `#1e1b4b` | Brand indigo, near-black |

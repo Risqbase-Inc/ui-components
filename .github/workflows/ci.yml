@@ -61,6 +61,29 @@ jobs:
       # v4.3 §11.1 row 8 — contrast verification. Non-blocking informational
       # step initially; promote to blocking once any baseline failures are
       # resolved. See scripts/verify-contrast.mjs for the methodology.
+      # Since v4.4 this verifies light AND dark (resolver-driven).
       - name: Verify contrast (informational)
         continue-on-error: true
         run: npm run verify:contrast
+
+      # v4.4 GOV-DS-2026-03 §9 — scanner rule R13 (motion gating): animated
+      # CSS at component tier must be gated on [data-motion] /
+      # prefers-reduced-motion / useReducedMotion().
+      - name: Motion gating (R13)
+        run: npm run scan:motion
+
+      # v4.4 §9 R14 — agent-surface freshness: public/agent/registry.json,
+      # the llms.txt family and the .md mirrors must match regeneration
+      # (same drift mechanism as docs:check). build:agent-surface ran as
+      # part of `npm run build` above.
+      - name: Agent-surface drift check (R14)
+        run: npm run agent:check
+
+      # v4.4 §C5 row 2 — MCP server integration tests (one per C2 tool).
+      - name: MCP server tests
+        run: npm run test:mcp
+
+      # v4.4 §11.5 DoD-5 — negative checks: R12/R13/R14 must fail on the
+      # committed violating fixtures and pass on clean source.
+      - name: Scanner-rule negative checks (DoD-5)
+        run: node scripts/test-scanner-rules.mjs
