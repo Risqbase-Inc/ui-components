@@ -66,7 +66,7 @@ jobs:
         continue-on-error: true
         run: npm run verify:contrast
 
-      # v4.4 GOV-DS-2026-03 §9 — scanner rule R13 (motion gating): animated
+      # v4.4 GOV-DS-2026-02 rev. v4.4 §9 — scanner rule R13 (motion gating): animated
       # CSS at component tier must be gated on [data-motion] /
       # prefers-reduced-motion / useReducedMotion().
       - name: Motion gating (R13)
@@ -82,6 +82,15 @@ jobs:
       # v4.4 §C5 row 2 — MCP server integration tests (one per C2 tool).
       - name: MCP server tests
         run: npm run test:mcp
+
+      # GHAS threads on PR #84 — escapeMdCell (backslashes before pipes).
+      - name: Agent-surface markdown escaping tests
+        run: npm run test:agent-surface
+
+      # v4.4 D-119 — committed choropleth geometry must stay quantised
+      # planar TopoJSON within the 80KB-gz combined budget.
+      - name: Choropleth geometry budget (D-119)
+        run: npm run geo:check
 
       # v4.4 §11.5 DoD-5 — negative checks: R12/R13/R14 must fail on the
       # committed violating fixtures and pass on clean source.

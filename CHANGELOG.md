@@ -4,7 +4,7 @@
 
 ### Design System v4.4 — agent surface, DTCG 2025.10, full dark theme
 
-The GOV-DS-2026-03 programme (ships with the next minor release):
+The GOV-DS-2026-02 rev. v4.4 programme (ships with the next minor release):
 
 - **Agent surface**: `@risqbase-inc/ui-components-mcp` MCP server (11 read-only tools over components, tokens, recipes, lifecycle, scanner rules and Layer-3 showcase entries), Streamable HTTP endpoint at `/mcp`, `llms.txt` + `llms-full.txt` + per-page `.md` mirrors — all generated from one registry (`build:agent-surface`), freshness CI-gated (scanner rule R14).
 - **Tokens**: DTCG 2025.10 source (`*.tokens.json`, OKLCH colors with round-trip-exact hex fallbacks, `$deprecated`, resolver-driven theming). Consumer-visible CSS is value-identical; `oklch()` lands as a progressive enhancement under `@supports`.

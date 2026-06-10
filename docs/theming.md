@@ -156,7 +156,7 @@ brief sets the 14-day window from npm publish (per implementation-plan
 
 ## Status of dark values
 
-Complete since v4.4 (GOV-DS-2026-03 Workstream B). Every semantic and
+Complete since v4.4 (GOV-DS-2026-02 rev. v4.4 Workstream B). Every semantic and
 component color token carries a derived dark value — hue preserved,
 lightness lifted per the §B1 group rules, every value
 contrast-verified per theme (`npm run verify:contrast`). The

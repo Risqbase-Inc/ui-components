@@ -14,7 +14,7 @@
  *   dist/tailwind-tokens.js   Tailwind preset values
  *   dist/figma-tokens.json    Figma Variables import payload (spec §15.8)
  *
- * v4.4 (GOV-DS-2026-03 Workstream A):
+ * v4.4 (GOV-DS-2026-02 rev. v4.4 Workstream A):
  *   - Theme discovery is resolver-driven: `tokens/resolver.tokens.json`
  *     declares the base set and the theme contexts. The v4.2-era
  *     hardcoded themes/{dark,hc}.json override mechanism is gone.

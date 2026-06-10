@@ -1,6 +1,6 @@
 # ChartContainer — accessibility
 
-Ships as `beta`. The line / bar / sparkline machinery is stable (visx-backed); v4.4 (GOV-DS-2026-03 §F) adds `area` / `heatmap` / `metric-card` and the table fallback. `choropleth` is descoped to v4.4.1 per §10.3 rung 1.
+Ships as `beta`. The line / bar / sparkline machinery is stable (visx-backed); v4.4 (GOV-DS-2026-02 rev. v4.4 §F) adds `area` / `heatmap` / `metric-card` and the table fallback. `choropleth` is descoped to v4.4.1 per §10.3 rung 1.
 
 ## Contracts
 - Wrapped in `<figure role="img">` with a required `aria-label`. The SVG is `aria-hidden="true"`.
@@ -33,3 +33,27 @@ Every instance renders a visually-hidden data table alongside the figure:
 ## Don't
 - Don't paint critical state in colour alone. Pair charts with a textual summary or a `BandBadge`.
 - Don't suppress the table fallback by re-mounting with changing keys mid-session; the `aria-describedby` link must stay stable while the figure is on screen.
+
+
+## Choropleth (spec §5 contract)
+
+- **Table fallback** — jurisdiction · value · band per row, sorted by
+  value descending; `aria-describedby`-linked sibling of the
+  `role="img"` figure (table semantics survive). Data entries without
+  renderable geometry still get a row (data-driven completeness).
+- **Keyboard** — the map is one tab stop (roving tabindex); Arrow keys
+  move between jurisdictions sorted by value, Enter/Space toggles
+  selection, Esc clears. Small-jurisdiction chips are native buttons in
+  the normal tab order (D-118) with `aria-pressed`.
+- **Labels** — each region: `role="graphics-symbol"` +
+  `aria-label="{name}, {value} {unit}, {band} band"`. The tooltip is
+  `role="status"` and supplementary only — never the sole carrier of a
+  value.
+- **Color independence** — band/value is always recoverable from the
+  table + labels + legend; never from fill alone. Under
+  `forced-colors: active`, jurisdictions carry `data-fc="region"`
+  (fill → `CanvasText`, boundary strokes → `Canvas`); the table carries
+  the data.
+- **Motion** — only 120 ms stroke transitions, suppressed via
+  `useReducedMotion()` (R13); no entrance animation, no pan/zoom easing
+  (zoom is out of scope for v4.4).

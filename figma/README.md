@@ -1,14 +1,16 @@
 # Figma Code Connect (v4.4 Workstream D — BLOCKED, pipeline prepared)
 
-**Status: BLOCKED on Figma access.** D-109 assumed "Figma library is
-current and on Org/Enterprise plan". At implementation time the
-authenticated Figma identity is `fiyinfoluwa.adeleke's team` —
-**student tier, View seat** (verified via the Figma MCP `whoami`,
-2026-06-10). Code Connect requires an Organization/Enterprise plan and
-an editor/dev seat to publish; mapping files additionally need the real
-library file key + node-ids, none of which are reachable from this
-identity. Ledger rows D.1–D.3 carry this evidence; nothing here is
-descoped — the §10.3 ladder (rung 4) was NOT used for D.
+**Status: BLOCKED on Figma access — gated per amended D-109 (CEO,
+10 Jun).** The original D-109 premise ("library on Org/Enterprise plan")
+failed in reality: the authenticated Figma identity is
+`fiyinfoluwa.adeleke's team` — **student tier, View seat** (Figma MCP
+`whoami`, 2026-06-10). Code Connect requires an Organization plan and
+one full Org seat for the publishing identity; mappings additionally
+need the real library file key + node-ids. **Amended D-109:** Workstream
+D stays in v4.4, gated on Org access landing **by the release cut
+(27 June)**. If access hasn't landed by then, the D rows auto-convert to
+v4.4.1 (the patch doc returns) — no further decision needed. Nothing is
+descoped via the §10.3 ladder.
 
 ## What is prepared
 

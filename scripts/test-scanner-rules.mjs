@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * DoD-5 negative checks (GOV-DS-2026-03 §11.5): each v4.4 scanner rule
+ * DoD-5 negative checks (GOV-DS-2026-02 rev. v4.4 §11.5): each v4.4 scanner rule
  * (R12, R13, R14) is proven to FAIL on a deliberately violating fixture
  * before being proven to PASS on the real source. A rule that cannot
  * fail is not implemented.

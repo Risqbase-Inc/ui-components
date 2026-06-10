@@ -341,8 +341,8 @@
       "domain": "data-viz",
       "layer": 2,
       "state": "beta",
-      "stateNote": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-03 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1).",
-      "description": "v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-03 §F / D-112) completes the taxonomy: `area` / `heatmap` / `metric-card` join `line` / `bar` / `sparkline`. `choropleth` is descoped to v4.4.1 per §10.3 descope ladder rung 1 — 6/7 taxonomy ships in v4.4. A11y (brief F.3): every type renders a visually-hidden data table (`sr-only`) linked from the `<figure role=\"img\">` via `aria-describedby`, so screen-reader users can read the underlying series / cell values instead of relying on the `aria-label` summary alone.",
+      "stateNote": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-02 rev. v4.4 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1).",
+      "description": "v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-02 rev. v4.4 §F / D-112) completes the 7/7 taxonomy: `area` / `heatmap` / `metric-card` / `choropleth` join `line` / `bar` / `sparkline`. Choropleth was briefly descoped via the §10.3 ladder and RESTORED by the CEO on 10 Jun (brief §13); its design contract is docs/design-system/v4.4/choropleth-spec.html (D-115…D-119). A11y (brief F.3): every type renders a visually-hidden data table (`sr-only`) linked from the `<figure role=\"img\">` via `aria-describedby`, so screen-reader users can read the underlying series / cell values instead of relying on the `aria-label` summary alone.",
       "exports": [
         "ChartContainer"
       ],
@@ -351,7 +351,45 @@
         {
           "name": "ChartType",
           "kind": "type",
-          "definition": "'line' | 'bar' | 'sparkline' | 'area' | 'heatmap' | 'metric-card'"
+          "definition": "'line' | 'bar' | 'sparkline' | 'area' | 'heatmap' | 'metric-card' | 'choropleth'"
+        },
+        {
+          "name": "ChoroplethGeo",
+          "kind": "type",
+          "definition": "'europe' | 'world'"
+        },
+        {
+          "name": "ChoroplethMode",
+          "kind": "type",
+          "definition": "'band' | 'seq'"
+        },
+        {
+          "name": "ChoroplethBand",
+          "kind": "type",
+          "definition": "'very-low' | 'low' | 'medium' | 'high' | 'very-high'"
+        },
+        {
+          "name": "ChoroplethDatum",
+          "kind": "interface",
+          "members": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "number | null",
+              "required": false,
+              "description": "Numeric value — drives `mode=\"seq\"` fills, tooltips, the table and chip ordering."
+            },
+            {
+              "name": "band",
+              "type": "ChoroplethBand",
+              "required": false,
+              "description": "Band — drives `mode=\"band\"` fills."
+            }
+          ]
         },
         {
           "name": "SeriesPoint",
@@ -484,6 +522,48 @@
               "description": "Headline value / label / delta — only read when `type === 'metric-card'`."
             },
             {
+              "name": "geo",
+              "type": "ChoroplethGeo",
+              "required": false,
+              "description": "Packaged geography — only read when `type === 'choropleth'`. Default `'europe'`."
+            },
+            {
+              "name": "mode",
+              "type": "ChoroplethMode",
+              "required": false,
+              "description": "Encoding mode — only read when `type === 'choropleth'`. Default `'band'`."
+            },
+            {
+              "name": "data",
+              "type": "ChoroplethDatum[]",
+              "required": false,
+              "description": "Choropleth data — only read when `type === 'choropleth'`."
+            },
+            {
+              "name": "unit",
+              "type": "string",
+              "required": false,
+              "description": "Unit copy for aria-labels, tooltip and the table header, e.g. `\"open alerts\"`."
+            },
+            {
+              "name": "thresholds",
+              "type": "number[]",
+              "required": false,
+              "description": "Optional seq quantisation thresholds (4 cuts → 5 steps); default quintiles (D-117)."
+            },
+            {
+              "name": "selectedId",
+              "type": "string | null",
+              "required": false,
+              "description": "Controlled single-select — the selected jurisdiction id, or null."
+            },
+            {
+              "name": "onSelect",
+              "type": "(id: string | null) => void",
+              "required": false,
+              "description": "Selection callback (click / Enter / Space toggles; Esc clears)."
+            },
+            {
               "name": "width",
               "type": "number | string",
               "required": false,
@@ -493,7 +573,7 @@
               "name": "height",
               "type": "number",
               "required": false,
-              "description": "Height. Default 240 for line/bar/area/heatmap, 120 for metric-card, 40 for sparkline."
+              "description": "Height. Default 240 for line/bar/area/heatmap, 120 for metric-card, 40 for sparkline; choropleth sizes by its geometry's aspect ratio."
             },
             {
               "name": "aria-label",
@@ -521,8 +601,8 @@
           ]
         }
       ],
-      "tokensDoc": "# Tokens — `ChartContainer`\n\nConsumes the canonical chart-categorical palette:\n\n| Token | Used for |\n|---|---|\n| `color.chart.cat.1` … `cat.8` | series colours, indexed by position — `line` / `sparkline` / `bar` strokes & fills, `area` stroke + reduced-opacity fill (same var, `fillOpacity`, no separate fill token), `metric-card` sparkline |\n| `color.chart.seq.1` … `seq.5` | `heatmap` cell fills — 5-step sequential scale, linear binning over the value domain |\n| `color.chart.null` | `heatmap` cells whose `value` is `null` (or missing from `cells`) |\n| `color.chart.axis` | axis baseline |\n| `color.chart.plot-area-bg` | container background |\n| `color.risk.low` | `metric-card` delta chip when the movement is positive (default for `direction: 'up'`, or `positive: true`) |\n| `color.risk.critical` | `metric-card` delta chip when the movement is negative (default for `direction: 'down'`, or `positive: false`) |\n| `color.text.default` | header copy, `metric-card` headline value |\n| `color.text.subtle` | footer / figcaption, `heatmap` row/column labels (10px), `metric-card` label and `flat` delta chip |\n\nThe 8-step categorical palette is sequenced for safe pairwise discrimination — `cat.1` (indigo) and `cat.2` (teal) are the strongest contrast pair and should be used for the two most important series.\n\nThe `metric-card` delta chip outline uses `border-current`, so the border resolves to the same risk/text token as the chip copy — no extra token bound.\n\n`choropleth` is descoped to v4.4.1 (GOV-DS-2026-03 §10.3 rung 1).\n",
-      "accessibilityDoc": "# ChartContainer — accessibility\n\nShips as `beta`. The line / bar / sparkline machinery is stable (visx-backed); v4.4 (GOV-DS-2026-03 §F) adds `area` / `heatmap` / `metric-card` and the table fallback. `choropleth` is descoped to v4.4.1 per §10.3 rung 1.\n\n## Contracts\n- Wrapped in `<figure role=\"img\">` with a required `aria-label`. The SVG is `aria-hidden=\"true\"`.\n- The consumer must supply a meaningful `aria-label` summarising the chart — e.g. *\"Risk score trend, 12 months, currently 42 (down from 78 in January)\"*. Don't repeat the title; describe the *shape*.\n- For `sparkline`, the label should always include the current value and the trend direction (\"up 12% since last week\").\n- For `metric-card`, the label should carry the value, the delta, and its *valence* (\"up 12 points — worsening\"), since the chip encodes good/bad in colour.\n\n## Table fallback (brief F.3 — all types)\nEvery instance renders a visually-hidden data table alongside the figure:\n\n```html\n<figure role=\"img\" aria-label=\"…\" aria-describedby=\"{useId}\">…</figure>\n<div id=\"{useId}\" class=\"sr-only\">\n  <table>…series or cell data…</table>\n</div>\n```\n\n- The `id` is generated with React `useId` and linked via `aria-describedby` on the figure, so screen-reader users get the label as the name and the raw data as the description / an adjacent navigable table.\n- The table sits **outside** the figure: descendants of `role=\"img\"` are presentational, which would strip the table semantics the fallback exists to provide.\n- Hidden with the Tailwind `sr-only` utility (the repo-standard zero-pixel clip pattern — see `SkipLink`, `HeroVideo`). **Do not use `display: none`** — that hides it from screen readers too.\n- Shape by type:\n  - `line` / `bar` / `sparkline` / `area`: one column per series (header = `series[].label`), one row per x value.\n  - `heatmap`: columns = unique `cells[].x`, rows = unique `cells[].y`; `null` / missing cells read \"no data\".\n  - `metric-card`: a sentence with label, value and delta, plus the sparkline series table when `series[0]` is provided.\n\n## Type-specific notes\n- `heatmap` is driven by the `cells` prop; pass `series={[]}`. Row/column labels render at 10px in `color.text.subtle` inside the (hidden) SVG — the table fallback is the accessible copy of the grid.\n- `metric-card` delta chip: `flat` is always neutral; `up`/`down` colour follows `delta.positive` when set, otherwise up-is-good. Never rely on the chip colour alone — put the valence in the `aria-label` (and ideally the visible copy).\n\n## Don't\n- Don't paint critical state in colour alone. Pair charts with a textual summary or a `BandBadge`.\n- Don't suppress the table fallback by re-mounting with changing keys mid-session; the `aria-describedby` link must stay stable while the figure is on screen.\n",
+      "tokensDoc": "# Tokens — `ChartContainer`\n\nConsumes the canonical chart-categorical palette:\n\n| Token | Used for |\n|---|---|\n| `color.chart.cat.1` … `cat.8` | series colours, indexed by position — `line` / `sparkline` / `bar` strokes & fills, `area` stroke + reduced-opacity fill (same var, `fillOpacity`, no separate fill token), `metric-card` sparkline |\n| `color.chart.seq.1` … `seq.5` | `heatmap` cell fills — 5-step sequential scale, linear binning over the value domain |\n| `color.chart.null` | `heatmap` cells whose `value` is `null` (or missing from `cells`) |\n| `color.chart.axis` | axis baseline |\n| `color.chart.plot-area-bg` | container background |\n| `color.risk.low` | `metric-card` delta chip when the movement is positive (default for `direction: 'up'`, or `positive: true`) |\n| `color.risk.critical` | `metric-card` delta chip when the movement is negative (default for `direction: 'down'`, or `positive: false`) |\n| `color.text.default` | header copy, `metric-card` headline value |\n| `color.text.subtle` | footer / figcaption, `heatmap` row/column labels (10px), `metric-card` label and `flat` delta chip |\n\nThe 8-step categorical palette is sequenced for safe pairwise discrimination — `cat.1` (indigo) and `cat.2` (teal) are the strongest contrast pair and should be used for the two most important series.\n\nThe `metric-card` delta chip outline uses `border-current`, so the border resolves to the same risk/text token as the chip copy — no extra token bound.\n\n`choropleth` is descoped to v4.4.1 (GOV-DS-2026-02 rev. v4.4 §10.3 rung 1).\n\n\n## Choropleth (v4.4, D-115…D-119)\n\n| Token | Used for |\n|---|---|\n| `color.band.*.bg` (5) | `mode=\"band\"` region fills, chips, legend swatches (theme-stable per the spec §3) |\n| `color.chart.seq.1..5` | `mode=\"seq\"` quantised fills + legend ramp (dark ramp ascends dark→bright per B1) |\n| `color.chart.null` | explicit no-data regions (`value: null`) |\n| `color.surface.muted` | context regions (in geometry, absent from `data`) |\n| `color.surface.default` | region separation strokes (crisp boundaries on both themes without a border color) |\n| `color.text.subtle` | hover stroke, legend text, chip values |\n| `color.border.focus` | keyboard focus stroke (2px) |\n| `color.action.primary` | selected stroke (2px) |\n| `color.chart.tooltip-surface` / `-border` / `-text` | tooltip |\n| `shadow.floating` | tooltip elevation |\n\nGeometry is pre-projected planar TopoJSON (`src/data-viz/geo/*.json`,\nbuilt by `tools/charts/build-geo.mjs` from Natural Earth — public\ndomain). Budget ≤ 80 KB gz combined, CI-gated via `npm run geo:check`.\n",
+      "accessibilityDoc": "# ChartContainer — accessibility\n\nShips as `beta`. The line / bar / sparkline machinery is stable (visx-backed); v4.4 (GOV-DS-2026-02 rev. v4.4 §F) adds `area` / `heatmap` / `metric-card` and the table fallback. `choropleth` is descoped to v4.4.1 per §10.3 rung 1.\n\n## Contracts\n- Wrapped in `<figure role=\"img\">` with a required `aria-label`. The SVG is `aria-hidden=\"true\"`.\n- The consumer must supply a meaningful `aria-label` summarising the chart — e.g. *\"Risk score trend, 12 months, currently 42 (down from 78 in January)\"*. Don't repeat the title; describe the *shape*.\n- For `sparkline`, the label should always include the current value and the trend direction (\"up 12% since last week\").\n- For `metric-card`, the label should carry the value, the delta, and its *valence* (\"up 12 points — worsening\"), since the chip encodes good/bad in colour.\n\n## Table fallback (brief F.3 — all types)\nEvery instance renders a visually-hidden data table alongside the figure:\n\n```html\n<figure role=\"img\" aria-label=\"…\" aria-describedby=\"{useId}\">…</figure>\n<div id=\"{useId}\" class=\"sr-only\">\n  <table>…series or cell data…</table>\n</div>\n```\n\n- The `id` is generated with React `useId` and linked via `aria-describedby` on the figure, so screen-reader users get the label as the name and the raw data as the description / an adjacent navigable table.\n- The table sits **outside** the figure: descendants of `role=\"img\"` are presentational, which would strip the table semantics the fallback exists to provide.\n- Hidden with the Tailwind `sr-only` utility (the repo-standard zero-pixel clip pattern — see `SkipLink`, `HeroVideo`). **Do not use `display: none`** — that hides it from screen readers too.\n- Shape by type:\n  - `line` / `bar` / `sparkline` / `area`: one column per series (header = `series[].label`), one row per x value.\n  - `heatmap`: columns = unique `cells[].x`, rows = unique `cells[].y`; `null` / missing cells read \"no data\".\n  - `metric-card`: a sentence with label, value and delta, plus the sparkline series table when `series[0]` is provided.\n\n## Type-specific notes\n- `heatmap` is driven by the `cells` prop; pass `series={[]}`. Row/column labels render at 10px in `color.text.subtle` inside the (hidden) SVG — the table fallback is the accessible copy of the grid.\n- `metric-card` delta chip: `flat` is always neutral; `up`/`down` colour follows `delta.positive` when set, otherwise up-is-good. Never rely on the chip colour alone — put the valence in the `aria-label` (and ideally the visible copy).\n\n## Don't\n- Don't paint critical state in colour alone. Pair charts with a textual summary or a `BandBadge`.\n- Don't suppress the table fallback by re-mounting with changing keys mid-session; the `aria-describedby` link must stay stable while the figure is on screen.\n\n\n## Choropleth (spec §5 contract)\n\n- **Table fallback** — jurisdiction · value · band per row, sorted by\n  value descending; `aria-describedby`-linked sibling of the\n  `role=\"img\"` figure (table semantics survive). Data entries without\n  renderable geometry still get a row (data-driven completeness).\n- **Keyboard** — the map is one tab stop (roving tabindex); Arrow keys\n  move between jurisdictions sorted by value, Enter/Space toggles\n  selection, Esc clears. Small-jurisdiction chips are native buttons in\n  the normal tab order (D-118) with `aria-pressed`.\n- **Labels** — each region: `role=\"graphics-symbol\"` +\n  `aria-label=\"{name}, {value} {unit}, {band} band\"`. The tooltip is\n  `role=\"status\"` and supplementary only — never the sole carrier of a\n  value.\n- **Color independence** — band/value is always recoverable from the\n  table + labels + legend; never from fill alone. Under\n  `forced-colors: active`, jurisdictions carry `data-fc=\"region\"`\n  (fill → `CanvasText`, boundary strokes → `Canvas`); the table carries\n  the data.\n- **Motion** — only 120 ms stroke transitions, suppressed via\n  `useReducedMotion()` (R13); no entrance animation, no pan/zoom easing\n  (zoom is out of scope for v4.4).\n",
       "composesWith": [
         "TelemetryBeacon"
       ],
@@ -9242,7 +9322,7 @@
       "ChartContainer": {
         "state": "beta",
         "since": "v4.3",
-        "note": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-03 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1)."
+        "note": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-02 rev. v4.4 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1)."
       },
       "MotionProvider": {
         "state": "beta",
@@ -9357,9 +9437,9 @@
         "date": "2026-06-10",
         "component": "MotionProvider",
         "transition": "(new) → beta",
-        "ref": "GOV-DS-2026-03 §7 / D-110"
+        "ref": "GOV-DS-2026-02 rev. v4.4 §7 / D-110"
       }
     ]
   },
-  "sourceHash": "d30eb65bfcf10faa"
+  "sourceHash": "85e39302b438e460"
 }

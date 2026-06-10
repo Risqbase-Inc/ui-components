@@ -4,7 +4,7 @@
     "ChartContainer": {
       "state": "beta",
       "since": "v4.3",
-      "note": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-03 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1)."
+      "note": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-02 rev. v4.4 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1)."
     },
     "MotionProvider": {
       "state": "beta",
@@ -30,6 +30,6 @@
     { "date": "2026-05-18", "component": "Gauge", "transition": "private → stable", "ref": "v4.3 §11" },
     { "date": "2026-05-18", "component": "RiskGauge", "transition": "private → stable", "ref": "v4.3 §11" },
     { "date": "2026-05-18", "component": "ChartContainer", "transition": "private → beta", "ref": "v4.3 §11 (3 of 7 chart types)" },
-    { "date": "2026-06-10", "component": "MotionProvider", "transition": "(new) → beta", "ref": "GOV-DS-2026-03 §7 / D-110" }
+    { "date": "2026-06-10", "component": "MotionProvider", "transition": "(new) → beta", "ref": "GOV-DS-2026-02 rev. v4.4 §7 / D-110" }
   ]
 }

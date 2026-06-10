@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Agent-surface build (v4.4 Workstream C, GOV-DS-2026-03 §C1–§C4).
+ * Agent-surface build (v4.4 Workstream C, GOV-DS-2026-02 rev. v4.4 §C1–§C4).
  *
  * ONE build step produces every machine-readable artefact agents consume,
  * all derived from the same sources of truth — never hand-maintained:
@@ -38,6 +38,8 @@ import { createHash } from 'node:crypto'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
+
+import { escapeMdCell } from './lib/markdown.mjs'
 
 const require = createRequire(import.meta.url)
 const ts = require('typescript')
@@ -364,7 +366,7 @@ function componentMd(c) {
     } else {
       lines.push(`### \`${t.name}\``, '', '| Prop | Type | Required | Description |', '|---|---|:---:|---|')
       for (const m of t.members) {
-        lines.push(`| \`${m.name}\` | \`${m.type.replace(/\|/g, '\\|')}\` | ${m.required ? 'yes' : 'no'} | ${m.description ?? ''} |`)
+        lines.push(`| \`${escapeMdCell(m.name)}\` | \`${escapeMdCell(m.type)}\` | ${m.required ? 'yes' : 'no'} | ${escapeMdCell(m.description ?? '')} |`)
       }
       lines.push('')
     }
@@ -392,7 +394,7 @@ function tokenGroupMd(group, tokens) {
     const light = t.resolved.light?.hex ?? t.resolved.light?.value ?? ''
     const dark = t.resolved.dark?.hex ?? t.resolved.dark?.value ?? ''
     const dep = t.deprecated ? ' **DEPRECATED**' : ''
-    lines.push(`| \`${t.path}\` (\`${t.cssVariable}\`) | ${t.tier} | ${t.type} | \`${light}\` | \`${dark}\` | ${(t.description || '').replace(/\|/g, '\\|')}${dep} |`)
+    lines.push(`| \`${t.path}\` (\`${t.cssVariable}\`) | ${t.tier} | ${t.type} | \`${escapeMdCell(light)}\` | \`${escapeMdCell(dark)}\` | ${escapeMdCell(t.description || '')}${dep} |`)
   }
   lines.push('')
   return lines.join('\n')

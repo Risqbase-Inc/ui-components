@@ -125,4 +125,8 @@
   [data-fc="arc-secondary"] { stroke: CanvasText !important; }
   [data-fc="mark"]          { fill: CanvasText !important; stroke: CanvasText !important; }
   [data-fc="cell"]          { stroke: CanvasText !important; stroke-width: 1px; }
+  /* choropleth jurisdictions (v4.4 choropleth-spec §2): fills strip to
+     CanvasText; boundaries survive as Canvas strokes; the data path is
+     the table fallback. */
+  [data-fc="region"]        { fill: CanvasText !important; stroke: Canvas !important; }
 }

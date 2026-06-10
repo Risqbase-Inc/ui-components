@@ -1,6 +1,6 @@
 # @risqbase-inc/ui-components-mcp
 
-MCP server for the RisqBase Design System (GOV-DS-2026-03 Workstream C).
+MCP server for the RisqBase Design System (GOV-DS-2026-02 rev. v4.4 Workstream C).
 Read-only (D-102): components, tokens (light + dark), §20 recipes,
 promotion lifecycle, accessibility contracts, scanner rules R1–R14, and
 Layer-3 showcase entries (flagged `consumable: false`,

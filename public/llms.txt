@@ -9,7 +9,7 @@
 - [Button](/components/button.md): core · Layer 1 · stable — Role tokens (spec §15.2; resolved values in dist/tokens.css). Each `bg-[var(...)]` resolves to the same hex the v1.x cla
 - [Callout](/components/callout.md): core · Layer 1 · stable — Replaces the AI-slop left-border-accent pattern. v4.3 §5.1, closes RALIA F-002 + marketing C-05. Each intent gets a 1px 
 - [Card](/components/card.md): core · Layer 1 · stable — Default radius is 16px (= `--dimension-radius-card-default`, = `dimension.radius.xl`), per v4.3 §4.4. Replaces ad-hoc `r
-- [ChartContainer](/components/chart-container.md): data-viz · Layer 2 · beta — v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-03 §F / D-112) co
+- [ChartContainer](/components/chart-container.md): data-viz · Layer 2 · beta — v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-02 rev. v4.4 §F /
 - [CitationChip](/components/citation-chip.md): ai · Layer 2 · stable — Nine variants resolve through the `citation.*` token chain (v4.3 §4.2). The variant changes the surface tint, the border
 - [ClientGrid](/components/client-grid.md): ai · Layer 2 · stable — ClientGrid — Practice Cockpit "Requires your attention · N clients" 3-up grid that sits below CompliancePostureStrip. Sp
 - [ClientScopeBanner](/components/client-scope-banner.md): ai · Layer 2 · stable — Persistent below-header strip on every Practice route — surfaces the tenant-isolation artefact as a permanent UI element

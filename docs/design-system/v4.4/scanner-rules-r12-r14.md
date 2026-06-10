@@ -1,4 +1,4 @@
-# Scanner rules R12–R14 (v4.4, GOV-DS-2026-03 §9)
+# Scanner rules R12–R14 (v4.4, GOV-DS-2026-02 rev. v4.4 §9)
 
 **Status:** new in v4.4, CI-blocking in this repo; reference
 implementations ship with the package for consumer scanners (same

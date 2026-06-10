@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Scanner rule R13 — motion gating (v4.4 GOV-DS-2026-03 §9; the brief's
+ * Scanner rule R13 — motion gating (v4.4 GOV-DS-2026-02 rev. v4.4 §9; the brief's
  * "R12", renumbered per §13 decision 2026-06-09·2). Reference
  * implementation, same lifecycle as r11-iris-accent-on.mjs: ships with
  * the package so consumer scanners pick rule updates up via their normal
