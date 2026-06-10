@@ -1,12 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useReducedMotion } from '../MotionProvider'
 import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { ToastProps, ToastViewportProps, ToastIntent, ToastQuadrant } from './types'
 
 // Focus-aware positioner — the viewport places toasts in the quadrant
 // *opposite* the currently focused element, avoiding covering keyboard
 // focus (WCAG 2.4.11 Focus Not Obscured). v4.3 §5.1, closes RALIA F-054.
+//
+// Entrance: a subtle fade/slide via `animate-toast-enter` (keyframe
+// defined centrally in the Tailwind preset, DS v4.4 workstream E),
+// suppressed when `useReducedMotion()` resolves reduced;
+// `motion-reduce:animate-none` stays on as the no-JS / no-provider
+// CSS fallback.
 
 const intentSurface: Record<ToastIntent, { border: string; icon: string }> = {
   info:    { border: 'border-l-[var(--color-callout-info-border)]',    icon: 'text-[var(--color-callout-info-icon)]' },
@@ -23,8 +30,10 @@ const ariaRoleFor: Record<ToastIntent, 'status' | 'alert'> = {
 }
 
 export function Toast({ toast, onDismiss }: ToastProps) {
+  const reducedMotion = useReducedMotion()
   const intent = toast.intent ?? 'info'
   const style = intentSurface[intent]
+  const enterClasses = reducedMotion ? '' : ' animate-toast-enter motion-reduce:animate-none'
 
   useEffect(() => {
     if (!toast.duration) return
@@ -38,7 +47,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
     <div
       role={ariaRoleFor[intent]}
       aria-live={ariaRoleFor[intent] === 'alert' ? 'assertive' : 'polite'}
-      className={`flex gap-3 min-w-[280px] max-w-md bg-[var(--color-surface-default)] border border-[var(--color-border-default)] border-l-4 ${style.border} rounded-[var(--dimension-radius-md)] shadow-lg p-4`}
+      className={`flex gap-3 min-w-[280px] max-w-md bg-[var(--color-surface-default)] border border-[var(--color-border-default)] border-l-4 ${style.border} rounded-[var(--dimension-radius-md)] shadow-lg p-4${enterClasses}`}
     >
       <div className="flex-1 min-w-0">
         <div className="font-semibold text-sm text-[var(--color-text-default)]">{toast.title}</div>
@@ -47,7 +56,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
           <button
             type="button"
             onClick={toast.action.onClick}
-            className="mt-2 text-sm font-semibold text-[var(--color-action-primary)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
+            className="mt-2 text-sm font-semibold text-[var(--color-action-link)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
           >
             {toast.action.label}
           </button>

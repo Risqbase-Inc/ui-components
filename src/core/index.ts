@@ -27,6 +27,16 @@ export { WizardProgress } from './WizardProgress'
 export { Modal, Drawer, Sheet } from './Modal'
 export { Toast, ToastViewport } from './Toast'
 
+// v4.4 additions (workstream E, D-110) — motion preference. Promotion
+// state: beta.
+export {
+  MotionProvider,
+  useReducedMotion,
+  setMotionPreference,
+  getMotionPreference,
+  MOTION_STORAGE_KEY,
+} from './MotionProvider'
+
 // Telemetry contract (DS v4.3 §7.3) — no-op stub today; collector
 // dispatches on a separate landing (audit U4.2 / U4.3). Components emit
 // mount events internally; consumers can also drop the beacon onto
@@ -66,5 +76,6 @@ export type {
   BaseOverlayProps,
 } from './Modal/types'
 export type { ToastProps, ToastViewportProps, ToastItem, ToastIntent, ToastQuadrant } from './Toast/types'
+export type { MotionPreference, MotionProviderProps } from './MotionProvider/types'
 export type { TelemetryBeaconProps } from './TelemetryBeacon/types'
 export type { Theme } from './theme'

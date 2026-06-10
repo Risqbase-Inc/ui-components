@@ -10,6 +10,16 @@ const bars = [
   { x: 'APAC', y: 28 },
 ]
 
+// Heatmap fixture — risk velocity by region × quarter, with two null
+// cells (APAC onboarding gap) exercising `--color-chart-null`.
+const heatmapCells = (['EU', 'UK', 'US', 'APAC'] as const).flatMap((region, ri) =>
+  (['Q1', 'Q2', 'Q3', 'Q4'] as const).map((quarter, qi) => ({
+    x: quarter,
+    y: region as string,
+    value: region === 'APAC' && qi < 2 ? null : 20 + ri * 14 + qi * 9,
+  })),
+)
+
 const meta: Meta<typeof ChartContainer> = {
   title: 'Data-Viz / ChartContainer',
   component: ChartContainer,
@@ -19,7 +29,9 @@ const meta: Meta<typeof ChartContainer> = {
     series: [{ id: 'risk', label: 'Risk score', data: trend }],
     'aria-label': 'Risk score trend, 12 months, currently 78',
   },
-  argTypes: { type: { control: 'select', options: ['line', 'bar', 'sparkline'] } },
+  argTypes: {
+    type: { control: 'select', options: ['line', 'bar', 'sparkline', 'area', 'heatmap', 'metric-card'] },
+  },
 }
 export default meta
 type Story = StoryObj<typeof ChartContainer>
@@ -62,6 +74,72 @@ export const MultiSeries: Story = {
     ],
     header: 'Inherent vs residual · 12 months',
     'aria-label': 'Inherent vs residual risk trend',
+  },
+}
+
+export const Area: Story = {
+  args: {
+    type: 'area',
+    series: [
+      { id: 'inherent', label: 'Inherent', data: trend.map((p) => ({ ...p, y: p.y + 30 })) },
+      { id: 'residual', label: 'Residual', data: trend },
+    ],
+    header: 'Inherent vs residual · 12 months',
+    footer: 'Filled bands show magnitude; lines show trend.',
+    'aria-label': 'Inherent vs residual risk trend, 12 months, filled area chart',
+  },
+}
+
+export const Heatmap: Story = {
+  args: {
+    type: 'heatmap',
+    series: [],
+    cells: heatmapCells,
+    header: 'Risk velocity · region × quarter',
+    footer: 'APAC Q1–Q2 predate onboarding (no data).',
+    'aria-label': 'Risk velocity heatmap by region and quarter; APAC Q1 and Q2 have no data',
+  },
+}
+
+export const MetricCard: Story = {
+  args: {
+    type: 'metric-card',
+    series: [{ id: 'spark', label: 'Residual risk', data: sparkline }],
+    metric: {
+      value: '78',
+      label: 'Residual risk score',
+      delta: { value: '+12 pts', direction: 'up', positive: false },
+    },
+    width: 240,
+    'aria-label': 'Residual risk score 78, up 12 points since last month — worsening',
+  },
+}
+
+export const MetricCardDown: Story = {
+  args: {
+    type: 'metric-card',
+    series: [],
+    metric: {
+      value: '£1.2m',
+      label: 'Exposure under remediation',
+      delta: { value: '−8%', direction: 'down', positive: true },
+    },
+    width: 240,
+    'aria-label': 'Exposure under remediation £1.2m, down 8% — improving',
+  },
+}
+
+export const MetricCardFlat: Story = {
+  args: {
+    type: 'metric-card',
+    series: [],
+    metric: {
+      value: '14',
+      label: 'Open critical findings',
+      delta: { value: '±0', direction: 'flat' },
+    },
+    width: 240,
+    'aria-label': 'Open critical findings 14, unchanged since last week',
   },
 }
 

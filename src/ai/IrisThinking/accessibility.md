@@ -4,7 +4,7 @@ A motion glyph that signals "Iris is processing". Must not become an animation-o
 
 ## Contracts
 - `role="status"` + `aria-label="Thinking"` (overridable). The SVG itself is `aria-hidden="true"` — the wrapping `<span>` carries the announcement.
-- Under `prefers-reduced-motion: reduce`, rotation stops; the arcs hold position and oscillate opacity instead (0.4 → 1.0 → 0.4, 2s ease-in-out). The label is unchanged.
+- Under reduced motion — `useReducedMotion()` from `MotionProvider` (user override → OS signal; DS v4.4 workstream E) adds the `iris-thinking-reduced` class, with `prefers-reduced-motion: reduce` as the no-JS CSS fallback — rotation stops; the arcs hold position and oscillate opacity instead (0.4 → 1.0 → 0.4, 2s ease-in-out). All arcs keep rendering; the label is unchanged.
 - Pair with a polite live region (`aria-live="polite"` on the surrounding container) so screen-reader users hear *what* finished, not just that motion stopped.
 
 ## Iris contrast contract (DS v4.3 §4.2)

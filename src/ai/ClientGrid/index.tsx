@@ -300,7 +300,7 @@ export function ClientGrid({
               <button
                 type="button"
                 onClick={headingAction.onClick}
-                className="text-[11px] font-semibold text-[var(--color-action-primary)] bg-transparent border-0 cursor-pointer hover:underline focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] rounded-[var(--dimension-radius-sm)] px-1"
+                className="text-[11px] font-semibold text-[var(--color-action-link)] bg-transparent border-0 cursor-pointer hover:underline focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] rounded-[var(--dimension-radius-sm)] px-1"
               >
                 {headingAction.label}
               </button>

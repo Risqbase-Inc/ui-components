@@ -73,7 +73,7 @@ export function ClientScopeBanner({
           <button
             type="button"
             onClick={onDetails}
-            className="text-xs font-semibold text-[var(--color-action-primary)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
+            className="text-xs font-semibold text-[var(--color-action-link)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
           >
             Details
           </button>
@@ -82,7 +82,7 @@ export function ClientScopeBanner({
           <button
             type="button"
             onClick={onSwitch}
-            className="text-xs font-semibold text-[var(--color-action-primary)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
+            className="text-xs font-semibold text-[var(--color-action-link)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
           >
             Switch
           </button>
