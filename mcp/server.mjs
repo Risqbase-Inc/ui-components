@@ -109,13 +109,21 @@ export const TOOLS = [
 /* ── handlers ────────────────────────────────────────────────────────── */
 
 function componentSummary(c) {
-  return { name: c.name, domain: c.domain, layer: c.layer, state: c.state, description: c.description }
+  return { name: c.name, domain: c.domain, layer: c.layer, state: c.state, exports: c.exports, description: c.description }
 }
 
 function searchCorpus(registry) {
   const docs = []
   for (const c of registry.components) {
-    docs.push({ kind: 'component', id: c.name, ref: componentSummary(c), text: [c.name, c.domain, c.description, c.tokensDoc, c.accessibilityDoc, JSON.stringify(c.api)].join(' ') })
+    docs.push({
+      kind: 'component',
+      id: c.name,
+      // Secondary exports (e.g. BandBadge inside Badge/) rank like ids so
+      // "build a risk band chip" surfaces Badge/BandBadge, not a near-miss.
+      aliases: (c.exports || []).filter((e) => e !== c.name),
+      ref: componentSummary(c),
+      text: [c.name, c.domain, c.description, c.tokensDoc, c.accessibilityDoc, JSON.stringify(c.api)].join(' '),
+    })
   }
   for (const t of registry.tokens) {
     docs.push({ kind: 'token', id: t.path, ref: { path: t.path, tier: t.tier, type: t.type, description: t.description }, text: [t.path, t.cssVariable, t.description, t.tier].join(' ') })
@@ -206,13 +214,17 @@ export function createServer(registry = loadRegistry()) {
       const hits = searchCorpus(registry)
         .map((d) => {
           const text = d.text.toLowerCase()
-          const idLower = d.id.toLowerCase()
+          const ids = [d.id, ...(d.aliases || [])].map((x) => x.toLowerCase())
           let score = 0
           for (const term of terms) {
-            if (idLower === term) score += 10
-            else if (idLower.includes(term)) score += 5
+            const best = Math.max(...ids.map((idLower) => (idLower === term ? 10 : idLower.includes(term) ? 5 : 0)))
+            score += best
             if (text.includes(term)) score += 1
           }
+          // Layer-3 showcase entries are documented-not-consumable (D-104):
+          // for "what do I build with" queries the consumable primitives
+          // must outrank them, so they carry a rank penalty (still listed).
+          if (d.kind === 'showcase') score *= 0.5
           return { ...d, score }
         })
         .filter((d) => d.score > 0)

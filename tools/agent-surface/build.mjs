@@ -114,6 +114,14 @@ function extractDescription(indexPath) {
   return block.join(' ').replace(/\s+/g, ' ').trim()
 }
 
+function extractExports(indexPath) {
+  if (!existsSync(indexPath)) return []
+  const src = readFileSync(indexPath, 'utf8')
+  const names = new Set()
+  for (const m of src.matchAll(/export\s+(?:function|const)\s+([A-Z]\w+)/g)) names.add(m[1])
+  return [...names].sort()
+}
+
 function extractComposesWith(indexPath, allNames) {
   if (!existsSync(indexPath)) return []
   const src = readFileSync(indexPath, 'utf8')
@@ -156,6 +164,7 @@ function scanComponents(lifecycle) {
         state,
         stateNote: lifecycle.states[name]?.note,
         description: extractDescription(indexPath),
+        exports: extractExports(indexPath),
         import: `import { ${name} } from '@risqbase-inc/ui-components/${domain}'`,
         api: extractProps(path.join(dir, 'types.ts')),
         tokensDoc: read('tokens.md'),

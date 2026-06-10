@@ -11,6 +11,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Pure-decoration SVG primitive. 2–4 concentric arc fragments sharing an off-canvas centre. Visual signature that ties the marketing site to the RALIA product (Spec 06 §1). A11y: aria-hidden + role=\"presentation\"; no semantics, no tab stop. Motion: animated=true rotates the outermost ring 60s linear infinite. Gated on `prefers-reduced-motion: no-preference` via CSS — when reduced, the animation is suppressed and the static frame remains. This component is server-renderable (no useState, no useEffect). Centre-translate per position. The SVG canvas is `size × size`; we translate the ring-group to put the implicit centre off-canvas in the chosen corner. Marketing default is 'bottom-right' (Demo B).",
+      "exports": [
+        "ArcDecoration"
+      ],
       "import": "import { ArcDecoration } from '@risqbase-inc/ui-components/primitives'",
       "api": [
         {
@@ -94,7 +97,15 @@
       "domain": "core",
       "layer": 1,
       "state": "stable",
-      "description": "Role tokens (spec §15.2; resolved values in dist/tokens.css). The five `band-*` variants land in v4.3 (§5.1, closes RALIA F-018) and resolve through the canonical five-band semantic scale (`color.band.*`).",
+      "description": "Role tokens (spec §15.2; resolved values in dist/tokens.css). The five `band-*` variants land in v4.3 (§5.1, closes RALIA F-018) and resolve through the canonical five-band semantic scale (`color.band.*`). `BandBadge` is the canonical risk-band chip: a status chip mapping a risk band (very-low … very-high) to its band-coloured pill — use it instead of composing a custom band/risk chip.",
+      "exports": [
+        "Badge",
+        "BandBadge",
+        "ComingSoonBadge",
+        "MostPopularBadge",
+        "NewBadge",
+        "StandaloneProductBadge"
+      ],
       "import": "import { Badge } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -164,6 +175,12 @@
       "layer": 1,
       "state": "stable",
       "description": "Role tokens (spec §15.2; resolved values in dist/tokens.css). Each `bg-[var(...)]` resolves to the same hex the v1.x classes resolved to (no pixel change), but consumers / themes can swap the CSS variable without recompiling the component.",
+      "exports": [
+        "Button",
+        "GhostButton",
+        "PrimaryButton",
+        "SecondaryButton"
+      ],
       "import": "import { Button } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -217,6 +234,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Replaces the AI-slop left-border-accent pattern. v4.3 §5.1, closes RALIA F-002 + marketing C-05. Each intent gets a 1px border, a faint tinted surface (5% alpha over white via custom property + opacity), and an icon glyph drawn from the matching role.",
+      "exports": [
+        "Callout"
+      ],
       "import": "import { Callout } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -271,6 +291,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Default radius is 16px (= `--dimension-radius-card-default`, = `dimension.radius.xl`), per v4.3 §4.4. Replaces ad-hoc `rounded-2xl border` patterns at consumer sites — scanner rule R7 enforces component import. Closes RALIA F-060.",
+      "exports": [
+        "Card"
+      ],
       "import": "import { Card } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -320,6 +343,9 @@
       "state": "beta",
       "stateNote": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-03 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1).",
       "description": "v4.3 §5.3, status `beta`. Backed by visx@^3 (honouring the v4.2.1 audit row A1 pin). v4.4 (GOV-DS-2026-03 §F / D-112) completes the taxonomy: `area` / `heatmap` / `metric-card` join `line` / `bar` / `sparkline`. `choropleth` is descoped to v4.4.1 per §10.3 descope ladder rung 1 — 6/7 taxonomy ships in v4.4. A11y (brief F.3): every type renders a visually-hidden data table (`sr-only`) linked from the `<figure role=\"img\">` via `aria-describedby`, so screen-reader users can read the underlying series / cell values instead of relying on the `aria-label` summary alone.",
+      "exports": [
+        "ChartContainer"
+      ],
       "import": "import { ChartContainer } from '@risqbase-inc/ui-components/data-viz'",
       "api": [
         {
@@ -509,6 +535,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Nine variants resolve through the `citation.*` token chain (v4.3 §4.2). The variant changes the surface tint, the border treatment, and the glyph — but the *footprint* is constant so chips line-wrap predictably in flowing prose. v4.3 §5.2, closes RALIA F-012 / F-025. v2.1.0 (Spec 05 Actions B + C): - Action B: aria-label combines variant description + visible label so SR users hear \"Verified source: Art. 35(3)(c)\" not just \"Verified source\". The sr-only suffix span was removed because its content is now in the aria-label (avoids double-announcement). - Action C (WCAG 2.5.8 Target Size — Minimum): the interactive chip bumps to py-1 (~26px tall) to clear the 24×24 minimum. Static (non-clickable) chips keep py-0.5 (~22px) for in-line typographic rhythm — they are not interactive controls and 2.5.8 does not apply. Gated on `typeof onOpen === 'function'`.",
+      "exports": [
+        "CitationChip"
+      ],
       "import": "import { CitationChip } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -571,6 +600,9 @@
       "layer": 2,
       "state": "stable",
       "description": "ClientGrid — Practice Cockpit \"Requires your attention · N clients\" 3-up grid that sits below CompliancePostureStrip. Spec: docs/specs/v2.1.0/04-ClientGrid.md (post-G4 corrections). Visual canon: Marketing Demo C §2 (.cs-clients, 3-up grid). Composition: each card is a `core/Card variant=\"default\" padding=\"none\"` shell (we override padding because Demo C's 12px inner padding doesn't map onto the existing 'sm'/'md'/'lg' scale). The Card primitive still provides the radius + border + bg surface chain. Delta colour-inversion (§3.5 REFINE 4.1): positive weeklyDelta routes to `--color-band-very-high-bg` (worsening = alert); negative routes to `--color-band-very-low-bg` (improving = semantic emerald). NOT raw `--color-palette-emerald-500` — the band token IS the semantic emerald. Deterministic hash → palette mapping for clients that don't set an explicit avatarPalette. Simple sum-of-char-codes mod 6; collisions are fine — repeating a palette across 30 clients is cosmetic, not a bug.",
+      "exports": [
+        "ClientGrid"
+      ],
       "import": "import { ClientGrid } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -727,6 +759,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Persistent below-header strip on every Practice route — surfaces the tenant-isolation artefact as a permanent UI element. v4.3 §5.2, closes RALIA F-043.",
+      "exports": [
+        "ClientScopeBanner"
+      ],
       "import": "import { ClientScopeBanner } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -789,6 +824,9 @@
       "layer": 2,
       "state": "stable",
       "description": "CompliancePostureStrip — Practice Cockpit \"12-clients-at-a-glance\" strip. Spec: docs/specs/v2.1.0/03-CompliancePostureStrip.md (post-G4 corrections). Visual canon: Marketing Demo C §2 (.cs-posture, 12 mini-gauges). Layout (§3.1): grid with `auto-fit, minmax(72px, 1fr)` so the strip wraps gracefully beyond 12 entries while pinning to a single row at the cockpit canon width (~1232px ÷ 12 cells ≥ 72px each). A11y (§7): list of summary statistics, NOT a chart. Each cell is wrapped in a `role=\"img\"` div carrying a single structured `aria-label`; when `onClick` is supplied, the cell is additionally wrapped in a `<button>` whose `aria-label` supersedes (the button is the SR entry point). Token chain (§4): every visual surface routes through `--color-*` custom properties; the loading skeleton uses the v4.4 derived `--color-skeleton-shimmer` (spec 00b-v4.4-token-extension §1.2).",
+      "exports": [
+        "CompliancePostureStrip"
+      ],
       "import": "import { CompliancePostureStrip } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -912,6 +950,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Eight variants, all share the same layout. Variant is currently a hint for the consumer (and a telemetry tag once instrumentation lands) — the visual treatment is identical so designers can pick the semantically-correct variant without painting themselves into a corner. v4.3 §5.1, closes RALIA F-020 / F-055.",
+      "exports": [
+        "EmptyState"
+      ],
       "import": "import { EmptyState } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -978,6 +1019,15 @@
       "layer": 1,
       "state": "stable",
       "description": "─── Default link map (canonical) ──────────────────────────────────────────── Exported so downstream consumers can introspect / extend.",
+      "exports": [
+        "DEFAULT_COMPANY_LINKS",
+        "DEFAULT_LEGAL_LINKS",
+        "DEFAULT_PLATFORM_LINKS",
+        "DEFAULT_PRACTICE_LINKS",
+        "DEFAULT_SECTIONS",
+        "DEFAULT_SOLUTIONS_LINKS",
+        "Footer"
+      ],
       "import": "import { Footer } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -1062,6 +1112,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Generic stroked-arc primitive — the *configuration* that makes a RiskGauge (dual ring · teal · band-derived chip · delta pill) is RALIA-private (Layer 3). v4.3 §5.3, closes v4.2 audit U2.1.",
+      "exports": [
+        "Gauge"
+      ],
       "import": "import { Gauge } from '@risqbase-inc/ui-components/data-viz'",
       "api": [
         {
@@ -1151,6 +1204,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Header is purely presentational: no useState, no useEffect, no useRef, no browser APIs in this file. The v2.1.0 dropdown additions live in `./NavDropdown.tsx` (a 'use client' island gated to the dropdown sub-tree only) and in `./NavDropdownContext.tsx` (also client). The surrounding chrome stays server-rendered per Spec 07 §2.3 + cover §2.3. Re-add 'use client' to this file ONLY if a future change introduces client behaviour to the chrome itself.",
+      "exports": [
+        "Header"
+      ],
       "import": "import { Header } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -1245,6 +1301,9 @@
       "layer": 2,
       "state": "stable",
       "description": "HeroVideo — marketing-tier wrapper over a native <video>. Subsumes the homepage hero use case from BRIEF-429 V2 (Demo I). Spec docs/specs/v2.1.0/02-HeroVideo.md. CLIENT BOUNDARY (cover §2.3): IntersectionObserver-gated lazy-load and a `prefers-reduced-motion: reduce` media-query listener both require browser APIs, so the whole component is a client island. The wrapping page may render server-first; this component renders client-first. Behaviour contract (spec §3): - `idle` until IntersectionObserver fires (poster + play affordance visible). - On first intersect-true: attempt muted/playsInline .play(). On success → `playing`. On failure → after a 5s retry window → `errored` (poster + \"Tap to play\" overlay). - On `prefers-reduced-motion: reduce` at mount: skip the IO entirely and render the 2×2 fallback grid (`reduced-motion` state). - Loop boundary fires `onLoopRestart` per spec §3.5; the visual handshake itself lives in the video file, not this component.",
+      "exports": [
+        "HeroVideo"
+      ],
       "import": "import { HeroVideo } from '@risqbase-inc/ui-components/marketing'",
       "api": [
         {
@@ -1432,6 +1491,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Hit target is always ≥ 24×24 regardless of the visual icon size — the `sm` variant pads a 16px glyph out to a 24×24 button, satisfying WCAG 2.5.8 by construction. v4.3 §5.1, closes RALIA F-015 / F-028 / F-037 / F-050.",
+      "exports": [
+        "IconButton"
+      ],
       "import": "import { IconButton } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -1492,6 +1554,7 @@
       "layer": 2,
       "state": "stable",
       "description": "",
+      "exports": [],
       "import": "import { ImpactGraph } from '@risqbase-inc/ui-components/data-viz'",
       "api": [
         {
@@ -1737,6 +1800,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Concentric-arc rotation: outer 2.4s · middle 1.8s reversed · inner 1.4s. Under reduced motion (resolved via `useReducedMotion()`, DS v4.4 workstream E — or `prefers-reduced-motion: reduce` as the CSS fallback), all three arcs hold position and pulse opacity instead; the `iris-thinking-reduced` class carries the JS-resolved state. v4.3 §5.2, closes RALIA F-011 / F-051.",
+      "exports": [
+        "IrisThinking"
+      ],
       "import": "import { IrisThinking } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -1781,6 +1847,11 @@
       "layer": 1,
       "state": "stable",
       "description": "v4.3 §5.1, closes RALIA F-046. Backed by `@radix-ui/react-dialog` — Radix handles focus trap, focus restoration, scroll-locking, ARIA wiring, and `inert` for siblings. We keep our own `Modal` / `Drawer` / `Sheet` API surface as the public contract; the Radix dependency is implementation detail (one peer upgrade and we still expose `open` / `onClose` / `title`).",
+      "exports": [
+        "Drawer",
+        "Modal",
+        "Sheet"
+      ],
       "import": "import { Modal } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -1885,6 +1956,10 @@
       "state": "beta",
       "stateNote": "New in v4.4 Workstream E (D-110); no second consumer yet per §7.2 lifecycle.",
       "description": "`storage` events only fire in *other* tabs, so `setMotionPreference` dispatches this on the current window after every write.",
+      "exports": [
+        "MOTION_STORAGE_KEY",
+        "MotionProvider"
+      ],
       "import": "import { MotionProvider } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -1924,6 +1999,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Empty-state Iris prompt suggestion — clickable to seed the input. Iris accent halo on hover via `iris.accent-subtle`. v4.3 §5.2.",
+      "exports": [
+        "PromptChip"
+      ],
       "import": "import { PromptChip } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -1959,6 +2037,9 @@
       "layer": 2,
       "state": "stable",
       "description": "RiskGauge composes the generic `Gauge` primitive with compliance semantics: dual-ring (inherent → residual), band derivation from residual, delta pill, locked teal palette to preserve the Iris signature. v4.3 §5.3 — RiskGauge component is Layer-2 generic; the RiskGauge *configuration* (this composition) is Layer-3 RALIA-private. We ship it from the package as a convenience but it is documented as product-private in the showcase. Closes v4.2 audit U2.2.",
+      "exports": [
+        "RiskGauge"
+      ],
       "import": "import { RiskGauge } from '@risqbase-inc/ui-components/data-viz'",
       "api": [
         {
@@ -2020,6 +2101,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Role token (spec §15.2). Resolves identically to v1.x `text-indigo-600` in light mode; theme overrides will swap the variable in dark/HC.",
+      "exports": [
+        "SectionEyebrow"
+      ],
       "import": "import { SectionEyebrow } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -2053,6 +2137,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Shimmer at 1.4s linear infinite; respects the resolved motion preference via `useReducedMotion()` (DS v4.4 workstream E) — when reduced, the block renders as a static muted fill. The `motion-reduce:` variants stay on as the no-JS / no-provider CSS fallback. v4.3 §5.1, closes RALIA F-004. The shimmer is implemented as a CSS background-position animation against a 3-stop gradient — no JS, no layout thrash.",
+      "exports": [
+        "Skeleton"
+      ],
       "import": "import { Skeleton } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -2104,6 +2191,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Visually hidden until focused. First focusable element in the App shell — keyboard / screen-reader users tab once to reveal it, then Enter to jump past navigation to the main landmark. v4.3 §5.1, closes RALIA F-053 + WCAG 2.4.1 Bypass Blocks.",
+      "exports": [
+        "SkipLink"
+      ],
       "import": "import { SkipLink } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -2144,6 +2234,9 @@
       "layer": 2,
       "state": "stable",
       "description": "Constant cadence (default 35 tok/s). Renders tokens incrementally so the final text stays addressable by tests / screen readers — there's no per-character DOM churn. Under reduced motion (DS v4.4 workstream E) all tokens reveal immediately — no cadence interval, no blinking cursor — and `onComplete` still fires exactly once. v4.3 §5.2, closes O-006.",
+      "exports": [
+        "StreamingText"
+      ],
       "import": "import { StreamingText } from '@risqbase-inc/ui-components/ai'",
       "api": [
         {
@@ -2196,6 +2289,9 @@
       "layer": 1,
       "state": "stable",
       "description": "No-op stub for the adoption-telemetry contract (DS v4.3 §7.3, audit rows U4.2 / U4.3). Components emit mount events regardless of whether the collector is alive — instrument first, route later. Same pattern as Segment / Amplitude / OpenTelemetry. Behaviour today: - production: no-op - development with NEXT_PUBLIC_TELEMETRY_DEBUG=1: console.debug When the collector lands, it replaces the emit call with a real dispatch — no component code changes. The Beacon itself stays a client component so server-rendered primitives can keep their RSC posture (they just render `<TelemetryBeacon/>` as a child).",
+      "exports": [
+        "TelemetryBeacon"
+      ],
       "import": "import { TelemetryBeacon } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -2241,6 +2337,10 @@
       "layer": 1,
       "state": "stable",
       "description": "Focus-aware positioner — the viewport places toasts in the quadrant *opposite* the currently focused element, avoiding covering keyboard focus (WCAG 2.4.11 Focus Not Obscured). v4.3 §5.1, closes RALIA F-054. Entrance: a subtle fade/slide via `animate-toast-enter` (keyframe defined centrally in the Tailwind preset, DS v4.4 workstream E), suppressed when `useReducedMotion()` resolves reduced; `motion-reduce:animate-none` stays on as the no-JS / no-provider CSS fallback.",
+      "exports": [
+        "Toast",
+        "ToastViewport"
+      ],
       "import": "import { Toast } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -2343,6 +2443,9 @@
       "layer": 1,
       "state": "stable",
       "description": "Auto-selects style by step count, per v4.3 §5.1: dots (≤ 4) — quick visual numbered (5–8) — explicit step number vertical (> 8) — long flows; horizontal bar would crush labels percentage — opt-in for conversational / unknown total Closes RALIA F-010.",
+      "exports": [
+        "WizardProgress"
+      ],
       "import": "import { WizardProgress } from '@risqbase-inc/ui-components/core'",
       "api": [
         {
@@ -9258,5 +9361,5 @@
       }
     ]
   },
-  "sourceHash": "018e52f758c9cc06"
+  "sourceHash": "d30eb65bfcf10faa"
 }

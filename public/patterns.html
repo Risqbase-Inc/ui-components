@@ -53,6 +53,7 @@
       <li><a href="#dashboard-chart-row" class="is-active">dashboard-chart-row</a></li>
       <li><a href="#time-comparison-chart">time-comparison-chart</a></li>
       <li><a href="#distribution-drilldown">distribution-drilldown</a></li>
+      <li><a href="#motion-preference">motion-preference</a></li>
     </ul>
   </div>
   <div class="group">
@@ -200,6 +201,38 @@
       <div class="schema"><div class="key">voice examples</div><div>Stat language: median, P95, IQR - defined per glossary §10.6. Tied to <code>template_id 10.8.1</code> (AI-hedging where IRIS surfaces stats).</div></div>
       <div class="schema"><div class="key">accessibility</div><div>Histogram bins focusable via arrow keys. Data-table toggle <kbd class="kbd">t</kbd>.</div></div>
       <div class="schema"><div class="key">last reviewed</div><div>2026-05-07 (v4.2)</div></div>
+    </div>
+  </div>
+
+
+  <h2 id="motion-preference" style="margin-top:48px;">motion-preference</h2>
+  <div class="card recipe">
+    <div class="head">
+      <div>
+        <h2>Motion preference</h2>
+        <p style="margin:0; color:var(--color-text-subtle); font-size:14px;">Settings-surface toggle for reduced motion · MotionProvider + labelled switch · new in v4.4 (D-110).</p>
+      </div>
+      <div class="meta">
+        <span class="version-pill">Layer 1 · core</span>
+        <span class="version-pill">beta</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="preview">
+        <p style="margin:0 0 8px; font-weight:600;">Reduce motion</p>
+        <p style="margin:0; color:var(--color-text-subtle); font-size:14px;">Fewer animations, same information. Currently following your system setting.</p>
+      </div>
+      <h3>Schema (§20.0)</h3>
+      <div class="schema"><div class="key">id</div><div><code>motion-preference</code></div></div>
+      <div class="schema"><div class="key">problem</div><div>Users need an in-product way to reduce animation without changing their OS setting — and an escape hatch to re-enable motion when the OS asks for reduced.</div></div>
+      <div class="schema"><div class="key">when to use</div><div>Any product settings surface. The OS <code>prefers-reduced-motion</code> signal is the default; the explicit choice (persisted to <code>risqbase:motion</code>) overrides it in both directions.</div></div>
+      <div class="schema"><div class="key">when not to use</div><div>Don't ship a toggle that only affects some components, and never override the OS reduce-motion signal silently.</div></div>
+      <div class="schema"><div class="key">composed of</div><div>MotionProvider (app root) · labelled switch built from Button/IconButton + text · <code>setMotionPreference('full' | 'reduced' | null)</code></div></div>
+      <div class="schema"><div class="key">css contract</div><div><code>data-motion="full | reduced"</code> on the provider wrapper; central <code>[data-motion="reduced"]</code> rules in <code>tokens.css</code>; scanner rule R13 gates component animation.</div></div>
+      <div class="schema"><div class="key">voice examples</div><div>"Reduce motion — fewer animations, same information." · "Following your system setting." Tied to <code>template_id 10.5.5</code>.</div></div>
+      <div class="schema"><div class="key">accessibility</div><div>WCAG 2.3.3 Animation from Interactions; resolution order documented in <code>src/core/MotionProvider/accessibility.md</code>.</div></div>
+      <div class="schema"><div class="key">machine-readable</div><div><a href="patterns/motion-preference.md"><code>/patterns/motion-preference.md</code></a> (llms.txt corpus)</div></div>
+      <div class="schema"><div class="key">last reviewed</div><div>2026-06-10 (v4.4)</div></div>
     </div>
   </div>
 

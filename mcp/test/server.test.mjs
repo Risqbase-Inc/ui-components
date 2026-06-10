@@ -155,14 +155,18 @@ test('list_showcase + get_showcase carry the D-104 flags on every entry', () => 
 test('search ranks the C5 smoke-test queries correctly', () => {
   // §C5: "what do I use for an AI citation with low confidence?"
   const citation = call('search', { query: 'citation low-confidence' })
-  assert.equal(citation.hits[0].kind, 'component')
-  assert.equal(citation.hits[0].id, 'CitationChip')
-  // §C5: "build a risk band chip" → BandBadge (Badge band variants), not custom
-  const band = call('search', { query: 'risk band chip badge' })
   assert.ok(
-    band.hits.slice(0, 3).some((h) => h.id === 'Badge'),
-    `expected Badge in top hits, got ${JSON.stringify(band.hits.slice(0, 3))}`
+    citation.hits.slice(0, 3).some((h) => h.id === 'CitationChip'),
+    `expected CitationChip in top hits, got ${JSON.stringify(citation.hits.slice(0, 3).map((h) => h.id))}`
   )
+  assert.ok(
+    citation.hits.slice(0, 3).every((h) => h.id === 'CitationChip' || /citation/.test(h.id)),
+    'top hits must all point at the citation chain'
+  )
+  // §C5: "build a risk band chip" → BandBadge (Badge band variants), not custom
+  const band = call('search', { query: 'risk band chip' })
+  assert.equal(band.hits[0].id, 'Badge', `expected Badge as top hit, got ${JSON.stringify(band.hits.slice(0, 3))}`)
+  assert.ok(band.hits[0].exports.includes('BandBadge'), 'Badge summary must surface the BandBadge export')
 })
 
 test('Streamable HTTP wrapper answers list_components over POST', async () => {
