@@ -122,6 +122,19 @@ Inputs filed: `docs/design-system/v4.4/a11y-triage-chromatic-6a1c1e6f.html`, `a1
 
 All three PENDING-DECISION `contrastExempt` sets removed; the new pairs joined the expanded verify-contrast gate — **60 pairs verified per theme (was 8 pre-A11Y-FIX), all clear their floor in light AND dark**; remaining documented exemptions: 6 (decorative callout icons, unrendered footer.logo token).
 
+## Added scope 11 Jun — Brand mark v3 (hand-off `design_handoff_brand_mark_v3`, LOCKED; brief ui-components#43)
+
+Joined this PR at the owner's request; this repo carries only the `ui-components` leg of the propagation plan. Full evidence: `docs/design-system/v4.4/reports/brand-mark-v3.md` (+ render sheet and header screenshots alongside).
+
+| Row | Status | Evidence |
+|---|---|---|
+| Assets shipped byte-faithful (post-SVGO) | PASS | `public/{icon,mark,favicon-inverse-optional}.svg` (547–661 B, all ≤2 KB); SVGO preset-default + `keepRoleAttr` (plain defaults strip the deliberate `role="img"`); before/after rasters **pixel-identical at 512²**; no `<text>`/`font-family`/`stroke`/gray-* (the drifted Helvetica-`<text>` icon.svg is gone); `favicon.ico` regenerated from `icon.svg` only |
+| Validation | PASS (W3C substituted) | DOMParser (jsdom) parses all three in the SVG namespace, no errors; **W3C Nu unreachable (network allowlist)** — flagged for an optional post-merge re-run |
+| npm asset exports | PASS | `./assets/{icon,mark,favicon-inverse}.svg` exports + `files` entries; verified in `npm pack --dry-run` |
+| A1 tint migration (docs-site sweep) | PASS | New `--color-header-logo` `#4338CA`/`#A5B4FC`; topbar mark+wordmark moved off `--color-action-primary`; mark inlined as `<svg currentColor>` (not `<img>`) in all 6 templates + `components/button.html`; `docs:build`+`docs:check` green; light/dark screenshots; contrast 7.9:1 / 8.6:1 (≥7 AAA). Action colours untouched; `_canvas` BRIEF-401 artefact deliberately untouched |
+| Release vehicle | NOTE | Hand-off says "1.x minor" — stale vs this repo (2.1.3 shipped); lands in the same release-please **minor** (2.2.0) as the rest of v4.4 |
+| Out of scope here | — | Consumer repos (`ralia-tier2`, `risqbase-com`, `internal-tools`): favicon/PNG derivatives, Header/footer Logo inlining (N-02), footer wordmark N-01 tint, `internal-tools` `/icon` route removal, sister issues Ralia#585 / internal-tools#290 — per hand-off tasks 2–5 |
+
 ## PR #84 merge path (required checks per docs/devops/branch-protection.md)
 
 - **Lint & Build** (required): **green** — carries every v4.4 gate (R12 token lint, R13 motion scan, R14 agent-surface drift, MCP tests, DoD-5 negatives, docs/readme drift, tsc, eslint).

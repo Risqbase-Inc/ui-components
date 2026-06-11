@@ -26,6 +26,9 @@
   --color-action-primary-hover: #4338CA;
   --color-action-primary-subtle: #E0E7FF;
 
+  /* Brand mark v3 (rev. A1) — deliberately diverges from action-primary */
+  --color-header-logo: #4338CA;
+
   /* Iris teal — system signature accent */
   --color-iris: #0D9488;
   --color-iris-subtle: #CCFBF1;
@@ -69,6 +72,8 @@
   --color-action-primary-hover: #678AF6;
   --color-action-primary-subtle: #182241;
 
+  --color-header-logo: #A5B4FC;
+
   --color-iris: #1E9B8F;
   --color-iris-subtle: #16302E;
 }
@@ -111,7 +116,8 @@ a:hover { color: var(--color-action-primary); }
   background: var(--color-surface-default);
   border-bottom: 1px solid var(--color-border-subtle);
 }
-.topbar .logo { display: flex; align-items: baseline; gap: var(--space-2); font-weight: 700; letter-spacing: -0.015em; color: var(--color-action-primary); font-size: 17px; }
+.topbar .logo { display: flex; align-items: baseline; gap: var(--space-2); font-weight: 700; letter-spacing: -0.015em; color: var(--color-header-logo); font-size: 17px; }
+.topbar .logo .logo-mark { width: 20px; height: 20px; align-self: center; flex: none; }
 .topbar .logo .subtitle { color: var(--color-text-subtle); font-weight: 500; font-size: 13px; letter-spacing: 0; }
 .topbar nav { display: flex; gap: var(--space-6); margin-left: auto; }
 .topbar nav a { font-size: 14px; font-weight: 500; color: var(--color-text-subtle); }

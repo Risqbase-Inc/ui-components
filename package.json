@@ -47,6 +47,9 @@
       "require": "./dist/tokens/index.js"
     },
     "./tailwind.preset": "./tailwind.preset.js",
+    "./assets/icon.svg": "./public/icon.svg",
+    "./assets/mark.svg": "./public/mark.svg",
+    "./assets/favicon-inverse.svg": "./public/favicon-inverse-optional.svg",
     "./package.json": "./package.json"
   },
   "files": [
@@ -54,7 +57,10 @@
     "tailwind.preset.js",
     "tokens",
     "tools/tokens-build",
-    "scripts/scanner-rules"
+    "scripts/scanner-rules",
+    "public/icon.svg",
+    "public/mark.svg",
+    "public/favicon-inverse-optional.svg"
   ],
   "scripts": {
     "build:tokens": "node tools/tokens-build/index.js",
