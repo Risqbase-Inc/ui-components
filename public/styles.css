@@ -10,7 +10,7 @@
 
   /* Text */
   --color-text-default: #292524;
-  --color-text-subtle: #78716C;
+  --color-text-subtle: #57534E; /* AAA text tier (PR-B): mirrors color.text.subtle stone-600 */
   --color-text-on-action: #FFFFFF;
   --color-text-on-inverse: #FFFFFF;
   --color-text-on-inverse-subtle: #A8A29E;

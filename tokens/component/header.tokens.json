@@ -32,7 +32,7 @@
         "$value": "{color.text.subtle}",
         "$type": "color",
         "$description": "Header tagline text (e.g. \"by RisqBase\")",
-        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/tagline", "scopes": ["TEXT_FILL"] }
         }
@@ -42,7 +42,7 @@
           "$value": "{color.text.subtle}",
           "$type": "color",
           "$description": "Header nav link — default state",
-          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/nav-link/default", "scopes": ["TEXT_FILL"] }
           }
@@ -92,7 +92,7 @@
         "$value": "{color.text.subtle}",
         "$type": "color",
         "$description": "Header launch-date label colour",
-        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/launch-date", "scopes": ["TEXT_FILL"] }
         }

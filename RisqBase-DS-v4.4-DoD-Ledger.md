@@ -146,6 +146,19 @@ Joined this PR at the owner's request; this repo carries only the `ui-components
 | T5 scanner rule R15 | PASS | `scan:brand` CI step + `rules.json` entry + DoD-5 fixture proof (fails on Helvetica/`<text>` lockup fixture, passes real src). **Narrowed vs the work order's literal "any `<text` in src/**"** — charts lawfully render `<text>` data labels (ImpactGraph, ChartContainer) and system-first stacks; the rule targets the actual drift class: non-system first font family, or `<text>` carrying the `r\|ↄ` lockup |
 | T5 record-keeping | PASS | indigo-600 primitive description updated (logo reference removed); #43 audit-row spec amendment recorded: "Brand fill `#4F46E5` ✅ correct" superseded by rev. A1 — mark `#4338CA`/`#A5B4FC` via `color.brand.mark`, deliberately divergent from `color.action.primary` (proposed replacement row in the #43 comment, 11 Jun); changelog entry under Unreleased |
 
+### Central migration PR-B (work order 11 Jun — AAA text tier, T4) — separate commit, own visual review
+
+> The work order mandated PR-B ship as its own PR for an isolated Chromatic sign-off; per the owner's 11 Jun instruction both land on PR #84 as **separate commits** (PR-B = the `fix(tokens): AAA text tier` commit) so its diff set stays independently identifiable and revertible. **Chromatic review note:** expect diffs across most stories — secondary text slightly darker in light theme (stone-500 → stone-600); nothing structural.
+
+| Row | Status | Evidence |
+|---|---|---|
+| `text.subtle` → stone-600 | PASS | 7.63:1 light (was ≈4.8) / dark override untouched at 7.73 — AAA both themes; `contrastLevel: aaa` annotated |
+| `text.on-inverse-subtle` → stone-300 | PASS | 11.74:1 light (was ≈6.9) / dark override untouched at 7.44 — AAA both themes; `contrastLevel: aaa` |
+| Dark-override audit (step 3) | PASS | Both dark counterparts already ≥7:1 — **no one-step adjustment needed** |
+| Alias re-annotation (step 2 audit) | PASS | Direct aliases now declaring `aaa`: `header.tagline`, `header.nav-link.default`, `header.launch-date`, `gauge-component.caption` (each ≥7.6 light / ≥7.7 dark). Not upgraded: `text.subtle-on-muted` (6.99 light / 6.36 dark on muted surfaces — D-125b values stand, floor stays AA) |
+| Docs-site mirror | PASS | `--color-text-subtle` `#78716C` → `#57534E` (light block; dark already mirrors); comment points at the token |
+| verify-contrast | PASS | `--strict` green: 63 pairs per theme, all clear their (tightened) floors |
+
 ## PR #84 merge path (required checks per docs/devops/branch-protection.md)
 
 - **Lint & Build** (required): **green** — carries every v4.4 gate (R12 token lint, R13 motion scan, R14 agent-surface drift, MCP tests, DoD-5 negatives, docs/readme drift, tsc, eslint).

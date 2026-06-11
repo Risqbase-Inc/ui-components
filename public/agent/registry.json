@@ -4380,16 +4380,16 @@
     {
       "path": "color.text.subtle",
       "type": "color",
-      "description": "Subtle / secondary text",
+      "description": "Subtle / secondary text. AAA text tier (PR-B, 2026-06-11): stone-500 (≈4.8:1 on white) → stone-600 (≈7.6:1) per the AAA programme (AAA Compliance Catalogue, brand-mark v3 hand-off)",
       "tier": "semantic",
-      "value": "{color.neutral.stone.500}",
+      "value": "{color.neutral.stone.600}",
       "resolutionChain": [
-        "color.neutral.stone.500"
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -4397,7 +4397,8 @@
         }
       },
       "cssVariable": "--color-text-subtle",
-      "contrastPair": "color.surface.default"
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.text.subtle-on-muted",
@@ -4468,16 +4469,16 @@
     {
       "path": "color.text.on-inverse-subtle",
       "type": "color",
-      "description": "Subtle text on inverse surface — footer body, copyright",
+      "description": "Subtle text on inverse surface — footer body, copyright. AAA text tier (PR-B, 2026-06-11): stone-400 (≈6.9:1 on stone-900) → stone-300 (≈11.7:1) per the AAA programme",
       "tier": "semantic",
-      "value": "{color.neutral.stone.400}",
+      "value": "{color.neutral.stone.300}",
       "resolutionChain": [
-        "color.neutral.stone.400"
+        "color.neutral.stone.300"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(71.60844% 0.009054 56.259003)",
-          "hex": "#a8a29e"
+          "value": "oklch(86.866141% 0.004306 56.366031)",
+          "hex": "#d6d3d1"
         },
         "dark": {
           "value": "oklch(42.905288% 0.008399 248.023716)",
@@ -4485,7 +4486,8 @@
         }
       },
       "cssVariable": "--color-text-on-inverse-subtle",
-      "contrastPair": "color.surface.inverse"
+      "contrastPair": "color.surface.inverse",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.border.default",
@@ -8123,12 +8125,12 @@
       "value": "{color.text.subtle}",
       "resolutionChain": [
         "color.text.subtle",
-        "color.neutral.stone.500"
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -8136,7 +8138,8 @@
         }
       },
       "cssVariable": "--color-gauge-component-caption",
-      "contrastPair": "color.surface.default"
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.header.background",
@@ -8214,12 +8217,12 @@
       "value": "{color.text.subtle}",
       "resolutionChain": [
         "color.text.subtle",
-        "color.neutral.stone.500"
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -8227,7 +8230,8 @@
         }
       },
       "cssVariable": "--color-header-tagline",
-      "contrastPair": "color.header.background"
+      "contrastPair": "color.header.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.header.nav-link.default",
@@ -8237,12 +8241,12 @@
       "value": "{color.text.subtle}",
       "resolutionChain": [
         "color.text.subtle",
-        "color.neutral.stone.500"
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -8250,7 +8254,8 @@
         }
       },
       "cssVariable": "--color-header-nav-link-default",
-      "contrastPair": "color.header.background"
+      "contrastPair": "color.header.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.header.nav-link.hover",
@@ -8351,12 +8356,12 @@
       "value": "{color.text.subtle}",
       "resolutionChain": [
         "color.text.subtle",
-        "color.neutral.stone.500"
+        "color.neutral.stone.600"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(55.340165% 0.011607 58.07083)",
-          "hex": "#78716c"
+          "value": "oklch(44.441723% 0.009597 73.638981)",
+          "hex": "#57534e"
         },
         "dark": {
           "value": "oklch(72.556831% 0.008129 241.708589)",
@@ -8364,7 +8369,8 @@
         }
       },
       "cssVariable": "--color-header-launch-date",
-      "contrastPair": "color.header.background"
+      "contrastPair": "color.header.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.iris-thinking.outer",
@@ -9641,5 +9647,5 @@
       }
     ]
   },
-  "sourceHash": "af5c6ff4abefbc64"
+  "sourceHash": "450d4686e44baa73"
 }

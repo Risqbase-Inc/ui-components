@@ -115,10 +115,11 @@
         }
       },
       "subtle": {
-        "$value": "{color.neutral.stone.500}",
+        "$value": "{color.neutral.stone.600}",
         "$type": "color",
-        "$description": "Subtle / secondary text",
+        "$description": "Subtle / secondary text. AAA text tier (PR-B, 2026-06-11): stone-500 (≈4.8:1 on white) → stone-600 (≈7.6:1) per the AAA programme (AAA Compliance Catalogue, brand-mark v3 hand-off)",
         "$extensions": { "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "semantic",
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/subtle", "scopes": ["TEXT_FILL"] }
         }
@@ -154,10 +155,11 @@
         }
       },
       "on-inverse-subtle": {
-        "$value": "{color.neutral.stone.400}",
+        "$value": "{color.neutral.stone.300}",
         "$type": "color",
-        "$description": "Subtle text on inverse surface — footer body, copyright",
+        "$description": "Subtle text on inverse surface — footer body, copyright. AAA text tier (PR-B, 2026-06-11): stone-400 (≈6.9:1 on stone-900) → stone-300 (≈11.7:1) per the AAA programme",
         "$extensions": {
+          "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "semantic",
           "com.risqbase.contrastPair": "{color.surface.inverse}",
           "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/text/on-inverse-subtle", "scopes": ["TEXT_FILL"] }
