@@ -1,6 +1,7 @@
 # Brand mark v3 — implementation evidence (ui-components leg)
 
 **Source:** design hand-off `artefacts/brand/design_handoff_brand_mark_v3` (LOCKED 2026-06-11, Claude Design), brief `ui-components#43`.
+**Spec revision:** A1 **v1.1** (hand-off update, 2026-06-11 post-implementation) restates A1 as **surface-relative** — indigo-700 on light surfaces / indigo-300 on dark, independent of theme — and adopts the `e9e7855` token shape as spec: `color.brand.mark` for default surfaces, `color.brand.mark-on-inverse` for inverse surfaces, inverse text re-aliasing `on-inverse-subtle`, and the narrowed R15 scope (RATIONALE-ADDENDUM §11).
 **Scope here:** the `ui-components` PR leg only. Consumer repos (`ralia-tier2`, `risqbase-com`, `internal-tools`) and their favicon/Logo-component/footer-tint migrations are tracked separately per the hand-off propagation plan.
 
 ## What shipped
@@ -25,7 +26,7 @@ Docs-site tint migration (A1): new `--color-header-logo` — `#4338CA` (indigo-7
 - [x] No `<text>`, no `font-family`, no `stroke`, no gray-\* hex in any of the three.
 - [x] Renders checked at 16/32/48/64/180/512 (`brand-mark-v3-render-sheet.png`) + themed mark light/dark.
 - [x] `mark.svg` inlined (not `<img>`) where it themes — docs topbar, screenshots `brand-mark-v3-header-{light,dark}.png`.
-- [x] Header tint token migrated (indigo-700/indigo-300); no action colours changed. (Footer wordmark N-01: this repo's docs site has no footer wordmark — consumer-repo scope.)
+- [x] Tint tokens migrated **surface-relatively** (A1 v1.1): default-surface header logos consume `color.brand.mark` (docs site mirrors it in `--color-header-logo`); the inverse-surface Footer consumes `color.brand.mark-on-inverse` (PR-A commit `e9e7855`); no action colours changed.
 - [x] Placement rule: docs topbar surfaces give 7.9:1 (light, `#FAFAF9`) / 8.6:1 (dark, `#101214`) against the active tint — clears the ≥3:1 floor and the AAA ≥7:1 target.
 - [x] PR description states the A1 tint adoption, the deliberate `color.action.primary` divergence (spec amendment needed on #43's audit row), and the 1.4.6/1.4.9 logotype exemption as belt-and-braces.
 

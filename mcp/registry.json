@@ -3931,7 +3931,7 @@
     {
       "path": "color.brand.mark",
       "type": "color",
-      "description": "Brand mark tint (rev. A1, 2026-06-11) — deliberately diverges from color.action.primary; see brand-mark v3 hand-off",
+      "description": "Brand mark tint on default surfaces (rev. A1 v1.1, 2026-06-11 — A1 is surface-relative: indigo-700 on light surfaces, indigo-300 on dark, whatever the theme). Deliberately diverges from color.action.primary; see brand-mark v3 hand-off. Inverse surfaces take brand.mark-on-inverse",
       "tier": "semantic",
       "value": "{color.brand.indigo.700}",
       "resolutionChain": [
@@ -3954,7 +3954,7 @@
     {
       "path": "color.brand.mark-on-inverse",
       "type": "color",
-      "description": "Brand mark tint on inverse surfaces (rev. A1) — the A1 pair is surface-relative (indigo-700 on light surfaces, indigo-300 on dark) and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark)",
+      "description": "Brand mark tint on inverse surfaces (rev. A1 v1.1 — RATIONALE-ADDENDUM §11): A1 is surface-relative and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark)",
       "tier": "semantic",
       "value": "{color.brand.indigo.300}",
       "resolutionChain": [
@@ -9647,5 +9647,5 @@
       }
     ]
   },
-  "sourceHash": "450d4686e44baa73"
+  "sourceHash": "281990c815e72d47"
 }
