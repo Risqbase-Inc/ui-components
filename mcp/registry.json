@@ -1,6 +1,6 @@
 {
   "spec": "v4.4",
-  "package": "2.1.3",
+  "package": "2.1.4",
   "name": "@risqbase-inc/ui-components",
   "docsSite": "https://design.risqbase.com",
   "components": [
@@ -9586,5 +9586,5 @@
       }
     ]
   },
-  "sourceHash": "623d0e07bedb4d83"
+  "sourceHash": "a0533290b985cbe5"
 }

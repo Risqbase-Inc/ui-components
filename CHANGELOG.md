@@ -14,6 +14,15 @@ The GOV-DS-2026-02 rev. v4.4 programme (ships with the next minor release):
 - **Charts**: `area`, `heatmap`, `metric-card` complete 6/7 of the ChartContainer taxonomy (`choropleth` → v4.4.1 per the pre-agreed descope ladder); visually-hidden data-table fallback on every chart type.
 - **Scanner rules**: R12 token hygiene, R13 motion gating, R14 agent-surface freshness — each proven to fail on committed fixtures before passing on clean source.
 
+## [2.1.4](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.3...v2.1.4) (2026-05-31)
+
+
+### Bug Fixes
+
+* **deps:** bump tmp 0.2.5→0.2.7 to patch GHSA-ph9p-34f9-6g65 ([284e737](https://github.com/Risqbase-Inc/ui-components/commit/284e737cc27b9db15d0cbd27f29468877a823d78))
+* **deps:** override uuid to ^11.1.1 to patch CVE-2026-41907 ([0f82945](https://github.com/Risqbase-Inc/ui-components/commit/0f829458d4969e835d776e252754c900513ca82a))
+* **deps:** override uuid to ^11.1.1 to patch CVE-2026-41907 ([#82](https://github.com/Risqbase-Inc/ui-components/issues/82)) ([eabad23](https://github.com/Risqbase-Inc/ui-components/commit/eabad236e8cad464197a1e3d63da9308f37c20ff))
+
 ## [2.1.3](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.2...v2.1.3) (2026-05-25)
 
 
