@@ -25,7 +25,7 @@ follow-up PR to this file with rationale.
 | Require review from Code Owners | **On** | Enforce `.github/CODEOWNERS` routing |
 | Require status checks to pass before merging | **On** | Block merge on red CI |
 | Require branches to be up to date before merging | **On** | Avoid merge-from-stale-base regressions |
-| Required status checks (exact names) | `ci.yml / lint-build`, `visual-regression.yml / chromatic`, `preview-deploy.yml / vercel` | Match the `jobs.<name>` keys in each workflow once `if: false` guards lift |
+| Required status checks (exact names) | `Lint & Build`, `Chromatic / chromatic`, **`UI Tests`** (Chromatic app), `Vercel` | `UI Tests` and `Vercel` are commit statuses posted by their GitHub Apps, not Actions jobs — see "Chromatic gating model" below |
 | Require conversation resolution before merging | **On** | No unresolved review threads |
 | Require linear history | **On** | Disallow merge commits; squash or rebase only |
 | Require deployments to succeed before merging | **Off** | Deferred to v4.3 (production-deploy gate) |
@@ -35,25 +35,31 @@ follow-up PR to this file with rationale.
 
 ## Required status check naming
 
-Each workflow's required check appears in the GitHub UI as
-`<workflow-file-without-yml> / <jobs.<name>>`. With the workflow files
-shipped in this PR, the names will be:
+Actions-provided checks appear in the GitHub UI as
+`<workflow name:> / <jobs.<id>>`; app-provided checks appear under the
+app's own status context. With the workflows shipped in this repo:
 
-- `ci / lint-build`
-- `visual-regression / chromatic`
-- `preview-deploy / vercel`
+- `Lint & Build` (Actions: `ci.yml`)
+- `Chromatic / chromatic` (Actions: `chromatic.yml` — build & upload only)
+- `UI Tests` (commit status from the Chromatic GitHub App — the visual gate)
+- `Vercel` (commit status from the Vercel GitHub App)
 
-GitHub may display them with the `.yml` suffix on first run; the
-canonical form is workflow-name (the `name:` field at the top of each
-YAML) slash job-id. Apply whichever the UI offers after the first PR
-triggers all three workflows.
+## Chromatic gating model (changed 2026-06-11)
 
-> **NB:** While the workflows are guarded with `if: false`, their jobs
-> will appear in the UI as "Skipped" rather than "Success". GitHub's
-> branch-protection requires checks to *succeed*. Therefore, **do not
-> enable the required-status-checks rule until G1 confirms the
-> `apps/docs` path and the `if: false` guards are removed.** Until then,
-> the rest of the rules in this table can be applied as-is.
+`chromatic.yml` runs the locked `chromatic` CLI with
+`--exit-zero-on-changes`: the Actions job asserts only "Storybook built
+and uploaded" and goes green in a single run even when visual changes
+are found. The merge gate for unreviewed visual changes is the
+**`UI Tests`** commit status posted by Chromatic's GitHub App — it stays
+*pending* while changes await review and flips to success **in place**
+the moment baselines are accepted in the Chromatic UI. No Actions re-run
+is ever needed.
+
+> **Admin action required:** add **`UI Tests`** to the required status
+> checks alongside `Chromatic / chromatic`. With the old
+> `exitZeroOnChanges: false` model the Actions job carried the gate by
+> failing; after this change, a green `Chromatic / chromatic` no longer
+> implies the baselines were reviewed — only `UI Tests` does.
 
 ## Signed commits
 
@@ -82,8 +88,8 @@ After applying these rules, verify by:
 
 ## Related
 
-- `.github/workflows/ci.yml` — provides the `ci / lint-build` check.
-- `.github/workflows/visual-regression.yml` — provides the `visual-regression / chromatic` check.
-- `.github/workflows/preview-deploy.yml` — provides the `preview-deploy / vercel` check.
+- `.github/workflows/ci.yml` — provides the `Lint & Build` check.
+- `.github/workflows/chromatic.yml` — provides the `Chromatic / chromatic` check (build & upload); the `UI Tests` gate comes from the Chromatic GitHub App.
+- The Vercel GitHub App — provides the `Vercel` check (preview deployments).
 - `.github/CODEOWNERS` — routes the "review from code owners" rule.
 - `secrets.md` — secrets needed for the workflows above to actually run.
