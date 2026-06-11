@@ -1,0 +1,159 @@
+{
+  "color": {
+    "brand": {
+      "indigo": {
+        "50": {
+          "$value": "oklch(96.190542% 0.017934 272.314396)",
+          "$type": "color",
+          "$description": "Brand indigo, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/50" }
+          }
+        },
+        "100": {
+          "$value": "oklch(92.994073% 0.033426 272.78788)",
+          "$type": "color",
+          "$description": "Brand indigo, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/100" }
+          }
+        },
+        "200": {
+          "$value": "oklch(86.985912% 0.062223 274.038638)",
+          "$type": "color",
+          "$description": "Brand indigo, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/200" }
+          }
+        },
+        "300": {
+          "$value": "oklch(78.529838% 0.104135 274.71343)",
+          "$type": "color",
+          "$description": "Brand indigo, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/300" }
+          }
+        },
+        "400": {
+          "$value": "oklch(68.01126% 0.158303 276.934902)",
+          "$type": "color",
+          "$description": "Brand indigo, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/400" }
+          }
+        },
+        "500": {
+          "$value": "oklch(58.540431% 0.204055 277.117292)",
+          "$type": "color",
+          "$description": "Brand indigo, mid",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/500" }
+          }
+        },
+        "600": {
+          "$value": "oklch(51.05731% 0.230053 276.965635)",
+          "$type": "color",
+          "$description": "Primary brand indigo — CTAs, links (brand mark uses color.brand.mark as of rev. A1)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/600" }
+          }
+        },
+        "700": {
+          "$value": "oklch(45.677508% 0.214578 277.022904)",
+          "$type": "color",
+          "$description": "Brand indigo, hover/pressed",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/700" }
+          }
+        },
+        "800": {
+          "$value": "oklch(39.843162% 0.177339 277.366217)",
+          "$type": "color",
+          "$description": "Brand indigo, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/800" }
+          }
+        },
+        "900": {
+          "$value": "oklch(35.875146% 0.135417 278.697294)",
+          "$type": "color",
+          "$description": "Brand indigo, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/900" }
+          }
+        },
+        "950": {
+          "$value": "oklch(25.733296% 0.086068 281.288269)",
+          "$type": "color",
+          "$description": "Brand indigo, near-black",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/950" }
+          }
+        }
+      }
+    },
+    "neutral": {
+      "white": {
+        "$value": "oklch(99.999999% 0 0)",
+        "$type": "color",
+        "$description": "Pure white surface",
+        "$extensions": {
+          "com.risqbase.role": "primitive",
+          "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/white" }
+        }
+      },
+      "stone": {
+        "50":  { "$value": "oklch(98.482524% 0.001319 106.423346)", "$type": "color", "$description": "Stone 50",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/50" } } },
+        "100": { "$value": "oklch(96.987131% 0.001324 106.423821)", "$type": "color", "$description": "Stone 100", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/100" } } },
+        "200": { "$value": "oklch(92.317503% 0.002563 48.717095)", "$type": "color", "$description": "Stone 200", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/200" } } },
+        "300": { "$value": "oklch(86.866141% 0.004306 56.366031)", "$type": "color", "$description": "Stone 300", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/300" } } },
+        "400": { "$value": "oklch(71.60844% 0.009054 56.259003)", "$type": "color", "$description": "Stone 400", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/400" } } },
+        "500": { "$value": "oklch(55.340165% 0.011607 58.07083)", "$type": "color", "$description": "Stone 500", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/500" } } },
+        "600": { "$value": "oklch(44.441723% 0.009597 73.638981)", "$type": "color", "$description": "Stone 600", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/600" } } },
+        "700": { "$value": "oklch(37.411571% 0.008678 67.558153)", "$type": "color", "$description": "Stone 700", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/700" } } },
+        "800": { "$value": "oklch(26.848491% 0.006287 34.297556)", "$type": "color", "$description": "Stone 800", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/800" } } },
+        "900": { "$value": "oklch(21.61154% 0.006126 56.043375)", "$type": "color", "$description": "Stone 900", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/neutral/stone/900" } } }
+      }
+    },
+    "palette": {
+      "teal": {
+        "50":  { "$value": "oklch(98.357901% 0.014201 180.720047)", "$type": "color", "$description": "Teal 50",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/50" } } },
+        "100": { "$value": "oklch(95.265067% 0.049796 180.801231)", "$type": "color", "$description": "Teal 100", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/100" } } },
+        "200": { "$value": "oklch(90.995637% 0.092695 180.425617)", "$type": "color", "$description": "Teal 200", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/200" } } },
+        "300": { "$value": "oklch(85.488177% 0.125075 181.070723)", "$type": "color", "$description": "Teal 300", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/300" } } },
+        "400": { "$value": "oklch(78.451984% 0.132529 181.911977)", "$type": "color", "$description": "Teal 400", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/400" } } },
+        "500": { "$value": "oklch(70.375266% 0.123018 182.502515)", "$type": "color", "$description": "Teal 500", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/500" } } },
+        "600": { "$value": "oklch(60.022421% 0.103837 184.703992)", "$type": "color", "$description": "Teal 600 — gauge arc default", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/600" } } },
+        "700": { "$value": "oklch(51.093777% 0.086055 186.391359)", "$type": "color", "$description": "Teal 700", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/700" } } },
+        "800": { "$value": "oklch(43.696783% 0.070524 188.216366)", "$type": "color", "$description": "Teal 800", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/800" } } },
+        "900": { "$value": "oklch(38.605932% 0.059017 188.415776)", "$type": "color", "$description": "Teal 900", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/teal/900" } } }
+      },
+      "amber":   { "500": { "$value": "oklch(76.859035% 0.164659 70.08039)", "$type": "color", "$description": "Amber — risk medium",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/amber/500" } } } },
+      "orange":  { "500": { "$value": "oklch(70.487125% 0.186721 47.604421)", "$type": "color", "$description": "Orange — risk high",             "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/orange/500" } } } },
+      "red": {
+        "500": { "$value": "oklch(63.683371% 0.207849 25.331328)", "$type": "color", "$description": "Red 500 — diverging negative",  "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/500" } } },
+        "600": { "$value": "oklch(57.709882% 0.215157 27.325049)", "$type": "color", "$description": "Red 600 — risk critical",       "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/600" } } },
+        "700": { "$value": "oklch(50.541985% 0.190493 27.518103)", "$type": "color", "$description": "Red 700 — diverging strong neg", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/red/700" } } }
+      },
+      "emerald": {
+        "500": { "$value": "oklch(69.587307% 0.149074 162.479602)", "$type": "color", "$description": "Emerald — risk low / chart cat 4", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/emerald/500" } } },
+        "700": { "$value": "oklch(50.812713% 0.104939 165.612081)", "$type": "color", "$description": "Emerald 700 — text-safe positive valence (added v4.4 A11Y-FIX: emerald-500 is a 3:1 fill, not 4.5:1 text)", "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/emerald/700" } } }
+      },
+      "violet":  { "500": { "$value": "oklch(60.563075% 0.218915 292.717225)", "$type": "color", "$description": "Violet — chart cat 5",            "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/violet/500" } } } },
+      "rose":    { "500": { "$value": "oklch(64.503215% 0.215403 16.4393)", "$type": "color", "$description": "Rose — chart cat 6",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/rose/500" } } } },
+      "sky":     { "500": { "$value": "oklch(68.468723% 0.147869 237.322518)", "$type": "color", "$description": "Sky — chart cat 7",               "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/sky/500" } } } },
+      "lime":    { "500": { "$value": "oklch(76.814087% 0.204401 130.849824)", "$type": "color", "$description": "Lime — chart cat 8",              "$extensions": { "com.risqbase.role": "primitive", "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/palette/lime/500" } } } }
+    }
+  }
+}

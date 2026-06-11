@@ -5,9 +5,9 @@ Shared UI components, design tokens, and theming primitives for RisqBase product
 of the RisqBase Design System (`GOV-DS-2026-02`).
 
 <!-- AUTOGEN:START status -->
-> **Latest published:** `2.1.4` · **Design system:** `GOV-DS-2026-02 v4.3`
+> **Latest published:** `2.1.4` · **Design system:** `GOV-DS-2026-02 v4.4`
 >
-> **28 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **363 design tokens** (primitive · semantic · component tiers).
+> **29 components** across `core` · `ai` · `data-viz` · `marketing` · `primitives` · **323 design tokens** (primitive · semantic · component tiers).
 >
 > Live component gallery, token reference + changelog: **[design.risqbase.com](https://design.risqbase.com)**.
 <!-- AUTOGEN:END status -->
@@ -152,7 +152,7 @@ Browse them rendered, with props and live examples, at
 <!-- AUTOGEN:START components -->
 | Domain | Purpose | Components |
 |---|---|---|
-| `core` | Foundational UI + layout | Badge, Button, Callout, Card, EmptyState, Footer, Header, IconButton, Modal, SectionEyebrow, Skeleton, SkipLink, TelemetryBeacon, Toast, WizardProgress |
+| `core` | Foundational UI + layout | Badge, Button, Callout, Card, EmptyState, Footer, Header, IconButton, Modal, MotionProvider, SectionEyebrow, Skeleton, SkipLink, TelemetryBeacon, Toast, WizardProgress |
 | `ai` | AI / IRIS surfaces | CitationChip, ClientGrid, ClientScopeBanner, CompliancePostureStrip, IrisThinking, PromptChip, StreamingText |
 | `data-viz` | Charts, gauges + impact graphs | ChartContainer, Gauge, ImpactGraph, RiskGauge |
 | `marketing` | Marketing-site surfaces | HeroVideo |

@@ -81,10 +81,17 @@ module.exports = {
           '0%, 100%': { opacity: '0.4' },
           '50%': { opacity: '1' },
         },
+        // v4.4 Workstream E — Toast entrance; gated in-component via
+        // useReducedMotion() plus `motion-reduce:animate-none` fallback.
+        'toast-enter': {
+          from: { opacity: '0', transform: 'translateY(8px)' },
+          to: { opacity: '1', transform: 'none' },
+        },
       },
       animation: {
         'skeleton-shimmer': 'skeleton-shimmer 1.4s linear infinite',
         'streamhead-blink': 'streamhead-blink 1s steps(2) infinite',
+        'toast-enter': 'toast-enter 200ms ease-out',
       },
     },
   },

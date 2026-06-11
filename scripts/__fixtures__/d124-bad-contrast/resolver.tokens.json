@@ -1,0 +1,5 @@
+{
+  "name": "fixture",
+  "sets": [{ "name": "base", "values": ["semantic/color.tokens.json"] }],
+  "modifiers": [{ "name": "theme", "type": "enumerated", "default": "light", "values": [{ "name": "light", "values": [] }] }]
+}

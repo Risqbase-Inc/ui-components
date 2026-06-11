@@ -2,7 +2,19 @@
 
 ## Unreleased
 
-_No unreleased changes. Released work is recorded under its version below._
+### Design System v4.4 — agent surface, DTCG 2025.10, full dark theme
+
+The GOV-DS-2026-02 rev. v4.4 programme (ships with the next minor release):
+
+- **Agent surface**: `@risqbase-inc/ui-components-mcp` MCP server (11 read-only tools over components, tokens, recipes, lifecycle, scanner rules and Layer-3 showcase entries), Streamable HTTP endpoint at `/mcp`, `llms.txt` + `llms-full.txt` + per-page `.md` mirrors — all generated from one registry (`build:agent-surface`), freshness CI-gated (scanner rule R14).
+- **Tokens**: DTCG 2025.10 source (`*.tokens.json`, OKLCH colors with round-trip-exact hex fallbacks, `$deprecated`, resolver-driven theming). Consumer-visible CSS is value-identical; `oklch()` lands as a progressive enhancement under `@supports`.
+- **Dark theme**: complete coverage of every semantic + component color token (62 newly derived values, contrast-verified per theme); lint-enforced completeness; docs-site theme switcher. New `color.action.link` token for interactive text (resolves identically to `action.primary` in light).
+- **High contrast**: forced-colors compliance pass — `data-fc` roles on meaning-bearing SVG geometry, system-color mappings in `tokens.css` (replaces the never-populated `hc` token theme; `'hc'` stays accepted but deprecated).
+- **Motion**: `MotionProvider` + `useReducedMotion` (beta) — localStorage preference over the OS signal, `data-motion` CSS contract, all four animated primitives migrated; `motion-preference` settings-toggle recipe.
+- **Charts**: `area`, `heatmap`, `metric-card` and the restored `choropleth` (CEO 10 Jun reversal of the rung-1 cut) complete 7/7 of the ChartContainer taxonomy; visually-hidden data-table fallback on every chart type.
+- **Scanner rules**: R12 token hygiene, R13 motion gating, R14 agent-surface freshness, R15 brand-mark integrity — each proven to fail on committed fixtures before passing on clean source.
+- **AAA text tier (PR-B, 2026-06-11)**: `color.text.subtle` stone-500 → stone-600 (4.8:1 → 7.6:1 on white) and `color.text.on-inverse-subtle` stone-400 → stone-300 (6.9:1 → 11.7:1 on stone-900) — every secondary-text role now clears WCAG 1.4.6 AAA (≥7:1) in **both** themes (dark overrides already cleared: 7.73 / 7.44, no adjustment needed). Direct aliases (header tagline / nav links / launch date, gauge caption) re-annotated `contrastLevel: aaa`. Rationale + audit trail: the AAA programme in the brand-mark v3 hand-off's AAA Compliance Catalogue. Visual delta: secondary text reads slightly darker in light theme — deliberate, no structural change.
+- **Brand mark v3 (rev. A1 v1.1, 2026-06-11 — surface-relative)**: frozen Geist-Bold outline assets replace the drifted Helvetica-`<text>` mark — `public/icon.svg` (card), `public/mark.svg` (bare `currentColor`), optional inverse favicon; exported as `@risqbase-inc/ui-components/assets/*`. New semantic tokens `color.brand.mark` (indigo-700 light / indigo-300 dark — **deliberately diverges from `color.action.primary`**, which is unchanged) and `color.brand.mark-on-inverse` (the per-theme mirror for inverse surfaces). `color.header.logo` / `color.footer.logo` re-pointed to the brand chain; Header and Footer inline the frozen mark glyph; Footer raw classes (`bg-stone-900`/`text-gray-400`/`text-indigo-400`/`border-gray-800`) rewired to `color.footer.*` tokens with AAA meta/link bumps (stone-400 → stone-300 on the inverse surface, ≥7:1 in both themes). The WCAG 1.4.6/1.4.9 logotype exemption remains documented belt-and-braces only — all brand pairs clear AAA outright.
 
 ## [2.1.4](https://github.com/Risqbase-Inc/ui-components/compare/v2.1.3...v2.1.4) (2026-05-31)
 

@@ -1,0 +1,35 @@
+{
+  "$comment": "Promotion lifecycle source of truth (v4.3 §7 states: private → beta → stable → deprecated). Consumed by the agent-surface build (registry.json → MCP get_lifecycle / list_components). promotionLog rows mirror the governance §23 log. Components not listed are 'stable'.",
+  "states": {
+    "ChartContainer": {
+      "state": "beta",
+      "since": "v4.3",
+      "note": "7.2 criteria not yet met: single consumer (RALIA dashboards pending); promotion NOT forced at v4.4 per GOV-DS-2026-02 rev. v4.4 §8. 6/7 chart taxonomy shipped in v4.4 (choropleth → v4.4.1)."
+    },
+    "MotionProvider": {
+      "state": "beta",
+      "since": "v4.4",
+      "note": "New in v4.4 Workstream E (D-110); no second consumer yet per §7.2 lifecycle."
+    }
+  },
+  "promotionLog": [
+    { "date": "2026-05-18", "component": "IconButton", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "SkipLink", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Card", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Callout", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Skeleton", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "EmptyState", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "WizardProgress", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Modal", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Toast", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "CitationChip", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "IrisThinking", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "StreamingText", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "PromptChip", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "ClientScopeBanner", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "Gauge", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "RiskGauge", "transition": "private → stable", "ref": "v4.3 §11" },
+    { "date": "2026-05-18", "component": "ChartContainer", "transition": "private → beta", "ref": "v4.3 §11 (3 of 7 chart types)" },
+    { "date": "2026-06-10", "component": "MotionProvider", "transition": "(new) → beta", "ref": "GOV-DS-2026-02 rev. v4.4 §7 / D-110" }
+  ]
+}

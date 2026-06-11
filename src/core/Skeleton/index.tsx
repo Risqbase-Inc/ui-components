@@ -1,7 +1,13 @@
+'use client'
+
+import { useReducedMotion } from '../MotionProvider'
 import { TelemetryBeacon } from '../TelemetryBeacon'
 import type { SkeletonProps } from './types'
 
-// Shimmer at 1.4s linear infinite; respects `prefers-reduced-motion`.
+// Shimmer at 1.4s linear infinite; respects the resolved motion
+// preference via `useReducedMotion()` (DS v4.4 workstream E) — when
+// reduced, the block renders as a static muted fill. The `motion-reduce:`
+// variants stay on as the no-JS / no-provider CSS fallback.
 // v4.3 §5.1, closes RALIA F-004. The shimmer is implemented as a CSS
 // background-position animation against a 3-stop gradient — no JS, no
 // layout thrash.
@@ -16,8 +22,11 @@ const variantDefaults: Record<
   circle: { className: 'rounded-full',                          defaultWidth: '40px', defaultHeight: '40px' },
 }
 
-const baseClasses =
+const shimmerClasses =
   'animate-skeleton-shimmer bg-[linear-gradient(90deg,var(--color-surface-muted)_0%,var(--color-surface-subtle)_50%,var(--color-surface-muted)_100%)] bg-[length:200%_100%] motion-reduce:animate-none motion-reduce:bg-[var(--color-surface-muted)]'
+
+// Reduced-motion variant — the same surface, no gradient, no animation.
+const staticClasses = 'bg-[var(--color-surface-muted)]'
 
 export function Skeleton({
   variant = 'row',
@@ -28,6 +37,8 @@ export function Skeleton({
   style,
   ...props
 }: SkeletonProps) {
+  const reducedMotion = useReducedMotion()
+  const baseClasses = reducedMotion ? staticClasses : shimmerClasses
   const v = variantDefaults[variant]
   const w = width ?? v.defaultWidth
   const h = height ?? v.defaultHeight

@@ -1,0 +1,93 @@
+{
+  "color": {
+    "badge": {
+      "default": {
+        "background": {
+          "$value": "{color.action.primary}",
+          "$type": "color",
+          "$description": "Badge default background — \"Most Popular\", \"New\"",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+          }
+        },
+        "foreground": {
+          "$value": "{color.text.on-action}",
+          "$type": "color",
+          "$description": "Badge default text colour",
+          "$extensions": { "com.risqbase.contrastPair": "{color.badge.default.background}", "com.risqbase.themeInvariant": "Pure white on action.primary in both themes — action.primary is contrast-managed per theme (clears 4.9:1 on the dark brand)",
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/default/foreground", "scopes": ["TEXT_FILL"] }
+          }
+        }
+      },
+      "highlight": {
+        "background": {
+          "$value": "{color.action.primary-subtle}",
+          "$type": "color",
+          "$description": "Badge highlight background — \"Standalone Product\"",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+          }
+        },
+        "foreground": {
+          "$value": "{color.action.link}",
+          "$type": "color",
+          "$description": "Badge highlight text colour",
+          "$extensions": { "com.risqbase.contrastPair": "{color.badge.highlight.background}",
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/highlight/foreground", "scopes": ["TEXT_FILL"] }
+          }
+        }
+      },
+      "subtle": {
+        "background": {
+          "$value": "{color.surface.muted}",
+          "$type": "color",
+          "$description": "Badge subtle background — \"Coming Soon\"",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+          }
+        },
+        "foreground": {
+          "$value": "{color.text.subtle-on-muted}",
+          "$type": "color",
+          "$description": "Badge subtle text colour",
+          "$extensions": { "com.risqbase.contrastPair": "{color.badge.subtle.background}", "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/subtle/foreground", "scopes": ["TEXT_FILL"] }
+          }
+        }
+      },
+      "band": {
+        "$comment": "v4.3 — five band variants × three properties = 15 tokens. Wraps the semantic `color.band.*` chain for component-tier access. Closes RALIA F-018.",
+        "very-low": {
+          "background": { "$value": "{color.band.very-low.bg}",     "$type": "color", "$description": "Band-very-low badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
+          "foreground": { "$value": "{color.band.very-low.text}",   "$type": "color", "$description": "Band-very-low badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.very-low.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/foreground", "scopes": ["TEXT_FILL"] } } },
+          "border":     { "$value": "{color.band.very-low.border}", "$type": "color", "$description": "Band-very-low badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-low/border", "scopes": ["STROKE_COLOR"] } } }
+        },
+        "low": {
+          "background": { "$value": "{color.band.low.bg}",     "$type": "color", "$description": "Band-low badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/low/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
+          "foreground": { "$value": "{color.band.low.text}",   "$type": "color", "$description": "Band-low badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.low.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/low/foreground", "scopes": ["TEXT_FILL"] } } },
+          "border":     { "$value": "{color.band.low.border}", "$type": "color", "$description": "Band-low badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/low/border", "scopes": ["STROKE_COLOR"] } } }
+        },
+        "medium": {
+          "background": { "$value": "{color.band.medium.bg}",     "$type": "color", "$description": "Band-medium badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/medium/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
+          "foreground": { "$value": "{color.band.medium.text}",   "$type": "color", "$description": "Band-medium badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.medium.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/medium/foreground", "scopes": ["TEXT_FILL"] } } },
+          "border":     { "$value": "{color.band.medium.border}", "$type": "color", "$description": "Band-medium badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/medium/border", "scopes": ["STROKE_COLOR"] } } }
+        },
+        "high": {
+          "background": { "$value": "{color.band.high.bg}",     "$type": "color", "$description": "Band-high badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
+          "foreground": { "$value": "{color.band.high.text}",   "$type": "color", "$description": "Band-high badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.high.background}", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/foreground", "scopes": ["TEXT_FILL"] } } },
+          "border":     { "$value": "{color.band.high.border}", "$type": "color", "$description": "Band-high badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/high/border", "scopes": ["STROKE_COLOR"] } } }
+        },
+        "very-high": {
+          "background": { "$value": "{color.band.very-high.bg}",     "$type": "color", "$description": "Band-very-high badge background",  "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] } } },
+          "foreground": { "$value": "{color.band.very-high.text}",   "$type": "color", "$description": "Band-very-high badge text",        "$extensions": { "com.risqbase.contrastPair": "{color.badge.band.very-high.background}", "com.risqbase.themeInvariant": "Matches band.very-high.text: white is the only band glyph that stays white in dark (4.7:1 on the dark band bg)", "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/foreground", "scopes": ["TEXT_FILL"] } } },
+          "border":     { "$value": "{color.band.very-high.border}", "$type": "color", "$description": "Band-very-high badge border",      "$extensions": { "com.risqbase.role": "component", "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/badge/band/very-high/border", "scopes": ["STROKE_COLOR"] } } }
+        }
+      }
+    }
+  }
+}

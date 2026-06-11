@@ -1,8 +1,15 @@
 name: 'Chromatic'
 
 # Two triggers — main-branch pushes lock the canonical baseline (and
-# auto-accept once reviewed via `autoAcceptChanges`), PRs run against
-# that baseline and gate the merge. v4.3 PR 2 of the programme.
+# auto-accept once reviewed via `--auto-accept-changes main`), PRs run
+# against that baseline. v4.3 PR 2 of the programme.
+#
+# Gating model: this job only asserts "Storybook built and uploaded" and
+# exits 0 even when visual changes are found (--exit-zero-on-changes).
+# The merge gate is Chromatic's own "UI Tests" commit status, posted by
+# its GitHub App: it stays *pending* while changes await review and flips
+# to success in place when baselines are accepted — no Actions re-run.
+# See docs/devops/branch-protection.md.
 on:
   push:
     branches: [main]
@@ -20,22 +27,26 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0    # Required for baseline diffing + TurboSnap
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
       # Radix + visx are peer-deps; consumers may not have them. Local
       # devDependencies mirror them so npm has something to install,
       # but the peer graph isn't strict — use --legacy-peer-deps.
       - run: npm ci --legacy-peer-deps
       - run: npm run build:tokens
-      - uses: chromaui/action@v11
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: build:storybook
-          onlyChanged: true            # TurboSnap-equivalent free-tier path
-          exitZeroOnChanges: false     # block PRs with un-approved visual changes
-          autoAcceptChanges: 'main'    # main commits auto-approve once reviewed
+      # Locked CLI from devDependencies (chromatic@16) instead of
+      # chromaui/action — the action's v11 runtime is Node 20, deprecated
+      # on GitHub runners (forced to Node 24 from 2026-06-16).
+      - run: >-
+          npx chromatic
+          --build-script-name build:storybook
+          --only-changed
+          --exit-zero-on-changes
+          --auto-accept-changes main
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

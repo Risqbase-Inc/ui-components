@@ -1,0 +1,668 @@
+{
+  "$comment": "Chart-domain primitive colour ramps — 38 hex values landed in BRIEF-401 Phase 2.1 (value-selection pass, 2026-05-13). Replaces the v4.2.1 TBD stubs. Methodology: OKLCH perceptual space with explicit L*/C/H curves per ramp (see artefacts/palette-rationale.md). Every stop AA-contrast-verified per BRIEF-401 §4.1 rules (50-200 body-text-on-fill ≥4.5:1; 300-500 mark ≥3:1; 600-700 text-on-light ≥4.5:1; 800-900 ≥7:1 AAA; diverging extensions ≥7:1 vs white). Sources: ColorBrewer, Datawrapper Academy single-hue/diverging guidance, WCAG 2.2.",
+  "color": {
+    "palette": {
+      "risk": {
+        "50": {
+          "$value": "oklch(97.146227% 0.017692 214.376677)",
+          "$type": "color",
+          "$description": "Risk ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "oklch(93.455435% 0.035097 214.491179)",
+          "$type": "color",
+          "$description": "Risk ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "oklch(87.898119% 0.055446 222.815126)",
+          "$type": "color",
+          "$description": "Risk ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "oklch(79.523402% 0.070007 239.60251)",
+          "$type": "color",
+          "$description": "Risk ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "oklch(70.003622% 0.04506 285.177393)",
+          "$type": "color",
+          "$description": "Risk ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "oklch(60.479169% 0.129865 30.185015)",
+          "$type": "color",
+          "$description": "Risk ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "oklch(51.377303% 0.179814 26.885023)",
+          "$type": "color",
+          "$description": "Risk ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "oklch(42.985047% 0.174768 26.145714)",
+          "$type": "color",
+          "$description": "Risk ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "oklch(33.023828% 0.133947 25.208631)",
+          "$type": "color",
+          "$description": "Risk ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "oklch(21.627318% 0.085386 24.762246)",
+          "$type": "color",
+          "$description": "Risk ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/risk/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for risk-severity encoding. 10 stops, perceptually-equal-stepped in OKLCH, AA-contrast-verified against color.surface.default at each stop. Hue rotates cool-blue → neutral → warm-red so the ramp itself signals 'low risk → high risk' before colour-blind users read a legend. Domain: risk dashboards, risk-band charts, risk-velocity heatmaps. Source: ColorBrewer single-hue sequential structure; hue rotation cleared with BRIEF-401 §7.3."
+      },
+      "financial": {
+        "50": {
+          "$value": "oklch(97.279216% 0.022177 160.240143)",
+          "$type": "color",
+          "$description": "Financial ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "oklch(93.422461% 0.040399 157.748537)",
+          "$type": "color",
+          "$description": "Financial ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "oklch(88.022875% 0.070318 155.515278)",
+          "$type": "color",
+          "$description": "Financial ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "oklch(79.419865% 0.103938 155.31718)",
+          "$type": "color",
+          "$description": "Financial ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "oklch(70.088671% 0.134953 155.095384)",
+          "$type": "color",
+          "$description": "Financial ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "oklch(60.796821% 0.152984 154.109526)",
+          "$type": "color",
+          "$description": "Financial ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "oklch(52.258202% 0.136464 152.339078)",
+          "$type": "color",
+          "$description": "Financial ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "oklch(44.105124% 0.114194 152.736211)",
+          "$type": "color",
+          "$description": "Financial ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "oklch(33.63165% 0.083089 155.033876)",
+          "$type": "color",
+          "$description": "Financial ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "oklch(21.803232% 0.05188 157.036814)",
+          "$type": "color",
+          "$description": "Financial ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/financial/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for financial / value encoding. 10 stops, monochromatic emerald, perceptually-equal-stepped in OKLCH. Domain: currency, cost, revenue, fines, penalty charts. Source: Datawrapper single-hue sequential guidance."
+      },
+      "operational": {
+        "50": {
+          "$value": "oklch(97.122017% 0.013643 258.344604)",
+          "$type": "color",
+          "$description": "Operational ramp, lightest tint",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/50",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "oklch(93.24168% 0.032141 264.407523)",
+          "$type": "color",
+          "$description": "Operational ramp, very light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/100",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "oklch(87.874689% 0.058828 266.082138)",
+          "$type": "color",
+          "$description": "Operational ramp, light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/200",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$value": "oklch(79.439614% 0.095205 268.339268)",
+          "$type": "color",
+          "$description": "Operational ramp, soft",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/300",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "oklch(69.996438% 0.134481 267.725792)",
+          "$type": "color",
+          "$description": "Operational ramp, mid-light",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/400",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "oklch(60.493653% 0.174873 267.937385)",
+          "$type": "color",
+          "$description": "Operational ramp, mid (canonical stop)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/500",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$value": "oklch(51.537617% 0.179642 266.867594)",
+          "$type": "color",
+          "$description": "Operational ramp, mid-dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/600",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$value": "oklch(42.923297% 0.154907 266.001746)",
+          "$type": "color",
+          "$description": "Operational ramp, dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/700",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$value": "oklch(32.991113% 0.114386 263.765842)",
+          "$type": "color",
+          "$description": "Operational ramp, very dark",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/800",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "oklch(21.557314% 0.073987 261.59242)",
+          "$type": "color",
+          "$description": "Operational ramp, darkest",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/operational/900",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "$comment": "Sequential single-hue ramp for operational health / throughput encoding. 10 stops, monochromatic indigo→midnight, perceptually-equal-stepped in OKLCH. Distinct from brand indigo: the ramp shares hue family with brand but mid stops are deliberately less saturated to avoid CTA confusion. Domain: uptime, capacity, latency, queue-depth."
+      },
+      "diverging-warm": {
+        "$comment": "Diverging palette, warm spectrum (red↔orange↔amber). 4 new stops (n4/n3/p3/p4) extending the existing 5-stop chart.div ramp into a 9-stop chart.div9 semantic. n4/p4 cleared 7:1 vs color.surface.default per BRIEF-401 §4.1 'diverging extensions' rule. Source: ColorBrewer diverging RdYlOrBr structure; OKLCH equal-stepping.",
+        "n4": {
+          "$value": "oklch(32.263953% 0.132396 29.233885)",
+          "$type": "color",
+          "$description": "Diverging warm n4 (strongest negative)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/n4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "n3": {
+          "$value": "oklch(40.403227% 0.165796 29.233885)",
+          "$type": "color",
+          "$description": "Diverging warm n3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/n3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p3": {
+          "$value": "oklch(39.990437% 0.122686 41.141346)",
+          "$type": "color",
+          "$description": "Diverging warm p3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/p3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p4": {
+          "$value": "oklch(30.913702% 0.083085 48.870937)",
+          "$type": "color",
+          "$description": "Diverging warm p4 (strongest positive)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-warm/p4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        }
+      },
+      "diverging-cool": {
+        "$comment": "Diverging palette, cool spectrum (blue↔teal↔amber↔red). 4 new stops (n4/n3/p3/p4). Four-hue diverging (deepest blue → deep teal → midpoint → deep amber → deepest red); n4 deliberately matched to diverging-warm.n4 so 'most extreme negative' reads identically regardless of which diverging palette a chart uses. All four clear 7:1 vs color.surface.default. Source: ColorBrewer 9-stop diverging structure; Datawrapper diverging-with-asymmetric-hue.",
+        "n4": {
+          "$value": "oklch(32.263953% 0.132396 29.233885)",
+          "$type": "color",
+          "$description": "Diverging cool n4 (strongest negative)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/n4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "n3": {
+          "$value": "oklch(39.990437% 0.122686 41.141346)",
+          "$type": "color",
+          "$description": "Diverging cool n3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/n3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p3": {
+          "$value": "oklch(40.45452% 0.068828 197.574925)",
+          "$type": "color",
+          "$description": "Diverging cool p3",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/p3",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        },
+        "p4": {
+          "$value": "oklch(30.006258% 0.135653 261.684644)",
+          "$type": "color",
+          "$description": "Diverging cool p4 (strongest positive)",
+          "$extensions": {
+            "com.risqbase.role": "primitive",
+            "com.risqbase.figma": {
+              "collection": "primitive",
+              "mode": "light",
+              "variable": "color/palette/diverging-cool/p4",
+              "scopes": [
+                "SHAPE_FILL",
+                "STROKE_COLOR"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ const toneStyles: Record<ClientScopeState, string> = {
   'white-label':
     'bg-[var(--color-surface-subtle)] border-[var(--color-iris-accent)] text-[var(--color-text-default)]',
   switching:
-    'bg-[var(--color-surface-muted)] border-[var(--color-border-default)] text-[var(--color-text-subtle)]',
+    'bg-[var(--color-surface-muted)] border-[var(--color-border-default)] text-[var(--color-text-subtle-on-muted)]',
 }
 
 function formatVerified(iso: string | undefined): string | null {
@@ -64,7 +64,15 @@ export function ClientScopeBanner({
         </span>
       )}
       {verified && (
-        <span className="text-xs text-[var(--color-text-subtle)] ml-auto">
+        <span
+          className={`text-xs ml-auto ${
+            // D-125b: the switching variant rides surface.muted, where
+            // text.subtle computes to 4.39:1 — use the on-muted tier there.
+            state === 'switching'
+              ? 'text-[var(--color-text-subtle-on-muted)]'
+              : 'text-[var(--color-text-subtle)]'
+          }`}
+        >
           Tenant isolation verified {verified}
         </span>
       )}
@@ -73,7 +81,7 @@ export function ClientScopeBanner({
           <button
             type="button"
             onClick={onDetails}
-            className="text-xs font-semibold text-[var(--color-action-primary)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
+            className="text-xs font-semibold text-[var(--color-action-link)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
           >
             Details
           </button>
@@ -82,7 +90,7 @@ export function ClientScopeBanner({
           <button
             type="button"
             onClick={onSwitch}
-            className="text-xs font-semibold text-[var(--color-action-primary)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
+            className="text-xs font-semibold text-[var(--color-action-link)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-border-focus)] rounded-[var(--dimension-radius-sm)]"
           >
             Switch
           </button>

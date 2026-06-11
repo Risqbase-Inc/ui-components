@@ -1,0 +1,15 @@
+/* Storybook-only Tailwind entry (v4.4 A11Y-FIX): consumer parity for the
+ * utility classes the components are written in. Imported BEFORE
+ * dist/tokens.css so the central [data-motion]/prefers-reduced-motion
+ * rules win order ties against animate-* utilities. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Consumer body contract (docs/theming.md): products set the document
+ * text color + background from tokens; inherit-styled primitives
+ * (StreamingText prose spans, etc.) rely on it. */
+body {
+  color: var(--color-text-default);
+  background: var(--color-surface-default);
+}

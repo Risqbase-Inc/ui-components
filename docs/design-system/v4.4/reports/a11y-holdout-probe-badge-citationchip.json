@@ -1,0 +1,198 @@
+[
+  {
+    "component": " Badge",
+    "story": "Variants",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Variants",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Variants",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Bands",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Bands",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Bands",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Band Wrapper",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Band Wrapper",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Band Wrapper",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Composed",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Composed",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Composed",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Gallery",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Gallery",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Gallery",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " Badge",
+    "story": "Gallery",
+    "mode": "print",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "Gallery",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "Gallery",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "Gallery",
+    "mode": "print",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants Row",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants Row",
+    "mode": "dark",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants Row",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants Row Mobile",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "All Variants Row Mobile",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "Retrieval Failed",
+    "mode": "light",
+    "total": 0,
+    "violations": []
+  },
+  {
+    "component": " CitationChip",
+    "story": "Retrieval Failed",
+    "mode": "hc",
+    "total": 0,
+    "violations": []
+  }
+]

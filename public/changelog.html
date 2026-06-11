@@ -21,11 +21,12 @@
 .entry .body li { margin-bottom: 4px; }
 .entry .body pre { background: var(--color-surface-subtle); padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
 </style>
+<script>(function(){try{var s=localStorage.getItem("risqbase-design-site-theme");var t=s||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){}})();</script>
 </head>
 <body>
 
 <header class="topbar">
-  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <a href="index.html" class="logo"><svg class="logo-mark" viewBox="0 0 160 160" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22.1 108V52.3h14.8l.3 11.2q1.7-5.9 4.9-8.6 3.2-2.6 8.4-2.6h5.1v12.9h-5.1q-6.6 0-9.7 2.7t-3.1 8.8V108zm39.2 15.6V34.2h15.3v89.4zm48.3-14.3q8.5 0 14.9-3.6t9.9-10.2 3.5-15.3q0-8.8-3.5-15.4t-9.9-10.2-14.9-3.6Q98.3 51 91 56.9q-7.4 5.8-8.7 16l16.1.7q.8-5.1 3.7-7.8 3-2.7 7.5-2.7 5.8 0 9 4.5 3.2 4.4 3.2 12.6 0 8.1-3.2 12.6t-9 4.5q-4.7 0-7.6-2.8t-3.6-8.3l-16.1.6q1.2 10.3 8.6 16.4 7.3 6.1 18.7 6.1"/></svg>RisqBase<span class="subtitle">design</span></a>
   <nav>
     <a href="index.html">Home</a>
     <a href="tokens.html">Tokens</a>
@@ -35,6 +36,7 @@
     <a href="changelog.html" class="is-active">Changelog</a>
   </nav>
   <span class="version-pill">@risqbase-inc/ui-components · v2.1.4</span>
+  <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark theme"><span class="icon-moon" aria-hidden="true">◑</span><span class="icon-sun" aria-hidden="true">◐</span></button>
 </header>
 
 <div class="shell">
@@ -43,6 +45,7 @@
   <div class="group">
     <h4>Releases</h4>
     <ul>
+      <li><a href="#design-system-v4-4-agent-surface-dtcg-2025-10-full-dark-theme">Unreleased · Design System v4.4 — agent surface, DTCG 2025.10, full dark theme</a></li>
       <li><a href="#v2-1-4">2026-05-31 · v2.1.4 — 2026-05-31</a></li>
       <li><a href="#v2-1-3">2026-05-25 · v2.1.3 — 2026-05-25</a></li>
       <li><a href="#v2-1-2">2026-05-20 · v2.1.2 — 2026-05-20</a></li>
@@ -68,9 +71,38 @@
 
   <p class="eyebrow">Changelog</p>
   <h1>What shipped, when, why.</h1>
-  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.1.4</b>, against spec <b>v4.3</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
+  <p class="lede">The release ladder for <code>@risqbase-inc/ui-components</code> — currently at <b>v2.1.4</b>, against spec <b>v4.4</b>. Entries below are generated from <code>CHANGELOG.md</code> (release-please source of truth); narrative addenda under <em>Unreleased</em> are authored by hand and absorbed into the next release line on cut.</p>
 
-  <article id="v2-1-4" class="card entry" style="margin-bottom: 32px;">
+  <article id="design-system-v4-4-agent-surface-dtcg-2025-10-full-dark-theme" class="card entry" style="margin-bottom: 32px;">
+  <div class="head">
+    <div class="row">
+      <div>
+        <span class="pill pill-deferred" style="margin-bottom: 8px;"><i></i> UNRELEASED</span>
+        <h2>Design System v4.4 — agent surface, DTCG 2025.10, full dark theme</h2>
+      </div>
+      <div class="meta" style="text-align:right; align-self:flex-end;">
+        <span>Unreleased</span>
+        
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <p>The GOV-DS-2026-02 rev. v4.4 programme (ships with the next minor release):</p>
+<ul>
+<li><strong>Agent surface</strong>: <code>@risqbase-inc/ui-components-mcp</code> MCP server (11 read-only tools over components, tokens, recipes, lifecycle, scanner rules and Layer-3 showcase entries), Streamable HTTP endpoint at <code>/mcp</code>, <code>llms.txt</code> + <code>llms-full.txt</code> + per-page <code>.md</code> mirrors — all generated from one registry (<code>build:agent-surface</code>), freshness CI-gated (scanner rule R14).</li>
+<li><strong>Tokens</strong>: DTCG 2025.10 source (<code>*.tokens.json</code>, OKLCH colors with round-trip-exact hex fallbacks, <code>$deprecated</code>, resolver-driven theming). Consumer-visible CSS is value-identical; <code>oklch()</code> lands as a progressive enhancement under <code>@supports</code>.</li>
+<li><strong>Dark theme</strong>: complete coverage of every semantic + component color token (62 newly derived values, contrast-verified per theme); lint-enforced completeness; docs-site theme switcher. New <code>color.action.link</code> token for interactive text (resolves identically to <code>action.primary</code> in light).</li>
+<li><strong>High contrast</strong>: forced-colors compliance pass — <code>data-fc</code> roles on meaning-bearing SVG geometry, system-color mappings in <code>tokens.css</code> (replaces the never-populated <code>hc</code> token theme; <code>'hc'</code> stays accepted but deprecated).</li>
+<li><strong>Motion</strong>: <code>MotionProvider</code> + <code>useReducedMotion</code> (beta) — localStorage preference over the OS signal, <code>data-motion</code> CSS contract, all four animated primitives migrated; <code>motion-preference</code> settings-toggle recipe.</li>
+<li><strong>Charts</strong>: <code>area</code>, <code>heatmap</code>, <code>metric-card</code> and the restored <code>choropleth</code> (CEO 10 Jun reversal of the rung-1 cut) complete 7/7 of the ChartContainer taxonomy; visually-hidden data-table fallback on every chart type.</li>
+<li><strong>Scanner rules</strong>: R12 token hygiene, R13 motion gating, R14 agent-surface freshness, R15 brand-mark integrity — each proven to fail on committed fixtures before passing on clean source.</li>
+<li><strong>AAA text tier (PR-B, 2026-06-11)</strong>: <code>color.text.subtle</code> stone-500 → stone-600 (4.8:1 → 7.6:1 on white) and <code>color.text.on-inverse-subtle</code> stone-400 → stone-300 (6.9:1 → 11.7:1 on stone-900) — every secondary-text role now clears WCAG 1.4.6 AAA (≥7:1) in <strong>both</strong> themes (dark overrides already cleared: 7.73 / 7.44, no adjustment needed). Direct aliases (header tagline / nav links / launch date, gauge caption) re-annotated <code>contrastLevel: aaa</code>. Rationale + audit trail: the AAA programme in the brand-mark v3 hand-off's AAA Compliance Catalogue. Visual delta: secondary text reads slightly darker in light theme — deliberate, no structural change.</li>
+<li><strong>Brand mark v3 (rev. A1 v1.1, 2026-06-11 — surface-relative)</strong>: frozen Geist-Bold outline assets replace the drifted Helvetica-<code>&lt;text&gt;</code> mark — <code>public/icon.svg</code> (card), <code>public/mark.svg</code> (bare <code>currentColor</code>), optional inverse favicon; exported as <code>@risqbase-inc/ui-components/assets/*</code>. New semantic tokens <code>color.brand.mark</code> (indigo-700 light / indigo-300 dark — <strong>deliberately diverges from <code>color.action.primary</code></strong>, which is unchanged) and <code>color.brand.mark-on-inverse</code> (the per-theme mirror for inverse surfaces). <code>color.header.logo</code> / <code>color.footer.logo</code> re-pointed to the brand chain; Header and Footer inline the frozen mark glyph; Footer raw classes (<code>bg-stone-900</code>/<code>text-gray-400</code>/<code>text-indigo-400</code>/<code>border-gray-800</code>) rewired to <code>color.footer.*</code> tokens with AAA meta/link bumps (stone-400 → stone-300 on the inverse surface, ≥7:1 in both themes). The WCAG 1.4.6/1.4.9 logotype exemption remains documented belt-and-braces only — all brand pairs clear AAA outright.</li>
+</ul>
+  </div>
+</article>
+
+<article id="v2-1-4" class="card entry" style="margin-bottom: 32px;">
   <div class="head">
     <div class="row">
       <div>
@@ -490,7 +522,7 @@
     <div><h5>Browse</h5><a href="tokens.html">Tokens</a><a href="components.html">Components</a><a href="charts.html">Charts</a><a href="patterns.html">Patterns</a></div>
     <div><h5>Reference</h5><a href="changelog.html">Changelog</a><a href="https://github.com/Risqbase-Inc/ui-components">GitHub ↗</a></div>
     <div><h5>Connect</h5><a href="mailto:design@risqbase.com">design@risqbase.com</a></div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.4 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.4 · Spec v4.4 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 

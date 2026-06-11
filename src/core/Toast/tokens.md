@@ -12,3 +12,5 @@
 | `color.border.focus` | focus rings |
 | `dimension.radius.md` | toast corners |
 | `dimension.radius.sm` | inner control corners |
+
+The entrance fade/slide is the `toast-enter` keyframe (`animate-toast-enter`, defined centrally in `tailwind.preset.js`, DS v4.4 workstream E). The class is omitted entirely when `useReducedMotion()` (from `MotionProvider`) resolves reduced; `motion-reduce:animate-none` is the no-JS / no-provider CSS fallback.

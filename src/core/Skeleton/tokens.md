@@ -8,4 +8,4 @@
 | `dimension.radius.md` | `chart` block radius |
 | `dimension.radius.card.default` | `card` block radius |
 
-The shimmer animation is `--motion-skeleton-shimmer` (defined in `tailwind.preset.js`): 1.4s linear infinite, suppressed under `prefers-reduced-motion: reduce`.
+The shimmer animation is `--motion-skeleton-shimmer` (defined in `tailwind.preset.js`): 1.4s linear infinite. Under reduced motion — resolved via `useReducedMotion()` from `MotionProvider` (DS v4.4 workstream E), or `prefers-reduced-motion: reduce` as the no-JS CSS fallback — the block is a static `color.surface.muted` fill with no animation classes.

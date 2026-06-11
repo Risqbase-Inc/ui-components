@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChartContainer · choropleth — v4.4 Design Spec</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+  :root {
+    /* primitives (v4.3 palette) */
+    --teal-100:#CCFBF1; --teal-300:#5EEAD4; --teal-500:#14B8A6; --teal-700:#0F766E; --teal-900:#134E4A;
+    --emerald-500:#10B981; --lime-500:#84CC16; --amber-500:#F59E0B; --orange-500:#F97316;
+    --red-600:#DC2626; --red-700:#B91C1C;
+    --indigo-400:#818CF8; --indigo-600:#4F46E5;
+    --stone-50:#FAFAF9; --stone-100:#F5F5F4; --stone-150:#EDEBE8; --stone-200:#E7E5E4; --stone-300:#D6D3D1;
+    --stone-400:#A8A29E; --stone-500:#78716C; --stone-600:#57534E; --stone-700:#44403C; --stone-800:#292524; --stone-900:#1C1917;
+
+    /* semantic — light */
+    --rb-surface-default:#FFFFFF; --rb-surface-subtle:var(--stone-50); --rb-surface-muted:var(--stone-150);
+    --rb-text-default:var(--stone-900); --rb-text-subtle:var(--stone-600); --rb-text-faint:var(--stone-500);
+    --rb-border-default:var(--stone-200); --rb-border-subtle:var(--stone-100);
+    --rb-action-primary:var(--indigo-600); --rb-focus:var(--indigo-600);
+
+    /* chart semantic — light */
+    --rb-chart-seq-1:var(--teal-100); --rb-chart-seq-2:var(--teal-300); --rb-chart-seq-3:var(--teal-500);
+    --rb-chart-seq-4:var(--teal-700); --rb-chart-seq-5:var(--teal-900);
+    --rb-chart-null:var(--stone-300);
+    --rb-chart-axis:var(--stone-200); --rb-chart-tooltip-surface:#FFFFFF; --rb-chart-tooltip-border:var(--stone-200);
+    --rb-map-context:var(--stone-150); --rb-map-stroke:var(--rb-surface-default); --rb-map-hover-stroke:var(--stone-600);
+
+    /* band semantic (v4.2.1 T1 — bg used as map fill; theme-stable) */
+    --rb-band-very-low:var(--emerald-500); --rb-band-low:var(--lime-500); --rb-band-medium:var(--amber-500);
+    --rb-band-high:var(--orange-500); --rb-band-very-high:var(--red-600);
+
+    --font-sans:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-mono:'Geist Mono',ui-monospace,'SF Mono',monospace;
+  }
+
+  [data-theme="dark"] {
+    --rb-surface-default:var(--stone-900); --rb-surface-subtle:var(--stone-800); --rb-surface-muted:var(--stone-700);
+    --rb-text-default:var(--stone-50); --rb-text-subtle:var(--stone-300); --rb-text-faint:var(--stone-400);
+    --rb-border-default:var(--stone-700); --rb-border-subtle:var(--stone-800);
+    --rb-action-primary:var(--indigo-400); --rb-focus:var(--indigo-400);
+    /* B1 rule: dark seq ramp reverses lightness order so "more" still reads as more */
+    --rb-chart-seq-1:var(--teal-900); --rb-chart-seq-2:var(--teal-700); --rb-chart-seq-3:var(--teal-500);
+    --rb-chart-seq-4:var(--teal-300); --rb-chart-seq-5:var(--teal-100);
+    --rb-chart-null:var(--stone-600);
+    --rb-chart-axis:var(--stone-700); --rb-chart-tooltip-surface:var(--stone-800); --rb-chart-tooltip-border:var(--stone-700);
+    --rb-map-context:var(--stone-800); --rb-map-stroke:var(--rb-surface-default); --rb-map-hover-stroke:var(--stone-300);
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    margin:0; font-family:var(--font-sans); color:var(--rb-text-default);
+    background:var(--rb-surface-subtle); -webkit-font-smoothing:antialiased;
+    font-feature-settings:"ss01","ss02","cv11"; line-height:1.55;
+  }
+  .page { max-width:1060px; margin:0 auto; padding:48px 32px 96px; }
+
+  .eyebrow { font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--rb-text-faint); display:flex; align-items:center; gap:10px; }
+  .eyebrow::before { content:""; width:20px; height:2px; background:var(--rb-action-primary); }
+  h1 { font-size:30px; font-weight:700; letter-spacing:-0.02em; margin:10px 0 4px; }
+  .sub { color:var(--rb-text-subtle); margin:0 0 8px; max-width:64ch; text-wrap:pretty; }
+  .meta { font-family:var(--font-mono); font-size:12px; color:var(--rb-text-faint); margin-bottom:40px; }
+
+  h2 { font-size:19px; font-weight:600; letter-spacing:-0.01em; margin:56px 0 6px; }
+  h2 .secno { color:var(--rb-text-faint); font-family:var(--font-mono); font-size:14px; font-weight:500; margin-right:10px; }
+  .lede { color:var(--rb-text-subtle); margin:0 0 20px; max-width:70ch; text-wrap:pretty; }
+
+  .card { background:var(--rb-surface-default); border:1px solid var(--rb-border-default); border-radius:16px; }
+
+  /* demo chrome */
+  .demo-head { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--rb-border-subtle); }
+  .demo-title { font-weight:600; font-size:15px; }
+  .demo-title small { display:block; font-weight:400; font-size:12.5px; color:var(--rb-text-faint); margin-top:1px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; }
+  .seg { display:flex; border:1px solid var(--rb-border-default); border-radius:9999px; padding:2px; background:var(--rb-surface-subtle); }
+  .seg button {
+    appearance:none; border:0; background:transparent; color:var(--rb-text-subtle); font:500 12.5px var(--font-sans);
+    padding:5px 13px; border-radius:9999px; cursor:pointer; min-height:28px;
+  }
+  .seg button[aria-pressed="true"] { background:var(--rb-action-primary); color:#fff; }
+  .seg button:focus-visible { outline:2px solid var(--rb-focus); outline-offset:1px; }
+
+  .map-wrap { position:relative; padding:10px 14px 0; }
+  svg.map { display:block; width:100%; height:auto; }
+  .map-note { position:absolute; inset:0; display:none; align-items:center; justify-content:center; padding:40px; text-align:center; color:var(--rb-text-subtle); font-size:14px; }
+
+  path.region { stroke:var(--rb-map-stroke); stroke-width:0.75; cursor:pointer; }
+  path.region.ctx { fill:var(--rb-map-context); pointer-events:none; }
+  @media (prefers-reduced-motion: no-preference) { path.region { transition:stroke 120ms, stroke-width 120ms; } }
+  path.region:hover, path.region.hover { stroke:var(--rb-map-hover-stroke); stroke-width:1.4; }
+  path.region:focus-visible { outline:none; stroke:var(--rb-focus); stroke-width:2; }
+  path.region.selected { stroke:var(--rb-action-primary); stroke-width:2; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:16px 22px; align-items:center; padding:14px 22px 6px; font-size:12.5px; color:var(--rb-text-subtle); }
+  .lg { display:flex; align-items:center; gap:7px; }
+  .swatch { width:14px; height:14px; border-radius:4px; border:1px solid color-mix(in oklab, var(--rb-text-default) 14%, transparent); }
+  .ramp { display:flex; }
+  .ramp i { width:22px; height:12px; display:block; }
+  .ramp i:first-child { border-radius:3px 0 0 3px; } .ramp i:last-child { border-radius:0 3px 3px 0; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:12px 22px 20px; border-top:1px dashed var(--rb-border-subtle); margin-top:10px; }
+  .chips .chips-label { font-size:12px; color:var(--rb-text-faint); margin-right:4px; }
+  .chip {
+    appearance:none; display:inline-flex; align-items:center; gap:7px; min-height:28px;
+    border:1px solid var(--rb-border-default); background:var(--rb-surface-subtle); color:var(--rb-text-default);
+    font:500 12.5px var(--font-sans); padding:4px 12px 4px 8px; border-radius:9999px; cursor:pointer;
+  }
+  .chip i { width:10px; height:10px; border-radius:3px; }
+  .chip:hover { border-color:var(--rb-map-hover-stroke); }
+  .chip:focus-visible { outline:2px solid var(--rb-focus); outline-offset:1px; }
+  .chip.selected { border-color:var(--rb-action-primary); box-shadow:inset 0 0 0 1px var(--rb-action-primary); }
+
+  .tooltip {
+    position:fixed; z-index:30; pointer-events:none; display:none;
+    background:var(--rb-chart-tooltip-surface); border:1px solid var(--rb-chart-tooltip-border);
+    border-radius:10px; padding:8px 12px; font-size:12.5px;
+    box-shadow:0 4px 12px -2px rgba(0,0,0,0.12); max-width:240px;
+  }
+  .tooltip b { display:block; font-size:13px; }
+  .tooltip span { color:var(--rb-text-subtle); }
+
+  table.spec { width:100%; border-collapse:collapse; font-size:13.5px; }
+  table.spec th { text-align:left; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--rb-text-faint); padding:10px 14px; border-bottom:1px solid var(--rb-border-default); }
+  table.spec td { padding:10px 14px; border-bottom:1px solid var(--rb-border-subtle); vertical-align:top; }
+  table.spec tr:last-child td { border-bottom:0; }
+  code, .mono { font-family:var(--font-mono); font-size:0.92em; }
+  td code { background:var(--rb-surface-subtle); border:1px solid var(--rb-border-subtle); border-radius:5px; padding:1px 6px; white-space:nowrap; }
+
+  pre {
+    background:var(--rb-surface-default); border:1px solid var(--rb-border-default); border-radius:12px;
+    padding:18px 20px; overflow-x:auto; font:12.5px/1.65 var(--font-mono); color:var(--rb-text-default); margin:0;
+  }
+  pre .c { color:var(--rb-text-faint); }
+
+  .callout { display:flex; gap:12px; background:var(--rb-surface-default); border:1px solid var(--rb-border-default); border-radius:12px; padding:14px 18px; font-size:13.5px; color:var(--rb-text-subtle); margin:18px 0; }
+  .callout::before { content:"i"; flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:var(--rb-action-primary); color:#fff; font:600 12px/20px var(--font-mono); text-align:center; margin-top:1px; }
+
+  .visually-hidden { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+  .a11y-table-demo table.spec { font-size:12.5px; }
+  .a11y-table-demo { max-height:260px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header data-screen-label="Spec header">
+    <p class="eyebrow">RisqBase Design System · v4.4 · Workstream F</p>
+    <h1>ChartContainer · <code>type="choropleth"</code></h1>
+    <p class="sub">Design specification and lift-ready reference for the seventh chart type. Implements the four locked decisions of 10 June 2026 plus the CEO-added continent-level world view. Companion to GOV-DS-2026-02 (rev. v4.4) §8.</p>
+    <p class="meta">GOV-DS-2026-02 (v4.4) / F-CHORO · 10 June 2026 · status: LOCKED — decisions D-115…D-119 inlined in §6 · demo data is illustrative fixture data</p>
+  </header>
+
+  <!-- ============================== DEMO ============================== -->
+  <section data-screen-label="Live demo">
+    <h2><span class="secno">1</span>Reference rendering</h2>
+    <p class="lede">Live demo using real Natural Earth geometry (110m, fetched at runtime for this spec only — the production component ships pre-built static geometry, §6). Toggle geography, encoding mode, and theme. Hover, keyboard-Tab, and click are all wired per the states contract in §2.</p>
+
+    <div class="card" data-comment-anchor="choropleth-demo">
+      <div class="demo-head">
+        <div class="demo-title" id="map-title">Regulatory posture by jurisdiction<small id="map-subtitle">EU/EEA + UK · band mode · illustrative fixture data</small></div>
+        <div class="controls">
+          <div class="seg" role="group" aria-label="Geography">
+            <button type="button" data-geo="europe" aria-pressed="true">Europe</button>
+            <button type="button" data-geo="world" aria-pressed="false">World</button>
+          </div>
+          <div class="seg" role="group" aria-label="Encoding mode">
+            <button type="button" data-mode="band" aria-pressed="true">Band</button>
+            <button type="button" data-mode="seq" aria-pressed="false">Seq</button>
+          </div>
+          <div class="seg" role="group" aria-label="Theme">
+            <button type="button" data-th="light" aria-pressed="true">Light</button>
+            <button type="button" data-th="dark" aria-pressed="false">Dark</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <svg class="map" id="mapsvg" viewBox="0 0 1000 640" role="img" aria-labelledby="map-title" aria-describedby="map-table-caption"></svg>
+        <div class="map-note" id="map-note">Loading Natural Earth geometry…<br><span class="mono" style="font-size:12px">(this spec demo fetches geometry live; the shipped component bundles it)</span></div>
+      </div>
+
+      <div class="legend" id="legend" aria-hidden="true"></div>
+      <div class="chips" id="chips" hidden>
+        <span class="chips-label" id="chips-label">Below hit-target size:</span>
+      </div>
+
+      <!-- a11y data-table fallback (§F3 contract) — real, not decorative -->
+      <div class="visually-hidden" id="map-table-host">
+        <p id="map-table-caption">Data table alternative for the choropleth above.</p>
+        <table id="map-table"><caption id="map-table-cap2">Choropleth data</caption></table>
+      </div>
+    </div>
+    <div class="tooltip" id="tooltip" role="status"></div>
+  </section>
+
+  <!-- ============================== STATES ============================== -->
+  <section data-screen-label="States contract">
+    <h2><span class="secno">2</span>Visual states</h2>
+    <p class="lede">Every paint resolves through a token — no raw hex at component tier (R9). Region separation comes from stroking with <code>surface.default</code>, so boundaries are crisp on both themes without a dedicated border color.</p>
+    <div class="card" style="overflow:hidden">
+      <table class="spec">
+        <thead><tr><th style="width:130px">State</th><th>Fill</th><th>Stroke</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td><code>band.{band}.bg</code> or <code>chart.seq.1..5</code></td><td><code>surface.default</code> · 0.75px</td><td>Seq values quantised to 5 steps by the component (quintiles by default, overridable thresholds)</td></tr>
+          <tr><td>No data</td><td><code>chart.null</code></td><td><code>surface.default</code> · 0.75px</td><td>Always present in the legend when ≥1 region is null</td></tr>
+          <tr><td>Context</td><td><code>surface.muted</code></td><td><code>surface.default</code> · 0.75px</td><td>Non-jurisdiction neighbours; not interactive, not in the table</td></tr>
+          <tr><td>Hover</td><td>unchanged</td><td><code>text.subtle</code> · 1.4px</td><td>Region raised to top of paint order; tooltip follows pointer. Never encode hover in fill — fill is data</td></tr>
+          <tr><td>Focus</td><td>unchanged</td><td><code>border.focus</code> · 2px</td><td>Keyboard focus; tooltip anchors to region centroid. Roving tabindex + arrow keys in production (§5)</td></tr>
+          <tr><td>Selected</td><td>unchanged</td><td><code>action.primary</code> · 2px</td><td>Click / Enter toggles; single-select; raised above hover in paint order</td></tr>
+          <tr><td>Forced colors</td><td><code>CanvasText</code> patterned</td><td><code>Canvas</code></td><td><code>data-fc="mark"</code> role per B3 — fills stripped, regions keep boundaries + the table carries the data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================== TOKENS ============================== -->
+  <section data-screen-label="Token bindings">
+    <h2><span class="secno">3</span>Token bindings · light / dark</h2>
+    <p class="lede">Dark values follow the B1 derivation rules. One deliberate inversion: the dark sequential ramp reverses lightness order (<code>seq.1</code>=teal-900 → <code>seq.5</code>=teal-100) so higher values stay the brighter mark on a dark surface. Band map fills are theme-stable (the 500-weight band hues already pass ≥3:1 against both surfaces).</p>
+    <div class="card" style="overflow:hidden">
+      <table class="spec">
+        <thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>chart.seq.1 → 5</code></td><td>teal 100·300·500·700·900</td><td>teal 900·700·500·300·100 <em>(reversed)</em></td><td>seq-mode fills, legend ramp</td></tr>
+          <tr><td><code>chart.null</code></td><td>stone-300</td><td>stone-600</td><td>no-data regions</td></tr>
+          <tr><td><code>band.*.bg</code> (5)</td><td>emerald·lime·amber·orange·red 500/600</td><td>theme-stable</td><td>band-mode fills, chips, legend</td></tr>
+          <tr><td><code>surface.muted</code></td><td>stone-150</td><td>stone-700 → demo uses stone-800 for context wash</td><td>context regions</td></tr>
+          <tr><td><code>surface.default</code></td><td>white</td><td>stone-900</td><td>region separation strokes, card</td></tr>
+          <tr><td><code>chart.tooltip-surface / -border</code></td><td>white / stone-200</td><td>stone-800 / stone-700</td><td>tooltip</td></tr>
+          <tr><td><code>action.primary</code> · <code>border.focus</code></td><td>indigo-600</td><td>indigo-400</td><td>selected / focus strokes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Demo dark values are derived per B1 in this file for self-containment; the canonical values are whatever <code>dist/tokens.css</code> emits from PR #84's resolver — if they differ, the dist build wins.</div>
+  </section>
+
+  <!-- ============================== CHIPS ============================== -->
+  <section data-screen-label="Small-jurisdiction rule">
+    <h2><span class="secno">4</span>Small-jurisdiction chip strip</h2>
+    <p class="lede">Malta, Luxembourg, Cyprus and Liechtenstein can never be honest hit targets on a Europe map. Rule: after layout, any <em>jurisdiction</em> whose rendered bounding box has a minimum dimension &lt; 24px is additionally rendered as a chip in a strip below the map (visible in the demo above, Europe view). Chips are full interaction peers: hover highlights the map region, focus/click select it, and they carry the same fill swatch. The map path stays rendered and colored — the chip adds reachability, it doesn't replace geography. The strip renders only when at least one region trips the threshold; chips order by data value descending. <em>Demo note: the 110m source this page fetches omits Malta's and Liechtenstein's geometry outright; they still appear as chips and table rows because the contract is data-driven — any jurisdiction in <code>data</code> without renderable geometry is chip-only. The production 50m build (D-116) includes their geometry.</em></p>
+  </section>
+
+  <!-- ============================== A11Y ============================== -->
+  <section data-screen-label="Accessibility contract">
+    <h2><span class="secno">5</span>Accessibility contract</h2>
+    <div class="card" style="overflow:hidden">
+      <table class="spec">
+        <tbody>
+          <tr><td style="width:190px"><b>Table fallback</b></td><td>Visually-hidden <code>&lt;table&gt;</code> linked via <code>aria-describedby</code> on the <code>role="img"</code> svg — jurisdiction · value · band per row, sorted by value. Sibling of the figure (never inside it) so table semantics survive. Products MUST NOT strip it (PLATFORM-STANDARDS §9.3). The demo's table is live — inspect <code>#map-table-host</code>.</td></tr>
+          <tr><td><b>Keyboard</b></td><td>The map is one tab stop; arrow keys rove between jurisdictions (sorted by value), Enter/Space toggles selection, Esc clears. Chips are native buttons in the normal tab order. <em>Demo simplification: every region is a tab stop; production uses the roving pattern.</em></td></tr>
+          <tr><td><b>Labels</b></td><td>Each region: <code>role="graphics-symbol"</code> + <code>aria-label="{name}, {value} {unit}, {band} band"</code>. Tooltip is <code>role="status"</code>, supplementary only — never the sole carrier of the value.</td></tr>
+          <tr><td><b>Color independence</b></td><td>Band/value is always recoverable from the table + labels + legend; never from fill alone. Forced-colors per §2.</td></tr>
+          <tr><td><b>Motion</b></td><td>Only stroke transitions (120ms), gated on <code>prefers-reduced-motion</code> / <code>[data-motion]</code> (R13). No entrance animation, no pan/zoom easing in v4.4 (zoom is out of scope).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================== IMPLEMENTATION ============================== -->
+  <section data-screen-label="Implementation contract">
+    <h2><span class="secno">6</span>Implementation contract — for Claude Code</h2>
+    <p class="lede">Locked decisions D-115…D-119 (CEO, 10 June 2026) and the build pipeline. No gray areas intended; anything genuinely undecided follows the nearest analogue and lands in brief §13.</p>
+
+    <div class="card" style="overflow:hidden; margin-bottom:18px">
+      <table class="spec">
+        <thead><tr><th style="width:90px">ID</th><th>Decision</th><th>Locked choice</th></tr></thead>
+        <tbody>
+          <tr><td><code>D-115</code></td><td>Granularity</td><td>Two packaged geographies: <code>geo="europe"</code> — country-level EU-27 + IS/LI/NO + UK (31 jurisdictions, ISO-3166 alpha-3 ids); <code>geo="world"</code> — six continents (Antarctica excluded), slug ids. Same component, same contract.</td></tr>
+          <tr><td><code>D-116</code></td><td>Geometry source</td><td>Natural Earth (public domain — no attribution requirement). Europe from 1:50m admin-0, world from 1:110m admin-0 merged on the <code>CONTINENT</code> attribute. France/Norway clipped to the European frame (lon −25…32, lat 34…72) so overseas territories don't distort the fit.</td></tr>
+          <tr><td><code>D-117</code></td><td>Encoding modes</td><td>Both: <code>mode="band"</code> (5-band, <code>band.*</code> contract) and <code>mode="seq"</code> (continuous → quantised to <code>chart.seq.1..5</code>; default quintiles, optional <code>thresholds</code> prop). <code>chart.null</code> for no-data in both.</td></tr>
+          <tr><td><code>D-118</code></td><td>Small jurisdictions</td><td>Chip strip per §4; threshold = min bbox dimension &lt; 24px at rendered size, re-evaluated on resize.</td></tr>
+          <tr><td><code>D-119</code></td><td>Asset pipeline</td><td><b>Pre-projected at build time</b> — no runtime projection dependency (keeps the package zero-dep like the MCP server). <code>tools/charts/build-geo.mjs</code>: Natural Earth → filter/merge → simplify (mapshaper, visvalingam ~10%) → project (azimuthal equal-area fit for europe, natural-earth for world) → quantised planar TopoJSON in <code>data-viz/geo/{europe,world}.json</code>. Budget: ≤ 80KB gzipped combined; CI fails over budget. Runtime renders plain path data.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+<pre><span class="c">// API (extends the existing ChartContainer contract)</span>
+&lt;ChartContainer
+  type="choropleth"
+  geo="europe" | "world"          <span class="c">// packaged geometry — no external map service, ever</span>
+  mode="band" | "seq"
+  data={[
+    { id: "DEU", band: "medium" },             <span class="c">// band mode · ISO alpha-3</span>
+    { id: "FRA", value: 31 },                  <span class="c">// seq mode  · world mode ids: "europe", "asia", …</span>
+    { id: "ISL", value: null },                <span class="c">// explicit no-data → chart.null + "No data" row</span>
+  ]}
+  unit="open alerts"               <span class="c">// for aria-labels, tooltip, table header</span>
+  thresholds={[5, 12, 24, 36]}     <span class="c">// optional seq quantisation override</span>
+  selectedId? onSelect?            <span class="c">// controlled single-select</span>
+  title description                <span class="c">// existing ChartContainer chrome</span>
+/&gt;
+
+<span class="c">// Regions present in the geometry but absent from `data` render as
+// context (surface.muted, non-interactive) — distinct from value:null.</span></pre>
+
+    <div class="callout">Spec-to-code checklist: states table §2 → stroke/fill logic · §3 → token vars only (R9) · §4 → chip strip + resize observer · §5 → table fallback, roving tabindex, forced-colors roles · D-119 → build script + budget gate. Chromatic: light + dark × band + seq × europe + world = 8 baseline stories + chip-strip story + no-data story.</div>
+  </section>
+
+  <footer style="margin-top:64px; font-size:12px; color:var(--rb-text-faint); font-family:var(--font-mono)">
+    GOV-DS-2026-02 (v4.4) · Workstream F amendment · choropleth restored to v4.4 (CEO, 10 Jun 2026) · demo geometry © Natural Earth (public domain)
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var EURO = ['AUT','BEL','BGR','HRV','CYP','CZE','DNK','EST','FIN','FRA','DEU','GRC','HUN','IRL','ITA','LVA','LTU','LUX','MLT','NLD','POL','PRT','ROU','SVK','SVN','ESP','SWE','ISL','LIE','NOR','GBR'];
+  var BAND_LABEL = { 'very-low':'Very low', 'low':'Low', 'medium':'Medium', 'high':'High', 'very-high':'Very high' };
+  var BAND_VAR = { 'very-low':'--rb-band-very-low', 'low':'--rb-band-low', 'medium':'--rb-band-medium', 'high':'--rb-band-high', 'very-high':'--rb-band-very-high' };
+
+  // Illustrative fixture data (clearly fake; mirrors RALIA's jurisdiction data shape)
+  var EU_FIX = {
+    IRL:{band:'very-low',value:2}, FIN:{band:'very-low',value:3}, DNK:{band:'very-low',value:4}, EST:{band:'very-low',value:4},
+    SWE:{band:'low',value:7}, NLD:{band:'low',value:8}, DEU:{band:'low',value:9}, AUT:{band:'low',value:10}, CZE:{band:'low',value:11}, LUX:{band:'low',value:6},
+    FRA:{band:'medium',value:14}, BEL:{band:'medium',value:15}, ESP:{band:'medium',value:17}, PRT:{band:'medium',value:13}, ITA:{band:'medium',value:19},
+    SVN:{band:'medium',value:16}, LVA:{band:'medium',value:14}, LTU:{band:'medium',value:13}, GBR:{band:'medium',value:18},
+    POL:{band:'high',value:27}, ROU:{band:'high',value:29}, GRC:{band:'high',value:25}, HRV:{band:'high',value:26}, SVK:{band:'high',value:28}, CYP:{band:'high',value:25}, MLT:{band:'high',value:30},
+    HUN:{band:'very-high',value:41}, BGR:{band:'very-high',value:38},
+    ISL:{band:null,value:null}, LIE:{band:null,value:null}, NOR:{band:'low',value:8}
+  };
+  var WORLD_FIX = {
+    'Europe':{band:'high',value:48}, 'Asia':{band:'high',value:37}, 'Africa':{band:'medium',value:18},
+    'North America':{band:'medium',value:23}, 'South America':{band:'low',value:9}, 'Oceania':{band:'very-low',value:3}
+  };
+  var THRESH = [5,12,24,36]; // seq quantisation (quintile-ish)
+
+  var state = { geo:'europe', mode:'band', theme:'light', selected:null };
+  try { Object.assign(state, JSON.parse(localStorage.getItem('rb-choro-spec') || '{}')); } catch(e) {}
+  state.selected = null;
+
+  var svg = document.getElementById('mapsvg'), note = document.getElementById('map-note');
+  var tooltip = document.getElementById('tooltip');
+  var features = null;
+
+  function persist(){ try { localStorage.setItem('rb-choro-spec', JSON.stringify({geo:state.geo, mode:state.mode, theme:state.theme})); } catch(e) {} }
+  // CodeQL js/xss-through-dom (code-scanning alerts 8/9): everything that
+  // reaches an innerHTML sink is escaped — region names arrive from the
+  // runtime Natural Earth fetch and DOM text must never round-trip as HTML.
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function seqStep(v){ if (v == null) return 0; for (var i=0;i<THRESH.length;i++) if (v < THRESH[i]) return i+1; return 5; }
+  function fillFor(d){ // d: {band, value} or null/undefined
+    if (!d) return 'var(--rb-map-context)';
+    if (state.mode === 'band') return d.band ? 'var(' + BAND_VAR[d.band] + ')' : 'var(--rb-chart-null)';
+    if (d.value == null) return 'var(--rb-chart-null)';
+    return 'var(--rb-chart-seq-' + seqStep(d.value) + ')';
+  }
+  function prop(f, key){ var p = f.properties || {}; return p[key] != null ? p[key] : p[key.toLowerCase()]; }
+
+  function setSeg(group, attr, val){
+    document.querySelectorAll('.seg [data-' + attr + ']').forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-' + attr) === val));
+    });
+  }
+
+  function showTip(html, x, y){ tooltip.innerHTML = html; tooltip.style.display = 'block';
+    var r = tooltip.getBoundingClientRect();
+    tooltip.style.left = Math.min(x + 14, window.innerWidth - r.width - 12) + 'px';
+    tooltip.style.top = Math.max(8, y - r.height - 10) + 'px'; }
+  function hideTip(){ tooltip.style.display = 'none'; }
+  function tipHtml(name, d){
+    var unit = state.geo === 'europe' ? 'open alerts' : 'open alerts';
+    if (!d || (d.value == null && !d.band)) return '<b>' + esc(name) + '</b><span>No data — onboarding</span>';
+    var band = d.band ? BAND_LABEL[d.band] + ' band' : '';
+    var val = d.value != null ? esc(d.value) + ' ' + esc(unit) : '';
+    return '<b>' + esc(name) + '</b><span>' + [val, band].filter(Boolean).join(' · ') + '</span>';
+  }
+
+  function render(){
+    if (!features) return;
+    setSeg('geo','geo',state.geo); setSeg('mode','mode',state.mode); setSeg('th','th',state.theme);
+    document.documentElement.setAttribute('data-theme', state.theme);
+    document.getElementById('map-subtitle').textContent =
+      (state.geo === 'europe' ? 'EU/EEA + UK' : 'Continents') + ' · ' + state.mode + ' mode · illustrative fixture data';
+
+    var W = 1000, H = 640;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var projection, jur = [], ctx = [], dataFor, nameFor, idFor;
+    if (state.geo === 'europe') {
+      var frame = {type:'MultiPoint', coordinates:[[-25,34],[32,34],[32,72],[-25,72]]}; // winding-proof fit frame
+      projection = d3.geoAzimuthalEqualArea().rotate([-10,-52]).fitExtent([[8,8],[W-8,H-8]], frame);
+      features.forEach(function(f){
+        var a3 = prop(f,'ADM0_A3');
+        if (EURO.indexOf(a3) >= 0) jur.push(f);
+        else if (prop(f,'CONTINENT') === 'Europe' || ['TUR','MAR','DZA','TUN','RUS','GEO','ARM','AZE','SYR','LBN','ISR','EGY','LBY','KAZ','IRQ','IRN','JOR','SAU'].indexOf(a3) >= 0) ctx.push(f);
+      });
+      dataFor = function(f){ return EU_FIX[prop(f,'ADM0_A3')]; };
+      nameFor = function(f){ return prop(f,'NAME'); };
+      idFor = function(f){ return prop(f,'ADM0_A3'); };
+    } else {
+      var frameW = {type:'MultiPoint', coordinates:[[-179,-58],[179,-58],[179,84],[-179,84]]}; // winding-proof fit frame
+      projection = d3.geoNaturalEarth1().fitExtent([[8,8],[W-8,H-8]], frameW);
+      features.forEach(function(f){
+        var c = prop(f,'CONTINENT');
+        if (c && c !== 'Antarctica' && c !== 'Seven seas (open ocean)') jur.push(f);
+      });
+      dataFor = function(f){ return WORLD_FIX[prop(f,'CONTINENT')]; };
+      nameFor = function(f){ return prop(f,'CONTINENT'); };
+      idFor = function(f){ return prop(f,'CONTINENT'); };
+    }
+    var path = d3.geoPath(projection);
+    var NS = 'http://www.w3.org/2000/svg';
+
+    ctx.forEach(function(f){
+      var d = path(f); if (!d) return;
+      var el = document.createElementNS(NS,'path');
+      el.setAttribute('d', d); el.setAttribute('class','region ctx'); el.setAttribute('aria-hidden','true');
+      svg.appendChild(el);
+    });
+
+    var groups = {}; // world: continent -> [els]
+    var entries = []; // {id, name, data, els:[], bbox}
+    var byId = {};
+    jur.forEach(function(f){
+      var d = path(f); if (!d) return;
+      var id = idFor(f), name = nameFor(f), data = dataFor(f);
+      var e = byId[id];
+      if (!e) { e = { id:id, name:name, data:data, els:[] }; byId[id] = e; entries.push(e); }
+      var el = document.createElementNS(NS,'path');
+      el.setAttribute('d', d); el.setAttribute('class','region');
+      el.style.fill = fillFor(data);
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','graphics-symbol');
+      var unit = 'open alerts';
+      var lbl = name + (data && data.value != null ? ', ' + data.value + ' ' + unit : ', no data')
+              + (state.mode === 'band' && data && data.band ? ', ' + BAND_LABEL[data.band] + ' band' : '');
+      el.setAttribute('aria-label', lbl);
+      e.els.push(el);
+
+      el.addEventListener('pointermove', function(ev){ hl(e, true); showTip(tipHtml(name, data), ev.clientX, ev.clientY); });
+      el.addEventListener('pointerleave', function(){ hl(e, false); hideTip(); });
+      el.addEventListener('focus', function(){ var b = el.getBBox(), pt = svgToScreen(b.x + b.width/2, b.y + b.height/2); showTip(tipHtml(name, data), pt.x, pt.y); });
+      el.addEventListener('blur', hideTip);
+      el.addEventListener('click', function(){ select(e); });
+      el.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); select(e); } });
+      svg.appendChild(el);
+    });
+
+    // data-driven completeness: fixture jurisdictions with no geometry in this source
+    // (110m omits MLT, LIE) still get an entry — chip-only + table row
+    if (state.geo === 'europe') {
+      EURO.forEach(function(a3){
+        if (!byId[a3]) {
+          var names = { MLT:'Malta', LIE:'Liechtenstein' };
+          entries.push({ id:a3, name:names[a3] || a3, data:EU_FIX[a3], els:[] });
+        }
+      });
+    }
+
+    function svgToScreen(x, y){
+      var pt = svg.createSVGPoint(); pt.x = x; pt.y = y;
+      var m = svg.getScreenCTM(); var p = pt.matrixTransform(m);
+      return { x: p.x, y: p.y };
+    }
+    function hl(e, on){ e.els.forEach(function(el){ el.classList.toggle('hover', on); if (on) svg.appendChild(el); }); }
+    function select(e){
+      state.selected = state.selected === e.id ? null : e.id;
+      entries.forEach(function(en){
+        var sel = en.id === state.selected;
+        en.els.forEach(function(el){ el.classList.toggle('selected', sel); if (sel) svg.appendChild(el); });
+      });
+      document.querySelectorAll('.chip').forEach(function(c){ c.classList.toggle('selected', c.getAttribute('data-id') === state.selected); });
+    }
+
+    // legend
+    var lg = document.getElementById('legend'); lg.innerHTML = '';
+    if (state.mode === 'band') {
+      Object.keys(BAND_LABEL).forEach(function(b){
+        var s = document.createElement('span'); s.className = 'lg';
+        s.innerHTML = '<i class="swatch" style="background:var(' + BAND_VAR[b] + ')"></i>' + BAND_LABEL[b];
+        lg.appendChild(s);
+      });
+    } else {
+      var ramp = document.createElement('span'); ramp.className = 'lg';
+      var bars = ''; for (var i = 1; i <= 5; i++) bars += '<i style="background:var(--rb-chart-seq-' + i + ')"></i>';
+      ramp.innerHTML = 'Fewer <span class="ramp" style="margin:0 6px">' + bars + '</span> More open alerts';
+      lg.appendChild(ramp);
+    }
+    var hasNull = entries.some(function(e){ return !e.data || e.data.value == null; });
+    if (hasNull) {
+      var n = document.createElement('span'); n.className = 'lg';
+      n.innerHTML = '<i class="swatch" style="background:var(--rb-chart-null)"></i>No data';
+      lg.appendChild(n);
+    }
+
+    // chip strip (D-118): jurisdiction bbox min-dimension < 24px at rendered size
+    var chipsWrap = document.getElementById('chips');
+    chipsWrap.querySelectorAll('.chip').forEach(function(c){ c.remove(); });
+    var scale = svg.getBoundingClientRect().width / W || 1;
+    var small = entries.filter(function(e){
+      if (e.els.length === 0) return true; // no renderable geometry → always chip-only
+      var minDim = Infinity;
+      e.els.forEach(function(el){ var b = el.getBBox(); minDim = Math.min(minDim, Math.min(b.width, b.height) * scale); });
+      return minDim < 24;
+    }).sort(function(a, b){ return ((b.data && b.data.value) || 0) - ((a.data && a.data.value) || 0); });
+    chipsWrap.hidden = small.length === 0;
+    small.forEach(function(e){
+      var c = document.createElement('button');
+      c.type = 'button'; c.className = 'chip'; c.setAttribute('data-id', e.id);
+      c.innerHTML = '<i style="background:' + fillFor(e.data) + '"></i>' + esc(e.name) +
+        (e.data && e.data.value != null ? ' <span class="mono" style="color:var(--rb-text-faint)">' + esc(e.data.value) + '</span>' : '');
+      c.addEventListener('pointerenter', function(ev){ hl(e, true); showTip(tipHtml(e.name, e.data), ev.clientX, ev.clientY); });
+      c.addEventListener('pointerleave', function(){ hl(e, false); hideTip(); });
+      c.addEventListener('click', function(){ select(e); });
+      chipsWrap.appendChild(c);
+    });
+
+    // a11y table fallback — real data, sorted by value desc
+    var tbl = document.getElementById('map-table');
+    var unitH = 'Open alerts';
+    var rows = entries.slice().sort(function(a, b){ return ((b.data && b.data.value) || -1) - ((a.data && a.data.value) || -1); })
+      .map(function(e){
+        var v = e.data && e.data.value != null ? e.data.value : 'No data';
+        var b = state.mode === 'band' ? '<td>' + (e.data && e.data.band ? BAND_LABEL[e.data.band] : '—') + '</td>' : '';
+        return '<tr><th scope="row">' + esc(e.name) + '</th><td>' + esc(v) + '</td>' + b + '</tr>';
+      }).join('');
+    tbl.innerHTML = '<caption>' + esc(document.getElementById('map-title').childNodes[0].textContent) + ' — data table</caption>' +
+      '<thead><tr><th scope="col">Jurisdiction</th><th scope="col">' + esc(unitH) + '</th>' +
+      (state.mode === 'band' ? '<th scope="col">Band</th>' : '') + '</tr></thead><tbody>' + rows + '</tbody>';
+    // Mirror via cloneNode — never re-serialise DOM content through innerHTML.
+    var mirror = document.getElementById('a11y-table-mirror');
+    var clone = tbl.cloneNode(true);
+    clone.className = 'spec';
+    mirror.replaceChildren(clone);
+  }
+
+  // controls
+  document.querySelectorAll('.seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (b.hasAttribute('data-geo')) state.geo = b.getAttribute('data-geo');
+      if (b.hasAttribute('data-mode')) state.mode = b.getAttribute('data-mode');
+      if (b.hasAttribute('data-th')) state.theme = b.getAttribute('data-th');
+      state.selected = null; persist(); render();
+    });
+  });
+  window.addEventListener('resize', function(){ clearTimeout(window.__rbT); window.__rbT = setTimeout(render, 150); });
+
+  note.style.display = 'flex';
+  fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson')
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(gj){ features = gj.features; note.style.display = 'none'; render(); })
+    .catch(function(){
+      note.innerHTML = 'Could not fetch Natural Earth geometry (network required for this spec demo).<br>' +
+        '<span class="mono" style="font-size:12px">The shipped component bundles pre-projected geometry and has no network dependency (D-119).</span>';
+    });
+})();
+</script>
+
+<!-- inline mirror of the hidden table, revealed in §5 for spec readers -->
+<script>
+  (function(){
+    var sec = document.querySelector('[data-screen-label="Accessibility contract"] .card table.spec tbody tr td:last-child');
+    var host = document.createElement('div');
+    host.className = 'a11y-table-demo card'; host.style.marginTop = '10px'; host.style.overflow = 'auto';
+    host.innerHTML = '<div id="a11y-table-mirror"></div>';
+    sec.appendChild(host);
+  })();
+</script>
+</body>
+</html>

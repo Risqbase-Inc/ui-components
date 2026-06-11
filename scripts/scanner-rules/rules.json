@@ -1,0 +1,56 @@
+{
+  "$comment": "Machine-readable scanner-rule constraints, served to agents via the MCP get_usage_rules tool and the llms.txt corpus. R1–R8 and R10 are defined in GOV-DS-2026-02 (v4.3) §10, whose canonical running text is the approval-tracked artefact, not vendored in this repo — their entries carry the canonical pointer rather than re-stated (possibly drifted) prose. R9/R11 are restated here from in-repo docs; R12–R14 are new in v4.4 (GOV-DS-2026-02 rev. v4.4 §9; renumbered from the brief's R11–R13 — see §13 decision 2026-06-09·2).",
+  "rules": [
+    { "id": "R1", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R2", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R3", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R4", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R5", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation; supports baselining).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R6", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R7", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation; supports baselining).", "instead": "See GOV-DS-2026-02 §10." },
+    { "id": "R8", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation; supports baselining).", "instead": "See GOV-DS-2026-02 §10." },
+    {
+      "id": "R9",
+      "severity": "error",
+      "definedIn": "GOV-DS-2026-02 §10",
+      "description": "Token-tier discipline: component code consumes only semantic or component-tier tokens — never raw hex/RGB literals and never primitive-tier tokens (color.palette.*, color.brand.*, color.neutral.*) directly.",
+      "instead": "Use the semantic chain (e.g. var(--color-action-primary), var(--color-chart-cat-1)); request a new semantic token if no role fits."
+    },
+    { "id": "R10", "severity": "error", "definedIn": "GOV-DS-2026-02 §10", "description": "Defined in the v4.3 canonical document (consumer scanners carry the implementation).", "instead": "See GOV-DS-2026-02 §10." },
+    {
+      "id": "R11",
+      "severity": "error|warn",
+      "definedIn": "docs/design-system/v4.3/scanner-rule-r11.md",
+      "description": "iris.accent-on contrast guard: white text on an iris.accent surface computes to 3.74:1 (AA Large + Non-Text only). Small text (below 18.66px bold / 24px regular) using iris.accent-on on iris.accent violates.",
+      "instead": "Use iris.accent-on-dark (stone-900, AA-Normal-safe) for body-sized text on iris.accent, or qualify for AA Large."
+    },
+    {
+      "id": "R12",
+      "severity": "error",
+      "definedIn": "docs/design-system/v4.4/scanner-rules-r12-r14.md",
+      "description": "Token source hygiene (v4.4; the brief's \"R11\", renumbered): tokens/** must pass DTCG 2025.10 validation (.tokens.json extension, $value/$type/$description, valid $deprecated); color $values must be OKLCH (no raw hex); the dark theme set may not leave any semantic/component color token resolving to its light value without an explicit themeInvariant reason.",
+      "instead": "Run npm run lint:tokens (reference implementation: tools/tokens-build/lint.js); convert hex with tools/tokens-build/lib/oklch.js; add dark overrides to tokens/themes/dark.tokens.json."
+    },
+    {
+      "id": "R13",
+      "severity": "error",
+      "definedIn": "docs/design-system/v4.4/scanner-rules-r12-r14.md",
+      "description": "Motion gating (v4.4; the brief's \"R12\", renumbered): animated CSS in component-tier code must be gated on [data-motion] or prefers-reduced-motion (or the useReducedMotion() hook). Raw ungated infinite animation: or transition: longer than 500ms violates.",
+      "instead": "Gate with useReducedMotion() / motion-reduce: classes / the central [data-motion=\"reduced\"] rules in tokens.css; reference implementation scripts/scanner-rules/r13-motion-gating.mjs."
+    },
+    {
+      "id": "R14",
+      "severity": "error",
+      "definedIn": "docs/design-system/v4.4/scanner-rules-r12-r14.md",
+      "description": "Agent-surface freshness (v4.4; the brief's \"R13\", renumbered): public/agent/registry.json, the llms.txt family and the per-page .md mirrors must be regenerated in the same commit as any change to component types, tokens, recipes, lifecycle, showcase entries or scanner rules.",
+      "instead": "Run npm run build:agent-surface and commit the regenerated public/ artefacts; CI runs npm run agent:check (same drift mechanism as docs:check)."
+    },
+    {
+      "id": "R15",
+      "severity": "error",
+      "definedIn": "scripts/scanner-rules/r15-brand-mark-integrity.mjs (brand-mark v3 hand-off, PR-A T5)",
+      "description": "Brand-mark integrity (2026-06-11): the brand mark is frozen vector paths (public/mark.svg) — never re-typed as SVG <text> (any <text> containing the lockup glyphs r|ↄ violates) and never approximated with a web font: any fontFamily/font-family literal whose first family is a named font (Helvetica, Arial, Geist, …) rather than a system entry (system-ui, ui-*, -apple-system), a CSS generic, or a var(--…) reference violates. System-first stacks may carry named fallbacks.",
+      "instead": "Inline the frozen mark (geometry from public/mark.svg, fill=\"currentColor\", themed via color.brand.mark / color.brand.mark-on-inverse) or import the packaged asset @risqbase-inc/ui-components/assets/mark.svg; use the system font stack for text. Reference implementation scripts/scanner-rules/r15-brand-mark-integrity.mjs (npm run scan:brand)."
+    }
+  ]
+}

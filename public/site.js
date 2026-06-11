@@ -57,3 +57,17 @@
     });
   });
 })();
+
+// Theme switcher (v4.4 B4) — persists to localStorage, defaults to
+// prefers-color-scheme. The pre-paint init script in <head> applies the
+// stored choice before first render; this handler just toggles + persists.
+(function () {
+  var KEY = 'risqbase-design-site-theme';
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-theme-toggle]');
+    if (!btn) return;
+    var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch (err) { /* private mode */ }
+  });
+})();

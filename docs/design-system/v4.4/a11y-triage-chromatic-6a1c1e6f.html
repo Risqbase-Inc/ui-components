@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessibility Triage — Chromatic build 6a1c1e6f</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+  :root {
+    --stone-50:#FAFAF9; --stone-100:#F5F5F4; --stone-150:#EDEBE8; --stone-200:#E7E5E4; --stone-300:#D6D3D1;
+    --stone-400:#A8A29E; --stone-500:#78716C; --stone-600:#57534E; --stone-700:#44403C; --stone-800:#292524; --stone-900:#1C1917;
+    --indigo-600:#4F46E5; --teal-600:#0D9488; --amber-600:#D97706; --red-600:#DC2626; --emerald-600:#059669;
+    --surface:#FFFFFF; --surface-subtle:var(--stone-50);
+    --text:var(--stone-900); --text-subtle:var(--stone-600); --text-faint:var(--stone-500);
+    --border:var(--stone-200); --border-subtle:var(--stone-100);
+    --font-sans:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-mono:'Geist Mono',ui-monospace,'SF Mono',monospace;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:var(--font-sans); color:var(--text); background:var(--surface-subtle); line-height:1.55; -webkit-font-smoothing:antialiased; font-feature-settings:"ss01","ss02","cv11"; }
+  .page { max-width:1020px; margin:0 auto; padding:48px 32px 96px; }
+  .eyebrow { font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-faint); display:flex; align-items:center; gap:10px; }
+  .eyebrow::before { content:""; width:20px; height:2px; background:var(--indigo-600); }
+  h1 { font-size:29px; font-weight:700; letter-spacing:-0.02em; margin:10px 0 4px; }
+  .sub { color:var(--text-subtle); margin:0 0 6px; max-width:68ch; text-wrap:pretty; }
+  .meta { font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-bottom:36px; }
+  h2 { font-size:19px; font-weight:600; letter-spacing:-0.01em; margin:52px 0 6px; }
+  h2 .secno { color:var(--text-faint); font-family:var(--font-mono); font-size:14px; font-weight:500; margin-right:10px; }
+  h3 { font-size:14.5px; font-weight:600; margin:24px 0 6px; }
+  .lede { color:var(--text-subtle); margin:0 0 18px; max-width:72ch; text-wrap:pretty; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; }
+  .pad { padding:20px 24px; }
+  code, .mono { font-family:var(--font-mono); font-size:0.92em; }
+  p code, td code, li code { background:var(--surface-subtle); border:1px solid var(--border-subtle); border-radius:5px; padding:1px 6px; }
+
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin:22px 0 6px; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+  .stat b { display:block; font-size:26px; font-weight:700; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
+  .stat span { font-size:12.5px; color:var(--text-subtle); }
+  .stat.bad b { color:var(--red-600); }
+
+  .modebar { display:flex; height:18px; border-radius:9px; overflow:hidden; margin:18px 0 8px; border:1px solid var(--border); }
+  .modebar i { display:block; height:100%; }
+  .modekey { display:flex; gap:18px; font-size:12.5px; color:var(--text-subtle); flex-wrap:wrap; }
+  .modekey b { font-variant-numeric:tabular-nums; color:var(--text); }
+  .dotk { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+
+  table.spec { width:100%; border-collapse:collapse; font-size:13.5px; }
+  table.spec th { text-align:left; font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-faint); padding:10px 14px; border-bottom:1px solid var(--border); }
+  table.spec td { padding:10px 14px; border-bottom:1px solid var(--border-subtle); vertical-align:top; }
+  table.spec tr:last-child td { border-bottom:0; }
+  td.num { font-variant-numeric:tabular-nums; text-align:right; font-family:var(--font-mono); font-size:12.5px; }
+  .bar { display:inline-block; height:9px; background:var(--stone-800); border-radius:3px; vertical-align:middle; margin-right:8px; min-width:2px; }
+
+  .tag { display:inline-block; font:600 10.5px/1 var(--font-mono); letter-spacing:0.05em; padding:4px 8px; border-radius:9999px; text-transform:uppercase; }
+  .tag.serious { background:#FEF2F2; color:var(--red-600); }
+  .tag.moderate { background:#FFFBEB; color:var(--amber-600); }
+  .tag.confirm { background:#EEF2FF; color:var(--indigo-600); }
+  .tag.high { background:#ECFDF5; color:var(--emerald-600); }
+
+  .cluster { margin-bottom:16px; }
+  .cluster .head { display:flex; gap:12px; align-items:baseline; justify-content:space-between; flex-wrap:wrap; padding:16px 24px 0; }
+  .cluster h3 { margin:0; font-size:15px; }
+  .cluster .count { font-family:var(--font-mono); font-size:12px; color:var(--text-faint); }
+  .cluster .body { padding:10px 24px 18px; font-size:13.5px; color:var(--text-subtle); }
+  .cluster .body p { margin:8px 0; max-width:78ch; text-wrap:pretty; }
+  .cluster .body b { color:var(--text); }
+  .fix { border-top:1px dashed var(--border-subtle); margin-top:12px; padding-top:12px; }
+  .fix::before { content:"FIX SPEC"; font:600 10.5px/1 var(--font-mono); letter-spacing:0.06em; color:var(--indigo-600); display:block; margin-bottom:6px; }
+
+  .swpair { display:inline-flex; align-items:center; border:1px solid var(--border); border-radius:7px; overflow:hidden; vertical-align:middle; margin:0 4px; }
+  .swpair i { width:38px; height:20px; display:flex; align-items:center; justify-content:center; font:500 10px var(--font-mono); }
+
+  .callout { display:flex; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-size:13.5px; color:var(--text-subtle); margin:18px 0; }
+  .callout.warn::before { content:"!"; background:var(--amber-600); }
+  .callout::before { content:"i"; flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:var(--indigo-600); color:#fff; font:600 12px/20px var(--font-mono); text-align:center; margin-top:1px; }
+  ol.steps { margin:8px 0 0; padding-left:20px; font-size:13.5px; color:var(--text-subtle); }
+  ol.steps li { margin-bottom:8px; max-width:74ch; text-wrap:pretty; }
+  ol.steps b { color:var(--text); }
+  ul.tight { margin:6px 0; padding-left:18px; }
+  ul.tight li { margin-bottom:5px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header data-screen-label="Triage header">
+    <p class="eyebrow">RisqBase Design System · v4.4 · accessibility triage</p>
+    <h1>Chromatic accessibility report — triage &amp; fix spec</h1>
+    <p class="sub">Analysis of the 573-row story×mode export from Chromatic build <code>6a1c1e6f…</code> (10 June 2026). The export carries violation counts, not axe rule IDs — so this triage clusters by pattern, ranks root-cause hypotheses, and specifies a confirm-then-fix protocol with token-level fixes.</p>
+    <p class="meta">GOV-DS-2026-02 rev. v4.4 / A11Y-TRIAGE · 10 June 2026 · feeds ledger rows A5.6 · B5.3 · F.4 · DoD-3c</p>
+  </header>
+
+  <!-- ============ HEADLINE ============ -->
+  <section data-screen-label="Headline numbers">
+    <h2><span class="secno">1</span>What the numbers say</h2>
+    <div class="stats">
+      <div class="stat bad"><b>1,344</b><span>total violations across 567 run story×mode rows</span></div>
+      <div class="stat"><b>93.5%</b><span>in dark mode (1,257) — light has 39</span></div>
+      <div class="stat"><b>~12</b><span>estimated distinct root causes (see §3)</span></div>
+      <div class="stat"><b>6</b><span>story×modes where axe never ran (≠ pass)</span></div>
+    </div>
+    <div class="modebar" role="img" aria-label="Violations by mode: dark 1257, light 39, high-contrast 39, other 9">
+      <i style="width:93.5%; background:var(--stone-800)" title="dark 1,257"></i>
+      <i style="width:2.9%; background:var(--indigo-600)" title="light 39"></i>
+      <i style="width:2.9%; background:var(--teal-600)" title="hc 39"></i>
+      <i style="width:0.7%; background:var(--amber-600)" title="other 9"></i>
+    </div>
+    <p class="modekey">
+      <span><i class="dotk" style="background:var(--stone-800)"></i>dark <b>1,257</b></span>
+      <span><i class="dotk" style="background:var(--indigo-600)"></i>light <b>39</b></span>
+      <span><i class="dotk" style="background:var(--teal-600)"></i>hc <b>39</b></span>
+      <span><i class="dotk" style="background:var(--amber-600)"></i>print + viewport modes <b>9</b></span>
+      <span>reduced-motion <b>0</b></span>
+    </p>
+
+    <p class="lede" style="margin-top:18px">Three structural facts shape everything below:</p>
+    <ul class="tight" style="font-size:13.5px; color:var(--text-subtle); max-width:76ch">
+      <li><b style="color:var(--text)">Counts scale with text density, not component count.</b> Footer "Print Gallery" 70 · CompliancePostureStrip "Many Clients" 69 · ClientGrid "All Mode 12 Clients" 66 — the same story shapes with fewer instances score proportionally lower. That is the signature of axe's per-element <code>color-contrast</code> rule hitting a handful of failing <em>token pairs</em>, multiplied by every element that uses them.</li>
+      <li><b style="color:var(--text)">Light and HC counts are pairwise identical</b> (39 = 39, story by story). The hc mode renders the same pixels as light for axe's purposes — these are the <em>same</em> ~39 bugs counted twice, not separate HC failures. Unique non-dark issues ≈ 30, of which 25 are in one component (ClientGrid).</li>
+      <li><b style="color:var(--text)">Five components are clean in every mode</b> (Button, IconButton, Skeleton, PromptChip, IrisThinking) — so this is not a "Storybook canvas didn't flip to dark" artifact. The dark failures are real rendering outcomes in specific token chains.</li>
+    </ul>
+  </section>
+
+  <!-- ============ PER-COMPONENT ============ -->
+  <section data-screen-label="Per-component totals">
+    <h2><span class="secno">2</span>Where it lives</h2>
+    <div class="card" style="overflow:hidden">
+      <table class="spec">
+        <thead><tr><th>Component</th><th>Total</th><th style="width:42%"></th><th>Dark</th><th>Light</th><th>HC</th><th>Other</th></tr></thead>
+        <tbody>
+          <tr><td><b>ClientGrid</b> <span class="tag serious">serious</span></td><td class="num">422</td><td><i class="bar" style="width:100%"></i></td><td class="num">369</td><td class="num">25</td><td class="num">25</td><td class="num">3</td></tr>
+          <tr><td><b>CompliancePostureStrip</b></td><td class="num">273</td><td><i class="bar" style="width:65%"></i></td><td class="num">273</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td><b>Footer</b></td><td class="num">191</td><td><i class="bar" style="width:45%"></i></td><td class="num">182</td><td class="num">3</td><td class="num">3</td><td class="num">3</td></tr>
+          <tr><td><b>Header</b></td><td class="num">138</td><td><i class="bar" style="width:33%"></i></td><td class="num">123</td><td class="num">6</td><td class="num">6</td><td class="num">3</td></tr>
+          <tr><td>StreamingText</td><td class="num">69</td><td><i class="bar" style="width:16%"></i></td><td class="num">69</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>CitationChip</td><td class="num">42</td><td><i class="bar" style="width:10%"></i></td><td class="num">42</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>RiskGauge</td><td class="num">34</td><td><i class="bar" style="width:8%"></i></td><td class="num">34</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>Callout · Badge (27 each)</td><td class="num">54</td><td><i class="bar" style="width:13%"></i></td><td class="num">54</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>WizardProgress · ClientScopeBanner · Gauge · Toast</td><td class="num">74</td><td><i class="bar" style="width:18%"></i></td><td class="num">72</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+          <tr><td>EmptyState · Card · ChartContainer · Modal/Drawer/Sheet · SectionEyebrow · SkipLink</td><td class="num">38</td><td><i class="bar" style="width:9%"></i></td><td class="num">38</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>MarketingImpactGraph <span class="tag moderate">inverse pattern</span></td><td class="num">6</td><td><i class="bar" style="width:1.5%"></i></td><td class="num">0</td><td class="num">3</td><td class="num">3</td><td class="num">0</td></tr>
+          <tr><td>ImpactGraph (Interactive story)</td><td class="num">3</td><td><i class="bar" style="width:1%"></i></td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><p style="margin:0; max-width:78ch">Note that ClientGrid, CompliancePostureStrip, MarketingImpactGraph, ImpactGraph, HeroVideo and ArcDecoration are not v4.4 Layer 1/2 catalogue primitives — they appear to be showcase/marketing components co-hosted in this Storybook. ClientGrid alone is 31% of all violations and the only component failing meaningfully in <em>light</em> — it likely predates the token mandate (raw values, R9-baselined) and deserves its own remediation pass.</p></div>
+  </section>
+
+  <!-- ============ CLUSTERS ============ -->
+  <section data-screen-label="Root-cause clusters">
+    <h2><span class="secno">3</span>Root-cause clusters &amp; fix specs</h2>
+    <p class="lede">Ranked by violation mass. Confidence reflects what counts alone can prove; every cluster lists its one-story confirmation probe — pull the axe rule list for that single story and the hypothesis is confirmed or killed.</p>
+
+    <div class="card cluster" data-comment-anchor="cluster-c1">
+      <div class="head"><h3>C1 · Dark faint-text tier fails 4.5:1 <span class="tag confirm">confirm via ClientGrid / All Mode 12 Clients / dark</span></h3><span class="count">est. 600–900 of 1,257 dark</span></div>
+      <div class="body">
+        <p>The B1 derivation set dark <code>text.subtle</code> → stone-300 (safe), but <b>component-tier tokens that resolve to fainter stones were likely never re-pointed</b>. The killer pair: <span class="swpair"><i style="background:#1C1917; color:#78716C">Aa</i><i style="background:#FFF; color:#78716C">500</i></span> stone-500 on stone-900 ≈ <b>3.5:1</b> — fails normal-text 4.5:1; on stone-800 ≈ 3.05:1, worse. Every metadata line, timestamp, caption, helper text, and tertiary label using that tier fails <em>per element</em> — which is exactly why text-dense stories (client cards, posture strips, footers) post the huge counts.</p>
+        <p class="fix">Token-level, not component-level: add a dark override for every component token resolving to stone-500/stone-400 in a text role — re-point to stone-400 (≈6.8:1 on stone-900) or stone-300. Then extend <code>verify-contrast</code> from the 8 curated pairs to <b>every token whose name matches a text role</b>, asserted per theme in CI (the gap this report exposes). Components needing zero code changes if the chain is clean.</p>
+      </div>
+    </div>
+
+    <div class="card cluster" data-comment-anchor="cluster-c2">
+      <div class="head"><h3>C2 · Inverse-surface chrome not double-flipped <span class="tag confirm">confirm via Footer / Default / dark</span></h3><span class="count">Footer 182 + Header share ≈ 300</span></div>
+      <div class="body">
+        <p>Footer rides <code>surface.inverse</code> (stone-900 + light type in light theme). B1 flips <code>surface.inverse</code> → white in dark — but if <code>text.on-inverse-subtle</code> (and nav-link/legal-text component tokens) kept their light-theme values (light stones), they're now <b>light-on-white</b>. Footer's 182 dark violations across every story, with light at 0, is the textbook signature. Header's dark dropdown panels/nav states likely share a variant of this.</p>
+        <p class="fix">Derive the full <code>on-inverse</code> chain for dark (text, subtle, dividers, hover states) and add <code>contrastPair</code> entries pinned to <code>surface.inverse</code> so the pair set tracks the flip automatically. Acceptance: Footer Default/Mobile dark = 0.</p>
+      </div>
+    </div>
+
+    <div class="card cluster" data-comment-anchor="cluster-c3">
+      <div class="head"><h3>C3 · Tinted-subtle intent/band surfaces in dark <span class="tag confirm">confirm via Callout / Intents / dark</span></h3><span class="count">Callout 27 · Badge 27 · CitationChip 42 · Toast 16 ≈ 112</span></div>
+      <div class="body">
+        <p>Intent surfaces (<code>callout.*</code>, <code>citation.surface-*</code>, toast intents, badge band-subtle text) pair a tinted background with intent-colored text. If dark kept light-theme text values on darkened tints — e.g. amber-700-class text on a dark amber wash — ratios collapse. The "Intents"/"Gallery"/"All Variants" stories failing at 8–11 (≈ one per intent/variant shown) while single-variant stories fail at 1–2 fits exactly.</p>
+        <p class="fix">Re-derive intent/band <em>text + icon</em> tokens for dark (lighten text toward the 200–300 weights, keep hue), mirroring the B1 band rule already applied to <code>band.*.bg</code>. Add one contrastPair per intent per theme.</p>
+      </div>
+    </div>
+
+    <div class="card cluster" data-comment-anchor="cluster-c4">
+      <div class="head"><h3>C4 · ClientGrid fails in light too — pre-token component <span class="tag serious">own remediation</span></h3><span class="count">25 unique light + 369 dark</span></div>
+      <div class="body">
+        <p>The only component failing at scale in light (5 per multi-client story, ~1 per card row) — meaning <b>raw values that were never on the token chain</b> (and are R9-baselined, so the scanner ignores them until the lines drift). Prime suspect: stone-400-class metadata on white ≈ <b>2.36:1</b>. Its dark numbers then compound C1 on top.</p>
+        <p class="fix">Migrate ClientGrid (and CompliancePostureStrip, same family) onto semantic text tokens outright — that fixes light and dark in one move and burns down baselined R9 debt. This is the single highest-leverage component fix in the report: 695 of 1,344 violations (52%).</p>
+      </div>
+    </div>
+
+    <div class="card cluster" data-comment-anchor="cluster-c5">
+      <div class="head"><h3>C5 · Gallery-story landmark duplicates <span class="tag moderate">moderate · story bug, not component bug</span></h3><span class="count">exactly 3 × (light+hc+print) on Header/Footer galleries</span></div>
+      <div class="body">
+        <p>Footer "Print Gallery" and Header "Gallery"/"Variants" render multiple instances per story → duplicate <code>banner</code>/<code>contentinfo</code> landmarks. Axe's three landmark rules (<code>landmark-no-duplicate-banner</code>, <code>-contentinfo</code>, <code>landmark-unique</code>) = the suspiciously exact "3" in light, hc <em>and</em> print. ClientScopeBanner "Stack" (1) is the same idea with a region/complementary role.</p>
+        <p class="fix">In the gallery stories only: render duplicate instances inside containers with <code>role="presentation"</code> (or pass an existing <code>as="div"</code>-style prop), keeping one canonical landmark per story. No component change.</p>
+      </div>
+    </div>
+
+    <div class="card cluster" data-comment-anchor="cluster-c6">
+      <div class="head"><h3>C6 · Mode-independent structurals + not-run rows</h3><span class="count">ImpactGraph 3 · MarketingImpactGraph 6 · 6 not-run</span></div>
+      <div class="body">
+        <p><b>ImpactGraph "Interactive" = 1 in all three modes</b> → not contrast; a structural rule (nested-interactive, focusable inside <code>role="img"</code>, or missing accessible name). <b>MarketingImpactGraph fails light/hc but is clean in dark</b> — the inverse pattern: a dark-substrate marketing surface whose caption/legend (stone-400-class on white chrome) only fails against the light page. <b>Not-run ≠ pass:</b> Modal/Drawer/Sheet "Interactive" and TelemetryBeacon never executed axe — mark TelemetryBeacon as intentionally excluded (it renders nothing) and fix the Modal Interactive story so the dialog is mounted at snapshot time.</p>
+        <p class="fix">One-line fixes once rule IDs are pulled; the Modal story needs its play-function to await the open state before the a11y pass.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROTOCOL ============ -->
+  <section data-screen-label="Execution protocol">
+    <h2><span class="secno">4</span>Execution protocol</h2>
+    <ol class="steps">
+      <li><b>Confirm with five probes (½ hour).</b> Pull axe rule lists — Chromatic UI a11y tab, or locally via <code>axe-core</code> against Storybook with the theme globals — for: ClientGrid <em>All Mode 12 Clients</em> (dark + light), Footer <em>Default</em> (dark), Callout <em>Intents</em> (dark), StreamingText <em>Default</em> (dark), Header <em>Gallery</em> (light). These five confirm or kill C1–C5 and reveal C6's rule IDs.</li>
+      <li><b>Fix at the token layer first</b> (C1 → C2 → C3): dark overrides for faint-text tiers, the on-inverse chain, and intent/band text. Expect roughly 1,100 of the 1,257 dark violations to collapse from token edits alone, zero component code.</li>
+      <li><b>ClientGrid / CompliancePostureStrip token migration</b> (C4) — fixes the entire light column and their dark mass together.</li>
+      <li><b>Story-level fixes</b> (C5, C6): gallery landmark wrappers, the ImpactGraph structural, the Modal Interactive mount timing.</li>
+      <li><b>Re-run Chromatic once, then accept baselines once.</b> Single re-baseline pass after the fixes — accepting today's build first would mean re-accepting everything again after the fixes anyway.</li>
+      <li><b>Permanent gates:</b> (a) extend <code>verify-contrast</code> to all text-role tokens per theme; (b) treat Chromatic a11y deltas as review-blocking for dark-mode PRs; (c) ledger rows A5.6/B5.3/F.4 only close after the re-run is green-and-accepted.</li>
+    </ol>
+    <div class="callout warn"><p style="margin:0; max-width:78ch"><b>Gate-order change:</b> earlier guidance was "review build 101 and accept the dark baselines". This report supersedes that — <b>hold acceptance</b> until steps 1–4 land. Light-theme zero-drift is unaffected (A5.5's mechanical proof stands); it's the dark/HC baseline acceptance that should wait.</p></div>
+  </section>
+
+  <!-- ============ HANDOVER ============ -->
+  <section data-screen-label="Handover">
+    <h2><span class="secno">5</span>Handover line for Claude Code</h2>
+    <div class="card pad" style="font-size:13.5px; color:var(--text-subtle)">
+      <p style="margin:0; max-width:78ch">"Chromatic a11y triage filed (this doc): 1,344 violations cluster into ~12 root causes, C1–C6 with per-cluster fix specs and five confirmation probes (§4 step 1). Run the probes, post the rule IDs against each cluster in the ledger, then execute §4 steps 2–4 on the PR branch. Do not accept Chromatic baselines until the re-run; ledger rows A5.6/B5.3/F.4 close on the post-fix build. Also add the §4-step-6 permanent gates: all-text-role contrastPair expansion lands as a v4.4 item (it's the net this report slipped through), Chromatic a11y review-blocking policy goes to the docs site contribution page."</p>
+    </div>
+  </section>
+
+  <footer style="margin-top:56px; font-size:12px; color:var(--text-faint); font-family:var(--font-mono)">
+    GOV-DS-2026-02 rev. v4.4 · A11Y-TRIAGE · source: uploads/chromatic-accessibility-report-buildId-6a1c1e6fbaaae202bd23b899.csv · counts computed, hypotheses pending rule-level confirmation (§4 step 1)
+  </footer>
+</div>
+</body>
+</html>

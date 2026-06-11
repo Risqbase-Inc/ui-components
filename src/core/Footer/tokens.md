@@ -1,12 +1,13 @@
 # Tokens — `Footer`
 
-> **v2.1.1 note**: The Footer was re-ported from the canonical marketing
-> `MarketingFooter` per CEO directive 2026-05-20. The current implementation
-> uses inline Tailwind classes (`bg-stone-900`, `text-gray-400`, `text-indigo-400`,
-> `border-gray-800`) rather than the role-token CSS variables documented below.
-> A follow-up sweep will re-wire the inline classes to the token variables;
-> the resolved pixel values are identical, so there is no visual diff in the
-> meantime. Tracking: post-launch tokens-rewire sweep (owner TBD).
+> **v4.4 brand-mark PR-A note**: the v2.1.1 raw-class port (`bg-stone-900`,
+> `text-gray-400`, `text-indigo-400`, `border-gray-800`) and the inline
+> Helvetica `<text>` mark are gone — every colour now flows through the
+> `color.footer.*` role tokens below, and the mark is the frozen brand-mark
+> v3 outline (geometry identical to `public/mark.svg`), themed via
+> `currentColor`. Visual deltas vs v2.1.1 are deliberate: rev. A1 logo tint
+> (indigo-400 → indigo-300 on the inverse surface) and the AAA bump on
+> meta/link text (stone-400 → stone-300).
 
 
 The following design tokens are consumed by this component. See `tokens/component/footer.json` for the JSON source of truth and `tokens/README.md` for the schema.
@@ -17,10 +18,10 @@ The following design tokens are consumed by this component. See `tokens/componen
 |---|---|---|---|
 | `color.footer.background` | component | `color.surface.inverse` (semantic) → `color.neutral.stone.900` (primitive, `#1C1917`) | Footer container background (inverse / dark surface) |
 | `color.footer.heading` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Column heading text (`Product`, `Company`, `Legal`, `Connect`) |
-| `color.footer.link.default` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Nav link colour in default state |
+| `color.footer.link.default` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Nav link colour in default state |
 | `color.footer.link.hover` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Nav link colour on hover |
-| `color.footer.logo` | component | `color.action.primary` (semantic) → `color.brand.indigo.600` (primitive, `#4F46E5`) | Logo wordmark in the bottom bar (`RisqBase` / `RALIA`) |
-| `color.footer.meta` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |
+| `color.footer.logo` | component | `color.brand.mark-on-inverse` (semantic, rev. A1) → `color.brand.indigo.300` (`#A5B4FC`) light / `color.brand.indigo.700` (`#4338CA`) dark | Brand mark glyph + wordmark (`RisqBase` / `RALIA`) |
+| `color.footer.meta` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |
 | `color.footer.divider` | component | `color.border.inverse` (semantic) → `color.neutral.stone.700` (primitive, `#44403C`) | Horizontal rule separating link grid from bottom bar (`border-t`) |
 
 ## Worked example

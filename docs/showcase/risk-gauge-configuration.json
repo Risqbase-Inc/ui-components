@@ -1,0 +1,16 @@
+{
+  "id": "risk-gauge-configuration",
+  "title": "Risk Gauge — RALIA configuration",
+  "consumable": false,
+  "license": "RALIA-private",
+  "layer": 3,
+  "summary": "The RALIA signature risk dial: a dual-ring Gauge configuration with teal outer arc (current risk), stone inner arc (30-day delta), a band-derived chip and a delta pill. The composition is RALIA-private; every part it is built from is a consumable Layer 1/2 primitive.",
+  "composedOf": [
+    { "component": "Gauge", "config": { "variant": "dual", "palette": "teal", "size": "headline" } },
+    { "component": "BandBadge", "config": { "band": "derived from gauge value via the band.* thresholds" } },
+    { "component": "Badge", "config": { "variant": "subtle", "role": "delta pill" } }
+  ],
+  "tokens": ["color.gauge.arc-teal", "color.gauge.arc-stone", "color.gauge.track", "color.band.*"],
+  "showcaseUrl": "https://design.risqbase.com/products/ralia/risk-gauge",
+  "buildInstead": "Compose <Gauge variant=\"dual\" palette=\"teal\"> with <BandBadge> — do not copy the RALIA configuration wholesale; its thresholds and copy are product decisions."
+}

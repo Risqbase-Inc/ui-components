@@ -7,11 +7,12 @@
 <link rel="stylesheet" href="styles.css"/>
 <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon"/>
 <link rel="icon" href="/icon.svg" type="image/svg+xml"/>
+<script>(function(){try{var s=localStorage.getItem("risqbase-design-site-theme");var t=s||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light");}catch(e){}})();</script>
 </head>
 <body>
 
 <header class="topbar">
-  <a href="index.html" class="logo">RisqBase<span class="subtitle">design</span></a>
+  <a href="index.html" class="logo"><svg class="logo-mark" viewBox="0 0 160 160" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22.1 108V52.3h14.8l.3 11.2q1.7-5.9 4.9-8.6 3.2-2.6 8.4-2.6h5.1v12.9h-5.1q-6.6 0-9.7 2.7t-3.1 8.8V108zm39.2 15.6V34.2h15.3v89.4zm48.3-14.3q8.5 0 14.9-3.6t9.9-10.2 3.5-15.3q0-8.8-3.5-15.4t-9.9-10.2-14.9-3.6Q98.3 51 91 56.9q-7.4 5.8-8.7 16l16.1.7q.8-5.1 3.7-7.8 3-2.7 7.5-2.7 5.8 0 9 4.5 3.2 4.4 3.2 12.6 0 8.1-3.2 12.6t-9 4.5q-4.7 0-7.6-2.8t-3.6-8.3l-16.1.6q1.2 10.3 8.6 16.4 7.3 6.1 18.7 6.1"/></svg>RisqBase<span class="subtitle">design</span></a>
   <nav>
     <a href="index.html" class="is-active">Home</a>
     <a href="tokens.html">Tokens</a>
@@ -21,11 +22,12 @@
     <a href="changelog.html">Changelog</a>
   </nav>
   <span class="version-pill">@risqbase-inc/ui-components · v2.1.4</span>
+  <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark theme"><span class="icon-moon" aria-hidden="true">◑</span><span class="icon-sun" aria-hidden="true">◐</span></button>
 </header>
 
 <section style="background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border-subtle); padding: 96px 24px;">
   <div style="max-width: 1080px; margin: 0 auto;">
-    <p class="eyebrow">RisqBase Design System · v4.3</p>
+    <p class="eyebrow">RisqBase Design System · v4.4</p>
     <h1 style="font-size: 64px; line-height: 1.05; max-width: 18ch;">A design system for serious work, used daily.</h1>
     <p class="lede" style="font-size: 21px; max-width: 58ch; margin-top: 24px;">Authority, precision, intelligence - kept warm enough to use four hours a day. One system; three products; one set of tokens, components, chart types, and content rules. Built on W3C Design Tokens, themed via CSS variables, AA-verified end-to-end.</p>
     <div style="display: flex; gap: 12px; margin-top: 40px;">
@@ -33,9 +35,9 @@
       <a class="btn btn-secondary" href="tokens.html">Open the token tree</a>
     </div>
     <div style="display: flex; gap: 24px; margin-top: 56px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-subtle); flex-wrap: wrap;">
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">363</b>&nbsp; tokens</span>
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">27</b>&nbsp; shipped components</span>
-      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">3</b>&nbsp; chart types</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">323</b>&nbsp; tokens</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">28</b>&nbsp; shipped components</span>
+      <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">7</b>&nbsp; chart types</span>
       <span><b style="color: var(--color-text-default); font-size: 18px; font-weight: 700;">3</b>&nbsp; themes (light · dark · HC)</span>
     </div>
   </div>
@@ -115,9 +117,9 @@
   <h2 style="margin-top: 4px;">Five sections. Every claim verifiable in code.</h2>
 
   <div class="card-grid cols-3" style="margin-top: 32px;">
-    <a href="tokens.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Tokens</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">363 entries · 3 themes. Primitive → semantic → component. W3C Design Tokens Format.</p></a>
-    <a href="components.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Components</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">27 shipped across core, ai, data-viz, marketing. Anatomy diagrams, props tables, accessibility.</p></a>
-    <a href="charts.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Charts</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">3 active types in <code>ChartContainer</code> · decision matrix · per-type print + HC encoding.</p></a>
+    <a href="tokens.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Tokens</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">323 entries · 3 themes. Primitive → semantic → component. W3C Design Tokens Format.</p></a>
+    <a href="components.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Components</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">28 shipped across core, ai, data-viz, marketing. Anatomy diagrams, props tables, accessibility.</p></a>
+    <a href="charts.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Charts</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">7 active types in <code>ChartContainer</code> · decision matrix · per-type print + HC encoding.</p></a>
     <a href="patterns.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Patterns</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Composite recipes - dashboard-chart-row · time-comparison · distribution-drilldown.</p></a>
     <a href="changelog.html" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Changelog</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">Current: <b>v2.1.4</b> · the full release ladder.</p></a>
     <a href="https://github.com/Risqbase-Inc/ui-components" class="card" style="text-decoration: none;"><h3 style="margin: 0 0 6px;">Source ↗</h3><p style="margin: 0; font-size: 14px; color: var(--color-text-subtle);">github.com/Risqbase-Inc/ui-components · MIT · contributions through G4.</p></a>
@@ -210,7 +212,7 @@
       <a href="https://ralia.io">RALIA</a>
       <a href="https://risqbase.com">RisqBase d.o.o.</a>
     </div>
-    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.4 · Spec v4.3 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
+    <div class="copy">© 2026 RisqBase d.o.o. · @risqbase-inc/ui-components v2.1.4 · Spec v4.4 · Registered office: Zaostroška 3, 10000 Zagreb, Croatia</div>
   </div>
 </footer>
 

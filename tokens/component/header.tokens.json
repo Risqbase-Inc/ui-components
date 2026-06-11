@@ -1,0 +1,102 @@
+{
+  "color": {
+    "header": {
+      "background": {
+        "$value": "{color.surface.default}",
+        "$type": "color",
+        "$description": "Header background surface",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/background", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+        }
+      },
+      "border": {
+        "$value": "{color.border.subtle}",
+        "$type": "color",
+        "$description": "Header bottom border",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/border", "scopes": ["STROKE_COLOR"] }
+        }
+      },
+      "logo": {
+        "$value": "{color.brand.mark}",
+        "$type": "color",
+        "$description": "Header logo — mark glyph + wordmark. Re-pointed action.primary → brand.mark (rev. A1, 2026-06-11): the brand mark deliberately diverges from action indigo",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/logo", "scopes": ["TEXT_FILL"] }
+        }
+      },
+      "tagline": {
+        "$value": "{color.text.subtle}",
+        "$type": "color",
+        "$description": "Header tagline text (e.g. \"by RisqBase\")",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/tagline", "scopes": ["TEXT_FILL"] }
+        }
+      },
+      "nav-link": {
+        "default": {
+          "$value": "{color.text.subtle}",
+          "$type": "color",
+          "$description": "Header nav link — default state",
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/nav-link/default", "scopes": ["TEXT_FILL"] }
+          }
+        },
+        "hover": {
+          "$value": "{color.action.link}",
+          "$type": "color",
+          "$description": "Header nav link — hover state",
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.background}",
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/nav-link/hover", "scopes": ["TEXT_FILL"] }
+          }
+        }
+      },
+      "cta": {
+        "background": {
+          "default": {
+            "$value": "{color.action.primary}",
+            "$type": "color",
+            "$description": "Header CTA button background — default state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/cta/background/default", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+            }
+          },
+          "hover": {
+            "$value": "{color.action.primary-hover}",
+            "$type": "color",
+            "$description": "Header CTA button background — hover state",
+            "$extensions": {
+              "com.risqbase.role": "component",
+              "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/cta/background/hover", "scopes": ["ALL_FILLS", "FRAME_FILL", "SHAPE_FILL"] }
+            }
+          }
+        },
+        "foreground": {
+          "$value": "{color.text.on-action}",
+          "$type": "color",
+          "$description": "Header CTA button text colour",
+          "$extensions": { "com.risqbase.contrastPair": "{color.header.cta.background.default}", "com.risqbase.themeInvariant": "Pure white on the header CTA background, which is contrast-managed per theme",
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/cta/foreground", "scopes": ["TEXT_FILL"] }
+          }
+        }
+      },
+      "launch-date": {
+        "$value": "{color.text.subtle}",
+        "$type": "color",
+        "$description": "Header launch-date label colour",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/launch-date", "scopes": ["TEXT_FILL"] }
+        }
+      }
+    }
+  }
+}

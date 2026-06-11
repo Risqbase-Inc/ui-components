@@ -14,6 +14,13 @@
  *   2. Use `setTheme(theme)` from a settings UI.
  */
 
+/**
+ * `'hc'` is deprecated (v4.4 D-107): high contrast is a forced-colors /
+ * `prefers-contrast` compliance contract, not a token theme, and
+ * `[data-theme="hc"]` maps to no CSS overrides. The member stays in the
+ * union so `setTheme('hc')` keeps compiling for v2.x consumers; removal
+ * lands with the v5.0 breaking release.
+ */
 export type Theme = 'light' | 'dark' | 'hc'
 
 export const THEME_STORAGE_KEY = 'risqbase-ds-theme'

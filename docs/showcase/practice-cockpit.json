@@ -1,0 +1,18 @@
+{
+  "id": "practice-cockpit",
+  "title": "Practice Cockpit — RALIA dashboard composition",
+  "consumable": false,
+  "license": "RALIA-private",
+  "layer": 3,
+  "summary": "RALIA's practice-level dashboard: a card grid of risk gauges, chart containers, client-scope banner and wizard-driven flows. The layout, thresholds and copy are RALIA product decisions; every building block is a consumable Layer 1/2 primitive.",
+  "composedOf": [
+    { "component": "Card", "config": { "role": "panel chrome" } },
+    { "component": "Gauge", "config": { "role": "per-practice risk dials" } },
+    { "component": "ChartContainer", "config": { "types": ["line", "bar", "heatmap", "metric-card"] } },
+    { "component": "ClientScopeBanner", "config": { "role": "active-client scoping" } },
+    { "component": "WizardProgress", "config": { "role": "assessment flows" } }
+  ],
+  "tokens": ["color.surface.*", "color.band.*", "color.chart.*", "shadow.*"],
+  "showcaseUrl": "https://design.risqbase.com/products/ralia/practice-cockpit",
+  "buildInstead": "Compose Card + Gauge + ChartContainer from the package; the cockpit's grid and band thresholds are not part of the design system contract."
+}

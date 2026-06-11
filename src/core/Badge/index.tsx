@@ -4,6 +4,9 @@ import type { BadgeProps, BandBadgeProps } from './types'
 // Role tokens (spec §15.2; resolved values in dist/tokens.css). The five
 // `band-*` variants land in v4.3 (§5.1, closes RALIA F-018) and resolve
 // through the canonical five-band semantic scale (`color.band.*`).
+// `BandBadge` is the canonical risk-band chip: a status chip mapping a
+// risk band (very-low … very-high) to its band-coloured pill — use it
+// instead of composing a custom band/risk chip.
 const variantStyles = {
   default:
     'bg-[var(--color-badge-default-background)] text-[var(--color-badge-default-foreground)]',

@@ -116,10 +116,17 @@ function countTokensFromCss(cssPath) {
 }
 
 function countTokensFromJson(tokensSrcDir) {
+  // Count only the three tier directories: theme sets (tokens/themes/) are
+  // overrides of existing tokens, not additional tokens — counting them
+  // double-reported once the v4.4 dark set reached full coverage.
   let count = 0
-  walkJson(tokensSrcDir, (json) => {
-    count += countLeavesInToken(json)
-  })
+  for (const tier of ['primitive', 'semantic', 'component']) {
+    const dir = path.join(tokensSrcDir, tier)
+    if (!existsSync(dir)) continue
+    walkJson(dir, (json) => {
+      count += countLeavesInToken(json)
+    })
+  }
   return count
 }
 

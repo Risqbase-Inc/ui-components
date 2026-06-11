@@ -84,7 +84,8 @@ function dotClasses(index: number, current: number) {
   if (index === current) {
     return `${base} bg-[var(--color-action-primary)] text-[var(--color-text-on-action)] ring-2 ring-[var(--color-iris-accent-subtle)]`
   }
-  return `${base} bg-[var(--color-surface-muted)] text-[var(--color-text-subtle)]`
+  // D-125b: subtle text on surface.muted is 4.39:1 — use the on-muted tier.
+  return `${base} bg-[var(--color-surface-muted)] text-[var(--color-text-subtle-on-muted)]`
 }
 
 function labelText(label: WizardProgressProps['steps'][number]['label']): string {

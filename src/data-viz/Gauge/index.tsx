@@ -64,6 +64,9 @@ export function Gauge({
       style={{ width: cssDiameter, height: cssDiameter, ['--gauge-fallback-px' as string]: `${px}px` }}
     >
       <svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+        {/* data-fc: forced-colors roles — see tools/tokens-build/static.css §3
+            (v4.4 B3: track→GrayText, value arc→Highlight so the reading
+            survives Windows High Contrast). */}
         <circle
           cx={50}
           cy={50}
@@ -71,6 +74,7 @@ export function Gauge({
           fill="none"
           stroke="var(--color-gauge-component-track)"
           strokeWidth={stroke}
+          data-fc="track"
         />
         <circle
           cx={50}
@@ -84,6 +88,7 @@ export function Gauge({
           strokeDashoffset={outerOffset}
           transform="rotate(-90 50 50)"
           style={{ transition: 'stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1)' }}
+          data-fc="arc"
         />
         {variant === 'dual' && typeof innerValue === 'number' && (
           <>
@@ -94,6 +99,7 @@ export function Gauge({
               fill="none"
               stroke="var(--color-gauge-component-track)"
               strokeWidth={stroke}
+              data-fc="track"
             />
             <circle
               cx={50}
@@ -107,6 +113,7 @@ export function Gauge({
               strokeDashoffset={innerOffset}
               transform="rotate(-90 50 50)"
               style={{ transition: 'stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1)' }}
+              data-fc="arc-secondary"
             />
           </>
         )}

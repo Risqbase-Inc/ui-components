@@ -126,9 +126,13 @@ export const PrintGallery: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 24 }}>
       <Footer />
-      <Footer
-        hiddenLinks={['/platform', '/practice', '/solutions', '/pricing', '/founding-members']}
-      />
+      {/* A11Y-FIX C5: duplicate contentinfo landmark in the gallery is a
+          presentational showcase copy — first instance stays live. */}
+      <div inert aria-hidden="true">
+        <Footer
+          hiddenLinks={['/platform', '/practice', '/solutions', '/pricing', '/founding-members']}
+        />
+      </div>
     </div>
   ),
 }

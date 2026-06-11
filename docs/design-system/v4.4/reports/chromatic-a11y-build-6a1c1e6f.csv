@@ -1,0 +1,572 @@
+Component,Story,Mode,Violation count,Last updated,Impact
+ClientGrid,All Mode 12 Clients,dark,66,2026-06-10 00:56:54,2-serious
+ClientGrid,Four Columns,dark,66,2026-06-10 00:56:54,2-serious
+ClientGrid,Responsive Breakpoints,dark,64,2026-06-10 00:56:54,2-serious
+ClientGrid,Mobile Viewport,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,Default Attention Mode,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,Two Columns,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,With Heading Action,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,Desktop Viewport,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,Tablet Viewport,dark,21,2026-06-10 00:56:54,2-serious
+ClientGrid,Bare No Chrome,dark,20,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Pill,dark,18,2026-06-10 00:56:54,2-serious
+ClientGrid,All Mode 12 Clients,light,5,2026-06-10 00:56:54,2-serious
+ClientGrid,Four Columns,light,5,2026-06-10 00:56:54,2-serious
+ClientGrid,Four Columns,hc,5,2026-06-10 00:56:54,2-serious
+ClientGrid,All Mode 12 Clients,hc,5,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Cards,dark,4,2026-06-10 00:56:54,2-serious
+ClientGrid,Responsive Breakpoints,light,4,2026-06-10 00:56:54,2-serious
+ClientGrid,Responsive Breakpoints,hc,4,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Cards,hc,3,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Cards,light,3,2026-06-10 00:56:54,2-serious
+ClientGrid,Empty Attention,dark,2,2026-06-10 00:56:54,2-serious
+ClientGrid,Empty All,dark,2,2026-06-10 00:56:54,2-serious
+ClientGrid,Bare No Chrome,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Mobile Viewport,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Bare No Chrome,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Tablet Viewport,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Loading,dark,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Desktop Viewport,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Desktop Viewport,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Desktop Viewport,viewport-desktop-1280,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Tablet Viewport,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Tablet Viewport,viewport-tablet-768,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Mobile Viewport,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Mobile Viewport,viewport-mobile-375,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Two Columns,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Two Columns,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,With Heading Action,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Default Attention Mode,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,With Heading Action,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Default Attention Mode,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Pill,hc,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Interactive Pill,light,1,2026-06-10 00:56:54,2-serious
+ClientGrid,Loading,light,0,2026-06-10 00:56:54,
+ClientGrid,Loading,hc,0,2026-06-10 00:56:54,
+ClientGrid,Empty All,light,0,2026-06-10 00:56:54,
+ClientGrid,Empty All,hc,0,2026-06-10 00:56:54,
+ClientGrid,Empty Attention,light,0,2026-06-10 00:56:54,
+ClientGrid,Empty Attention,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Many Clients,dark,69,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Sorted By Risk,dark,32,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Sorted By Alerts,dark,32,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,With Live Sort And Announcer,dark,32,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Default,dark,31,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Indigo Palette,dark,31,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Bare No Chrome,dark,30,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Few Clients,dark,12,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Empty,dark,2,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Interactive,dark,1,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Loading,dark,1,2026-06-10 00:56:54,2-serious
+CompliancePostureStrip,Default,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Interactive,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Loading,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Empty,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Empty,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Few Clients,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Few Clients,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Many Clients,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Many Clients,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Sorted By Alerts,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Sorted By Alerts,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Sorted By Risk,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Sorted By Risk,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Default,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Loading,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Interactive,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Bare No Chrome,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Bare No Chrome,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Indigo Palette,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,Indigo Palette,light,0,2026-06-10 00:56:54,
+CompliancePostureStrip,With Live Sort And Announcer,hc,0,2026-06-10 00:56:54,
+CompliancePostureStrip,With Live Sort And Announcer,light,0,2026-06-10 00:56:54,
+Footer,Print Gallery,dark,70,2026-06-10 00:56:54,2-serious
+Footer,Default,dark,37,2026-06-10 00:56:54,2-serious
+Footer,Mobile,dark,37,2026-06-10 00:56:54,2-serious
+Footer,With Hidden Links,dark,18,2026-06-10 00:56:54,2-serious
+Footer,Custom Sections,dark,13,2026-06-10 00:56:54,2-serious
+Footer,All Nav Hidden,dark,7,2026-06-10 00:56:54,2-serious
+Footer,Print Gallery,hc,3,2026-06-10 00:56:54,1-moderate
+Footer,Print Gallery,light,3,2026-06-10 00:56:54,1-moderate
+Footer,Print Gallery,print,3,2026-06-10 00:56:54,1-moderate
+Footer,Custom Sections,light,0,2026-06-10 00:56:54,
+Footer,Custom Sections,hc,0,2026-06-10 00:56:54,
+Footer,All Nav Hidden,light,0,2026-06-10 00:56:54,
+Footer,All Nav Hidden,hc,0,2026-06-10 00:56:54,
+Footer,Mobile,light,0,2026-06-10 00:56:54,
+Footer,Mobile,hc,0,2026-06-10 00:56:54,
+Footer,With Hidden Links,light,0,2026-06-10 00:56:54,
+Footer,With Hidden Links,hc,0,2026-06-10 00:56:54,
+Footer,Default,light,0,2026-06-10 00:56:54,
+Footer,Default,hc,0,2026-06-10 00:56:54,
+Header,Variants,dark,15,2026-06-10 00:56:54,2-serious
+Header,Gallery,dark,15,2026-06-10 00:56:54,2-serious
+Header,With Launch Date,dark,7,2026-06-10 00:56:54,2-serious
+Header,Ralia Default,dark,6,2026-06-10 00:56:54,2-serious
+Header,Dropdown Single Open Invariant,dark,6,2026-06-10 00:56:54,2-serious
+Header,Dropdown Outside Click Close,dark,6,2026-06-10 00:56:54,2-serious
+Header,Launch Date,dark,6,2026-06-10 00:56:54,2-serious
+Header,WithCurrentPath,dark,6,2026-06-10 00:56:54,2-serious
+Header,Risq Base Default,dark,6,2026-06-10 00:56:54,2-serious
+Header,Default,dark,6,2026-06-10 00:56:54,2-serious
+Header,Keyboard Walkthrough Reduced Motion,dark,5,2026-06-10 00:56:54,2-serious
+Header,Dropdown Reduced Motion,dark,5,2026-06-10 00:56:54,2-serious
+Header,Keyboard Walkthrough,dark,5,2026-06-10 00:56:54,2-serious
+Header,Dropdown With Current Child,dark,5,2026-06-10 00:56:54,2-serious
+Header,Dropdown Open,dark,5,2026-06-10 00:56:54,2-serious
+Header,Dropdown Item Click Closes Panel,dark,5,2026-06-10 00:56:54,2-serious
+Header,Dropdown Esc Close,dark,5,2026-06-10 00:56:54,2-serious
+Header,With Dropdown,dark,5,2026-06-10 00:56:54,2-serious
+Header,With Multiple Dropdowns,dark,4,2026-06-10 00:56:54,2-serious
+Header,Variants,light,3,2026-06-10 00:56:54,1-moderate
+Header,Gallery,print,3,2026-06-10 00:56:54,1-moderate
+Header,Gallery,light,3,2026-06-10 00:56:54,1-moderate
+Header,Gallery,hc,3,2026-06-10 00:56:54,1-moderate
+Header,Variants,hc,3,2026-06-10 00:56:54,1-moderate
+Header,Dropdown Open,hc,0,2026-06-10 00:56:54,
+Header,Launch Date,light,0,2026-06-10 00:56:54,
+Header,Launch Date,hc,0,2026-06-10 00:56:54,
+Header,Keyboard Walkthrough Reduced Motion,reduced-motion,0,2026-06-10 00:56:54,
+Header,Keyboard Walkthrough Reduced Motion,light,0,2026-06-10 00:56:54,
+Header,Keyboard Walkthrough Reduced Motion,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Reduced Motion,reduced-motion,0,2026-06-10 00:56:54,
+Header,Dropdown Reduced Motion,light,0,2026-06-10 00:56:54,
+Header,Dropdown Reduced Motion,hc,0,2026-06-10 00:56:54,
+Header,Keyboard Walkthrough,light,0,2026-06-10 00:56:54,
+Header,Keyboard Walkthrough,hc,0,2026-06-10 00:56:54,
+Header,Dropdown With Current Child,light,0,2026-06-10 00:56:54,
+Header,Dropdown With Current Child,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Open,light,0,2026-06-10 00:56:54,
+Header,With Multiple Dropdowns,light,0,2026-06-10 00:56:54,
+Header,With Multiple Dropdowns,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Item Click Closes Panel,light,0,2026-06-10 00:56:54,
+Header,Dropdown Item Click Closes Panel,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Single Open Invariant,light,0,2026-06-10 00:56:54,
+Header,Dropdown Single Open Invariant,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Outside Click Close,light,0,2026-06-10 00:56:54,
+Header,Dropdown Outside Click Close,hc,0,2026-06-10 00:56:54,
+Header,Dropdown Esc Close,light,0,2026-06-10 00:56:54,
+Header,Dropdown Esc Close,hc,0,2026-06-10 00:56:54,
+Header,With Dropdown,light,0,2026-06-10 00:56:54,
+Header,With Dropdown,hc,0,2026-06-10 00:56:54,
+Header,WithCurrentPath,light,0,2026-06-10 00:56:54,
+Header,WithCurrentPath,hc,0,2026-06-10 00:56:54,
+Header,With Launch Date,light,0,2026-06-10 00:56:54,
+Header,With Launch Date,hc,0,2026-06-10 00:56:54,
+Header,Default,light,0,2026-06-10 00:56:54,
+Header,Default,hc,0,2026-06-10 00:56:54,
+Header,Ralia Default,light,0,2026-06-10 00:56:54,
+Header,Ralia Default,hc,0,2026-06-10 00:56:54,
+Header,Risq Base Default,light,0,2026-06-10 00:56:54,
+Header,Risq Base Default,hc,0,2026-06-10 00:56:54,
+StreamingText,Slow,dark,19,2026-06-10 00:56:54,2-serious
+StreamingText,Fast,dark,19,2026-06-10 00:56:54,2-serious
+StreamingText,Default,dark,19,2026-06-10 00:56:54,2-serious
+StreamingText,Complete,dark,12,2026-06-10 00:56:54,2-serious
+StreamingText,Default,light,0,2026-06-10 00:56:54,
+StreamingText,Default,hc,0,2026-06-10 00:56:54,
+StreamingText,Fast,hc,0,2026-06-10 00:56:54,
+StreamingText,Complete,light,0,2026-06-10 00:56:54,
+StreamingText,Complete,hc,0,2026-06-10 00:56:54,
+StreamingText,Slow,light,0,2026-06-10 00:56:54,
+StreamingText,Slow,hc,0,2026-06-10 00:56:54,
+StreamingText,Fast,light,0,2026-06-10 00:56:54,
+CitationChip,All Variants Row Mobile,dark,9,2026-06-10 00:56:54,2-serious
+CitationChip,All Variants,dark,9,2026-06-10 00:56:54,2-serious
+CitationChip,All Variants Row,dark,9,2026-06-10 00:56:54,2-serious
+CitationChip,Gallery,dark,9,2026-06-10 00:56:54,2-serious
+CitationChip,In Prose,dark,3,2026-06-10 00:56:54,2-serious
+CitationChip,User Pinned,dark,1,2026-06-10 00:56:54,2-serious
+CitationChip,Default,dark,1,2026-06-10 00:56:54,2-serious
+CitationChip,Retrieval Failed,dark,1,2026-06-10 00:56:54,2-serious
+CitationChip,All Variants,light,0,2026-06-10 00:56:54,
+CitationChip,All Variants,hc,0,2026-06-10 00:56:54,
+CitationChip,Default,light,0,2026-06-10 00:56:54,
+CitationChip,Default,hc,0,2026-06-10 00:56:54,
+CitationChip,Interactive,dark,0,2026-06-10 00:56:54,
+CitationChip,User Pinned,hc,0,2026-06-10 00:56:54,
+CitationChip,User Pinned,light,0,2026-06-10 00:56:54,
+CitationChip,Retrieval Failed,light,0,2026-06-10 00:56:54,
+CitationChip,Retrieval Failed,hc,0,2026-06-10 00:56:54,
+CitationChip,All Variants Row Mobile,light,0,2026-06-10 00:56:54,
+CitationChip,All Variants Row Mobile,hc,0,2026-06-10 00:56:54,
+CitationChip,All Variants Row,light,0,2026-06-10 00:56:54,
+CitationChip,All Variants Row,hc,0,2026-06-10 00:56:54,
+CitationChip,Gallery,print,0,2026-06-10 00:56:54,
+CitationChip,Gallery,light,0,2026-06-10 00:56:54,
+CitationChip,Gallery,hc,0,2026-06-10 00:56:54,
+CitationChip,In Prose,light,0,2026-06-10 00:56:54,
+CitationChip,In Prose,hc,0,2026-06-10 00:56:54,
+CitationChip,Interactive,light,0,2026-06-10 00:56:54,
+CitationChip,Interactive,hc,0,2026-06-10 00:56:54,
+RiskGauge,Band Range,dark,15,2026-06-10 00:56:54,2-serious
+RiskGauge,Gallery,dark,8,2026-06-10 00:56:54,2-serious
+RiskGauge,Headline,dark,4,2026-06-10 00:56:54,2-serious
+RiskGauge,Default,dark,3,2026-06-10 00:56:54,2-serious
+RiskGauge,Detail,dark,3,2026-06-10 00:56:54,2-serious
+RiskGauge,List,dark,1,2026-06-10 00:56:54,2-serious
+RiskGauge,Headline,hc,0,2026-06-10 00:56:54,
+RiskGauge,Gallery,print,0,2026-06-10 00:56:54,
+RiskGauge,Gallery,light,0,2026-06-10 00:56:54,
+RiskGauge,Gallery,hc,0,2026-06-10 00:56:54,
+RiskGauge,Band Range,light,0,2026-06-10 00:56:54,
+RiskGauge,Band Range,hc,0,2026-06-10 00:56:54,
+RiskGauge,List,light,0,2026-06-10 00:56:54,
+RiskGauge,List,hc,0,2026-06-10 00:56:54,
+RiskGauge,Detail,light,0,2026-06-10 00:56:54,
+RiskGauge,Detail,hc,0,2026-06-10 00:56:54,
+RiskGauge,Headline,light,0,2026-06-10 00:56:54,
+RiskGauge,Default,light,0,2026-06-10 00:56:54,
+RiskGauge,Default,hc,0,2026-06-10 00:56:54,
+Callout,Intents,dark,11,2026-06-10 00:56:54,2-serious
+Callout,Gallery,dark,10,2026-06-10 00:56:54,2-serious
+Callout,Icon Omitted,dark,3,2026-06-10 00:56:54,2-serious
+Callout,Default,dark,2,2026-06-10 00:56:54,2-serious
+Callout,Without Title,dark,1,2026-06-10 00:56:54,2-serious
+Callout,Gallery,print,0,2026-06-10 00:56:54,
+Callout,Gallery,light,0,2026-06-10 00:56:54,
+Callout,Gallery,hc,0,2026-06-10 00:56:54,
+Callout,Icon Omitted,light,0,2026-06-10 00:56:54,
+Callout,Icon Omitted,hc,0,2026-06-10 00:56:54,
+Callout,Without Title,light,0,2026-06-10 00:56:54,
+Callout,Without Title,hc,0,2026-06-10 00:56:54,
+Callout,Intents,light,0,2026-06-10 00:56:54,
+Callout,Intents,hc,0,2026-06-10 00:56:54,
+Callout,Default,light,0,2026-06-10 00:56:54,
+Callout,Default,hc,0,2026-06-10 00:56:54,
+Badge,Gallery,dark,9,2026-06-10 00:56:54,2-serious
+Badge,Bands,dark,5,2026-06-10 00:56:54,2-serious
+Badge,Band Wrapper,dark,5,2026-06-10 00:56:54,2-serious
+Badge,Composed,dark,4,2026-06-10 00:56:54,2-serious
+Badge,Variants,dark,3,2026-06-10 00:56:54,2-serious
+Badge,Default,dark,1,2026-06-10 00:56:54,2-serious
+Badge,Bands,hc,0,2026-06-10 00:56:54,
+Badge,Gallery,hc,0,2026-06-10 00:56:54,
+Badge,Composed,light,0,2026-06-10 00:56:54,
+Badge,Composed,hc,0,2026-06-10 00:56:54,
+Badge,Band Wrapper,light,0,2026-06-10 00:56:54,
+Badge,Band Wrapper,hc,0,2026-06-10 00:56:54,
+Badge,Bands,light,0,2026-06-10 00:56:54,
+Badge,Variants,light,0,2026-06-10 00:56:54,
+Badge,Variants,hc,0,2026-06-10 00:56:54,
+Badge,Default,light,0,2026-06-10 00:56:54,
+Badge,Default,hc,0,2026-06-10 00:56:54,
+Badge,Gallery,light,0,2026-06-10 00:56:54,
+Badge,Gallery,print,0,2026-06-10 00:56:54,
+WizardProgress,Vertical,dark,11,2026-06-10 00:56:54,2-serious
+WizardProgress,Auto Picker,dark,11,2026-06-10 00:56:54,2-serious
+WizardProgress,Numbered,hc,0,2026-06-10 00:56:54,
+WizardProgress,Numbered,light,0,2026-06-10 00:56:54,
+WizardProgress,Vertical,hc,0,2026-06-10 00:56:54,
+WizardProgress,Auto Picker,hc,0,2026-06-10 00:56:54,
+WizardProgress,Auto Picker,light,0,2026-06-10 00:56:54,
+WizardProgress,Vertical,light,0,2026-06-10 00:56:54,
+WizardProgress,Percentage,dark,0,2026-06-10 00:56:54,
+WizardProgress,Percentage,hc,0,2026-06-10 00:56:54,
+WizardProgress,Percentage,light,0,2026-06-10 00:56:54,
+WizardProgress,Dots,light,0,2026-06-10 00:56:54,
+WizardProgress,Numbered,dark,0,2026-06-10 00:56:54,
+WizardProgress,Dots,hc,0,2026-06-10 00:56:54,
+WizardProgress,Default,dark,0,2026-06-10 00:56:54,
+WizardProgress,Default,hc,0,2026-06-10 00:56:54,
+WizardProgress,Default,light,0,2026-06-10 00:56:54,
+WizardProgress,Dots,dark,0,2026-06-10 00:56:54,
+ClientScopeBanner,Stack,dark,9,2026-06-10 00:56:54,2-serious
+ClientScopeBanner,Client,dark,3,2026-06-10 00:56:54,2-serious
+ClientScopeBanner,White Label,dark,2,2026-06-10 00:56:54,2-serious
+ClientScopeBanner,Switching,dark,2,2026-06-10 00:56:54,2-serious
+ClientScopeBanner,Workspace,dark,2,2026-06-10 00:56:54,2-serious
+ClientScopeBanner,Stack,light,1,2026-06-10 00:56:54,1-moderate
+ClientScopeBanner,Stack,hc,1,2026-06-10 00:56:54,1-moderate
+ClientScopeBanner,Switching,light,0,2026-06-10 00:56:54,
+ClientScopeBanner,Switching,hc,0,2026-06-10 00:56:54,
+ClientScopeBanner,White Label,light,0,2026-06-10 00:56:54,
+ClientScopeBanner,White Label,hc,0,2026-06-10 00:56:54,
+ClientScopeBanner,Client,light,0,2026-06-10 00:56:54,
+ClientScopeBanner,Client,hc,0,2026-06-10 00:56:54,
+ClientScopeBanner,Workspace,light,0,2026-06-10 00:56:54,
+ClientScopeBanner,Workspace,hc,0,2026-06-10 00:56:54,
+Gauge,Sizes,dark,5,2026-06-10 00:56:54,2-serious
+Gauge,Gallery,dark,4,2026-06-10 00:56:54,2-serious
+Gauge,Palettes,dark,3,2026-06-10 00:56:54,2-serious
+Gauge,Default,dark,2,2026-06-10 00:56:54,2-serious
+Gauge,Dual Ring,dark,2,2026-06-10 00:56:54,2-serious
+Gauge,Gallery,print,0,2026-06-10 00:56:54,
+Gauge,Gallery,light,0,2026-06-10 00:56:54,
+Gauge,Gallery,hc,0,2026-06-10 00:56:54,
+Gauge,Dual Ring,light,0,2026-06-10 00:56:54,
+Gauge,Dual Ring,hc,0,2026-06-10 00:56:54,
+Gauge,Palettes,light,0,2026-06-10 00:56:54,
+Gauge,Palettes,hc,0,2026-06-10 00:56:54,
+Gauge,Sizes,light,0,2026-06-10 00:56:54,
+Gauge,Sizes,hc,0,2026-06-10 00:56:54,
+Gauge,Default,light,0,2026-06-10 00:56:54,
+Gauge,Default,hc,0,2026-06-10 00:56:54,
+Toast · ToastViewport,Intents,dark,8,2026-06-10 00:56:54,2-serious
+Toast · ToastViewport,Viewport,dark,6,2026-06-10 00:56:54,2-serious
+Toast · ToastViewport,With Action,dark,2,2026-06-10 00:56:54,2-serious
+Toast · ToastViewport,Intents,hc,0,2026-06-10 00:56:54,
+Toast · ToastViewport,Intents,light,0,2026-06-10 00:56:54,
+Toast · ToastViewport,Viewport,light,0,2026-06-10 00:56:54,
+Toast · ToastViewport,Viewport,hc,0,2026-06-10 00:56:54,
+Toast · ToastViewport,With Action,light,0,2026-06-10 00:56:54,
+Toast · ToastViewport,With Action,hc,0,2026-06-10 00:56:54,
+EmptyState,Gallery,dark,4,2026-06-10 00:56:54,2-serious
+EmptyState,No Action,dark,2,2026-06-10 00:56:54,2-serious
+EmptyState,Default,dark,2,2026-06-10 00:56:54,2-serious
+EmptyState,Filtered,dark,2,2026-06-10 00:56:54,2-serious
+EmptyState,Gallery,print,0,2026-06-10 00:56:54,
+EmptyState,Gallery,light,0,2026-06-10 00:56:54,
+EmptyState,Gallery,hc,0,2026-06-10 00:56:54,
+EmptyState,No Action,light,0,2026-06-10 00:56:54,
+EmptyState,No Action,hc,0,2026-06-10 00:56:54,
+EmptyState,Filtered,light,0,2026-06-10 00:56:54,
+EmptyState,Filtered,hc,0,2026-06-10 00:56:54,
+EmptyState,Default,light,0,2026-06-10 00:56:54,
+EmptyState,Default,hc,0,2026-06-10 00:56:54,
+Card,Variants,dark,4,2026-06-10 00:56:54,2-serious
+Card,Gallery,dark,4,2026-06-10 00:56:54,2-serious
+Card,Default,dark,1,2026-06-10 00:56:54,2-serious
+Card,Composed,dark,1,2026-06-10 00:56:54,2-serious
+Card,Composed,hc,0,2026-06-10 00:56:54,
+Card,Variants,light,0,2026-06-10 00:56:54,
+Card,Variants,hc,0,2026-06-10 00:56:54,
+Card,Default,light,0,2026-06-10 00:56:54,
+Card,Default,hc,0,2026-06-10 00:56:54,
+Card,Gallery,print,0,2026-06-10 00:56:54,
+Card,Gallery,light,0,2026-06-10 00:56:54,
+Card,Gallery,hc,0,2026-06-10 00:56:54,
+Card,Composed,light,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Demo D Fidelity Snapshot,hc,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Without Legend,hc,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Without Legend,light,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Default,light,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Default,hc,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Demo D Fidelity Snapshot,light,1,2026-06-10 00:56:54,2-serious
+MarketingImpactGraph,Demo D Fidelity Snapshot,dark,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Bare Embed,light,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Bare Embed,hc,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Bare Embed,dark,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Without Legend,dark,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Without Chrome,light,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Without Chrome,hc,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Without Chrome,dark,0,2026-06-10 00:56:54,
+MarketingImpactGraph,Default,dark,0,2026-06-10 00:56:54,
+ChartContainer,Line,dark,2,2026-06-10 00:56:54,2-serious
+ChartContainer,Gallery,dark,2,2026-06-10 00:56:54,2-serious
+ChartContainer,Bar,dark,1,2026-06-10 00:56:54,2-serious
+ChartContainer,Multi Series,dark,1,2026-06-10 00:56:54,2-serious
+ChartContainer,Line,hc,0,2026-06-10 00:56:54,
+ChartContainer,Gallery,light,0,2026-06-10 00:56:54,
+ChartContainer,Gallery,hc,0,2026-06-10 00:56:54,
+ChartContainer,Multi Series,light,0,2026-06-10 00:56:54,
+ChartContainer,Multi Series,hc,0,2026-06-10 00:56:54,
+ChartContainer,Sparkline,light,0,2026-06-10 00:56:54,
+ChartContainer,Sparkline,hc,0,2026-06-10 00:56:54,
+ChartContainer,Sparkline,dark,0,2026-06-10 00:56:54,
+ChartContainer,Bar,light,0,2026-06-10 00:56:54,
+ChartContainer,Bar,hc,0,2026-06-10 00:56:54,
+ChartContainer,Line,light,0,2026-06-10 00:56:54,
+ChartContainer,Gallery,print,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Modal Default,dark,1,2026-06-10 00:56:54,2-serious
+Modal · Drawer · Sheet,Modal Large,dark,1,2026-06-10 00:56:54,2-serious
+Modal · Drawer · Sheet,Drawer Right,dark,1,2026-06-10 00:56:54,2-serious
+Modal · Drawer · Sheet,Drawer Left,dark,1,2026-06-10 00:56:54,2-serious
+Modal · Drawer · Sheet,Sheet Default,dark,1,2026-06-10 00:56:54,2-serious
+Modal · Drawer · Sheet,Modal Large,light,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Sheet Default,light,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Sheet Default,hc,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Drawer Left,light,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Drawer Left,hc,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Drawer Right,light,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Drawer Right,hc,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Modal Large,hc,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Modal Default,light,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Modal Default,hc,0,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Interactive,hc,,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Interactive,light,,2026-06-10 00:56:54,
+Modal · Drawer · Sheet,Interactive,dark,,2026-06-10 00:56:54,
+SectionEyebrow,Gallery,dark,3,2026-06-10 00:56:54,2-serious
+SectionEyebrow,Default,dark,1,2026-06-10 00:56:54,2-serious
+SectionEyebrow,With Sibling,dark,1,2026-06-10 00:56:54,2-serious
+SectionEyebrow,Gallery,print,0,2026-06-10 00:56:54,
+SectionEyebrow,Gallery,light,0,2026-06-10 00:56:54,
+SectionEyebrow,Gallery,hc,0,2026-06-10 00:56:54,
+SectionEyebrow,With Sibling,light,0,2026-06-10 00:56:54,
+SectionEyebrow,With Sibling,hc,0,2026-06-10 00:56:54,
+SectionEyebrow,Default,light,0,2026-06-10 00:56:54,
+SectionEyebrow,Default,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Interactive,light,1,2026-06-10 00:56:54,2-serious
+ImpactGraph,Interactive,hc,1,2026-06-10 00:56:54,2-serious
+ImpactGraph,Interactive,dark,1,2026-06-10 00:56:54,2-serious
+ImpactGraph,Many Entities,light,0,2026-06-10 00:56:54,
+ImpactGraph,With Cascades,dark,0,2026-06-10 00:56:54,
+ImpactGraph,With Cascades,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Many Entities,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Without Iris Attribution,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Many Entities,dark,0,2026-06-10 00:56:54,
+ImpactGraph,With Cascades,light,0,2026-06-10 00:56:54,
+ImpactGraph,Without Iris Attribution,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Default,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Default,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Single Category,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Single Category,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Empty Categories,light,0,2026-06-10 00:56:54,
+ImpactGraph,Empty Categories,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Empty Categories,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Default,light,0,2026-06-10 00:56:54,
+ImpactGraph,Single Category,light,0,2026-06-10 00:56:54,
+ImpactGraph,Empty State,light,0,2026-06-10 00:56:54,
+ImpactGraph,Empty State,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Empty State,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Error State,light,0,2026-06-10 00:56:54,
+ImpactGraph,Error State,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Error State,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Low,light,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Low,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Low,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Very High,light,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Very High,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Severity Very High,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Configurable Categories,light,0,2026-06-10 00:56:54,
+ImpactGraph,Configurable Categories,hc,0,2026-06-10 00:56:54,
+ImpactGraph,Configurable Categories,dark,0,2026-06-10 00:56:54,
+ImpactGraph,Without Iris Attribution,light,0,2026-06-10 00:56:54,
+SkipLink,Default,dark,1,2026-06-10 00:56:54,2-serious
+SkipLink,Focused,dark,1,2026-06-10 00:56:54,2-serious
+SkipLink,Focused,light,0,2026-06-10 00:56:54,
+SkipLink,Focused,hc,0,2026-06-10 00:56:54,
+SkipLink,Default,light,0,2026-06-10 00:56:54,
+SkipLink,Default,hc,0,2026-06-10 00:56:54,
+Button,Gallery,light,0,2026-06-10 00:56:54,
+Button,Gallery,hc,0,2026-06-10 00:56:54,
+Button,Gallery,dark,0,2026-06-10 00:56:54,
+Button,Sizes,light,0,2026-06-10 00:56:54,
+Button,Sizes,hc,0,2026-06-10 00:56:54,
+Button,Sizes,dark,0,2026-06-10 00:56:54,
+Button,States,light,0,2026-06-10 00:56:54,
+Button,States,hc,0,2026-06-10 00:56:54,
+Button,States,dark,0,2026-06-10 00:56:54,
+Button,Variants,light,0,2026-06-10 00:56:54,
+Button,Variants,hc,0,2026-06-10 00:56:54,
+Button,Variants,dark,0,2026-06-10 00:56:54,
+Button,Default,light,0,2026-06-10 00:56:54,
+Button,Default,hc,0,2026-06-10 00:56:54,
+Button,Default,dark,0,2026-06-10 00:56:54,
+Button,Gallery,print,0,2026-06-10 00:56:54,
+IconButton,Variants,dark,0,2026-06-10 00:56:54,
+IconButton,Gallery,print,0,2026-06-10 00:56:54,
+IconButton,Gallery,light,0,2026-06-10 00:56:54,
+IconButton,Gallery,hc,0,2026-06-10 00:56:54,
+IconButton,Gallery,dark,0,2026-06-10 00:56:54,
+IconButton,Variants,light,0,2026-06-10 00:56:54,
+IconButton,Variants,hc,0,2026-06-10 00:56:54,
+IconButton,Sizes,light,0,2026-06-10 00:56:54,
+IconButton,Sizes,hc,0,2026-06-10 00:56:54,
+IconButton,Sizes,dark,0,2026-06-10 00:56:54,
+IconButton,Default,light,0,2026-06-10 00:56:54,
+IconButton,Default,hc,0,2026-06-10 00:56:54,
+IconButton,Default,dark,0,2026-06-10 00:56:54,
+Skeleton,Gallery,dark,0,2026-06-10 00:56:54,
+Skeleton,Gallery,print,0,2026-06-10 00:56:54,
+Skeleton,Gallery,light,0,2026-06-10 00:56:54,
+Skeleton,Gallery,hc,0,2026-06-10 00:56:54,
+Skeleton,Repeating,light,0,2026-06-10 00:56:54,
+Skeleton,Repeating,hc,0,2026-06-10 00:56:54,
+Skeleton,Repeating,dark,0,2026-06-10 00:56:54,
+Skeleton,Variants,light,0,2026-06-10 00:56:54,
+Skeleton,Variants,hc,0,2026-06-10 00:56:54,
+Skeleton,Variants,dark,0,2026-06-10 00:56:54,
+Skeleton,Default,light,0,2026-06-10 00:56:54,
+Skeleton,Default,hc,0,2026-06-10 00:56:54,
+Skeleton,Default,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Small Size,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Inside Hero,light,0,2026-06-10 00:56:54,
+ArcDecoration,Inside Hero,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Inside Hero,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Large Size,light,0,2026-06-10 00:56:54,
+ArcDecoration,Large Size,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Large Size,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Small Size,light,0,2026-06-10 00:56:54,
+ArcDecoration,Small Size,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Animated,light,0,2026-06-10 00:56:54,
+ArcDecoration,Animated,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Animated,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Stone Only,light,0,2026-06-10 00:56:54,
+ArcDecoration,Stone Only,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Stone Only,dark,0,2026-06-10 00:56:54,
+ArcDecoration,On Dark Substrate,light,0,2026-06-10 00:56:54,
+ArcDecoration,On Dark Substrate,hc,0,2026-06-10 00:56:54,
+ArcDecoration,On Dark Substrate,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Bottom Left,light,0,2026-06-10 00:56:54,
+ArcDecoration,Bottom Left,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Bottom Left,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Top Left,light,0,2026-06-10 00:56:54,
+ArcDecoration,Top Left,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Top Left,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Top Right,light,0,2026-06-10 00:56:54,
+ArcDecoration,Top Right,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Top Right,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Two Rings,light,0,2026-06-10 00:56:54,
+ArcDecoration,Two Rings,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Two Rings,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Three Rings,light,0,2026-06-10 00:56:54,
+ArcDecoration,Three Rings,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Three Rings,dark,0,2026-06-10 00:56:54,
+ArcDecoration,Default,light,0,2026-06-10 00:56:54,
+ArcDecoration,Default,hc,0,2026-06-10 00:56:54,
+ArcDecoration,Default,dark,0,2026-06-10 00:56:54,
+PromptChip,With Icon,light,0,2026-06-10 00:56:54,
+PromptChip,Group,light,0,2026-06-10 00:56:54,
+PromptChip,Group,hc,0,2026-06-10 00:56:54,
+PromptChip,Group,dark,0,2026-06-10 00:56:54,
+PromptChip,With Icon,hc,0,2026-06-10 00:56:54,
+PromptChip,With Icon,dark,0,2026-06-10 00:56:54,
+PromptChip,Default,light,0,2026-06-10 00:56:54,
+PromptChip,Default,hc,0,2026-06-10 00:56:54,
+PromptChip,Default,dark,0,2026-06-10 00:56:54,
+TelemetryBeacon,Default,light,,2026-06-10 00:56:54,
+TelemetryBeacon,Default,dark,,2026-06-10 00:56:54,
+TelemetryBeacon,Default,hc,,2026-06-10 00:56:54,
+IrisThinking,With Label,light,0,2026-06-10 00:56:54,
+IrisThinking,With Label,hc,0,2026-06-10 00:56:54,
+IrisThinking,With Label,dark,0,2026-06-10 00:56:54,
+IrisThinking,Sizes,light,0,2026-06-10 00:56:54,
+IrisThinking,Sizes,hc,0,2026-06-10 00:56:54,
+IrisThinking,Sizes,dark,0,2026-06-10 00:56:54,
+IrisThinking,Default,light,0,2026-06-10 00:56:54,
+IrisThinking,Default,hc,0,2026-06-10 00:56:54,
+IrisThinking,Default,dark,0,2026-06-10 00:56:54,
+HeroVideo,Poster Only,light,0,2026-06-10 00:56:54,
+HeroVideo,Poster Only,hc,0,2026-06-10 00:56:54,
+HeroVideo,Poster Only,dark,0,2026-06-10 00:56:54,
+HeroVideo,Default,light,0,2026-06-10 00:56:54,
+HeroVideo,Default,hc,0,2026-06-10 00:56:54,
+HeroVideo,Default,dark,0,2026-06-10 00:56:54,
+HeroVideo,Loading Pulse,dark,0,2026-06-10 00:56:54,
+HeroVideo,Reduced Motion Fallback,light,0,2026-06-10 00:56:54,
+HeroVideo,Mobile Viewport,light,0,2026-06-10 00:56:54,
+HeroVideo,Mobile Viewport,hc,0,2026-06-10 00:56:54,
+HeroVideo,Mobile Viewport,dark,0,2026-06-10 00:56:54,
+HeroVideo,Short Beats,light,0,2026-06-10 00:56:54,
+HeroVideo,Short Beats,hc,0,2026-06-10 00:56:54,
+HeroVideo,Short Beats,dark,0,2026-06-10 00:56:54,
+HeroVideo,Without Loop,light,0,2026-06-10 00:56:54,
+HeroVideo,Without Loop,hc,0,2026-06-10 00:56:54,
+HeroVideo,Without Loop,dark,0,2026-06-10 00:56:54,
+HeroVideo,Captions Off,light,0,2026-06-10 00:56:54,
+HeroVideo,Captions Off,hc,0,2026-06-10 00:56:54,
+HeroVideo,Captions Off,dark,0,2026-06-10 00:56:54,
+HeroVideo,Reduced Motion Fallback,hc,0,2026-06-10 00:56:54,
+HeroVideo,Reduced Motion Fallback,dark,0,2026-06-10 00:56:54,
+HeroVideo,Errored Fallback,light,0,2026-06-10 00:56:54,
+HeroVideo,Errored Fallback,hc,0,2026-06-10 00:56:54,
+HeroVideo,Errored Fallback,dark,0,2026-06-10 00:56:54,
+HeroVideo,Paused,light,0,2026-06-10 00:56:54,
+HeroVideo,Paused,hc,0,2026-06-10 00:56:54,
+HeroVideo,Paused,dark,0,2026-06-10 00:56:54,
+HeroVideo,Playing Frame,light,0,2026-06-10 00:56:54,
+HeroVideo,Playing Frame,hc,0,2026-06-10 00:56:54,
+HeroVideo,Playing Frame,dark,0,2026-06-10 00:56:54,
+HeroVideo,Loading Pulse,light,0,2026-06-10 00:56:54,
+HeroVideo,Loading Pulse,hc,0,2026-06-10 00:56:54,

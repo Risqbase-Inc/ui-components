@@ -1,10 +1,15 @@
+'use client'
+
+import { useReducedMotion } from '../../core/MotionProvider'
 import { TelemetryBeacon } from '../../core/TelemetryBeacon'
 import type { IrisThinkingProps } from './types'
 
 // Concentric-arc rotation: outer 2.4s · middle 1.8s reversed · inner
-// 1.4s. Under `prefers-reduced-motion: reduce`, all three arcs hold
-// position and pulse opacity instead. v4.3 §5.2, closes RALIA F-011 /
-// F-051.
+// 1.4s. Under reduced motion (resolved via `useReducedMotion()`, DS
+// v4.4 workstream E — or `prefers-reduced-motion: reduce` as the CSS
+// fallback), all three arcs hold position and pulse opacity instead;
+// the `iris-thinking-reduced` class carries the JS-resolved state.
+// v4.3 §5.2, closes RALIA F-011 / F-051.
 const sizeMap = {
   sm: 24,
   md: 40,
@@ -12,6 +17,7 @@ const sizeMap = {
 }
 
 export function IrisThinking({ size = 'md', label = 'Thinking', className = '' }: IrisThinkingProps) {
+  const reducedMotion = useReducedMotion()
   const d = sizeMap[size]
   const stroke = size === 'sm' ? 2 : size === 'md' ? 3 : 4
   // Three concentric circles with stroke-dasharray to draw arcs (~75% of perimeter).
@@ -22,7 +28,7 @@ export function IrisThinking({ size = 'md', label = 'Thinking', className = '' }
     <span
       role="status"
       aria-label={label}
-      className={`inline-block iris-thinking iris-thinking-${size} ${className}`}
+      className={`inline-block iris-thinking iris-thinking-${size}${reducedMotion ? ' iris-thinking-reduced' : ''} ${className}`}
       style={{ width: d, height: d }}
     >
       <svg viewBox={`0 0 ${d} ${d}`} width={d} height={d} className="iris-thinking-svg" aria-hidden="true">

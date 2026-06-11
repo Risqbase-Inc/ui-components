@@ -87,10 +87,13 @@ function ClientCardInner({ client, cardOnClick, pillOnClick }: ClientCardProps) 
   const ariaLabel = interactive ? `${fullSentence} Activate to open.` : undefined
 
   const delta = client.weeklyDelta
-  const deltaBg = delta !== undefined && delta > 0
-    ? 'var(--color-band-very-high-bg)'
+  // v4.4 A11Y-FIX: band *fills* are 3:1 markers — as 10px TEXT they fail
+  // 4.5:1 in both themes (axe-confirmed: emerald-500 on white = 2.53).
+  // The risk.*-text valence tokens carry the text contract per theme.
+  const deltaColor = delta !== undefined && delta > 0
+    ? 'var(--color-risk-critical-text)'
     : delta !== undefined && delta < 0
-      ? 'var(--color-band-very-low-bg)'  // §3.5 REFINE 4.1: semantic, not raw emerald
+      ? 'var(--color-risk-low-text)'
       : 'transparent'
 
   const inner = (
@@ -162,7 +165,7 @@ function ClientCardInner({ client, cardOnClick, pillOnClick }: ClientCardProps) 
           <span
             aria-hidden="true"
             className="font-mono text-[10px] font-semibold tabular-nums"
-            style={{ color: deltaBg }}
+            style={{ color: deltaColor }}
           >
             {delta > 0 ? '↑' : '↓'}
             {Math.abs(delta)} wk
@@ -300,7 +303,7 @@ export function ClientGrid({
               <button
                 type="button"
                 onClick={headingAction.onClick}
-                className="text-[11px] font-semibold text-[var(--color-action-primary)] bg-transparent border-0 cursor-pointer hover:underline focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] rounded-[var(--dimension-radius-sm)] px-1"
+                className="text-[11px] font-semibold text-[var(--color-action-link)] bg-transparent border-0 cursor-pointer hover:underline focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-action-primary)] rounded-[var(--dimension-radius-sm)] px-1"
               >
                 {headingAction.label}
               </button>
