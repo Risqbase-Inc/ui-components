@@ -135,6 +135,17 @@ Joined this PR at the owner's request; this repo carries only the `ui-components
 | Release vehicle | NOTE | Hand-off says "1.x minor" — stale vs this repo (2.1.3 shipped); lands in the same release-please **minor** (2.2.0) as the rest of v4.4 |
 | Out of scope here | — | Consumer repos (`ralia-tier2`, `risqbase-com`, `internal-tools`): favicon/PNG derivatives, Header/footer Logo inlining (N-02), footer wordmark N-01 tint, `internal-tools` `/icon` route removal, sister issues Ralia#585 / internal-tools#290 — per hand-off tasks 2–5 |
 
+### Central migration PR-A (work order 11 Jun — tokens + Footer + Header, T1/T2/T3/T5)
+
+| Row | Status | Evidence |
+|---|---|---|
+| T1 `color.brand.mark` minted + dark override | PASS | Semantic token (indigo-700, AAA pair vs surface.default 7.90:1) + first-ever dark logo override (indigo-300, 9.42:1); `lint:tokens` 323 tokens clean |
+| T1 component re-points | PASS (1 documented deviation) | `header.logo` → `{color.brand.mark}` (aa-large → aaa). **`footer.logo` → `{color.brand.mark-on-inverse}` (NEW token), not `{color.brand.mark}` as the work order literally said** — the footer surface is *inverse* (stone-900 in light, near-white in dark), so the literal wiring computes 2.2:1 in both themes and fails the work order's own AAA gate; A1 is surface-relative, so the inverse surface takes the mirrored pair (indigo-300 light / indigo-700 dark → 8.77 / 7.23). `contrastExempt` apology deleted |
+| T2 Footer rebuilt | PASS | Inline Helvetica `<text>` mark deleted → frozen v3 outline (`currentColor`); every raw class (`bg-stone-900`, `text-gray-400`, `text-indigo-400`, `border-gray-800`, raw `text-white`) rewired to `color.footer.*` vars; AAA bumps: meta/link stone-400 → stone-300 light (11.74:1) **with dark re-alias to on-inverse-subtle (7.44:1)** — the work order's theme-invariant stone-300 pin would have been ~1.5:1 on the flipped dark footer; `tokens.md` apology note replaced with the rewiring record |
+| T3 Header glyph | PASS | Frozen mark inlined (`h-5 w-5`, `aria-hidden`, `currentColor`) before the wordmark in the shared logo `<Link>` (both variants); token re-point carries the colour — no TSX colour change; docs-site `--color-header-logo` comment now points at `color.brand.mark` |
+| T5 scanner rule R15 | PASS | `scan:brand` CI step + `rules.json` entry + DoD-5 fixture proof (fails on Helvetica/`<text>` lockup fixture, passes real src). **Narrowed vs the work order's literal "any `<text` in src/**"** — charts lawfully render `<text>` data labels (ImpactGraph, ChartContainer) and system-first stacks; the rule targets the actual drift class: non-system first font family, or `<text>` carrying the `r\|ↄ` lockup |
+| T5 record-keeping | PASS | indigo-600 primitive description updated (logo reference removed); #43 audit-row spec amendment recorded: "Brand fill `#4F46E5` ✅ correct" superseded by rev. A1 — mark `#4338CA`/`#A5B4FC` via `color.brand.mark`, deliberately divergent from `color.action.primary` (proposed replacement row in the #43 comment, 11 Jun); changelog entry under Unreleased |
+
 ## PR #84 merge path (required checks per docs/devops/branch-protection.md)
 
 - **Lint & Build** (required): **green** — carries every v4.4 gate (R12 token lint, R13 motion scan, R14 agent-surface drift, MCP tests, DoD-5 negatives, docs/readme drift, tsc, eslint).

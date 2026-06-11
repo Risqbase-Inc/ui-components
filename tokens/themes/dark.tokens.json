@@ -1,6 +1,48 @@
 {
   "$comment": "Dark-mode theme overrides. Populated in BRIEF-401 Phase 2.2 (2026-05-13). Override-only file: keys present here re-bind the corresponding semantic / component token under [data-theme=\"dark\"]. Keys absent from this file inherit the light value. Surfaces sit at OKLCH L*≈0.18..0.28 (never pure black, halation-avoidance). Body text at L*≈0.72..0.93 (pure white reserved for high-emphasis headlines on inverse and very-high band text). Brand brightens (indigo-600 → indigo-500-equivalent) so white text clears 4.5:1. Risk-band hue families preserved; lightness lifted per band; band text flips to near-black where the lifted bg can sustain it (very-low / low / medium / high) and stays white where it can't (very-high). See artefacts/dark-mode-rationale.md. Sources: WCAG 2.2 (SC 1.4.3/1.4.6/1.4.11), Apple HIG Dark Mode (2024), IBM Carbon Dark theme (v11, 2024), Shopify Polaris dark-mode (2023), Ottosson OKLCH (2020). NOTE: this file is a partial-fidelity reconstruction of the originally-staged 72-token artefact (lost mid-pipeline 2026-05-13 — see PR description); 37 tokens with documented hex values from dark-mode-rationale.md + artefacts/dark-mode-canvas.html are included; tokens with only L*/C/H prose targets fall back to inheriting light until a follow-up pass enumerates them.",
   "color": {
+    "brand": {
+      "mark": {
+        "$value": "{color.brand.indigo.300}",
+        "$type": "color",
+        "$description": "Brand mark tint, dark theme (rev. A1) — indigo-300, ≈8.8:1 on the dark default surface",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/brand/mark" }
+        }
+      },
+      "mark-on-inverse": {
+        "$value": "{color.brand.indigo.700}",
+        "$type": "color",
+        "$description": "Brand mark on inverse surfaces, dark theme (rev. A1) — the inverse surface flips near-white in dark, so the mark flips to indigo-700 (≈7.2:1)",
+        "$extensions": {
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "dark", "variable": "color/brand/mark-on-inverse" }
+        }
+      }
+    },
+    "footer": {
+      "meta": {
+        "$value": "{color.text.on-inverse-subtle}",
+        "$type": "color",
+        "$description": "Footer secondary text, dark theme — the inverse footer surface flips near-white, so meta text re-aliases the dark on-inverse-subtle (dark-on-light, ≥7:1)",
+        "$extensions": {
+          "com.risqbase.role": "component",
+          "com.risqbase.figma": { "collection": "component", "mode": "dark", "variable": "color/footer/meta" }
+        }
+      },
+      "link": {
+        "default": {
+          "$value": "{color.text.on-inverse-subtle}",
+          "$type": "color",
+          "$description": "Footer link default, dark theme — re-aliases the dark on-inverse-subtle (the light value pins stone-300 for AAA on stone-900, which would fail on the flipped near-white surface)",
+          "$extensions": {
+            "com.risqbase.role": "component",
+            "com.risqbase.figma": { "collection": "component", "mode": "dark", "variable": "color/footer/link/default" }
+          }
+        }
+      }
+    },
     "surface": {
       "default": {
         "$value": "oklch(18.086159% 0.00521 248.116168)",

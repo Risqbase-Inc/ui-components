@@ -71,6 +71,12 @@ jobs:
       - name: Motion gating (R13)
         run: npm run scan:motion
 
+      # Brand-mark v3 (PR-A T5) — scanner rule R15 (brand-mark integrity):
+      # no SVG <text> brand lockups, no non-system font-family literals in
+      # component code (the drifted Footer Helvetica mark sailed past R1).
+      - name: Brand-mark integrity (R15)
+        run: npm run scan:brand
+
       # v4.4 §9 R14 — agent-surface freshness: public/agent/registry.json,
       # the llms.txt family and the .md mirrors must match regeneration
       # (same drift mechanism as docs:check). build:agent-surface ran as

@@ -1178,7 +1178,7 @@
           ]
         }
       ],
-      "tokensDoc": "# Tokens — `Footer`\n\n> **v2.1.1 note**: The Footer was re-ported from the canonical marketing\n> `MarketingFooter` per CEO directive 2026-05-20. The current implementation\n> uses inline Tailwind classes (`bg-stone-900`, `text-gray-400`, `text-indigo-400`,\n> `border-gray-800`) rather than the role-token CSS variables documented below.\n> A follow-up sweep will re-wire the inline classes to the token variables;\n> the resolved pixel values are identical, so there is no visual diff in the\n> meantime. Tracking: post-launch tokens-rewire sweep (owner TBD).\n\n\nThe following design tokens are consumed by this component. See `tokens/component/footer.json` for the JSON source of truth and `tokens/README.md` for the schema.\n\n## Tokens consumed\n\n| Token | Tier | Resolves to | Used for |\n|---|---|---|---|\n| `color.footer.background` | component | `color.surface.inverse` (semantic) → `color.neutral.stone.900` (primitive, `#1C1917`) | Footer container background (inverse / dark surface) |\n| `color.footer.heading` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Column heading text (`Product`, `Company`, `Legal`, `Connect`) |\n| `color.footer.link.default` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Nav link colour in default state |\n| `color.footer.link.hover` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Nav link colour on hover |\n| `color.footer.logo` | component | `color.action.primary` (semantic) → `color.brand.indigo.600` (primitive, `#4F46E5`) | Logo wordmark in the bottom bar (`RisqBase` / `RALIA`) |\n| `color.footer.meta` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |\n| `color.footer.divider` | component | `color.border.inverse` (semantic) → `color.neutral.stone.700` (primitive, `#44403C`) | Horizontal rule separating link grid from bottom bar (`border-t`) |\n\n## Worked example\n\nThe bottom-bar divider line traces as: `color.neutral.stone.700` (`#44403C`, in `tokens/primitive/color.json`) is referenced by `color.border.inverse` (in `tokens/semantic/color.json`), which is referenced by `color.footer.divider` (in `tokens/component/footer.json`). The build pipeline in `tools/tokens-build/` flattens the dotted path to the CSS custom property `--color-footer-divider` and emits it into `dist/tokens.css` under `:root` (and into per-theme overrides under `[data-theme=\"dark\"]` / `[data-theme=\"hc\"]` once those layers populate in S4). The component consumes the variable via Tailwind's arbitrary-value class `border-t border-[var(--color-footer-divider)]` on the bottom-bar wrapper in `src/core/Footer/index.tsx`. Because the Footer mixes inverse-surface background, on-inverse text, and an inverse-border line, all three cascades flow through distinct semantic aliases (`color.surface.inverse`, `color.text.on-inverse{,-subtle}`, `color.border.inverse`) — overriding the dark theme means re-stating those semantic keys, not the role tokens.\n\n## Adding a new token\n\nIf you need a token this component doesn't currently expose, add it to `tokens/component/footer.json` following `tokens/README.md`'s schema (W3C Design Tokens Format leaf with `$value`, `$type`, `$description`, and `$extensions['com.risqbase.role'] = \"component\"`). Reference an existing semantic token in `$value` rather than introducing a primitive directly. Run `npm run lint:tokens` to validate; `npm run build` to regenerate `dist/tokens.css` and the matching CSS custom property.\n",
+      "tokensDoc": "# Tokens — `Footer`\n\n> **v4.4 brand-mark PR-A note**: the v2.1.1 raw-class port (`bg-stone-900`,\n> `text-gray-400`, `text-indigo-400`, `border-gray-800`) and the inline\n> Helvetica `<text>` mark are gone — every colour now flows through the\n> `color.footer.*` role tokens below, and the mark is the frozen brand-mark\n> v3 outline (geometry identical to `public/mark.svg`), themed via\n> `currentColor`. Visual deltas vs v2.1.1 are deliberate: rev. A1 logo tint\n> (indigo-400 → indigo-300 on the inverse surface) and the AAA bump on\n> meta/link text (stone-400 → stone-300).\n\n\nThe following design tokens are consumed by this component. See `tokens/component/footer.json` for the JSON source of truth and `tokens/README.md` for the schema.\n\n## Tokens consumed\n\n| Token | Tier | Resolves to | Used for |\n|---|---|---|---|\n| `color.footer.background` | component | `color.surface.inverse` (semantic) → `color.neutral.stone.900` (primitive, `#1C1917`) | Footer container background (inverse / dark surface) |\n| `color.footer.heading` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Column heading text (`Product`, `Company`, `Legal`, `Connect`) |\n| `color.footer.link.default` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Nav link colour in default state |\n| `color.footer.link.hover` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Nav link colour on hover |\n| `color.footer.logo` | component | `color.brand.mark-on-inverse` (semantic, rev. A1) → `color.brand.indigo.300` (`#A5B4FC`) light / `color.brand.indigo.700` (`#4338CA`) dark | Brand mark glyph + wordmark (`RisqBase` / `RALIA`) |\n| `color.footer.meta` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |\n| `color.footer.divider` | component | `color.border.inverse` (semantic) → `color.neutral.stone.700` (primitive, `#44403C`) | Horizontal rule separating link grid from bottom bar (`border-t`) |\n\n## Worked example\n\nThe bottom-bar divider line traces as: `color.neutral.stone.700` (`#44403C`, in `tokens/primitive/color.json`) is referenced by `color.border.inverse` (in `tokens/semantic/color.json`), which is referenced by `color.footer.divider` (in `tokens/component/footer.json`). The build pipeline in `tools/tokens-build/` flattens the dotted path to the CSS custom property `--color-footer-divider` and emits it into `dist/tokens.css` under `:root` (and into per-theme overrides under `[data-theme=\"dark\"]` / `[data-theme=\"hc\"]` once those layers populate in S4). The component consumes the variable via Tailwind's arbitrary-value class `border-t border-[var(--color-footer-divider)]` on the bottom-bar wrapper in `src/core/Footer/index.tsx`. Because the Footer mixes inverse-surface background, on-inverse text, and an inverse-border line, all three cascades flow through distinct semantic aliases (`color.surface.inverse`, `color.text.on-inverse{,-subtle}`, `color.border.inverse`) — overriding the dark theme means re-stating those semantic keys, not the role tokens.\n\n## Adding a new token\n\nIf you need a token this component doesn't currently expose, add it to `tokens/component/footer.json` following `tokens/README.md`'s schema (W3C Design Tokens Format leaf with `$value`, `$type`, `$description`, and `$extensions['com.risqbase.role'] = \"component\"`). Reference an existing semantic token in `$value` rather than introducing a primitive directly. Run `npm run lint:tokens` to validate; `npm run build` to regenerate `dist/tokens.css` and the matching CSS custom property.\n",
       "accessibilityDoc": "# Footer — accessibility\n\n## Landmarks\n\n- Root element is `<footer role=\"contentinfo\">` — explicit `role` is redundant\n  for landmark mapping but kept for legacy AT compatibility (some older NVDA\n  builds miss the implicit role on `<footer>` outside `<body>` direct child).\n- Nav columns are wrapped in `<nav aria-label=\"Footer navigation\">` to distinguish\n  from the primary site `<nav>` in the header. Screen-reader rotor reads both\n  landmarks with distinct labels.\n- Brand link has `aria-label=\"RisqBase home\"` so screen-reader users hear\n  destination, not the bare logo wordmark.\n- Decorative SVG (logo glyph + language indicator) carries `aria-hidden=\"true\"`\n  so AT skips it. The accessible name flows from the surrounding link / span.\n\n## Headings\n\n- Each nav column is headed by `<h3>` — assumes the surrounding page renders\n  exactly one `<h1>` (page title) and that mid-page sections use `<h2>`. If a\n  consumer's page only goes to `<h2>`, the rotor still reads the structure\n  correctly (skipped levels are tolerated by all mainstream screen readers\n  for footer regions). Document this in the consumer's PR review checklist.\n\n## Keyboard\n\n- All interactive elements are native `<a>` (via Next.js `<Link>`) — no custom\n  tabindex, no `role=\"link\"` divs. Tab order follows DOM order: brand → each\n  nav column in declaration order → bottom-bar links.\n- No focus traps. Esc behaviour is browser-default (no modal to dismiss).\n- Visible focus ring is the consumer-app default (Tailwind's `focus-visible:ring-*`\n  applied at the `<body>` or `<a>` reset layer). The Footer doesn't override it.\n\n## Contrast (WCAG 2.2 SC 1.4.3, AA)\n\n| Element | Foreground | Background | Ratio | Status |\n|---|---|---|---|---|\n| Nav link (default) | `text-gray-400` (#9CA3AF) | `bg-stone-900` (#1C1917) | 7.04:1 | Pass AAA |\n| Nav link (hover)   | `text-white` (#FFFFFF)   | `bg-stone-900` (#1C1917) | 17.31:1 | Pass AAA |\n| Section heading    | `text-white` (#FFFFFF)   | `bg-stone-900` (#1C1917) | 17.31:1 | Pass AAA |\n| Brand wordmark     | `text-indigo-400` (#818CF8) | `bg-stone-900` (#1C1917) | 6.16:1 | Pass AAA |\n| Tagline / copyright | `text-gray-400` (#9CA3AF) | `bg-stone-900` (#1C1917) | 7.04:1 | Pass AAA |\n\nVerified 2026-05-20 against `bg-stone-900` (`#1C1917`). If the surface token\nshifts in a theme override, re-run `npm run verify:contrast`.\n\n## Target size (WCAG 2.2 SC 2.5.8, AA)\n\n- Bottom-bar legal links use `py-1` (≈4px vertical padding) on top of `text-xs`\n  line-height (≈16px) → ≈24px target height. Meets the 24×24 minimum.\n- Nav column links sit in a `space-y-2.5` stack (10px gap) with `text-sm`\n  (≈20px line-height). Effective tap target ≥24×24 with generous gap.\n\n## Tested with\n\n- VoiceOver 14 (macOS Sonoma) — rotor traversal confirms two distinct\n  navigation landmarks; nav column headings announce in order.\n- NVDA 2024.x (Windows 11) — same behaviour.\n- axe-core via `withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa'])`\n  — zero violations (verified 2026-05-20 on `Default` and `WithHiddenLinks` stories).\n\n## Hidden-link behaviour\n\nWhen `hiddenLinks` filters all links from a section, the section heading is\nnot rendered (avoiding an orphan heading that VoiceOver would announce as\n\"Platform, level 3\" with no list following). Verified empirically: see\n`AllNavHidden` story — only the brand block, copyright, and bottom-bar\nlegal triad render.\n",
       "composesWith": [
         "TelemetryBeacon"
@@ -3836,7 +3836,7 @@
     {
       "path": "color.brand.indigo.600",
       "type": "color",
-      "description": "Primary brand indigo — CTAs, logo, links",
+      "description": "Primary brand indigo — CTAs, links (brand mark uses color.brand.mark as of rev. A1)",
       "tier": "primitive",
       "value": "oklch(51.05731% 0.230053 276.965635)",
       "resolutionChain": [],
@@ -3927,6 +3927,52 @@
         }
       },
       "cssVariable": "--color-brand-indigo-950"
+    },
+    {
+      "path": "color.brand.mark",
+      "type": "color",
+      "description": "Brand mark tint (rev. A1, 2026-06-11) — deliberately diverges from color.action.primary; see brand-mark v3 hand-off",
+      "tier": "semantic",
+      "value": "{color.brand.indigo.700}",
+      "resolutionChain": [
+        "color.brand.indigo.700"
+      ],
+      "resolved": {
+        "light": {
+          "value": "oklch(45.677508% 0.214578 277.022904)",
+          "hex": "#4338ca"
+        },
+        "dark": {
+          "value": "oklch(78.529838% 0.104135 274.71343)",
+          "hex": "#a5b4fc"
+        }
+      },
+      "cssVariable": "--color-brand-mark",
+      "contrastPair": "color.surface.default",
+      "contrastLevel": "aaa"
+    },
+    {
+      "path": "color.brand.mark-on-inverse",
+      "type": "color",
+      "description": "Brand mark tint on inverse surfaces (rev. A1) — the A1 pair is surface-relative (indigo-700 on light surfaces, indigo-300 on dark) and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark)",
+      "tier": "semantic",
+      "value": "{color.brand.indigo.300}",
+      "resolutionChain": [
+        "color.brand.indigo.300"
+      ],
+      "resolved": {
+        "light": {
+          "value": "oklch(78.529838% 0.104135 274.71343)",
+          "hex": "#a5b4fc"
+        },
+        "dark": {
+          "value": "oklch(45.677508% 0.214578 277.022904)",
+          "hex": "#4338ca"
+        }
+      },
+      "cssVariable": "--color-brand-mark-on-inverse",
+      "contrastPair": "color.surface.inverse",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.neutral.white",
@@ -7846,17 +7892,16 @@
     {
       "path": "color.footer.link.default",
       "type": "color",
-      "description": "Footer link — default state",
+      "description": "Footer link — default state. AAA bump (brand-mark v3 PR-A): on-inverse-subtle (stone-400, ≈6.9:1 on stone-900) missed 7:1 by a hair → stone-300 (≈11:1); dark theme re-aliases on-inverse-subtle (see themes/dark)",
       "tier": "component",
-      "value": "{color.text.on-inverse-subtle}",
+      "value": "{color.neutral.stone.300}",
       "resolutionChain": [
-        "color.text.on-inverse-subtle",
-        "color.neutral.stone.400"
+        "color.neutral.stone.300"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(71.60844% 0.009054 56.259003)",
-          "hex": "#a8a29e"
+          "value": "oklch(86.866141% 0.004306 56.366031)",
+          "hex": "#d6d3d1"
         },
         "dark": {
           "value": "oklch(42.905288% 0.008399 248.023716)",
@@ -7864,7 +7909,8 @@
         }
       },
       "cssVariable": "--color-footer-link-default",
-      "contrastPair": "color.footer.background"
+      "contrastPair": "color.footer.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.footer.link.hover",
@@ -7892,39 +7938,40 @@
     {
       "path": "color.footer.logo",
       "type": "color",
-      "description": "Footer logo wordmark colour",
+      "description": "Footer logo — mark glyph + wordmark on the inverse footer surface (rev. A1: indigo-300 light / indigo-700 dark via brand.mark-on-inverse). Rendered as of the v4.4 raw-class rewire",
       "tier": "component",
-      "value": "{color.action.primary}",
+      "value": "{color.brand.mark-on-inverse}",
       "resolutionChain": [
-        "color.action.primary",
-        "color.brand.indigo.600"
+        "color.brand.mark-on-inverse",
+        "color.brand.indigo.300"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(51.05731% 0.230053 276.965635)",
-          "hex": "#4f46e5"
+          "value": "oklch(78.529838% 0.104135 274.71343)",
+          "hex": "#a5b4fc"
         },
         "dark": {
-          "value": "oklch(55.630111% 0.179714 268.028017)",
-          "hex": "#4768db"
+          "value": "oklch(45.677508% 0.214578 277.022904)",
+          "hex": "#4338ca"
         }
       },
-      "cssVariable": "--color-footer-logo"
+      "cssVariable": "--color-footer-logo",
+      "contrastPair": "color.footer.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.footer.meta",
       "type": "color",
-      "description": "Footer secondary text — copyright, tagline, trust badges",
+      "description": "Footer secondary text — copyright, tagline, trust badges. AAA bump (brand-mark v3 PR-A): stone-400 missed 7:1 on stone-900 → stone-300; dark theme re-aliases on-inverse-subtle (see themes/dark)",
       "tier": "component",
-      "value": "{color.text.on-inverse-subtle}",
+      "value": "{color.neutral.stone.300}",
       "resolutionChain": [
-        "color.text.on-inverse-subtle",
-        "color.neutral.stone.400"
+        "color.neutral.stone.300"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(71.60844% 0.009054 56.259003)",
-          "hex": "#a8a29e"
+          "value": "oklch(86.866141% 0.004306 56.366031)",
+          "hex": "#d6d3d1"
         },
         "dark": {
           "value": "oklch(42.905288% 0.008399 248.023716)",
@@ -7932,7 +7979,8 @@
         }
       },
       "cssVariable": "--color-footer-meta",
-      "contrastPair": "color.footer.background"
+      "contrastPair": "color.footer.background",
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.footer.divider",
@@ -8137,26 +8185,26 @@
     {
       "path": "color.header.logo",
       "type": "color",
-      "description": "Header logo wordmark colour",
+      "description": "Header logo — mark glyph + wordmark. Re-pointed action.primary → brand.mark (rev. A1, 2026-06-11): the brand mark deliberately diverges from action indigo",
       "tier": "component",
-      "value": "{color.action.primary}",
+      "value": "{color.brand.mark}",
       "resolutionChain": [
-        "color.action.primary",
-        "color.brand.indigo.600"
+        "color.brand.mark",
+        "color.brand.indigo.700"
       ],
       "resolved": {
         "light": {
-          "value": "oklch(51.05731% 0.230053 276.965635)",
-          "hex": "#4f46e5"
+          "value": "oklch(45.677508% 0.214578 277.022904)",
+          "hex": "#4338ca"
         },
         "dark": {
-          "value": "oklch(55.630111% 0.179714 268.028017)",
-          "hex": "#4768db"
+          "value": "oklch(78.529838% 0.104135 274.71343)",
+          "hex": "#a5b4fc"
         }
       },
       "cssVariable": "--color-header-logo",
       "contrastPair": "color.header.background",
-      "contrastLevel": "aa-large"
+      "contrastLevel": "aaa"
     },
     {
       "path": "color.header.tagline",
@@ -9459,6 +9507,13 @@
       "definedIn": "docs/design-system/v4.4/scanner-rules-r12-r14.md",
       "description": "Agent-surface freshness (v4.4; the brief's \"R13\", renumbered): public/agent/registry.json, the llms.txt family and the per-page .md mirrors must be regenerated in the same commit as any change to component types, tokens, recipes, lifecycle, showcase entries or scanner rules.",
       "instead": "Run npm run build:agent-surface and commit the regenerated public/ artefacts; CI runs npm run agent:check (same drift mechanism as docs:check)."
+    },
+    {
+      "id": "R15",
+      "severity": "error",
+      "definedIn": "scripts/scanner-rules/r15-brand-mark-integrity.mjs (brand-mark v3 hand-off, PR-A T5)",
+      "description": "Brand-mark integrity (2026-06-11): the brand mark is frozen vector paths (public/mark.svg) — never re-typed as SVG <text> (any <text> containing the lockup glyphs r|ↄ violates) and never approximated with a web font: any fontFamily/font-family literal whose first family is a named font (Helvetica, Arial, Geist, …) rather than a system entry (system-ui, ui-*, -apple-system), a CSS generic, or a var(--…) reference violates. System-first stacks may carry named fallbacks.",
+      "instead": "Inline the frozen mark (geometry from public/mark.svg, fill=\"currentColor\", themed via color.brand.mark / color.brand.mark-on-inverse) or import the packaged asset @risqbase-inc/ui-components/assets/mark.svg; use the system font stack for text. Reference implementation scripts/scanner-rules/r15-brand-mark-integrity.mjs (npm run scan:brand)."
     }
   ],
   "lifecycle": {
@@ -9586,5 +9641,5 @@
       }
     ]
   },
-  "sourceHash": "a0533290b985cbe5"
+  "sourceHash": "af5c6ff4abefbc64"
 }

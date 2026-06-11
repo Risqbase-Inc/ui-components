@@ -61,6 +61,19 @@ function run(cmd, args, env = {}) {
   expect('R13 PASSES on real src/ (exit 0)', good.status === 0, (good.stderr + good.stdout).slice(0, 300))
 }
 
+/* R15 — brand-mark integrity (scripts/scanner-rules/r15-brand-mark-integrity.mjs) */
+{
+  const bad = run('scripts/scanner-rules/r15-brand-mark-integrity.mjs', ['--dir', 'scripts/__fixtures__/r15-brand-drift'])
+  const out = bad.stderr + bad.stdout
+  expect('R15 FAILS on violating fixture (exit 1)', bad.status === 1, `exit ${bad.status}`)
+  expect('R15 fixture: non-system font-family flagged', /non-system font-family literal/.test(out))
+  expect('R15 fixture: brand lockup <text> flagged', /brand lockup re-typed as <text>/.test(out))
+  expect('R15 fixture: clean component NOT flagged', !/clean-component/.test(out))
+
+  const good = run('scripts/scanner-rules/r15-brand-mark-integrity.mjs', [])
+  expect('R15 PASSES on real src/ (exit 0)', good.status === 0, (good.stderr + good.stdout).slice(0, 300))
+}
+
 /* D-124 — expanded verify-contrast gate (text-role completeness + per-theme pairs) */
 {
   const bad = run('scripts/verify-contrast.mjs', ['--strict', '--quiet'], {

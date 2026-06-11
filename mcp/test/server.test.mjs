@@ -132,12 +132,14 @@ test('get_lifecycle returns states + promotion log, filterable per component', (
   assert.equal(one.promotionLog.length, 1)
 })
 
-test('get_usage_rules returns R1–R14 with severity + instead', () => {
+test('get_usage_rules returns R1–R15 with severity + instead', () => {
   const { rules } = call('get_usage_rules', { consumer: 'ralia' })
-  assert.equal(rules.length, 14)
+  assert.equal(rules.length, 15)
   const r12 = rules.find((r) => r.id === 'R12')
   assert.match(r12.description, /OKLCH/)
   assert.ok(r12.instead)
+  const r15 = rules.find((r) => r.id === 'R15')
+  assert.match(r15.description, /frozen vector paths/)
   assert.ok(rules.every((r) => r.severity && r.description))
 })
 

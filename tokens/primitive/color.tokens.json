@@ -59,7 +59,7 @@
         "600": {
           "$value": "oklch(51.05731% 0.230053 276.965635)",
           "$type": "color",
-          "$description": "Primary brand indigo — CTAs, logo, links",
+          "$description": "Primary brand indigo — CTAs, links (brand mark uses color.brand.mark as of rev. A1)",
           "$extensions": {
             "com.risqbase.role": "primitive",
             "com.risqbase.figma": { "collection": "primitive", "mode": "light", "variable": "color/brand/indigo/600" }

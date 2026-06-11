@@ -21,10 +21,11 @@
       },
       "link": {
         "default": {
-          "$value": "{color.text.on-inverse-subtle}",
+          "$value": "{color.neutral.stone.300}",
           "$type": "color",
-          "$description": "Footer link — default state",
+          "$description": "Footer link — default state. AAA bump (brand-mark v3 PR-A): on-inverse-subtle (stone-400, ≈6.9:1 on stone-900) missed 7:1 by a hair → stone-300 (≈11:1); dark theme re-aliases on-inverse-subtle (see themes/dark)",
           "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
+            "com.risqbase.contrastLevel": "aaa",
             "com.risqbase.role": "component",
             "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/link/default", "scopes": ["TEXT_FILL"] }
           }
@@ -40,19 +41,21 @@
         }
       },
       "logo": {
-        "$value": "{color.action.primary}",
+        "$value": "{color.brand.mark-on-inverse}",
         "$type": "color",
-        "$description": "Footer logo wordmark colour",
-        "$extensions": { "com.risqbase.contrastExempt": "token currently unrendered: the shipped Footer uses raw indigo-400 on stone-900 (6.3:1); chain reconciliation is tracked with the Footer raw-class R9 migration",
+        "$description": "Footer logo — mark glyph + wordmark on the inverse footer surface (rev. A1: indigo-300 light / indigo-700 dark via brand.mark-on-inverse). Rendered as of the v4.4 raw-class rewire",
+        "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
+          "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/logo", "scopes": ["TEXT_FILL"] }
         }
       },
       "meta": {
-        "$value": "{color.text.on-inverse-subtle}",
+        "$value": "{color.neutral.stone.300}",
         "$type": "color",
-        "$description": "Footer secondary text — copyright, tagline, trust badges",
+        "$description": "Footer secondary text — copyright, tagline, trust badges. AAA bump (brand-mark v3 PR-A): stone-400 missed 7:1 on stone-900 → stone-300; dark theme re-aliases on-inverse-subtle (see themes/dark)",
         "$extensions": { "com.risqbase.contrastPair": "{color.footer.background}",
+          "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/footer/meta", "scopes": ["TEXT_FILL"] }
         }

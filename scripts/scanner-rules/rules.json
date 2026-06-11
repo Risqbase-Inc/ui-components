@@ -44,6 +44,13 @@
       "definedIn": "docs/design-system/v4.4/scanner-rules-r12-r14.md",
       "description": "Agent-surface freshness (v4.4; the brief's \"R13\", renumbered): public/agent/registry.json, the llms.txt family and the per-page .md mirrors must be regenerated in the same commit as any change to component types, tokens, recipes, lifecycle, showcase entries or scanner rules.",
       "instead": "Run npm run build:agent-surface and commit the regenerated public/ artefacts; CI runs npm run agent:check (same drift mechanism as docs:check)."
+    },
+    {
+      "id": "R15",
+      "severity": "error",
+      "definedIn": "scripts/scanner-rules/r15-brand-mark-integrity.mjs (brand-mark v3 hand-off, PR-A T5)",
+      "description": "Brand-mark integrity (2026-06-11): the brand mark is frozen vector paths (public/mark.svg) — never re-typed as SVG <text> (any <text> containing the lockup glyphs r|ↄ violates) and never approximated with a web font: any fontFamily/font-family literal whose first family is a named font (Helvetica, Arial, Geist, …) rather than a system entry (system-ui, ui-*, -apple-system), a CSS generic, or a var(--…) reference violates. System-first stacks may carry named fallbacks.",
+      "instead": "Inline the frozen mark (geometry from public/mark.svg, fill=\"currentColor\", themed via color.brand.mark / color.brand.mark-on-inverse) or import the packaged asset @risqbase-inc/ui-components/assets/mark.svg; use the system font stack for text. Reference implementation scripts/scanner-rules/r15-brand-mark-integrity.mjs (npm run scan:brand)."
     }
   ]
 }

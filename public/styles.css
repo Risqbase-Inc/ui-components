@@ -26,7 +26,8 @@
   --color-action-primary-hover: #4338CA;
   --color-action-primary-subtle: #E0E7FF;
 
-  /* Brand mark v3 (rev. A1) — deliberately diverges from action-primary */
+  /* Brand mark v3 (rev. A1) — mirrors color.brand.mark (tokens/semantic/color.tokens.json
+     → indigo-700; deliberately diverges from action-primary). Keep in sync with the token. */
   --color-header-logo: #4338CA;
 
   /* Iris teal — system signature accent */
@@ -72,7 +73,7 @@
   --color-action-primary-hover: #678AF6;
   --color-action-primary-subtle: #182241;
 
-  --color-header-logo: #A5B4FC;
+  --color-header-logo: #A5B4FC; /* mirrors color.brand.mark dark override (indigo-300) */
 
   --color-iris: #1E9B8F;
   --color-iris-subtle: #16302E;

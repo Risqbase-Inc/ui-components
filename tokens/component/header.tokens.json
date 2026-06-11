@@ -20,10 +20,10 @@
         }
       },
       "logo": {
-        "$value": "{color.action.primary}",
+        "$value": "{color.brand.mark}",
         "$type": "color",
-        "$description": "Header logo wordmark colour",
-        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aa-large",
+        "$description": "Header logo — mark glyph + wordmark. Re-pointed action.primary → brand.mark (rev. A1, 2026-06-11): the brand mark deliberately diverges from action indigo",
+        "$extensions": { "com.risqbase.contrastPair": "{color.header.background}", "com.risqbase.contrastLevel": "aaa",
           "com.risqbase.role": "component",
           "com.risqbase.figma": { "collection": "component", "mode": "light", "variable": "color/header/logo", "scopes": ["TEXT_FILL"] }
         }

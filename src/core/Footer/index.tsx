@@ -9,9 +9,10 @@ import type { FooterLink, FooterProps, FooterSection } from './types'
  * directive 2026-05-20). Single shared surface across all RisqBase public
  * properties. Authed-product footers stay in-product.
  *
- * Tokens (see `tokens.md`):
- *   bg-stone-900 / text-gray-400 / text-indigo-400 / border-gray-800
- *   currently inline pixel values; semantic tokens consumed where present.
+ * Tokens (see `tokens.md`): consumes the color.footer.* role tokens via
+ * CSS custom properties — the v4.4 brand-mark PR-A sweep retired the
+ * v2.1.1 raw utility classes and the inline web-font wordmark (the mark
+ * is now the frozen brand-mark v3 outline, guarded by scanner rule R15).
  */
 
 // ─── Default link map (canonical) ────────────────────────────────────────────
@@ -96,7 +97,7 @@ export function Footer({
   return (
     <>
       <TelemetryBeacon component="Footer" version="2.1.1" />
-      <footer className="bg-stone-900" role="contentinfo">
+      <footer className="bg-[var(--color-footer-background)]" role="contentinfo">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
           {/* Main row: brand left, nav columns right */}
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -104,32 +105,23 @@ export function Footer({
             <div className="lg:w-[280px] flex-shrink-0">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2.5"
+                className="inline-flex items-center gap-2.5 text-[var(--color-footer-logo)]"
                 aria-label="RisqBase home"
               >
+                {/* Brand mark v3 — frozen outline, identical geometry to public/mark.svg
+                    (keep in sync); themes via currentColor from the footer-logo token. */}
                 <svg
-                  width="32"
-                  height="32"
                   viewBox="0 0 160 160"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
                   aria-hidden="true"
+                  focusable="false"
+                  className="h-6 w-6 shrink-0"
                 >
-                  <text
-                    x="80"
-                    y="120"
-                    textAnchor="middle"
-                    fontFamily="'Helvetica Neue', Arial, sans-serif"
-                    fontSize="120"
-                    fontWeight="700"
-                    fill="#4F46E5"
-                  >
-                    r|ↄ
-                  </text>
+                  <path d="M22.1 108V52.3h14.8l.3 11.2q1.7-5.9 4.9-8.6 3.2-2.6 8.4-2.6h5.1v12.9h-5.1q-6.6 0-9.7 2.7t-3.1 8.8V108zm39.2 15.6V34.2h15.3v89.4zm48.3-14.3q8.5 0 14.9-3.6t9.9-10.2 3.5-15.3q0-8.8-3.5-15.4t-9.9-10.2-14.9-3.6Q98.3 51 91 56.9q-7.4 5.8-8.7 16l16.1.7q.8-5.1 3.7-7.8 3-2.7 7.5-2.7 5.8 0 9 4.5 3.2 4.4 3.2 12.6 0 8.1-3.2 12.6t-9 4.5q-4.7 0-7.6-2.8t-3.6-8.3l-16.1.6q1.2 10.3 8.6 16.4 7.3 6.1 18.7 6.1"/>
                 </svg>
-                <span className="text-base font-semibold text-indigo-400">RisqBase</span>
+                <span className="text-base font-semibold">RisqBase</span>
               </Link>
-              <p className="text-xs text-gray-400 mt-4 leading-relaxed max-w-[240px]">{tagline}</p>
+              <p className="text-xs text-[var(--color-footer-meta)] mt-4 leading-relaxed max-w-[240px]">{tagline}</p>
             </div>
 
             {/* Right: Nav columns */}
@@ -140,13 +132,13 @@ export function Footer({
               >
                 {visibleSections.map((section) => (
                   <div key={section.title}>
-                    <h3 className="text-sm font-semibold text-white mb-3">{section.title}</h3>
+                    <h3 className="text-sm font-semibold text-[var(--color-footer-heading)] mb-3">{section.title}</h3>
                     <ul className="space-y-2.5">
                       {section.links.map((link) => (
                         <li key={link.href + link.label}>
                           <Link
                             href={link.href}
-                            className="text-sm text-gray-400 hover:text-white transition-colors"
+                            className="text-sm text-[var(--color-footer-link-default)] hover:text-[var(--color-footer-link-hover)] transition-colors"
                             {...(link.external
                               ? { target: '_blank', rel: 'noopener noreferrer' }
                               : {})}
@@ -163,19 +155,19 @@ export function Footer({
           </div>
 
           {/* Divider */}
-          <div className="border-t border-gray-800 mt-12" />
+          <div className="border-t border-[var(--color-footer-divider)] mt-12" />
 
           {/* Bottom bar: copyright + legal left, language selector right */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-[var(--color-footer-meta)]">
                 &copy; {currentYear} {copyrightHolder}
               </span>
               {BOTTOM_BAR_LEGAL.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-xs text-gray-400 hover:text-white transition-colors py-1"
+                  className="text-xs text-[var(--color-footer-link-default)] hover:text-[var(--color-footer-link-hover)] transition-colors py-1"
                 >
                   {link.label}
                 </Link>
@@ -183,7 +175,7 @@ export function Footer({
             </div>
 
             {/* Language indicator */}
-            <span className="inline-flex items-center gap-1.5 text-xs text-gray-400">
+            <span className="inline-flex items-center gap-1.5 text-xs text-[var(--color-footer-meta)]">
               <svg
                 width="16"
                 height="16"

@@ -1,6 +1,6 @@
 ---
 group: color-brand
-count: 11
+count: 13
 ---
 
 # Tokens — `color-brand.*`
@@ -13,8 +13,10 @@ count: 11
 | `color.brand.indigo.300` (`--color-brand-indigo-300`) | primitive | color | `#a5b4fc` | `#a5b4fc` | Brand indigo, soft |
 | `color.brand.indigo.400` (`--color-brand-indigo-400`) | primitive | color | `#818cf8` | `#818cf8` | Brand indigo, mid-light |
 | `color.brand.indigo.500` (`--color-brand-indigo-500`) | primitive | color | `#6366f1` | `#6366f1` | Brand indigo, mid |
-| `color.brand.indigo.600` (`--color-brand-indigo-600`) | primitive | color | `#4f46e5` | `#4f46e5` | Primary brand indigo — CTAs, logo, links |
+| `color.brand.indigo.600` (`--color-brand-indigo-600`) | primitive | color | `#4f46e5` | `#4f46e5` | Primary brand indigo — CTAs, links (brand mark uses color.brand.mark as of rev. A1) |
 | `color.brand.indigo.700` (`--color-brand-indigo-700`) | primitive | color | `#4338ca` | `#4338ca` | Brand indigo, hover/pressed |
 | `color.brand.indigo.800` (`--color-brand-indigo-800`) | primitive | color | `#3730a3` | `#3730a3` | Brand indigo, dark |
 | `color.brand.indigo.900` (`--color-brand-indigo-900`) | primitive | color | `#312e81` | `#312e81` | Brand indigo, very dark |
 | `color.brand.indigo.950` (`--color-brand-indigo-950`) | primitive | color | `#1e1b4b` | `#1e1b4b` | Brand indigo, near-black |
+| `color.brand.mark` (`--color-brand-mark`) | semantic | color | `#4338ca` | `#a5b4fc` | Brand mark tint (rev. A1, 2026-06-11) — deliberately diverges from color.action.primary; see brand-mark v3 hand-off |
+| `color.brand.mark-on-inverse` (`--color-brand-mark-on-inverse`) | semantic | color | `#a5b4fc` | `#4338ca` | Brand mark tint on inverse surfaces (rev. A1) — the A1 pair is surface-relative (indigo-700 on light surfaces, indigo-300 on dark) and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark) |

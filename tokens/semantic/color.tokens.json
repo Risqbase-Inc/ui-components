@@ -41,6 +41,30 @@
         }
       }
     },
+    "brand": {
+      "mark": {
+        "$value": "{color.brand.indigo.700}",
+        "$type": "color",
+        "$description": "Brand mark tint (rev. A1, 2026-06-11) — deliberately diverges from color.action.primary; see brand-mark v3 hand-off",
+        "$extensions": {
+          "com.risqbase.contrastPair": "{color.surface.default}",
+          "com.risqbase.contrastLevel": "aaa",
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/brand/mark", "scopes": ["TEXT_FILL", "SHAPE_FILL"] }
+        }
+      },
+      "mark-on-inverse": {
+        "$value": "{color.brand.indigo.300}",
+        "$type": "color",
+        "$description": "Brand mark tint on inverse surfaces (rev. A1) — the A1 pair is surface-relative (indigo-700 on light surfaces, indigo-300 on dark) and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark)",
+        "$extensions": {
+          "com.risqbase.contrastPair": "{color.surface.inverse}",
+          "com.risqbase.contrastLevel": "aaa",
+          "com.risqbase.role": "semantic",
+          "com.risqbase.figma": { "collection": "semantic", "mode": "light", "variable": "color/brand/mark-on-inverse", "scopes": ["TEXT_FILL", "SHAPE_FILL"] }
+        }
+      }
+    },
     "surface": {
       "default": {
         "$value": "{color.neutral.white}",

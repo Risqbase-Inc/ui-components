@@ -1277,13 +1277,14 @@ Composes with: TelemetryBeacon
 
 # Tokens — `Footer`
 
-> **v2.1.1 note**: The Footer was re-ported from the canonical marketing
-> `MarketingFooter` per CEO directive 2026-05-20. The current implementation
-> uses inline Tailwind classes (`bg-stone-900`, `text-gray-400`, `text-indigo-400`,
-> `border-gray-800`) rather than the role-token CSS variables documented below.
-> A follow-up sweep will re-wire the inline classes to the token variables;
-> the resolved pixel values are identical, so there is no visual diff in the
-> meantime. Tracking: post-launch tokens-rewire sweep (owner TBD).
+> **v4.4 brand-mark PR-A note**: the v2.1.1 raw-class port (`bg-stone-900`,
+> `text-gray-400`, `text-indigo-400`, `border-gray-800`) and the inline
+> Helvetica `<text>` mark are gone — every colour now flows through the
+> `color.footer.*` role tokens below, and the mark is the frozen brand-mark
+> v3 outline (geometry identical to `public/mark.svg`), themed via
+> `currentColor`. Visual deltas vs v2.1.1 are deliberate: rev. A1 logo tint
+> (indigo-400 → indigo-300 on the inverse surface) and the AAA bump on
+> meta/link text (stone-400 → stone-300).
 
 
 The following design tokens are consumed by this component. See `tokens/component/footer.json` for the JSON source of truth and `tokens/README.md` for the schema.
@@ -1294,10 +1295,10 @@ The following design tokens are consumed by this component. See `tokens/componen
 |---|---|---|---|
 | `color.footer.background` | component | `color.surface.inverse` (semantic) → `color.neutral.stone.900` (primitive, `#1C1917`) | Footer container background (inverse / dark surface) |
 | `color.footer.heading` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Column heading text (`Product`, `Company`, `Legal`, `Connect`) |
-| `color.footer.link.default` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Nav link colour in default state |
+| `color.footer.link.default` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Nav link colour in default state |
 | `color.footer.link.hover` | component | `color.text.on-inverse` (semantic) → `color.neutral.white` (primitive, `#FFFFFF`) | Nav link colour on hover |
-| `color.footer.logo` | component | `color.action.primary` (semantic) → `color.brand.indigo.600` (primitive, `#4F46E5`) | Logo wordmark in the bottom bar (`RisqBase` / `RALIA`) |
-| `color.footer.meta` | component | `color.text.on-inverse-subtle` (semantic) → `color.neutral.stone.400` (primitive, `#A8A29E`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |
+| `color.footer.logo` | component | `color.brand.mark-on-inverse` (semantic, rev. A1) → `color.brand.indigo.300` (`#A5B4FC`) light / `color.brand.indigo.700` (`#4338CA`) dark | Brand mark glyph + wordmark (`RisqBase` / `RALIA`) |
+| `color.footer.meta` | component | `color.neutral.stone.300` (primitive, `#D6D3D1`, ≈11.7:1 — AAA bump; dark theme re-aliases `color.text.on-inverse-subtle`) | Secondary meta text — tagline, copyright line, trust badges (`Made in the EU`, `EU AI Act Ready`) |
 | `color.footer.divider` | component | `color.border.inverse` (semantic) → `color.neutral.stone.700` (primitive, `#44403C`) | Horizontal rule separating link grid from bottom bar (`border-t`) |
 
 ## Worked example
@@ -3265,7 +3266,7 @@ count: 4
 
 ---
 group: color-brand
-count: 11
+count: 13
 ---
 
 # Tokens — `color-brand.*`
@@ -3278,11 +3279,13 @@ count: 11
 | `color.brand.indigo.300` (`--color-brand-indigo-300`) | primitive | color | `#a5b4fc` | `#a5b4fc` | Brand indigo, soft |
 | `color.brand.indigo.400` (`--color-brand-indigo-400`) | primitive | color | `#818cf8` | `#818cf8` | Brand indigo, mid-light |
 | `color.brand.indigo.500` (`--color-brand-indigo-500`) | primitive | color | `#6366f1` | `#6366f1` | Brand indigo, mid |
-| `color.brand.indigo.600` (`--color-brand-indigo-600`) | primitive | color | `#4f46e5` | `#4f46e5` | Primary brand indigo — CTAs, logo, links |
+| `color.brand.indigo.600` (`--color-brand-indigo-600`) | primitive | color | `#4f46e5` | `#4f46e5` | Primary brand indigo — CTAs, links (brand mark uses color.brand.mark as of rev. A1) |
 | `color.brand.indigo.700` (`--color-brand-indigo-700`) | primitive | color | `#4338ca` | `#4338ca` | Brand indigo, hover/pressed |
 | `color.brand.indigo.800` (`--color-brand-indigo-800`) | primitive | color | `#3730a3` | `#3730a3` | Brand indigo, dark |
 | `color.brand.indigo.900` (`--color-brand-indigo-900`) | primitive | color | `#312e81` | `#312e81` | Brand indigo, very dark |
 | `color.brand.indigo.950` (`--color-brand-indigo-950`) | primitive | color | `#1e1b4b` | `#1e1b4b` | Brand indigo, near-black |
+| `color.brand.mark` (`--color-brand-mark`) | semantic | color | `#4338ca` | `#a5b4fc` | Brand mark tint (rev. A1, 2026-06-11) — deliberately diverges from color.action.primary; see brand-mark v3 hand-off |
+| `color.brand.mark-on-inverse` (`--color-brand-mark-on-inverse`) | semantic | color | `#a5b4fc` | `#4338ca` | Brand mark tint on inverse surfaces (rev. A1) — the A1 pair is surface-relative (indigo-700 on light surfaces, indigo-300 on dark) and inverse surfaces flip per theme, so this is brand.mark's mirror: indigo-300 light / indigo-700 dark. Used by the Footer (stone-900 in light, near-white in dark) |
 
 ---
 
@@ -3462,10 +3465,10 @@ count: 7
 |---|---|---|---|---|---|
 | `color.footer.background` (`--color-footer-background`) | component | color | `#1c1917` | `#f3f5f7` | Footer background — inverse surface |
 | `color.footer.heading` (`--color-footer-heading`) | component | color | `#ffffff` | `#101214` | Footer column heading text colour |
-| `color.footer.link.default` (`--color-footer-link-default`) | component | color | `#a8a29e` | `#4c5054` | Footer link — default state |
+| `color.footer.link.default` (`--color-footer-link-default`) | component | color | `#d6d3d1` | `#4c5054` | Footer link — default state. AAA bump (brand-mark v3 PR-A): on-inverse-subtle (stone-400, ≈6.9:1 on stone-900) missed 7:1 by a hair → stone-300 (≈11:1); dark theme re-aliases on-inverse-subtle (see themes/dark) |
 | `color.footer.link.hover` (`--color-footer-link-hover`) | component | color | `#ffffff` | `#101214` | Footer link — hover state |
-| `color.footer.logo` (`--color-footer-logo`) | component | color | `#4f46e5` | `#4768db` | Footer logo wordmark colour |
-| `color.footer.meta` (`--color-footer-meta`) | component | color | `#a8a29e` | `#4c5054` | Footer secondary text — copyright, tagline, trust badges |
+| `color.footer.logo` (`--color-footer-logo`) | component | color | `#a5b4fc` | `#4338ca` | Footer logo — mark glyph + wordmark on the inverse footer surface (rev. A1: indigo-300 light / indigo-700 dark via brand.mark-on-inverse). Rendered as of the v4.4 raw-class rewire |
+| `color.footer.meta` (`--color-footer-meta`) | component | color | `#d6d3d1` | `#4c5054` | Footer secondary text — copyright, tagline, trust badges. AAA bump (brand-mark v3 PR-A): stone-400 missed 7:1 on stone-900 → stone-300; dark theme re-aliases on-inverse-subtle (see themes/dark) |
 | `color.footer.divider` (`--color-footer-divider`) | component | color | `#44403c` | `#d1d5d7` | Footer bottom-bar divider line |
 
 ---
@@ -3521,7 +3524,7 @@ count: 10
 |---|---|---|---|---|---|
 | `color.header.background` (`--color-header-background`) | component | color | `#ffffff` | `#101214` | Header background surface |
 | `color.header.border` (`--color-header-border`) | component | color | `#f5f5f4` | `#3b3d3f` | Header bottom border |
-| `color.header.logo` (`--color-header-logo`) | component | color | `#4f46e5` | `#4768db` | Header logo wordmark colour |
+| `color.header.logo` (`--color-header-logo`) | component | color | `#4338ca` | `#a5b4fc` | Header logo — mark glyph + wordmark. Re-pointed action.primary → brand.mark (rev. A1, 2026-06-11): the brand mark deliberately diverges from action indigo |
 | `color.header.tagline` (`--color-header-tagline`) | component | color | `#78716c` | `#a2a7ab` | Header tagline text (e.g. "by RisqBase") |
 | `color.header.nav-link.default` (`--color-header-nav-link-default`) | component | color | `#78716c` | `#a2a7ab` | Header nav link — default state |
 | `color.header.nav-link.hover` (`--color-header-nav-link-hover`) | component | color | `#4f46e5` | `#678af6` | Header nav link — hover state |
